@@ -16,6 +16,7 @@ The running example is a small corpus of passages on GDP statistics, quoted from
 | Folder or file | What it holds |
 | --- | --- |
 | `ragbook/` | One file per chapter, named `chNN_topic.py` (for example `ch03_keyword_search.py`) |
+| `book/` | The signed-off chapter text, one Markdown file per chapter (CC BY 4.0) |
 | `tests/` | The checks for each chapter, and the rule that code is reused forward only |
 | `data/corpus/` | Quoted passages, each with source, edition, paragraph reference and licence |
 | `data/question_bank/` | Test questions, each with the passages that should answer it |
@@ -48,12 +49,12 @@ Further tools are added as chapters need them, each with its licence: Ollama and
 ## Licences
 
 - **Code:** MIT (see `LICENSE`). Reuse it with credit.
-- **Book text:** CC BY 4.0, added when chapters move into this repository. Share and adapt it with credit.
+- **Book text** (`book/`): CC BY 4.0 (see `LICENSE-BOOK.md`). Share and adapt it with credit.
 - **Quoted passages** in `data/corpus/` keep their publishers' terms, recorded beside each passage.
 
 ## Status
 
-Repository skeleton only. Chapters are drafted in a shared document and their code is added here chapter by chapter.
+Chapter 1 signed off. Chapters are drafted in a shared document; each moves into `book/` when signed off. A test checks that every code block in `book/` is an exact copy of the tested code.
 
 ## Author
 
