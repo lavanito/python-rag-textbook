@@ -1,0 +1,5 @@
+# Packages needed to run the code and the tests.
+# Each chapter adds the packages it uses, with a comment naming the chapter.
+# Versions are fixed (==) so results can be reproduced.
+
+pytest==8.4.2        # runs the tests (all chapters)

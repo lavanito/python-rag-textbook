@@ -1,0 +1,29 @@
+# Runs every test on every change pushed to GitHub, and on every pull request.
+# Step names say what each step proves, so the log can be read as evidence.
+
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repository
+        uses: actions/checkout@v4
+
+      - name: Install Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the packages listed in requirements.txt
+        run: pip install -r requirements.txt
+
+      - name: Chapter code imports earlier chapters only, and the check itself works
+        run: python -m pytest tests/test_import_direction.py -v
+
+      - name: All chapter tests pass
+        run: python -m pytest -v

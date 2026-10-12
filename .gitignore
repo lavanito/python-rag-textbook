@@ -1,0 +1,35 @@
+# Python's own working files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Python environments created on your computer
+.venv/
+venv/
+env/
+
+# Jupyter and editor files
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# Downloaded models and model caches (large; downloaded again when needed)
+models/
+.cache/
+*.gguf
+*.safetensors
+
+# Local databases built by the code (rebuilt from data/ when needed)
+chroma_db/
+*.sqlite3
+weaviate_data/
+
+# Downloaded source PDFs (the corpus keeps only quoted passages)
+data/raw/
+
+# Trace logs written while running the code (Chapter 15)
+logs/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
