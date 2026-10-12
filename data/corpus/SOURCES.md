@@ -10,7 +10,7 @@ date given) or **to confirm** (not yet read on the publisher's page).
 | Code | Source | Edition | Terms for quoting | Status | Download |
 | --- | --- | --- | --- | --- | --- |
 | SNA08 | United Nations, European Commission, IMF, OECD, World Bank: *System of National Accounts 2008* | 2009 | UN copyright; short quotation with full citation | to confirm (UNSD copyright page did not load) | https://unstats.un.org/UNSD/nationalaccount/docs/SNA2008.pdf |
-| SNA25 | Same five organisations: *System of National Accounts 2025* | Pre-edit version, adopted by the UN Statistical Commission in March 2025 | UN copyright; short quotation with full citation | to confirm; also check whether an edited final version has replaced it | https://unstats.un.org/unsd/nationalaccount/docs/2025_SNA_Pre-edit.pdf |
+| SNA25 | Same five organisations: *System of National Accounts 2025* | Pre-edit version, adopted by the UN Statistical Commission in March 2025 | UN copyright; short quotation with full citation | to confirm; also check whether an edited final version has replaced it. Text used: the file titled "White Cover Version", 1,260 pages, dated 15 Aug 2025 | https://unstats.un.org/unsd/nationalaccount/docs/2025_SNA_Pre-edit.pdf |
 | QNA17 | IMF: *Quarterly National Accounts Manual*, 2017 edition | 2018 | Fair use for non-commercial teaching, scholarship or research: up to 1,000 words or one quarter of the content from any one source, whichever is less, with a complete citation | confirmed 12 Oct 2026, imf.org copyright and terms | https://www.imf.org/external/pubs/ft/qna/pdf/2017/QNAManual2017text.pdf |
 | UNA14 | Derek Blades and others, OECD: *Understanding National Accounts*, second edition | 2014 | OECD terms of use | to confirm (OECD terms page did not load) | https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/10/understanding-national-accounts_g1g43f55/9789264214637-en.pdf |
 | ESA10 | Eurostat: *European System of Accounts — ESA 2010* | 2013 | Eurostat reuse policy, source acknowledged | to confirm | https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-02-13-269 |
@@ -43,8 +43,8 @@ headers). The PDFs themselves are not stored in this repository.
 
 ## Passage plan
 
-40 passages so far from seven sources (see `passages.jsonl`), with about six to
-follow from the 2025 SNA. They are chosen to answer the question bank and to cover
+47 passages from eight sources (see `passages.jsonl`), seven of them from the
+2025 SNA. They are chosen to answer the question bank and to cover
 the five components of the NNI decomposition (C1a–C4).
 
 | Topic | Component | Sources | Passages |
