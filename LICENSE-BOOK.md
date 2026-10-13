@@ -1,5 +1,7 @@
 # Licence for the book text
 
+Copyright (c) 2026 Lavan Mahadeva Ltd.
+
 The text in the `book/` folder of this repository is licensed under the
 Creative Commons Attribution 4.0 International licence (CC BY 4.0).
 
