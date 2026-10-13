@@ -22,8 +22,9 @@ DATA_FOLDER = Path(__file__).parent.parent / "data"
 PASSAGES = load_passages(DATA_FOLDER / "corpus" / "passages.jsonl")
 QUESTIONS = load_passages(DATA_FOLDER / "question_bank" / "questions.jsonl")
 
-ALLOWED_CLASSES = {"Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "OUT"}
-ALLOWED_ROUTES = {"R2", "R4", "R4+R2", "R5>R2", "R6", "escalate"}
+# AMB: too vague to answer as asked; the system must offer sharper questions first.
+ALLOWED_CLASSES = {"Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "AMB", "OUT"}
+ALLOWED_ROUTES = {"R2", "R4", "R4+R2", "R5>R2", "R6", "clarify", "escalate"}
 # Classes answered from the manuals: each question must name its passages.
 RETRIEVAL_CLASSES = {"Q2", "Q6"}
 
