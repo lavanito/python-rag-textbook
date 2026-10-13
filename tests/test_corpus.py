@@ -25,9 +25,22 @@ PASSAGES = load_passages(CORPUS_FOLDER / "passages.jsonl")
 REQUIRED_FIELDS = {
     "id", "source", "reference", "text", "edition", "source_code",
     "topic", "components", "partial", "access", "licence",
+    "scope", "scope_note",
 }
 ALLOWED_COMPONENTS = {"C1a", "C1b", "C2", "C3", "C4", "quality"}
 ALLOWED_ACCESS = {"public", "subscriber"}
+ALLOWED_SCOPES = {
+    "international standard",
+    "international guidance",
+    "regional standard: European Union",
+    "textbook",
+    "national practice: United States",
+    "national practice: Ireland",
+}
+# Words that tie a passage to one agency or country. A passage that uses any
+# of them must say so in its scope_note, so that an answer never presents one
+# agency's practice as the general rule.
+AGENCY_WORDS = ["NIPA", "BEA", "Insee", "OECD", "GNP", "GDI", "Modified GNI", "Ireland", "Irish"]
 
 
 def test_every_passage_has_all_fields():
@@ -78,3 +91,23 @@ def test_passages_are_short():
     # One paragraph each; the longest agreed passage is under 200 words.
     for passage in PASSAGES:
         assert len(passage["text"].split()) < 200, passage["id"]
+
+
+def test_scope_uses_agreed_labels():
+    for passage in PASSAGES:
+        assert passage["scope"] in ALLOWED_SCOPES, passage["id"]
+
+
+def test_national_and_regional_passages_say_so():
+    # A passage describing one country's or region's practice is an example,
+    # not the general rule; its scope_note says which agency and why.
+    for passage in PASSAGES:
+        if passage["scope"].startswith(("national", "regional")):
+            assert passage["scope_note"].strip() != "", passage["id"]
+
+
+def test_agency_specific_words_are_flagged():
+    for passage in PASSAGES:
+        for word in AGENCY_WORDS:
+            if word in passage["text"]:
+                assert passage["scope_note"].strip() != "", f"{passage['id']} uses {word} without a scope note"

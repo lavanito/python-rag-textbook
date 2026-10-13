@@ -40,10 +40,15 @@ headers). The PDFs themselves are not stored in this repository.
 - Short: one paragraph, under 200 words. A passage that stops before the end of its paragraph is marked `partial`.
 - Within each source's limits; for QNA17, no more than 1,000 words in total.
 - The licence recorded beside each passage.
+- The scope recorded beside each passage: international standard, international
+  guidance, regional standard (EU), textbook, or one country's practice. A passage
+  that names an agency, a national term or one country's practice (NIPA, Insee,
+  GNP, modified GNI) carries a `scope_note` saying so. Answers must present such
+  passages as examples, not as the general rule. A test enforces the note.
 
 ## Passage plan
 
-47 passages from eight sources (see `passages.jsonl`), seven of them from the
+56 passages from eight sources (see `passages.jsonl`), 14 of them from the
 2025 SNA. They are chosen to answer the question bank and to cover
 the five components of the NNI decomposition (C1a–C4).
 
