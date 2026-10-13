@@ -35,6 +35,7 @@ headers). The PDFs themselves are not stored in this repository.
 ## Rules for every passage
 
 - Quoted exactly, from the publisher's own file, never from memory or a summary.
+  Footnote markers such as "(140)" are left out.
 - Reference to paragraph, section or page, enough for a reader to find it.
 - Edition recorded, so the same paragraph in two editions can be held side by side.
 - Short: one paragraph, under 200 words. A passage that stops before the end of its paragraph is marked `partial`.
@@ -48,7 +49,7 @@ headers). The PDFs themselves are not stored in this repository.
 
 ## Passage plan
 
-56 passages from eight sources (see `passages.jsonl`), 14 of them from the
+59 passages from eight sources (see `passages.jsonl`), 14 of them from the
 2025 SNA. They are chosen to answer the question bank and to cover
 the five components of the NNI decomposition (C1a–C4).
 
@@ -69,3 +70,12 @@ the five components of the NNI decomposition (C1a–C4).
 One passage will carry a demonstration label "subscriber only" to show access
 rules at retrieval (Chapter 8). The label is part of the demonstration; it does
 not describe the publisher's terms.
+
+## Further reading cited in the book, not quoted in the corpus
+
+- Angus Deaton and Alan Heston (2010), "Understanding PPPs and PPP-based national
+  accounts", *American Economic Journal: Macroeconomics* 2(4), section D:
+  comparison-resistant items (housing and government services), input prices and
+  productivity adjustment. Journal copyright; cited, not quoted.
+- Work by Nicholas Oulton on comparing services output across countries: exact
+  references to be chosen.
