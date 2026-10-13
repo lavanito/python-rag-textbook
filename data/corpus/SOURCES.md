@@ -49,7 +49,7 @@ headers). The PDFs themselves are not stored in this repository.
 
 ## Passage plan
 
-62 passages from eight sources (see `passages.jsonl`), 17 of them from the
+65 passages from eight sources (see `passages.jsonl`), 20 of them from the
 2025 SNA. They are chosen to answer the question bank and to cover
 the five components of the NNI decomposition (C1a–C4).
 

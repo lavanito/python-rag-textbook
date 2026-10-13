@@ -14,4 +14,4 @@
 
 Countries (task A2a): United States, euro area, United Kingdom, China, India, Japan.
 
-Draft 2, 13 October 2026: 49 questions. Every corpus passage is the answer to at least one question; `tests/test_question_bank.py` checks this.
+Draft 2, 13 October 2026: 51 questions. Every corpus passage is the answer to at least one question; `tests/test_question_bank.py` checks this.
