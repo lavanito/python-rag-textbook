@@ -111,3 +111,20 @@ def test_agency_specific_words_are_flagged():
         for word in AGENCY_WORDS:
             if word in passage["text"]:
                 assert passage["scope_note"].strip() != "", f"{passage['id']} uses {word} without a scope note"
+
+
+def test_sources_without_an_open_licence_stay_short():
+    # SNA08 and SNA25 are "all rights reserved"; UNA14 allows excerpts only in
+    # the reader's own documents. Their passages are a short, cited set that
+    # relies on quotation with citation (decision 14 Oct 2026, SOURCES.md).
+    caps = {
+        "SNA": ({"SNA08", "SNA25"}, 10, 500, 100),
+        "UNA14": ({"UNA14"}, 2, 250, 150),
+    }
+    for name, (codes, most_passages, most_words, most_each) in caps.items():
+        chosen = [passage for passage in PASSAGES if passage["source_code"] in codes]
+        words = sum(len(passage["text"].split()) for passage in chosen)
+        assert len(chosen) <= most_passages, f"{name}: {len(chosen)} passages"
+        assert words <= most_words, f"{name}: {words} words"
+        for passage in chosen:
+            assert len(passage["text"].split()) <= most_each, passage["id"]

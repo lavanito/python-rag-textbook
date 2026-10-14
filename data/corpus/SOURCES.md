@@ -18,9 +18,17 @@ date given) or **to confirm** (not yet read on the publisher's page).
 | CSO | Central Statistics Office, Ireland: *Modified GNI* (Statistics Explained) | web page | CC BY 4.0, source acknowledged | confirmed 12 Oct 2026, cso.ie copyright policy | https://www.cso.ie/en/interactivezone/statisticsexplained/nationalaccountsexplained/modifiedgni/ |
 | PPP23 | Eurostat and OECD: *Methodological Manual on Purchasing Power Parities*, 2023 edition | 2024 | PDF rights notice (© European Union/OECD 2024): CC BY 4.0; credit given, changes indicated. Cover image excluded | confirmed 14 Oct 2026 (PDF rights page) | https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/w/ks-gq-24-011 |
 
-### Decision for the author
+### Sources without an open licence (decision, 14 Oct 2026)
 
-Two sources are not openly licensed: SNA08 and SNA25 (all rights reserved; 36 passages, about 3,700 words) and UNA14 (6 passages, about 700 words; public or commercial use needs OECD permission). The repository is public and the book is published by Lavan Mahadeva Ltd. Options: ask UN Publications and OECD for permission; or keep SNA and UNA14 passages short and few enough to rely on quotation with citation.
+SNA08 and SNA25 are all rights reserved. UNA14 allows excerpts only in the
+reader's own documents and teaching materials. Both are kept to a short, cited
+set that relies on quotation with citation:
+
+- SNA08 and SNA25 together: at most 10 passages, 500 words, 100 words each. Now 8 passages, 442 words, kept where only the SNA says it: the 2008 and 2025 treatments of net national income and depletion, the 2025 SNA's preference for net measures, globalisation, the definition of the terms of trade, and the quality of hours worked.
+- UNA14: at most 2 passages, 250 words. Now 2 passages, 232 words, kept for plain explanations of PPPs and of real versus nominal growth.
+- A test enforces the caps. Permission from UN Publications and OECD remains an option for later.
+
+ESA 2010, the PPP manual and the BEA handbook replace the passages cut. ESA 2010 follows the 2008 SNA closely; its passages carry a scope note saying so.
 
 ## Not used
 
@@ -42,7 +50,7 @@ headers). The PDFs themselves are not stored in this repository.
   Footnote markers such as "(140)" are left out.
 - Reference to paragraph, section or page, enough for a reader to find it.
 - Edition recorded, so the same paragraph in two editions can be held side by side.
-- Short: one paragraph, under 200 words. A passage that stops before the end of its paragraph is marked `partial`.
+- Short: one paragraph, under 200 words. A passage that stops before the end of its paragraph is marked `partial`. Words left out inside a passage are marked "[…]"; the build script checks each piece separately.
 - Within each source's limits; for QNA17, no more than 1,000 words in total.
 - The licence recorded beside each passage.
 - The scope recorded beside each passage: international standard, international
@@ -53,27 +61,23 @@ headers). The PDFs themselves are not stored in this repository.
 
 ## Passage plan
 
-65 passages from eight sources (see `passages.jsonl`), 20 of them from the
-2025 SNA. They are chosen to answer the question bank and to cover
-the five components of the NNI decomposition (C1a–C4).
+48 passages from eight sources (see `passages.jsonl`). They are chosen to answer
+the question bank and to cover the five components of the NNI decomposition (C1a–C4).
 
-| Topic | Component | Sources | Passages |
-| --- | --- | --- | --- |
-| GDP: definition and the three approaches | C4 | SNA08, UNA14, BEA | 5 |
-| Gross national income and primary income from abroad | C1a | SNA08, SNA25, BEA | 5 |
-| Net national income and consumption of fixed capital | C1a | SNA08, SNA25, UNA14 | 5 |
-| Depletion of natural resources (2008 vs 2025 treatment: content vintage) | C1a | SNA08, SNA25 | 4 |
-| Price and volume measures; deflators; chain-linking | C2 | SNA08, SNA25, QNA17 | 6 |
-| Purchasing power parities versus exchange rates | C3 | PPP23, UNA14 | 6 |
-| Exchange-rate conversion of national accounts | C1b | UNA14, ESA10 | 3 |
-| Real output per head; population | C4 | UNA14, ESA10 | 3 |
-| Revisions, releases and vintages | data quality | QNA17, BEA | 5 |
-| Seasonal adjustment | data quality | QNA17 | 2 |
-| Ireland and multinational effects; modified GNI | C1a, data quality | CSO, SNA25 (globalisation) | 4 |
+| Source | Passages | Words |
+| --- | --- | --- |
+| ESA10 | 14 | 1,342 |
+| PPP23 | 9 | 1,034 |
+| QNA17 | 5 | 657 |
+| BEA | 5 | 478 |
+| CSO | 5 | 361 |
+| SNA25 | 5 | 354 |
+| SNA08 | 3 | 88 |
+| UNA14 | 2 | 232 |
 
-One passage will carry a demonstration label "subscriber only" to show access
-rules at retrieval (Chapter 8). The label is part of the demonstration; it does
-not describe the publisher's terms.
+One passage (esa10-10.20) carries a demonstration label "subscriber only" to show
+access rules at retrieval (Chapter 8). The label is part of the demonstration; it
+does not describe the publisher's terms.
 
 ## Further reading cited in the book, not quoted in the corpus
 
