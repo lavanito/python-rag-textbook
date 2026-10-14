@@ -25,14 +25,14 @@ SOURCE_FILES = {
 }
 
 SOURCE_NAMES = {
-    "SNA08": ("System of National Accounts 2008", "2008 SNA (2009)", "UN copyright; quoted with citation"),
+    "SNA08": ("System of National Accounts 2008", "2008 SNA (2009)", "All rights reserved (EC, IMF, OECD, UN, World Bank); short quotation with full citation"),
     "QNA17": ("IMF, Quarterly National Accounts Manual", "2017 edition", "IMF fair use: non-commercial teaching and research, with citation"),
-    "UNA14": ("OECD, Understanding National Accounts", "Second edition (2014)", "OECD terms of use; quoted with citation"),
-    "ESA10": ("Eurostat, European System of Accounts (ESA 2010)", "2013", "Eurostat reuse policy; source acknowledged"),
-    "BEA": ("US Bureau of Economic Analysis, NIPA Handbook", "December 2024", "US federal government work (public domain)"),
+    "UNA14": ("OECD, Understanding National Accounts", "Second edition (2014)", "OECD 2014 rights notice: excerpts allowed in own documents and teaching materials with acknowledgement; public or commercial use by request to rights@oecd.org"),
+    "ESA10": ("Eurostat, European System of Accounts (ESA 2010)", "2013", "Reproduction authorised, source acknowledged (European Union, 2013)"),
+    "BEA": ("US Bureau of Economic Analysis, NIPA Handbook", "December 2024", "Public domain (BEA), credit to BEA requested"),
     "CSO": ("Central Statistics Office Ireland, Modified GNI", "Web page, read 12 October 2026", "CC BY 4.0"),
-    "PPP23": ("Eurostat and OECD, Methodological Manual on Purchasing Power Parities", "2023 edition (2024)", "Eurostat/OECD terms; quoted with citation"),
-    "SNA25": ("System of National Accounts 2025", "2025 SNA, pre-edit version (2025)", "UN copyright; quoted with citation"),
+    "PPP23": ("Eurostat and OECD, Methodological Manual on Purchasing Power Parities", "2023 edition (2024)", "CC BY 4.0 (European Union/OECD 2024): credit given, changes indicated"),
+    "SNA25": ("System of National Accounts 2025", "2025 SNA, pre-edit version (2025)", "All rights reserved (EC, IMF, OECD, UN, World Bank); short quotation with full citation"),
 }
 
 # (id, source code, reference, topic, components, partial, text)
