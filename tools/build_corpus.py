@@ -84,15 +84,15 @@ add("bea-ch2-ndp-gni", "BEA", "Chapter 2: Fundamental Concepts", "Gross national
     "Net domestic product (NDP) is a measure of how much of the nation’s output is available for consumption or for adding to the nation’s wealth. It is equal to GDP minus CFC. Gross national income (GNI) measures the costs incurred and the incomes earned in the production of GNP. It is equal to GNP minus the statistical discrepancy. It is also equal to GDI minus net income payments to the rest of the world.")
 
 # --- CSO Ireland ----------------------------------------------------------
-add("cso-gnistar-1", "CSO", "Modified GNI, paragraph 1", "Ireland and modified GNI", ["C1a", "quality"],
+add("cso-gnistar-1", "CSO", "paragraph 1", "Ireland and modified GNI", ["C1a", "quality"],
     "Modified Gross National Income (GNI) is an indicator designed specifically to measure the size of the Irish economy by excluding Globalisation effects.")
-add("cso-gnistar-2", "CSO", "Modified GNI, paragraph 2", "Ireland and modified GNI", ["C1a", "quality"],
+add("cso-gnistar-2", "CSO", "paragraph 2", "Ireland and modified GNI", ["C1a", "quality"],
     "As we saw, Gross Domestic Product (GDP) is a measure of the total economic activity in the country, but a lot of Ireland’s GDP includes profits that are generated here but then go straight out to the owners of companies abroad. Gross National Income differs from GDP by the net amount of incomes sent to or received from abroad, so it excludes the net profits of companies that have been sent abroad.")
-add("cso-gnistar-3", "CSO", "Modified GNI, paragraph 3", "Ireland and modified GNI", ["C1a", "quality"],
+add("cso-gnistar-3", "CSO", "paragraph 3", "Ireland and modified GNI", ["C1a", "quality"],
     "GNI, like GDP, is gross of Depreciation on Assets (that is, depreciation has not been deducted). Certain assets with high depreciation are held in Ireland by foreign-owned companies and add very significantly to our GNI. However, these assets are not always involved in production here, and if they are used in production, the profits all flow out to the foreign owner. The cost of depreciation on these assets is also borne by the owner overseas. For this reason, a measure that excluded this depreciation which does not relate to Irish income would be a better measure of the domestic economy.")
-add("cso-gnistar-4", "CSO", "Modified GNI, paragraph 4", "Ireland and modified GNI", ["C1a", "quality"],
+add("cso-gnistar-4", "CSO", "paragraph 4", "Ireland and modified GNI", ["C1a", "quality"],
     "Modified GNI subtracts depreciation on two kinds of assets in order to exclude globalisation effects: Intellectual property (IP) and leased aircraft. First, depreciation on Intellectual Property is very high, and, because it is intangible and easily moved, it can cause GNI to jump around just because it has been relocated. Furthermore, while some of the IP is used for activity in Ireland (such as patents needed for manufacturing pharmaceuticals), most of the IP belongs to Foreign-Owned Corporations and it has a disproportionately small effect on the domestic economy.")
-add("cso-gnistar-6", "CSO", "Modified GNI, paragraph 6", "Ireland and modified GNI", ["C1a", "quality"],
+add("cso-gnistar-6", "CSO", "paragraph 6", "Ireland and modified GNI", ["C1a", "quality"],
     "Finally, modified GNI excludes the income of Redomiciled PLCs. Gross National Income includes the profits that these companies receive from their subsidiaries abroad, and excludes the dividends that the company pays on to its shareholders. The difference between these two is their net income, and is quite substantial. It remains in the GNI estimate, even though these head offices have little interaction with the Irish economy. For this reason, modified GNI subtracts out the net income of Redomiciled PLCs.")
 
 # --- Eurostat-OECD PPP manual ---------------------------------------------
