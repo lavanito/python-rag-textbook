@@ -21,8 +21,8 @@ Used by
 Uses
     Chapter 1 (split_into_words, format_passages, load_passages).
     Python's standard library (json, urllib) to talk to Ollama.
-    Ollama, running locally, with the model qwen3:4b
-    (install Ollama, then run: ollama pull qwen3:4b).
+    Ollama, running locally, with the model qwen3:4b-instruct
+    (install Ollama, then run: ollama pull qwen3:4b-instruct).
 
 Run the worked example
     python -m ragbook.ch02_minimal_pipeline
@@ -40,7 +40,7 @@ CORPUS_FILE = Path(__file__).parent.parent / "data" / "corpus" / "passages.jsonl
 # Ollama listens on this address on your own computer. Nothing is sent
 # over the internet.
 OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL = "qwen3:4b"
+MODEL = "qwen3:4b-instruct"
 
 
 # ---------------------------------------------------------------------------
@@ -174,14 +174,12 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
     Settings (all inside "options"):
         temperature, top_p, top_k, min_p
                        how the next word is drawn; the values Qwen recommends
-                       when thinking is off (see 2.5.3)
+                       for this model (see 2.5.3)
         seed 42        fixes the random draws, so the same prompt gives the
                        same reply each time (a repeatable reply, not
                        necessarily a correct one)
         num_ctx 4096   the context window: prompt plus reply, in tokens
         num_predict    the longest reply allowed, in tokens (pieces of words)
-    And on the request itself:
-        think False    Qwen3 answers directly, without writing out its reasoning
 
     Example:
         ask_model(build_prompt("What is GNI?", passages))
@@ -191,7 +189,6 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
         "model": model,
         "messages": messages,
         "stream": False,
-        "think": False,
         "options": {
             "temperature": 0.7,
             "top_p": 0.8,

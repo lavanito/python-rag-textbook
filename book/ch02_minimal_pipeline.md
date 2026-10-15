@@ -14,11 +14,13 @@ This chapter answers a question about national accounts from quoted passages, in
 
 **Code file:** `ragbook/ch02_minimal_pipeline.py`
 
-**Uses:** Chapter 1 (`split_into_words`, `format_passages`, `load_passages`); Python's standard library; Ollama with the model `qwen3:4b`.
+**Uses:** Chapter 1 (`split_into_words`, `format_passages`, `load_passages`); Python's standard library; Ollama with the model `qwen3:4b-instruct`.
 
 **Data:** `data/corpus/passages.jsonl`, 48 passages quoted word for word from eight manuals and statistics offices, each with its source, paragraph reference, edition, licence and scope. `data/corpus/SOURCES.md` lists the sources and their terms.
 
-**Before you start:** install Ollama from ollama.com, then run `ollama pull qwen3:4b` once. The download is a few gigabytes (`ollama list` shows the size). The model runs on the processor; no graphics card or internet connection is needed once it is downloaded.
+**Before you start:** install Ollama from ollama.com, then run `ollama pull qwen3:4b-instruct` once. The download is 2.5 GB. The model runs on the processor; no graphics card or internet connection is needed once it is downloaded.
+
+**If Ollama crashes on an older graphics card:** Ollama uses the graphics card if it finds one. On the 2015 laptop this book was tested on, its model process crashed with error 0xc0000005 ("The memory could not be …"). Hiding the graphics card makes Ollama use the processor only. In PowerShell, run `setx CUDA_VISIBLE_DEVICES -1` and `setx GGML_VK_VISIBLE_DEVICES -1` once, then quit Ollama and start it again.
 
 | Section | Step | Function built |
 | --- | --- | --- |
@@ -208,7 +210,7 @@ def build_prompt(question, passages):
 
 **Ollama** is a free program that runs language models on your own computer. It listens at the address `http://localhost:11434`; "localhost" means this computer, so nothing leaves it.
 
-**Qwen3 4B** is an open model from Alibaba under the Apache 2.0 licence; "4B" means about 4 billion numbers (parameters) set in training. It is small enough for a laptop processor. Qwen3 1.7B is faster for trial runs and less accurate.
+**Qwen3 4B Instruct** is an open model from Alibaba under the Apache 2.0 licence; "4B" means about 4 billion numbers (parameters) set in training. It is small enough for a laptop processor. "Instruct" marks the version that answers directly. Ollama's plain `qwen3:4b` is the "thinking" version, which writes out its reasoning before every answer; on a laptop that is slow, and the reasoning can use up the length limit before the answer begins.
 
 The code sends the messages as **JSON** (Chapter 1) to Ollama's chat address and reads the reply from the JSON that comes back. Settings for the model go inside `options`.
 
@@ -226,14 +228,12 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
     Settings (all inside "options"):
         temperature, top_p, top_k, min_p
                        how the next word is drawn; the values Qwen recommends
-                       when thinking is off (see 2.5.3)
+                       for this model (see 2.5.3)
         seed 42        fixes the random draws, so the same prompt gives the
                        same reply each time (a repeatable reply, not
                        necessarily a correct one)
         num_ctx 4096   the context window: prompt plus reply, in tokens
         num_predict    the longest reply allowed, in tokens (pieces of words)
-    And on the request itself:
-        think False    Qwen3 answers directly, without writing out its reasoning
 
     Example:
         ask_model(build_prompt("What is GNI?", passages))
@@ -243,7 +243,6 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
         "model": model,
         "messages": messages,
         "stream": False,
-        "think": False,
         "options": {
             "temperature": 0.7,
             "top_p": 0.8,
@@ -266,11 +265,10 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
 ### 2.5.3 Annotations
 
 - `top_k` 20 keeps only the 20 most likely tokens. `top_p` 0.8 keeps, from those, the most likely tokens whose probabilities add up to 0.8. `min_p` 0 makes no further cut.
-- `temperature` sets how strongly the draw favours the most likely token: 0 always takes it; higher values spread the choice. 0.7, with the three settings above, is what [Qwen's model card](https://huggingface.co/Qwen/Qwen3-4B) suggests when thinking is off. For thinking mode the card warns against always taking the most likely token, as it can cause endless repetition.
+- `temperature` sets how strongly the draw favours the most likely token: 0 always takes it; higher values spread the choice. 0.7, with the three settings above, is what [Qwen's model card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) suggests for this model.
 - `seed` fixes the random draws. Ollama gives the same output for the same prompt and seed, so results repeat without temperature 0. The number 42 has no meaning. A repeatable answer is not thereby a correct one.
 - `num_ctx` is the **context window**: the most tokens the model can hold at once, prompt and reply together. Ollama's default depends on the version and the computer's memory (its documentation gives 2,048 in one place and 4,096 in another), so the code sets it. This chapter's prompt is about 225 words, well inside 4,096 tokens; later chapters send more passages.
 - `num_predict` caps the reply at 400 **tokens**. A token is a word or part of a word; 400 tokens is roughly 300 English words.
-- `"think": False` turns off Qwen3's thinking mode, in which it writes out its reasoning before the answer. Thinking mode is slower on a laptop and the reasoning is not needed here.
 - `"stream": False` asks for the whole reply at once rather than word by word.
 - Ollama has other settings, such as `repeat_penalty` and `stop`. They stay at Ollama's defaults here; Chapter 11 covers them.
 - `urllib.request` is part of Python's standard library, so no package needs installing.
@@ -360,7 +358,7 @@ Question: Who counts in a country's population when calculating GDP per head?
      matched [cso-gnistar-2] Central Statistics Office Ireland, Modified GNI, paragraph 2
 ```
 
-**Model answers:** to be filled in from a run of `qwen3:4b` on the target laptop. The answers will vary in wording between model versions; the passages matched will not.
+**Model answers:** to be filled in from a run of `qwen3:4b-instruct` on the target laptop. The answers will vary in wording between model versions; the passages matched will not.
 
 What the matches show:
 
@@ -400,7 +398,7 @@ The file `tests/test_ch02_minimal_pipeline.py` holds nine tests. Retrieval is te
 | `build_prompt` puts the rules first and labelled passages after the question | The model sees exactly the layout shown in 2.4 |
 | `answer_question` sends only the matched passages | Each passage id returned was in the prompt |
 | `answer_question` does not ask the model when nothing matches | No answer without evidence |
-| `ask_model` sends its settings inside `options` and reads the reply | All seven settings reach the model; thinking mode is off |
+| `ask_model` sends its settings inside `options` and reads the reply | All seven settings reach the model, and the request names `qwen3:4b-instruct` |
 
 The corpus has its own tests (`tests/test_corpus.py`): every passage has all its fields, scope notes are present where needed, and publishers' limits are kept.
 
@@ -419,7 +417,7 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 | System message | The message that sets the rules for the model |
 | Prompt | Everything sent to the model: here, the system and user messages |
 | Ollama | A free program that runs language models on your own computer |
-| Parameter (of a model) | One of the numbers set when the model was trained; Qwen3 4B has about 4 billion |
+| Parameter (of a model) | One of the numbers set when the model was trained; Qwen3 4B Instruct has about 4 billion |
 | Temperature | A setting for how strongly the model favours its most likely next word; 0 always takes it |
 | Token | A word or part of a word, the unit a model reads and writes |
 | Gold passages | The passages a correct answer should rest on, listed for each question in the question bank |
@@ -431,8 +429,9 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 
 - [Ollama: download](https://ollama.com/download)
 - [Ollama API: chat](https://docs.ollama.com/api/chat)
-- [Qwen3 4B on Ollama](https://ollama.com/library/qwen3)
-- [Qwen3 licence (Apache 2.0)](https://www.apache.org/licenses/LICENSE-2.0)
+- [Qwen3 on Ollama: model versions](https://ollama.com/library/qwen3/tags)
+- [Qwen3 4B Instruct model card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507)
+- [Apache License 2.0 (Qwen3's licence)](https://www.apache.org/licenses/LICENSE-2.0)
 - [Python `urllib.request`](https://docs.python.org/3/library/urllib.request.html)
 - [Python sorting how-to](https://docs.python.org/3/howto/sorting.html)
 - [Corpus sources and licences](https://github.com/lavanito/python-rag-textbook/blob/main/data/corpus/SOURCES.md)
