@@ -273,7 +273,7 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
 - Ollama has other settings, such as `repeat_penalty` and `stop`. They stay at Ollama's defaults here; Chapter 11 covers them.
 - `urllib.request` is part of Python's standard library, so no package needs installing.
 - `with ... as response:` opens the connection and closes it when the indented lines finish, even if one of them fails.
-- `timeout=600` waits up to ten minutes before giving up. The time a reply takes on the target laptop is recorded when the worked example is run (2.7).
+- `timeout=600` waits up to ten minutes before giving up. On the 2015 test laptop the three answers in 2.7 took about 3 minutes together.
 
 ## 2.6 Step 5: put the steps together
 
@@ -358,7 +358,24 @@ Question: Who counts in a country's population when calculating GDP per head?
      matched [cso-gnistar-2] Central Statistics Office Ireland, Modified GNI, paragraph 2
 ```
 
-**Model answers:** to be filled in from a run of `qwen3:4b-instruct` on the target laptop. The answers will vary in wording between model versions; the passages matched will not.
+**Model answers.** A run of `qwen3:4b-instruct` on the 2015 test laptop, processor only, on 15 October 2026. The three answers took about 3 minutes together, including loading the model:
+
+```text
+How do you get from GNI to net national income?
+To get from GNI to net national income (NNI), you deduct the consumption of fixed capital from GNI. [sna08-2.144]
+
+What are the terms of trade?
+The terms of trade are defined as the ratio of the price of exports to the price of imports. [sna08-15.187]
+
+Who counts in a country's population when calculating GDP per head?
+When calculating GDP per head, a country's population includes all persons, national or foreign, who are permanently settled in the country's economic territory, even if they are temporarily absent from it. This is because the definition of population for national accounts is based on residence, and individuals are considered residents if they are staying or intend to stay in the country for one year or more, regardless of temporary absences. The calculation uses an annual average head count to provide a suitable basis for estimating national accounts variables or for use as a denominator in comparisons.
+```
+
+What the answers show:
+
+- The first two are correct, one sentence each, and cite the right passage. The model ignored the passages that matched on words alone.
+- The third is correct and comes from esa10-11.05 and esa10-11.06 (the one-year rule is in 11.06). But it cites no passage, although the rules ask for an id after every sentence. This is the point of 2.4.1: a rule is an instruction, not a guarantee. Chapter 14 checks citations.
+- Another model version may word the answers differently; the passages matched will not change.
 
 What the matches show:
 
