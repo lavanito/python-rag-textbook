@@ -171,11 +171,16 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
     """
     Send the messages to the local model through Ollama and return its reply.
 
-    Settings:
-        temperature 0  the model picks its most likely word each time, so the
-                       same prompt gives the same answer (not a correct one;
-                       see 2.5.3)
+    Settings (all inside "options"):
+        temperature, top_p, top_k, min_p
+                       how the next word is drawn; the values Qwen recommends
+                       when thinking is off (see 2.5.3)
+        seed 42        fixes the random draws, so the same prompt gives the
+                       same reply each time (a repeatable reply, not
+                       necessarily a correct one)
+        num_ctx 4096   the context window: prompt plus reply, in tokens
         num_predict    the longest reply allowed, in tokens (pieces of words)
+    And on the request itself:
         think False    Qwen3 answers directly, without writing out its reasoning
 
     Example:
@@ -187,7 +192,15 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
         "messages": messages,
         "stream": False,
         "think": False,
-        "options": {"temperature": 0, "num_predict": 400},
+        "options": {
+            "temperature": 0.7,
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "seed": 42,
+            "num_ctx": 4096,
+            "num_predict": 400,
+        },
     }
     data = json.dumps(request_body).encode("utf-8")
     request = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})

@@ -97,6 +97,9 @@ def test_ask_model_sends_settings_inside_options_and_reads_the_reply(monkeypatch
     reply = ask_model([{"role": "user", "content": "Hello"}])
     assert reply == "An answer."
     assert captured["url"] == "http://localhost:11434/api/chat"
-    assert captured["body"]["options"] == {"temperature": 0, "num_predict": 400}
+    assert captured["body"]["options"] == {
+        "temperature": 0.7, "top_p": 0.8, "top_k": 20, "min_p": 0,
+        "seed": 42, "num_ctx": 4096, "num_predict": 400,
+    }
     assert captured["body"]["stream"] is False
     assert captured["body"]["think"] is False
