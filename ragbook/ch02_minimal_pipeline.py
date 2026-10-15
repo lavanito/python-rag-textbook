@@ -271,8 +271,12 @@ def main():
             result = answer_question(question, passages)
             print("2.5  Answer:")
             print(result["answer"])
-        except urllib.error.URLError:
-            print("2.5  Ollama is not running, so the model was not asked.")
+        except urllib.error.HTTPError as error:
+            # Ollama was reached but refused the request; show its reason.
+            print(f"2.5  Ollama replied with error {error.code}:")
+            print("    ", error.read().decode("utf-8"))
+        except urllib.error.URLError as error:
+            print(f"2.5  Could not reach Ollama ({error.reason}), so the model was not asked.")
             print("     Start Ollama and run this file again.")
 
 

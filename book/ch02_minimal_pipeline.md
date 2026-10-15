@@ -368,7 +368,7 @@ What the matches show:
 - **Terms of trade.** Both passages that define the terms of trade come first. The third, esa10-8.94, scores one point for "terms" in the phrase "in net terms". Word matching cannot tell the two senses apart.
 - **Population.** Both ESA 2010 passages on population come first.
 
-Without Ollama running, the example prints the matches and then a line saying the model was not asked.
+Without Ollama running, the example prints the matches and then a line saying the model was not asked, with the reason. If Ollama is running but refuses the request, it prints Ollama's error message instead.
 
 ## 2.8 How often matching finds the right passages
 
