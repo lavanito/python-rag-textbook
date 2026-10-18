@@ -29,11 +29,18 @@ exists, and that every fact has evidence.
 - Only the economies whose manual is certain are linked to one (United States:
   BEA; euro area: ESA 2010).
 
+## Extracted triplets (Chapter 13)
+
+Chapter 13 has the local model read each passage and propose triplets in the
+same three-part form. The code compares them with this hand-built map and
+reports how many are right, wrong or missing; doubtful ones go to the author
+to check. The hand-built map is the answer key.
+
 ## Where a larger system would differ
 
 This map has 51 things and 73 facts (plus one per passage linking it to its manual), typed in by hand and read by plain
 Python. A commercial system with millions of series would store the same kind
-of facts in a graph database or as RDF with an OWL ontology, extract many of
+of facts in a graph database such as Neo4j, or as RDF with an OWL ontology, extract many of
 them from documents with a language model and have people check the doubtful
 ones, and search them with a search engine such as Elasticsearch or OpenSearch.
 The ideas are the same: kinds of thing, typed relations, evidence for each
