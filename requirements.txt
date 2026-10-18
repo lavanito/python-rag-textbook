@@ -3,3 +3,4 @@
 # Versions are fixed (==) so results can be reproduced.
 
 pytest==8.4.2        # runs the tests (all chapters)
+bm25s==0.3.14        # BM25 library, to check the hand-built version (Chapter 3)
