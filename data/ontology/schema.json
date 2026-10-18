@@ -1,0 +1,24 @@
+{
+  "description": "The kinds of thing the book's concept map knows about, and the relations allowed between them. Each relation names the type of its subject and of its object.",
+  "entity_types": {
+    "Concept": "An idea the manuals define or discuss, such as the terms of trade",
+    "Passage": "One quoted passage in data/corpus/passages.jsonl",
+    "Manual": "One edition of a manual or handbook, such as the 2008 SNA",
+    "Economy": "One of the six economies the book compares",
+    "Indicator": "A published measure used to compare economies",
+    "QuestionType": "One of the three questions a vague comparison is split into"
+  },
+  "relations": {
+    "defined_in": {"subject": "Concept", "object": "Passage", "meaning": "the passage gives a definition of the concept"},
+    "discussed_in": {"subject": "Concept", "object": "Passage", "meaning": "the passage explains or uses the concept without defining it"},
+    "same_as": {"subject": "Concept", "object": "Concept", "meaning": "two names for one concept, usually in different manuals or editions"},
+    "differs_from": {"subject": "Concept", "object": "Concept", "meaning": "similar names or letters for different concepts; an answer must not mix them"},
+    "related_to": {"subject": "Concept", "object": "Concept", "meaning": "closely linked concepts that are not the same; the note says how"},
+    "from_manual": {"subject": "Passage", "object": "Manual", "meaning": "the passage is quoted from this manual edition"},
+    "next_edition_of": {"subject": "Manual", "object": "Manual", "meaning": "the subject replaces the object as the current edition"},
+    "based_on": {"subject": "Manual", "object": "Manual", "meaning": "the subject applies the object's framework, for one region or country"},
+    "compiled_under": {"subject": "Economy", "object": "Manual", "meaning": "the economy's national accounts follow this manual"},
+    "requires": {"subject": "QuestionType", "object": "Indicator", "meaning": "answering the question needs this indicator"},
+    "affected_by": {"subject": "Indicator", "object": "Concept", "meaning": "a known measurement problem that limits comparisons with this indicator"}
+  }
+}

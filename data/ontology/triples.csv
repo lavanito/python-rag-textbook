@@ -1,0 +1,74 @@
+subject,relation,object,evidence,note
+terms_of_trade,defined_in,sna08-15.187,sna08-15.187,
+terms_of_trade,discussed_in,esa10-10.47,esa10-10.47,
+trading_gain,discussed_in,esa10-10.47,esa10-10.47,The formula is in the book text (2008 SNA 15.188 equation 19); the corpus quotes the ESA 2010 words
+real_gdi,discussed_in,esa10-10.47,esa10-10.47,
+real_gdi,differs_from,bea_gdi,bea-ch2-ndp-gni,Same letters: the SNA measure adds the trading gain; BEA's GDI is GDP measured from incomes
+bea_gdi,defined_in,bea-ch2-ndp-gni,bea-ch2-ndp-gni,
+gdp,defined_in,esa10-8.89,esa10-8.89,Three approaches: production; expenditure; income
+gni,defined_in,esa10-8.94,esa10-8.94,
+gni,related_to,gnp,bea-ch2-ndp-gni,In BEA's accounts GNP and GNI are linked through the statistical discrepancy
+gnp,defined_in,bea-ch2-gnp,bea-ch2-gnp,
+nni,defined_in,sna08-2.144,sna08-2.144,2008 SNA: GNI less consumption of fixed capital
+nni,defined_in,sna25-3.145,sna25-3.145,2025 SNA: GNI less depreciation and depletion
+nni,discussed_in,esa10-8.94,esa10-8.94,
+ndp,discussed_in,sna25-A4.10,sna25-A4.10,
+consumption_of_fixed_capital,defined_in,esa10-3.139,esa10-3.139,
+consumption_of_fixed_capital,discussed_in,sna08-2.144,sna08-2.144,
+depreciation_2025,same_as,consumption_of_fixed_capital,sna25-A4.10,The 2025 SNA renames consumption of fixed capital as depreciation
+depreciation_2025,discussed_in,sna25-3.145,sna25-3.145,
+depletion,defined_in,sna08-12.26,sna08-12.26,2008 SNA: outside production (other changes in volume of assets)
+depletion,discussed_in,sna25-A4.59,sna25-A4.59,2025 SNA: a cost of production
+double_deflation,defined_in,esa10-10.32,esa10-10.32,
+double_deflation,discussed_in,esa10-10.33,esa10-10.33,
+chain_linking,discussed_in,esa10-10.20,esa10-10.20,
+volume_measure,discussed_in,esa10-10.20,esa10-10.20,
+volume_measure,related_to,chain_linking,esa10-10.20,Volumes at previous year prices are chained over longer periods
+chain_linking,discussed_in,esa10-10.22,esa10-10.22,
+chain_linking,discussed_in,bea-ch4-fisher,bea-ch4-fisher,
+chained_dollars,same_as,chain_linking,bea-ch4-chained,BEA's name for chain-linked volumes in national currency
+chained_dollars,discussed_in,bea-ch4-chained,bea-ch4-chained,
+ppp,discussed_in,ppp23-1.13,ppp23-1.13,
+ppp,discussed_in,ppp23-1.14,ppp23-1.14,
+ppp,discussed_in,ppp23-1.17,ppp23-1.17,
+ppp,discussed_in,ppp23-1.31,ppp23-1.31,
+ppp,discussed_in,una14-ch2-ppp,una14-ch2-ppp,
+price_level_index,defined_in,ppp23-ov.13,ppp23-ov.13,
+price_level_index,related_to,ppp,ppp23-ov.13,A price level index is a PPP divided by the exchange rate
+comparison_resistant_services,discussed_in,ppp23-4.16,ppp23-4.16,
+comparison_resistant_services,discussed_in,ppp23-8.2,ppp23-8.2,
+comparison_resistant_services,discussed_in,ppp23-8.4,ppp23-8.4,
+hours_worked,defined_in,esa10-11.27,esa10-11.27,
+labour_quality,discussed_in,sna25-16.95,sna25-16.95,
+labour_quality,related_to,hours_worked,sna25-16.95,Hours worked treat every hour alike
+population,defined_in,esa10-11.05,esa10-11.05,
+population,discussed_in,esa10-11.06,esa10-11.06,
+population,related_to,residence,esa10-11.06,
+residence,discussed_in,esa10-2.10,esa10-2.10,
+remittances,defined_in,esa10-4.129,esa10-4.129,
+remittances,discussed_in,esa10-18.53,esa10-18.53,
+modified_gni,defined_in,cso-gnistar-1,cso-gnistar-1,
+modified_gni,related_to,gni,cso-gnistar-1,
+globalisation,discussed_in,sna25-23.68,sna25-23.68,
+revisions,discussed_in,qna17-12.1,qna17-12.1,
+revisions,discussed_in,bea-ch1-revisions,bea-ch1-revisions,
+seasonal_adjustment,defined_in,qna17-7.2,qna17-7.2,
+gdp_deflator,discussed_in,una14-ch1-deflator,una14-ch1-deflator,
+SNA25,next_edition_of,SNA08,sna25-A4.10,
+ESA10,based_on,SNA08,esa10-8.94,ESA 2010 is the EU's legally binding version of the SNA (scope note)
+united_states,compiled_under,BEA,bea-ch2-gnp,
+euro_area,compiled_under,ESA10,esa10-8.94,
+living_standards,requires,gni_per_head_ppp,author,Lavan's framing of 13 October 2026
+living_standards,requires,gni_per_hour_ppp,author,Lavan's framing of 13 October 2026
+growth,requires,real_gdp,author,Lavan's framing of 13 October 2026
+productivity,requires,real_gdp_per_hour_ppp,author,Lavan's framing of 13 October 2026
+gni_per_head_ppp,affected_by,ppp,ppp23-1.31,PPPs are statistical estimates with error margins
+gni_per_head_ppp,affected_by,comparison_resistant_services,ppp23-8.2,
+gni_per_head_ppp,affected_by,globalisation,sna25-23.68,Multinational profits; Ireland inside the euro area
+real_gdp,affected_by,double_deflation,esa10-10.33,
+real_gdp,affected_by,chain_linking,esa10-10.22,
+real_gdp,affected_by,hedonic_adjustment,author,No passage in the corpus yet: gap
+real_gdp,affected_by,terms_of_trade,esa10-10.47,Volume growth and purchasing power can diverge
+real_gdp_per_hour_ppp,affected_by,hours_worked,esa10-11.27,
+real_gdp_per_hour_ppp,affected_by,labour_quality,sna25-16.95,
+real_gdp_per_hour_ppp,affected_by,ppp,ppp23-1.31,

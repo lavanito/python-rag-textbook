@@ -1,0 +1,52 @@
+id,type,label,aliases
+terms_of_trade,Concept,terms of trade,export prices relative to import prices
+trading_gain,Concept,trading gain,trading loss
+real_gdi,Concept,real gross domestic income (SNA),command-basis GDP; real GDI
+bea_gdi,Concept,gross domestic income (BEA),GDI; income-side GDP
+gdp,Concept,gross domestic product,GDP; domestic product
+gni,Concept,gross national income,GNI; national income
+gnp,Concept,gross national product (BEA),GNP
+nni,Concept,net national income,NNI
+ndp,Concept,net domestic product,NDP
+consumption_of_fixed_capital,Concept,consumption of fixed capital,CFC; depreciation; wear and tear
+depreciation_2025,Concept,depreciation (2025 SNA),depreciation
+depletion,Concept,depletion of natural resources,depletion
+double_deflation,Concept,double deflation,value added in volume terms; real value added
+chain_linking,Concept,chain-linked volume measures,chain-linked; chained; chain indices
+volume_measure,Concept,volume measures,volume terms; constant prices; previous year prices; real terms; in volume
+chained_dollars,Concept,chained dollars (BEA),chained-dollar; chain-type indexes
+ppp,Concept,purchasing power parities,PPP; PPPs; purchasing power parity
+price_level_index,Concept,price level index,PLI; price level
+comparison_resistant_services,Concept,comparison-resistant services,non-market services; input-price approach
+hedonic_adjustment,Concept,hedonic adjustment,quality adjustment
+hours_worked,Concept,total hours worked,hours actually worked; labour input
+labour_quality,Concept,quality of labour input,quality-adjusted labour input; skills
+population,Concept,population for national accounts,residents; head count
+residence,Concept,residence,resident; centre of predominant economic interest
+remittances,Concept,remittances,personal transfers; personal remittances; current transfers between households
+modified_gni,Concept,modified GNI (Ireland),GNI*; GNI star
+globalisation,Concept,globalisation and multinationals,MNE; multinational enterprises
+revisions,Concept,revisions,vintages; provisional estimates
+seasonal_adjustment,Concept,seasonal adjustment,seasonally adjusted
+gdp_deflator,Concept,GDP deflator,implicit price deflator
+SNA08,Manual,System of National Accounts 2008,2008 SNA
+SNA25,Manual,System of National Accounts 2025,2025 SNA
+ESA10,Manual,European System of Accounts 2010,ESA 2010
+BEA,Manual,BEA NIPA Handbook (December 2024),NIPA Handbook
+PPP23,Manual,Eurostat-OECD Methodological Manual on PPPs (2023),PPP manual
+QNA17,Manual,IMF Quarterly National Accounts Manual (2017),QNA manual
+UNA14,Manual,OECD Understanding National Accounts (2014),
+CSO,Manual,CSO Ireland: Modified GNI (web page),
+united_states,Economy,United States,US; USA
+euro_area,Economy,euro area,eurozone
+united_kingdom,Economy,United Kingdom,UK; Britain
+china,Economy,China,
+india,Economy,India,
+japan,Economy,Japan,
+gni_per_head_ppp,Indicator,GNI per head at PPP,
+gni_per_hour_ppp,Indicator,GNI per hour worked at PPP,
+real_gdp,Indicator,real GDP at base-year prices,GDP in volume
+real_gdp_per_hour_ppp,Indicator,real GDP per hour worked at PPP,labour productivity
+living_standards,QuestionType,living standards,better off; richer; income
+growth,QuestionType,growth,growing faster; expansion
+productivity,QuestionType,productivity,output per hour; efficiency

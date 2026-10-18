@@ -18,6 +18,13 @@ date given) or **to confirm** (not yet read on the publisher's page).
 | CSO | Central Statistics Office, Ireland: *Modified GNI* (Statistics Explained) | web page | CC BY 4.0, source acknowledged | confirmed 12 Oct 2026, cso.ie copyright policy | https://www.cso.ie/en/interactivezone/statisticsexplained/nationalaccountsexplained/modifiedgni/ |
 | PPP23 | Eurostat and OECD: *Methodological Manual on Purchasing Power Parities*, 2023 edition | 2024 | PDF rights notice (© European Union/OECD 2024): CC BY 4.0; credit given, changes indicated. Cover image excluded | confirmed 14 Oct 2026 (PDF rights page) | https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/w/ks-gq-24-011 |
 
+### Use of this corpus (decision, 18 Oct 2026)
+
+The book and its demonstrator are non-commercial teaching material. The IMF
+passages (QNA17) are therefore within the IMF's fair-use terms for
+non-commercial teaching. A later commercial use would need the licence filter
+(Chapter 8) to withhold QNA17, and UN and OECD permission for SNA and UNA14.
+
 ### Sources without an open licence (decision, 14 Oct 2026)
 
 SNA08 and SNA25 are all rights reserved. UNA14 allows excerpts only in the
