@@ -12,7 +12,7 @@ import numpy as np
 import pytest
 
 from ragbook.ch02_minimal_pipeline import load_corpus
-from ragbook.ch03_keyword_search import load_questions
+from ragbook.ch03_keyword_search import load_questions, top_three_hits
 from ragbook.ch04_semantic_search import (
     EMBEDDING_FILE,
     MODEL_NAME,
@@ -88,3 +88,38 @@ def test_saved_embeddings_cover_corpus_and_questions():
     for question in load_questions():
         assert question["id"] in saved
     assert str(np.load(EMBEDDING_FILE)["model_name"]) == MODEL_NAME
+
+
+def saved_semantic_index():
+    """A SemanticIndex that reads saved embeddings instead of running the model."""
+    saved = load_embeddings()
+    passages = load_corpus()
+    question_ids = {question["question"]: question["id"] for question in load_questions()}
+    return SemanticIndex(passages, [saved[p["id"]] for p in passages],
+                         lambda question: saved[question_ids[question]])
+
+
+@needs_saved_embeddings
+def test_semantic_search_finds_a_gold_passage_for_31_of_32():
+    index = saved_semantic_index()
+    assert top_three_hits(index.rank, load_questions()) == 31
+
+
+@needs_saved_embeddings
+def test_semantic_and_keyword_search_miss_different_questions():
+    # Semantic search finds the two BM25 misses (q2-04, q2-30) and misses q2-24,
+    # which BM25 finds: the case for combining them in Chapter 5.
+    index = saved_semantic_index()
+    missed = []
+    for question in load_questions():
+        found = [p["id"] for p in index.rank(question["question"])]
+        if not any(gold in found for gold in question["gold_passages"]):
+            missed.append(question["id"])
+    assert missed == ["q2-24"]
+
+
+@needs_saved_embeddings
+def test_deflator_example_ranking():
+    index = saved_semantic_index()
+    ranked = [p["id"] for p in index.rank("What is the GDP deflator?")]
+    assert ranked == ["esa10-8.89", "bea-ch2-gnp", "una14-ch1-deflator"]
