@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install the CPU-only build of torch (smaller; no graphics card needed)
+        run: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+
       - name: Install the packages listed in requirements.txt
         run: pip install -r requirements.txt
 
