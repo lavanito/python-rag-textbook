@@ -69,7 +69,7 @@ def test_known_fault_hyphenated_compound_is_joined():
 
 def test_equation_bracket_pieces_removed():
     text, counts = clean_pdf_text(read_pdf_pages(EXAMPLE_PDF))
-    assert not any("" <= character <= "" for character in text)
-    assert " " not in text
+    assert not any("\ue000" <= character <= "\uf8ff" for character in text)
+    assert "\u202f" not in text
     assert "\n\n" not in text
     assert counts["piece of a large bracket drawn from a font's private symbols"] == 244
