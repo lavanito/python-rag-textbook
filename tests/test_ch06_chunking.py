@@ -56,7 +56,7 @@ def test_clean_example_no_running_headers_left():
     text, counts = clean_pdf_text(read_pdf_pages(EXAMPLE_PDF))
     assert "econo My" not in text and "Econo My" not in text
     assert "BEnChmark" not in text and "BEnch Mark" not in text
-    assert len(text.split()) == 16883
+    assert len(text.split()) == 16639
     assert counts["word broken by a hyphen at the end of a line"] == 83
     assert counts["capital T split from the rest of its word"] == 16
 
@@ -65,3 +65,11 @@ def test_known_fault_hyphenated_compound_is_joined():
     # Reported in 6.3.3: one of the 83 hyphen repairs joins a real compound.
     text, _ = clean_pdf_text(read_pdf_pages(EXAMPLE_PDF))
     assert "PPPbased" in text
+
+
+def test_equation_bracket_pieces_removed():
+    text, counts = clean_pdf_text(read_pdf_pages(EXAMPLE_PDF))
+    assert not any("" <= character <= "" for character in text)
+    assert " " not in text
+    assert "\n\n" not in text
+    assert counts["piece of a large bracket drawn from a font's private symbols"] == 244

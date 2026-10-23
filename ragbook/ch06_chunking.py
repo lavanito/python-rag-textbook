@@ -101,8 +101,11 @@ REPAIRS = [
     ("capital T split from the rest of its word", r"\bT\s(?=[a-z])", "T"),
     ("space before a full stop, comma, colon, semicolon or bracket", r" +([.,;:)])", r"\1"),
     ("doubled bullet mark", r"••", "•"),
+    ("piece of a large bracket drawn from a font's private symbols", r"[-]", ""),
+    ("narrow no-break space", " ", " "),
     ("two or more spaces", r" {2,}", " "),
-    ("space at the end of a line", r" +\n", "\n"),
+    ("space at the start or end of a line", r" +\n *|\n +", "\n"),
+    ("empty line", r"\n{2,}", "\n"),
 ]
 
 
