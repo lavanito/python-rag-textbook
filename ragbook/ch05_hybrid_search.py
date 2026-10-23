@@ -263,7 +263,7 @@ class HybridIndex:
     Example:
         index = HybridIndex(keyword_index, semantic_index, knowledge_graph)
         index.rank("What is the difference between GDP and GNI?", expand=True)
-        returns the three best passages after fusion
+        returns the three best passages after RRF
     """
 
     def __init__(self, keyword_index, semantic_index, knowledge_graph):
@@ -273,7 +273,7 @@ class HybridIndex:
 
     def rank(self, question, how_many=3, expand=False):
         """
-        Rank every passage both ways, then fuse the two rankings.
+        Rank every passage both ways, then combine the two rankings with RRF.
 
         With expand=True the keyword ranking uses the expanded question.
         """
@@ -425,7 +425,7 @@ def main():
     example = "What is the difference between GDP and GNI?"
     print(f"\n5.4  {example}")
     print("     expanded:", expand_question(knowledge_graph, example))
-    for label, expand in [("hybrid", False), ("hybrid + expansion", True)]:
+    for label, expand in [("hybrid search", False), ("hybrid search + query expansion", True)]:
         print(f"     {label}:", [p["id"] for p in hybrid_index.rank(example, expand=expand)])
 
     for concept_id in ["consumption_of_fixed_capital", "bea_gdi"]:
@@ -438,14 +438,14 @@ def main():
     everything = len(keyword_index.passages)
     methods = [
         ("BM25 (Chapter 3)", lambda q: keyword_index.rank(q, "bm25", how_many=everything)),
-        ("Semantic (Chapter 4)", lambda q: semantic_index.rank(q, how_many=everything)),
-        ("Hybrid", lambda q: hybrid_index.rank(q, how_many=10)),
-        ("Hybrid + expansion", lambda q: hybrid_index.rank(q, how_many=10, expand=True)),
+        ("Semantic search (Chapter 4)", lambda q: semantic_index.rank(q, how_many=everything)),
+        ("Hybrid search", lambda q: hybrid_index.rank(q, how_many=10)),
+        ("Hybrid search + query expansion", lambda q: hybrid_index.rank(q, how_many=10, expand=True)),
     ]
     print(f"\n5.6  Questions with a gold passage within the first 1, 3 and 10 places (of {len(questions)})")
     for label, rank_function in methods:
         counts = [hits_at(rank_function, questions, depth) for depth in (1, 3, 10)]
-        print(f"     {label:22} {counts[0]:>3} {counts[1]:>3} {counts[2]:>3}")
+        print(f"     {label:32} {counts[0]:>3} {counts[1]:>3} {counts[2]:>3}")
 
 
 if __name__ == "__main__":

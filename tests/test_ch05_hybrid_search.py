@@ -29,17 +29,17 @@ def ids(passages):
     return [passage["id"] for passage in passages]
 
 
-def test_fusion_rewards_agreement():
+def test_rrf_rewards_agreement():
     # a: 1/61 + 1/63; b: 1/62 + 1/61; c: 1/63 + 1/62
     assert ids(reciprocal_rank_fusion([[A, B, C], [B, C, A]])) == ["b", "a", "c"]
 
 
-def test_fusion_counts_a_passage_missing_from_one_ranking():
+def test_rrf_counts_a_passage_missing_from_one_ranking():
     # Keyword search leaves out passages scoring zero; they still count from the other ranking.
     assert ids(reciprocal_rank_fusion([[A], [B, A]], how_many=2)) == ["a", "b"]
 
 
-def test_fusion_keeps_first_met_order_for_equal_totals():
+def test_rrf_keeps_first_met_order_for_equal_totals():
     assert ids(reciprocal_rank_fusion([[A, B], [B, A]], how_many=2)) == ["a", "b"]
 
 
@@ -93,14 +93,14 @@ def test_two_way_relations_are_followed_from_either_end(knowledge_graph):
         ["depreciation_2025"]
 
 
-def test_expansion_adds_full_names(knowledge_graph):
+def test_query_expansion_adds_full_names(knowledge_graph):
     expanded = expand_question(knowledge_graph, "What is the difference between GDP and GNI?")
     assert "gross national income" in expanded
     assert expand_question(knowledge_graph, "At what levels can countries' economies be compared?") == \
         "At what levels can countries' economies be compared?"
 
 
-def test_expansion_follows_same_as(knowledge_graph):
+def test_query_expansion_follows_same_as(knowledge_graph):
     assert "depreciation" in expand_question(knowledge_graph, "What is consumption of fixed capital?")
 
 
