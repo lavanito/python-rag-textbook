@@ -24,7 +24,7 @@ labour_quality,Concept,quality of labour input,quality-adjusted labour input; sk
 population,Concept,population for national accounts,residents; head count
 residence,Concept,residence,resident; centre of predominant economic interest
 remittances,Concept,remittances,personal transfers; personal remittances; current transfers between households
-modified_gni,Concept,modified GNI (Ireland),GNI*; GNI star
+modified_gni,Concept,modified GNI (Ireland),GNI star
 globalisation,Concept,globalisation and multinationals,MNE; multinational enterprises
 revisions,Concept,revisions,vintages; provisional estimates
 seasonal_adjustment,Concept,seasonal adjustment,seasonally adjusted
