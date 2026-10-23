@@ -166,6 +166,10 @@ q("q5-01", "Q5", "R2", "How does the euro area compare with the United States on
   "Needs hours-worked data; must say hours are less comparable across countries than GDP.")
 q("q5-02", "Q5", "R2", "Has the United Kingdom fallen behind the United States since 2007?", ["esa10-10.47", "ppp23-1.31"],
   "Two runs: real GDP growth and the GNI-per-head-at-PPP ratio, which can differ.")
+q("q5-03", "Q5", "R4+R2", "Does the gap in real GDP growth between the United States and the euro area depend on how public services are measured?",
+  ["ons-psp-1", "ons-psp-2"],
+  "Partly, and by an unknown amount. Public services are about a fifth of the UK economy; collectively provided services such as defence are measured by what they cost, so no productivity growth is recorded. Economies with different shares or methods can show different growth for the same real change.",
+  "States the caveat qualitatively, gives no size for the effect, and presents the ONS figures as UK practice, not as the US or euro area.")
 q("q7-01", "Q7", "R5>R2", "What if the yen had been 10% weaker against the dollar in 2024?", [], "Small model extracts the parameter; the class computes.")
 q("q8-01", "Q8", "R6", "How does China now compare with the United States three years ago, and what explains the change?", ["ppp23-1.31"], "Agent loop within a step budget.")
 

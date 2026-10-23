@@ -72,3 +72,8 @@ real_gdp,affected_by,terms_of_trade,esa10-10.47,Volume growth and purchasing pow
 real_gdp_per_hour_ppp,affected_by,hours_worked,esa10-11.27,
 real_gdp_per_hour_ppp,affected_by,labour_quality,sna25-16.95,
 real_gdp_per_hour_ppp,affected_by,ppp,ppp23-1.31,
+hard_to_measure_services,discussed_in,ons-psp-1,ons-psp-1,UK practice: public sector about a fifth of the economy
+hard_to_measure_services,discussed_in,ons-psp-2,ons-psp-2,Collectively provided services measured by what they cost to deliver
+hard_to_measure_services,related_to,comparison_resistant_services,author,Same services: this concept concerns output volumes (growth); that one concerns PPPs (levels)
+real_gdp,affected_by,hard_to_measure_services,ons-psp-2,Output measured by its cost shows no productivity growth; growth answers carry a caveat
+real_gdp_per_hour_ppp,affected_by,hard_to_measure_services,ons-psp-1,

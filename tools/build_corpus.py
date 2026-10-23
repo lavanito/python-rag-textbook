@@ -22,6 +22,7 @@ SOURCE_FILES = {
     "CSO": "Modified GNI - CSO - Central Statistics Office.txt",
     "PPP23": "KS-GQ-24-011-EN-N.txt",
     "SNA25": "sna25.txt",
+    "ONS": "The hardest part of productivity measurement - ONS blog.txt",
 }
 
 SOURCE_NAMES = {
@@ -33,6 +34,7 @@ SOURCE_NAMES = {
     "CSO": ("Central Statistics Office Ireland, Modified GNI", "Web page, read 12 October 2026", "CC BY 4.0"),
     "PPP23": ("Eurostat and OECD, Methodological Manual on Purchasing Power Parities", "2023 edition (2024)", "CC BY 4.0 (European Union/OECD 2024): credit given, changes indicated"),
     "SNA25": ("System of National Accounts 2025", "2025 SNA, pre-edit version (2025)", "All rights reserved (EC, IMF, OECD, UN, World Bank); short quotation with full citation"),
+    "ONS": ("Office for National Statistics, blog: The hardest part of productivity measurement (Josh Martin)", "Blog post of 7 August 2019, read 23 October 2026", "Open Government Licence v3.0"),
 }
 
 # (id, source code, reference, topic, components, partial, text)
@@ -185,6 +187,13 @@ add("ppp23-ov.12", "PPP23", "Overview, para. 12", "International comparisons of 
 add("ppp23-ov.13", "PPP23", "Overview, para. 13", "Price level indices", ["C3", "C1b"],
     "13. The price level indices (PLIs) are the ratios of PPPs to exchange rates. As such, they provide a measure of the differences in price levels between countries by indicating for a given component expenditure the number of units of common currency needed to buy the same volume of the component expenditure in each country. At the level of GDP, PLIs provide a measure of the differences in the general price levels of countries.")
 
+# --- ONS (UK) -------------------------------------------------------------
+add("ons-psp-1", "ONS", "paragraph 5", "Hard-to-measure services", ["C2", "quality"],
+    "Productivity of the public sector, by contrast, is much harder to measure. Since public services are not sold, it is much more difficult to decide how to measure output. But the public sector makes up about a fifth of the economy (by comparison, the manufacturing industry only accounts for around 10% of the economy), so it is vitally important to understanding the productivity of the UK economy as a whole.")
+add("ons-psp-2", "ONS", "paragraph 8", "Hard-to-measure services", ["C2", "quality"],
+    "Some other public services, such as defence, are ‘collectively provided’, which mean they aren’t provided to people directly. In these cases, we usually measure the output of the services by simply looking at how much it costs to deliver them, meaning that we cannot easily measure their productivity.",
+    partial=True)
+
 # --- Scope: how far each passage generalises ------------------------------
 SCOPE_BY_SOURCE = {
     "SNA08": "international standard",
@@ -195,9 +204,13 @@ SCOPE_BY_SOURCE = {
     "UNA14": "textbook",
     "BEA": "national practice: United States",
     "CSO": "national practice: Ireland",
+    "ONS": "national practice: United Kingdom",
 }
 CSO_NOTE = ("Modified GNI (GNI*) is an Irish measure, published by the CSO since 2017 to remove "
             "globalisation effects specific to Ireland. It is an example, not an international standard.")
+ONS_NOTE = ("Describes UK practice (ONS). The shares (public sector about a fifth, market sector 80%) are for the UK. "
+            "Measuring collectively provided services by their cost is common practice elsewhere too, but the share of such "
+            "services differs between economies.")
 PPP_EUOECD_NOTE = ("Describes Eurostat-OECD practice. Other regions of the World Bank's International Comparison "
                    "Program have made productivity adjustments to input prices that Eurostat and the OECD do not make "
                    "(manual glossary, “Productivity adjustment”; Deaton and Heston 2010, section D).")
@@ -212,6 +225,7 @@ SCOPE_NOTES = {
     "ppp23-4.16": PPP_EUOECD_NOTE, "ppp23-8.2": PPP_EUOECD_NOTE, "ppp23-8.4": PPP_EUOECD_NOTE,
     "cso-gnistar-1": CSO_NOTE, "cso-gnistar-2": CSO_NOTE, "cso-gnistar-3": CSO_NOTE,
     "cso-gnistar-4": CSO_NOTE, "cso-gnistar-6": CSO_NOTE,
+    "ons-psp-1": ONS_NOTE, "ons-psp-2": ONS_NOTE,
 }
 ESA_NOTE = "ESA 2010 is the European Union's legally binding version of the SNA; its definitions follow the SNA closely."
 for p in P:

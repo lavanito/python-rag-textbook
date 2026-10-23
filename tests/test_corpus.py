@@ -36,6 +36,7 @@ ALLOWED_SCOPES = {
     "textbook",
     "national practice: United States",
     "national practice: Ireland",
+    "national practice: United Kingdom",
 }
 # Words that tie a passage to one agency or country. A passage that uses any
 # of them must say so in its scope_note, so that an answer never presents one

@@ -29,6 +29,7 @@ globalisation,Concept,globalisation and multinationals,MNE; multinational enterp
 revisions,Concept,revisions,vintages; provisional estimates
 seasonal_adjustment,Concept,seasonal adjustment,seasonally adjusted
 gdp_deflator,Concept,GDP deflator,implicit price deflator
+hard_to_measure_services,Concept,hard-to-measure services output,non-market output; collectively provided services; public services output
 SNA08,Manual,System of National Accounts 2008,2008 SNA
 SNA25,Manual,System of National Accounts 2025,2025 SNA
 ESA10,Manual,European System of Accounts 2010,ESA 2010
@@ -37,6 +38,7 @@ PPP23,Manual,Eurostat-OECD Methodological Manual on PPPs (2023),PPP manual
 QNA17,Manual,IMF Quarterly National Accounts Manual (2017),QNA manual
 UNA14,Manual,OECD Understanding National Accounts (2014),
 CSO,Manual,CSO Ireland: Modified GNI (web page),
+ONS,Manual,ONS blog: The hardest part of productivity measurement (2019),
 united_states,Economy,United States,US; USA
 euro_area,Economy,euro area,eurozone
 united_kingdom,Economy,United Kingdom,UK; Britain

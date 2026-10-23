@@ -17,6 +17,7 @@ date given) or **to confirm** (not yet read on the publisher's page).
 | BEA | US Bureau of Economic Analysis: *NIPA Handbook: Concepts and Methods of the U.S. National Income and Product Accounts* | Chapters 1–14, December 2024 | Public domain unless stated otherwise; may be reproduced without permission; credit to BEA requested; no suggestion of BEA endorsement | confirmed 14 Oct 2026 (bea.gov FAQ and citation guidelines) | https://www.bea.gov/resources/methodologies/nipa-handbook/pdf/all-chapters.pdf |
 | CSO | Central Statistics Office, Ireland: *Modified GNI* (Statistics Explained) | web page | CC BY 4.0, source acknowledged | confirmed 12 Oct 2026, cso.ie copyright policy | https://www.cso.ie/en/interactivezone/statisticsexplained/nationalaccountsexplained/modifiedgni/ |
 | PPP23 | Eurostat and OECD: *Methodological Manual on Purchasing Power Parities*, 2023 edition | 2024 | PDF rights notice (© European Union/OECD 2024): CC BY 4.0; credit given, changes indicated. Cover image excluded | confirmed 14 Oct 2026 (PDF rights page) | https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/w/ks-gq-24-011 |
+| ONS | Office for National Statistics (UK), blog: *The hardest part of productivity measurement*, Josh Martin | 7 August 2019 | Open Government Licence v3.0: all content, except where otherwise stated; attribute the source | confirmed 23 Oct 2026 (licence statement on the blog page) | https://blog.ons.gov.uk/2019/08/07/the-hardest-part-of-productivity-measurement/ |
 
 ### Use of this corpus (decision, 18 Oct 2026)
 
