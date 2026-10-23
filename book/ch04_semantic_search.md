@@ -338,7 +338,7 @@ The measure is Chapter 3's: the number of definition questions with at least one
 
 The headline is one question better. The more useful finding is that the two methods miss different questions.
 
-**What is the difference between GDP and GNI? (q2-04).** BM25 missed it because the gold passages never write "GNI". Semantic search ranks bea-ch2-gnp second (similarity 0.728). That passage says GNP equals GDP minus net income paid abroad: it answers the question without sharing its key word. But the other gold passage, esa10-8.94, which writes "gross national income" in full, comes only twelfth (0.495). The model did not reliably treat "GNI" and "gross national income" as the same thing. Chapter 5 adds that knowledge from the concept map.
+**What is the difference between GDP and GNI? (q2-04).** BM25 missed it because the gold passages never write "GNI". Semantic search ranks bea-ch2-gnp second (similarity 0.728). That passage says GNP equals GDP minus net income paid abroad: it answers the question without sharing its key word. But the other gold passage, esa10-8.94, which writes "gross national income" in full, comes only twelfth (0.495). The model did not reliably treat "GNI" and "gross national income" as the same thing. Chapter 5 adds that knowledge from the knowledge graph.
 
 **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** Semantic search ranks ppp23-1.31 second: a passage on the error margin of PPPs, which matches the question's subject. The passages on the terms of trade, the link that explains the gap, come 35th and 46th. The hit is real but narrow: the model matched the topic, not the reasoning.
 

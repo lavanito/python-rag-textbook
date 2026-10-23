@@ -1,18 +1,18 @@
 """
-Chapter 5 — Hybrid search and the concept map
+Chapter 5 — Hybrid search and the knowledge graph
 
 What this file does
     Combines Chapter 3's keyword ranking (BM25) and Chapter 4's semantic
-    ranking into one, with reciprocal rank fusion. Then adds the concept map
-    (data/ontology/): it finds the concepts a question names, widens the
+    ranking into one, with reciprocal rank fusion. Then adds the knowledge graph
+    (data/knowledge_graph/): it finds the concepts a question names, widens the
     keyword search with their other names (aliases), and moves from a concept
     to its passages in each manual, following same_as and differs_from links.
     It measures each step on the 32 definition questions.
 
 Inputs
     The corpus, the question bank, the saved embeddings
-    (data/embeddings/all-MiniLM-L6-v2.npz) and the concept map
-    (data/ontology/entities.csv and triples.csv).
+    (data/embeddings/all-MiniLM-L6-v2.npz) and the knowledge graph
+    (data/knowledge_graph/entities.csv and triples.csv).
 
 Outputs
     Ranked lists of passages; the concepts found in a question; the passages
@@ -39,7 +39,7 @@ from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import KeywordIndex, load_questions, search_words
 from ragbook.ch04_semantic_search import SemanticIndex, load_embeddings
 
-ONTOLOGY_FOLDER = Path(__file__).parent.parent / "data" / "ontology"
+GRAPH_FOLDER = Path(__file__).parent.parent / "data" / "knowledge_graph"
 
 
 # ---------------------------------------------------------------------------
@@ -77,7 +77,7 @@ def reciprocal_rank_fusion(rankings, k=60, how_many=3):
 
 
 # ---------------------------------------------------------------------------
-# 5.3  The concept map, and the concepts a question names
+# 5.3  The knowledge graph, and the concepts a question names
 # ---------------------------------------------------------------------------
 
 def read_csv(file_path):
@@ -85,7 +85,7 @@ def read_csv(file_path):
     Read a CSV file into a list of dictionaries, one per row.
 
     Example:
-        read_csv(ONTOLOGY_FOLDER / "entities.csv")[0]["id"]
+        read_csv(GRAPH_FOLDER / "entities.csv")[0]["id"]
         returns "terms_of_trade"
     """
     with open(file_path, encoding="utf-8") as file:
@@ -119,17 +119,17 @@ def phrase_positions(phrase, words):
 TWO_WAY_RELATIONS = ["same_as", "differs_from", "related_to"]
 
 
-class ConceptMap:
+class KnowledgeGraph:
     """
-    The concept map: what each concept is called, and how things are linked.
+    The knowledge graph: what each concept is called, and how things are linked.
 
     Example:
-        concept_map = ConceptMap(load_corpus())
-        concept_map.concepts_in("What is GDI?")
+        knowledge_graph = KnowledgeGraph(load_corpus())
+        knowledge_graph.concepts_in("What is GDI?")
         returns ["bea_gdi"]
     """
 
-    def __init__(self, passages, folder=ONTOLOGY_FOLDER):
+    def __init__(self, passages, folder=GRAPH_FOLDER):
         self.entities = {}
         for row in read_csv(folder / "entities.csv"):
             self.entities[row["id"]] = row
@@ -228,7 +228,7 @@ class ConceptMap:
 # 5.4  Widening the keyword search with aliases
 # ---------------------------------------------------------------------------
 
-def expand_question(concept_map, question):
+def expand_question(knowledge_graph, question):
     """
     Add the other names of each concept the question names to the question.
 
@@ -237,17 +237,17 @@ def expand_question(concept_map, question):
     for keyword search only; semantic search keeps the original.
 
     Example:
-        expand_question(concept_map, "What is the difference between GDP and GNI?")
+        expand_question(knowledge_graph, "What is the difference between GDP and GNI?")
         returns the question followed by "gross domestic product GDP domestic
         product gross national income GNI national income"
     """
     extra_names = []
-    for concept_id in concept_map.concepts_in(question):
+    for concept_id in knowledge_graph.concepts_in(question):
         same_concepts = [concept_id]
-        for other_id, note in concept_map.linked(concept_id, "same_as"):
+        for other_id, note in knowledge_graph.linked(concept_id, "same_as"):
             same_concepts.append(other_id)
         for same_id in same_concepts:
-            for name in concept_map.names(same_id):
+            for name in knowledge_graph.names(same_id):
                 if name not in extra_names:
                     extra_names.append(name)
     if extra_names == []:
@@ -258,18 +258,18 @@ def expand_question(concept_map, question):
 class HybridIndex:
     """
     Keyword and semantic search combined by reciprocal rank fusion, with an
-    option to widen the keyword search from the concept map.
+    option to widen the keyword search from the knowledge graph.
 
     Example:
-        index = HybridIndex(keyword_index, semantic_index, concept_map)
+        index = HybridIndex(keyword_index, semantic_index, knowledge_graph)
         index.rank("What is the difference between GDP and GNI?", expand=True)
         returns the three best passages after fusion
     """
 
-    def __init__(self, keyword_index, semantic_index, concept_map):
+    def __init__(self, keyword_index, semantic_index, knowledge_graph):
         self.keyword_index = keyword_index
         self.semantic_index = semantic_index
-        self.concept_map = concept_map
+        self.knowledge_graph = knowledge_graph
 
     def rank(self, question, how_many=3, expand=False):
         """
@@ -280,7 +280,7 @@ class HybridIndex:
         everything = len(self.keyword_index.passages)
         keyword_question = question
         if expand:
-            keyword_question = expand_question(self.concept_map, question)
+            keyword_question = expand_question(self.knowledge_graph, question)
         keyword_ranking = self.keyword_index.rank(keyword_question, "bm25", how_many=everything)
         semantic_ranking = self.semantic_index.rank(question, how_many=everything)
         return reciprocal_rank_fusion([keyword_ranking, semantic_ranking], how_many=how_many)
@@ -290,7 +290,7 @@ class HybridIndex:
 # 5.5  From a concept to its passages, in each manual
 # ---------------------------------------------------------------------------
 
-def passages_by_manual(concept_map, concept_id):
+def passages_by_manual(knowledge_graph, concept_id):
     """
     The passages that define or discuss a concept, grouped by manual.
 
@@ -298,22 +298,22 @@ def passages_by_manual(concept_map, concept_id):
     first. The manual is the passage's source_code in the corpus.
 
     Example:
-        passages_by_manual(concept_map, "nni")
+        passages_by_manual(knowledge_graph, "nni")
         returns {"SNA08": [("sna08-2.144", "defined_in")],
                  "SNA25": [("sna25-3.145", "defined_in")],
                  "ESA10": [("esa10-8.94", "discussed_in")]}
     """
     grouped = {}
     for relation in ["defined_in", "discussed_in"]:
-        for passage_id, note in concept_map.linked(concept_id, relation):
-            manual = concept_map.passages[passage_id]["source_code"]
+        for passage_id, note in knowledge_graph.linked(concept_id, relation):
+            manual = knowledge_graph.passages[passage_id]["source_code"]
             if manual not in grouped:
                 grouped[manual] = []
             grouped[manual].append((passage_id, relation))
     return grouped
 
 
-def concept_trail(concept_map, concept_id):
+def concept_trail(knowledge_graph, concept_id):
     """
     A concept's passages, then those of the concepts it is the same as or
     differs from.
@@ -323,13 +323,13 @@ def concept_trail(concept_map, concept_id):
     differs_from leads to a concept an answer must not mix up with this one.
 
     Example:
-        concept_trail(concept_map, "bea_gdi")
+        concept_trail(knowledge_graph, "bea_gdi")
         returns BEA's GDI passages, then real GDI (SNA) under differs_from
     """
-    trail = [(concept_id, "asked", "", passages_by_manual(concept_map, concept_id))]
+    trail = [(concept_id, "asked", "", passages_by_manual(knowledge_graph, concept_id))]
     for relation in ["same_as", "differs_from"]:
-        for other_id, note in concept_map.linked(concept_id, relation):
-            trail.append((other_id, relation, note, passages_by_manual(concept_map, other_id)))
+        for other_id, note in knowledge_graph.linked(concept_id, relation):
+            trail.append((other_id, relation, note, passages_by_manual(knowledge_graph, other_id)))
     return trail
 
 
@@ -384,7 +384,7 @@ def saved_question_embedder(questions, saved):
 
 def build_indexes():
     """
-    Build the keyword, semantic and hybrid indexes and the concept map from
+    Build the keyword, semantic and hybrid indexes and the knowledge graph from
     the saved files.
 
     Example:
@@ -399,7 +399,7 @@ def build_indexes():
     keyword_index = KeywordIndex(passages)
     semantic_index = SemanticIndex(passages, passage_vectors,
                                    saved_question_embedder(questions, saved))
-    hybrid_index = HybridIndex(keyword_index, semantic_index, ConceptMap(passages))
+    hybrid_index = HybridIndex(keyword_index, semantic_index, KnowledgeGraph(passages))
     return keyword_index, semantic_index, hybrid_index, questions
 
 
@@ -409,7 +409,7 @@ def build_indexes():
 
 def main():
     keyword_index, semantic_index, hybrid_index, questions = build_indexes()
-    concept_map = hybrid_index.concept_map
+    knowledge_graph = hybrid_index.knowledge_graph
 
     print("5.2  Reciprocal rank fusion on two short rankings")
     a, b, c = {"id": "a"}, {"id": "b"}, {"id": "c"}
@@ -420,17 +420,17 @@ def main():
     for text in ["How do you get from GNI to net national income?",
                  "What is GDI?",
                  "What is real gross domestic income, and how does it lead to real gross national income?"]:
-        print(f"     {text}\n       -> {concept_map.concepts_in(text)}")
+        print(f"     {text}\n       -> {knowledge_graph.concepts_in(text)}")
 
     example = "What is the difference between GDP and GNI?"
     print(f"\n5.4  {example}")
-    print("     expanded:", expand_question(concept_map, example))
+    print("     expanded:", expand_question(knowledge_graph, example))
     for label, expand in [("hybrid", False), ("hybrid + expansion", True)]:
         print(f"     {label}:", [p["id"] for p in hybrid_index.rank(example, expand=expand)])
 
     for concept_id in ["consumption_of_fixed_capital", "bea_gdi"]:
-        print(f"\n5.5  From '{concept_map.names(concept_id)[0]}' to its passages")
-        for other_id, relation, note, grouped in concept_trail(concept_map, concept_id):
+        print(f"\n5.5  From '{knowledge_graph.names(concept_id)[0]}' to its passages")
+        for other_id, relation, note, grouped in concept_trail(knowledge_graph, concept_id):
             print(f"     {relation}: {other_id}" + (f"  ({note})" if note else ""))
             for manual, found in grouped.items():
                 print(f"       {manual}: {', '.join(f'{pid} [{rel}]' for pid, rel in found)}")

@@ -1,5 +1,5 @@
 {
-  "description": "The kinds of thing the book's concept map knows about, and the relations allowed between them. Each relation names the type of its subject and of its object.",
+  "description": "The kinds of thing the book's knowledge graph knows about, and the relations allowed between them. Each relation names the type of its subject and of its object.",
   "entity_types": {
     "Concept": "An idea the manuals define or discuss, such as the terms of trade",
     "Passage": "One quoted passage in data/corpus/passages.jsonl",

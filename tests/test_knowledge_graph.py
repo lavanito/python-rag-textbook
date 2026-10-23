@@ -1,13 +1,13 @@
 """
-Tests for the concept map: data/ontology/.
+Tests for the knowledge graph: data/knowledge_graph/.
 
 What this checks
-    Every fact (triple) uses a relation the ontology declares, links things
+    Every fact (triplet) uses a relation the ontology declares, links things
     of the kinds that relation allows, points only at passages that exist,
     and records its evidence. Every passage's manual is a declared manual.
 
 Why it matters
-    The map widens searches and moves answers between manuals. A fact that
+    The graph widens searches and moves answers between manuals. A fact that
     points at a missing passage, or links the wrong kinds of thing, would
     send retrieval to the wrong evidence.
 """
@@ -19,10 +19,10 @@ from pathlib import Path
 from ragbook.ch01_python_basics import load_passages
 
 DATA = Path(__file__).parent.parent / "data"
-SCHEMA = json.loads((DATA / "ontology" / "schema.json").read_text(encoding="utf-8"))
-with open(DATA / "ontology" / "entities.csv", encoding="utf-8") as file:
+SCHEMA = json.loads((DATA / "knowledge_graph" / "schema.json").read_text(encoding="utf-8"))
+with open(DATA / "knowledge_graph" / "entities.csv", encoding="utf-8") as file:
     ENTITIES = list(csv.DictReader(file))
-with open(DATA / "ontology" / "triples.csv", encoding="utf-8") as file:
+with open(DATA / "knowledge_graph" / "triples.csv", encoding="utf-8") as file:
     TRIPLES = list(csv.DictReader(file))
 PASSAGES = load_passages(DATA / "corpus" / "passages.jsonl")
 
