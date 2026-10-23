@@ -94,6 +94,12 @@ def remove_running_header(page_text):
     return "\n".join(lines[1:])
 
 
+# Two characters named by their Unicode code numbers (written in hexadecimal).
+# Codes E000 to F8FF are kept for each font's private symbols; 202F is the
+# narrow no-break space.
+PRIVATE_SYMBOLS = "[" + chr(0xE000) + "-" + chr(0xF8FF) + "]"
+NARROW_NO_BREAK_SPACE = chr(0x202F)
+
 # Each repair: what it fixes, the pattern to find, and what replaces it.
 # They run in this order.
 REPAIRS = [
@@ -101,8 +107,8 @@ REPAIRS = [
     ("capital T split from the rest of its word", r"\bT\s(?=[a-z])", "T"),
     ("space before a full stop, comma, colon, semicolon or bracket", r" +([.,;:)])", r"\1"),
     ("doubled bullet mark", r"••", "•"),
-    ("piece of a large bracket drawn from a font's private symbols", r"[\ue000-\uf8ff]", ""),
-    ("narrow no-break space", "\u202f", " "),
+    ("piece of a large bracket drawn from a font's private symbols", PRIVATE_SYMBOLS, ""),
+    ("narrow no-break space", NARROW_NO_BREAK_SPACE, " "),
     ("two or more spaces", r" {2,}", " "),
     ("space at the start or end of a line", r" +\n *|\n +", "\n"),
     ("empty line", r"\n{2,}", "\n"),
