@@ -7,3 +7,4 @@ bm25s==0.3.14        # BM25 library, to check the hand-built version (Chapter 3)
 numpy==2.3.5         # cosine similarity for every passage at once (Chapter 4)
 sentence-transformers==6.1.0   # embedding models (Chapter 4); installs torch
 pypdf==5.9.0         # reads text from PDF files (Chapter 6)
+chromadb==1.5.9      # vector database, runs inside Python (Chapter 7)
