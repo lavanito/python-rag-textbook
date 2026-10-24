@@ -100,22 +100,23 @@ def saved_semantic_index():
 
 
 @needs_saved_embeddings
-def test_semantic_search_finds_a_gold_passage_for_31_of_32():
+def test_semantic_search_finds_a_gold_passage_for_30_of_32():
     index = saved_semantic_index()
-    assert top_three_hits(index.rank, load_questions()) == 31
+    assert top_three_hits(index.rank, load_questions()) == 30
 
 
 @needs_saved_embeddings
 def test_semantic_and_keyword_search_miss_different_questions():
-    # Semantic search finds the two BM25 misses (q2-04, q2-30) and misses q2-24,
-    # which BM25 finds: the case for combining them in Chapter 5.
+    # Semantic search finds the two BM25 misses (q2-04, q2-30) and misses q2-24
+    # and q2-31, which BM25 finds: the case for combining them in Chapter 5.
+    # q2-31 is missed since the ONS passages joined the corpus (24 Oct).
     index = saved_semantic_index()
     missed = []
     for question in load_questions():
         found = [p["id"] for p in index.rank(question["question"])]
         if not any(gold in found for gold in question["gold_passages"]):
             missed.append(question["id"])
-    assert missed == ["q2-24"]
+    assert missed == ["q2-24", "q2-31"]
 
 
 @needs_saved_embeddings

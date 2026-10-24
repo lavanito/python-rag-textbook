@@ -14,7 +14,7 @@ Each step is measured on the same 32 definition questions (5.6), at three depths
 | Method | First place | Top three | Top ten |
 | --- | --- | --- | --- |
 | BM25 (Chapter 3) | 24 | 30 | 31 |
-| Semantic search (Chapter 4) | 18 | 31 | 32 |
+| Semantic search (Chapter 4) | 19 | 30 | 32 |
 | Hybrid search | 25 | 29 | 32 |
 | Hybrid search with query expansion | 24 | 30 | 32 |
 
@@ -92,8 +92,8 @@ The **knowledge graph** is a small, hand-built record of the ideas in the corpus
 
 It has two parts: an **ontology**, the rules that say which kinds of thing exist and which relations may link them, and the facts that follow those rules. The glossary (5.8.2) defines both terms strictly and says how a knowledge graph differs from a concept map.
 
-- `entities.csv` lists 51 things: concepts, manuals, economies, indicators and question types. Each has an id, a kind, a label and other names (**aliases**). For example, the concept `gni` has the label "gross national income" and the aliases "GNI" and "national income".
-- `triples.csv` holds 73 facts, each in three parts: subject, relation, object. These are **triplets**. For example, `nni, defined_in, sna08-2.144` says that paragraph 2.144 of the 2008 SNA defines net national income. Every triplet records its evidence: a passage, or `author` for the author's own framing.
+- `entities.csv` lists 56 things: concepts, manuals, economies, indicators and question types. Each has an id, a kind, a label and other names (**aliases**). For example, the concept `gni` has the label "gross national income" and the aliases "GNI" and "national income".
+- `triples.csv` holds 90 facts, each in three parts: subject, relation, object. These are **triplets**. For example, `nni, defined_in, sna08-2.144` says that paragraph 2.144 of the 2008 SNA defines net national income. Every triplet records its evidence: a passage, or `author` for the author's own framing.
 - `schema.json` lists the six kinds of thing and the eleven relations allowed between them: the ontology.
 
 To use the knowledge graph, the code must first find which concepts a question names. It cleans each name exactly as Chapter 3 cleans questions (`search_words`), then looks for it word by word in the question.
@@ -263,7 +263,7 @@ class KnowledgeGraph:
 - `re.sub(r"\s*\([^)]*\)$", "", ...)` removes a note in brackets at the end of a label. `re` is Python's module for **regular expressions**, patterns that describe text: `\(` is an opening bracket, `[^)]*` any characters except a closing bracket, `$` the end of the text.
 - `words[start:start + size] == phrase_words` compares a slice of the question's words with the phrase, one position at a time.
 - `matches` maps each concept to every place its names were found, as (start, end) pairs; `always_inside_longer_name` then applies the longer-name rule.
-- `linked` reads the triplets each time it is called. With 73 triplets that takes no noticeable time; a larger graph would be indexed once, as `KeywordIndex` does for words.
+- `linked` reads the triplets each time it is called. With 90 triplets that takes no noticeable time; a larger graph would be indexed once, as `KeywordIndex` does for words.
 
 ## 5.4 Widening the keyword search with aliases
 
@@ -275,7 +275,7 @@ Chapter 4 showed why this might help (4.7.1). The question "What is the differen
 
 The expanded question is used for keyword search only. Semantic search keeps the original question, for two reasons: its saved embedding can be reused, and the embedding model already places many synonyms close together (4.2.1).
 
-Query expansion has a cost. Every question about GDP gains "gross domestic product" and "domestic product": words found in 9 to 11 of the 48 passages. Section 5.6 measures the trade.
+Query expansion has a cost. Every question about GDP gains "gross domestic product" and "domestic product": words found in 10 to 11 of the 56 passages. Section 5.6 measures the trade.
 
 `HybridIndex` puts the parts together: it ranks every passage both ways, optionally with the expanded question for BM25, then combines the two rankings with RRF.
 
@@ -434,15 +434,17 @@ Chapter 3's measure counts questions with a gold passage in the top three. This 
 | Method | First place | Top three | Top ten | Missed in the top three |
 | --- | --- | --- | --- | --- |
 | BM25 (Chapter 3) | 24 | 30 | 31 | q2-04, q2-30 |
-| Semantic search (Chapter 4) | 18 | 31 | 32 | q2-24 |
-| Hybrid search | 25 | 29 | 32 | q2-04, q2-24, q2-30 |
+| Semantic search (Chapter 4) | 19 | 30 | 32 | q2-24, q2-31 |
+| Hybrid search | 25 | 29 | 32 | q2-04, q2-17, q2-24 |
 | Hybrid search with query expansion | 24 | 30 | 32 | q2-17, q2-24 |
 
 **Hybrid search helps at first place and at ten.** Hybrid search puts a gold passage first for 25 questions, more than either method alone, and finds one within ten places for all 32.
 
-**Hybrid search does not help in the top three.** RRF rewards passages both methods rank fairly well. A passage one method ranks second and the other eighth ends up between them. For "Is net domestic product a better measure than GDP?" (q2-24), BM25 ranks the gold passage second and semantic search eighth; the hybrid ranking puts it fourth. For "What is the difference between GDP and GNI?" (q2-04), semantic search ranks it second and BM25 seventeenth; the hybrid ranking puts it eighth.
+**Hybrid search does not help in the top three.** RRF rewards passages both methods rank fairly well. A passage one method ranks second and the other eighth ends up between them. For "Is net domestic product a better measure than GDP?" (q2-24), BM25 ranks the gold passage second and semantic search eighth; the hybrid ranking puts it fourth. For "What is the difference between GDP and GNI?" (q2-04), semantic search ranks it second and BM25 nineteenth; the hybrid ranking puts it ninth.
 
-**Query expansion fixes some questions and breaks others.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of seventeenth, and the hybrid ranking third. q2-30 also comes back into the top three. But "Why are GDP estimates revised?" (q2-17) drops out: query expansion adds "gross domestic product" and "domestic product", words found in 9 to 11 of the 48 passages, which push the passages about revisions down.
+**Query expansion fixes some questions and not others.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of nineteenth, and the hybrid ranking third. It does not rescue "Why are GDP estimates revised?" (q2-17). Hybrid search ranks bea-ch1-revisions fourth, behind Deaton's passage on the 2005 revisions of PPPs; query expansion adds "gross domestic product" and "domestic product", words found in 10 to 11 of the 56 passages, which push it down to sixth. q2-30 is found with and without query expansion: McCarthy's passage on extrapolating PPPs comes second or third.
+
+These figures are for the corpus of 56 passages. With the first 48, semantic search found 31 questions, and hybrid search missed q2-30 instead of q2-17: adding passages moves results, which is why Chapter 10 measures retrieval again whenever the corpus changes.
 
 Several rules to limit query expansion were tried: expanding only concepts named in few passages, and giving added words less weight. Each fixed one question and broke another. With 32 questions, one question is about three percentage points, and choosing a rule because it scores best on these same questions would only fit these questions. The chapter keeps the plain rule and reports what it does.
 
@@ -570,7 +572,7 @@ The output from the test laptop (Windows), 23 October 2026, identical to the run
 
 5.6  Questions with a gold passage within the first 1, 3 and 10 places (of 32)
      BM25 (Chapter 3)                  24  30  31
-     Semantic search (Chapter 4)       18  31  32
+     Semantic search (Chapter 4)       19  30  32
      Hybrid search                     25  29  32
      Hybrid search + query expansion   24  30  32
 ```
@@ -616,7 +618,7 @@ The file `tests/test_ch05_hybrid_search.py` holds 17 tests. The first fourteen u
 | Hybrid search | Ranking passages with keyword and semantic search together and combining the results |
 | Reciprocal rank fusion (RRF) | Combining rankings by adding 1 / (k + place) for each passage across rankings |
 | Ontology | The rules of a knowledge graph: which kinds of thing exist, and which relations may link which kinds. In this book: `schema.json`, six kinds and eleven relations |
-| Knowledge graph | An ontology together with the facts that follow its rules: the things, and the triplets that link them. In this book: `data/knowledge_graph/`, 51 things and 73 triplets |
+| Knowledge graph | An ontology together with the facts that follow its rules: the things, and the triplets that link them. In this book: `data/knowledge_graph/`, 56 things and 90 triplets |
 | Concept map | A diagram of concepts joined by labelled arrows, with no fixed rules on kinds or relations. A knowledge graph differs from it by having an ontology and checking every fact against it. This book does not use one |
 | Alias | Another name for a concept, such as "GNI" for gross national income |
 | Triplet | One fact in three parts: subject, relation, object |

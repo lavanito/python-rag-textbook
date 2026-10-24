@@ -2,7 +2,7 @@
 
 ## 6.1 What this chapter builds
 
-Chapters 2–5 searched 48 passages that were cut by hand, each under 200 words. A working retrieval system starts from whole documents, so code must cut them into **chunks**: passages small enough to embed and retrieve.
+Chapters 2–5 searched 56 passages that were cut by hand, each under 200 words. A working retrieval system starts from whole documents, so code must cut them into **chunks**: passages small enough to embed and retrieve.
 
 This chapter turns a 34-page PDF into chunks and compares five ways of cutting it.
 

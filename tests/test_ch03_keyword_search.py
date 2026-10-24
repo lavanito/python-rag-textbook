@@ -68,7 +68,7 @@ def test_bm25_marks_down_long_passages():
 
 
 def test_corpus_frequencies_quoted_in_the_chapter():
-    assert INDEX.frequencies["gdp"] == 16
+    assert INDEX.frequencies["gdp"] == 18
     assert INDEX.frequencies["deflator"] == 2
 
 

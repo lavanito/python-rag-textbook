@@ -136,8 +136,8 @@ def tf_idf_score(question_words, passage_words, frequencies, number_of_passages)
     adds nothing; a word found in one passage gets the largest IDF.
 
     Example:
-        In the corpus, "deflator" is in 2 of the 48 passages and "gdp" in 16.
-        One "deflator" adds log(48/2) = 3.18; one "gdp" adds log(48/16) = 1.10.
+        In the corpus, "deflator" is in 2 of the 56 passages and "gdp" in 18.
+        One "deflator" adds log(56/2) = 3.33; one "gdp" adds log(56/18) = 1.13.
     """
     counts = count_words(passage_words)
     score = 0.0

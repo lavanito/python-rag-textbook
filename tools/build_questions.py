@@ -120,8 +120,10 @@ q("q2-29", "Q2", R4, "What does nominal GNI divided by the consumer price index 
   "The change over time in what national income can buy in consumer goods, in one country. A CPI is an index with no level, in its own currency and basket, so it supports growth comparisons only. For levels, divide nominal GNI by a PPP; for living standards, a consumption PPP fits better than a GDP PPP.",
   "Must separate comparing growth rates (possible) from comparing levels (needs PPPs).")
 q("q2-30", "Q2", R4, "Why can real GDP growth and comparisons at PPP tell different stories about two economies?",
-  ["esa10-10.47", "sna08-15.187", "esa10-10.22", "ppp23-1.31"],
-  "Real GDP growth values output at the base year's prices; PPP levels use current prices. If one country specialises in goods whose prices fall fast (tech), its volume growth is high while its command over goods rises less: the trading-gain logic of real GDI.",
+  # The two wb13-mccarthy passages were added 24 Oct with the corpus batch:
+  # they answer this question directly (decision: Lavan, 24 Oct).
+  ["esa10-10.47", "sna08-15.187", "esa10-10.22", "ppp23-1.31", "wb13-mccarthy-space-time", "wb13-mccarthy-ipd"],
+  "Real GDP growth values output at the base year's prices; PPP levels use current prices. Between benchmark years, PPPs are extrapolated with GDP deflators, and comparisons across countries and across time cannot both be kept consistent. If one country specialises in goods whose prices fall fast (tech), its volume growth is high while its command over goods rises less: the trading-gain logic of real GDI.",
   "Should link to terms of trade and real GDI; Krugman (2026) is book text, not corpus.")
 
 q("q2-31", "Q2", R4, "What is the best measure of labour input for comparing productivity?",

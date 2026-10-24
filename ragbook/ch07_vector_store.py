@@ -283,7 +283,7 @@ def store_passages(client, passages, embeddings, name="corpus"):
     Example:
         collection = store_passages(client, passages, embeddings)
         collection.count()
-        returns 48
+        returns 56
     """
     if name in [collection.name for collection in client.list_collections()]:
         client.delete_collection(name)

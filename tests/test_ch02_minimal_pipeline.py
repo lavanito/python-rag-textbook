@@ -22,7 +22,7 @@ PASSAGES = load_corpus()
 
 
 def test_load_corpus_reads_every_passage_with_its_source():
-    assert len(PASSAGES) == 48
+    assert len(PASSAGES) == 56
     for passage in PASSAGES:
         assert passage["id"] and passage["source"] and passage["reference"] and passage["text"]
 

@@ -92,7 +92,7 @@ def corpus_store(tmp_path_factory):
 
 def test_store_holds_every_passage_with_its_metadata(corpus_store):
     client, collection, semantic_index, questions = corpus_store
-    assert collection.count() == 48
+    assert collection.count() == 56
     stored = collection.get(ids=["sna08-2.144"])
     assert set(METADATA_FIELDS) <= set(stored["metadatas"][0])
     assert stored["metadatas"][0]["source_code"] == "SNA08"
@@ -116,4 +116,4 @@ def test_store_is_kept_on_disk(tmp_path):
     client = open_store(tmp_path)
     build_corpus_store(client)
     reopened = open_store(tmp_path)
-    assert reopened.get_collection("corpus").count() == 48
+    assert reopened.get_collection("corpus").count() == 56

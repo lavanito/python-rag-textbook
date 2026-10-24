@@ -6,7 +6,7 @@ This chapter answers a question about national accounts from quoted passages, in
 
 **RAG** (retrieval-augmented generation) means: find passages that bear on a question, then give them to a language model with the question, so its answer rests on those passages. The model writes the answer; the passages supply the facts.
 
-1. Load the corpus: read the 48 quoted passages from file (2.2).
+1. Load the corpus: read the 56 quoted passages from file (2.2).
 2. Find matching passages: keep the few that share most words with the question (2.3).
 3. Build the prompt: put rules, question and passages into messages for the model (2.4).
 4. Ask the model: send the messages to Qwen3 running on your own computer (2.5).
@@ -16,7 +16,7 @@ This chapter answers a question about national accounts from quoted passages, in
 
 **Uses:** Chapter 1 (`split_into_words`, `format_passages`, `load_passages`); Python's standard library; Ollama with the model `qwen3:4b-instruct`.
 
-**Data:** `data/corpus/passages.jsonl`, 48 passages quoted word for word from eight manuals and statistics offices, each with its source, paragraph reference, edition, licence and scope. `data/corpus/SOURCES.md` lists the sources and their terms.
+**Data:** `data/corpus/passages.jsonl`, 56 passages quoted word for word from ten manuals, statistics offices and books, each with its source, paragraph reference, edition, licence and scope. `data/corpus/SOURCES.md` lists the sources and their terms.
 
 **Before you start:** install Ollama from ollama.com, then run `ollama pull qwen3:4b-instruct` once. The download is 2.5 GB. The model runs on the processor; no graphics card or internet connection is needed once it is downloaded.
 
@@ -337,7 +337,7 @@ python -m ragbook.ch02_minimal_pipeline
 The example loads the corpus and, for three questions, prints the topic words, the passages matched and the model's answer. The retrieval part of the output is fixed:
 
 ```text
-2.2  Loaded 48 passages
+2.2  Loaded 56 passages
 
 Question: How do you get from GNI to net national income?
 2.3  Topic words: ['gni', 'net', 'national', 'income']
@@ -354,8 +354,8 @@ Question: What are the terms of trade?
 Question: Who counts in a country's population when calculating GDP per head?
 2.3  Topic words: ['counts', 'country', 'population', 'calculating', 'gdp', 'per', 'head']
      matched [esa10-11.05] Eurostat, European System of Accounts (ESA 2010), para. 11.05
+     matched [wb13-mccarthy-ipd] World Bank, Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program (ICP), Chapter 18 (Paul McCarthy), section “Consistency between Time and Space”
      matched [esa10-11.06] Eurostat, European System of Accounts (ESA 2010), para. 11.06
-     matched [cso-gnistar-2] Central Statistics Office Ireland, Modified GNI, paragraph 2
 ```
 
 **Model answers.** A run of `qwen3:4b-instruct` on the 2015 test laptop, processor only, on 15 October 2026. The three answers took about 3 minutes together, including loading the model:
@@ -381,7 +381,7 @@ What the matches show:
 
 - **Net national income.** The first match, sna08-2.144, is the right one: net national income is GNI less consumption of fixed capital. The other two match on "net", "national" and "income" but answer different questions (BEA's US identities, Ireland's modified GNI).
 - **Terms of trade.** Both passages that define the terms of trade come first. The third, esa10-8.94, scores one point for "terms" in the phrase "in net terms". Word matching cannot tell the two senses apart.
-- **Population.** Both ESA 2010 passages on population come first.
+- **Population.** The two ESA 2010 passages on population come first and third. Second is McCarthy's passage on extrapolating PPPs, which shares three topic words with the question ("country", "calculating", "gdp") but is not about population.
 
 Without Ollama running, the example prints the matches and then a line saying the model was not asked, with the reason. If Ollama is running but refuses the request, it prints Ollama's error message instead.
 
@@ -407,7 +407,7 @@ The file `tests/test_ch02_minimal_pipeline.py` holds nine tests. Retrieval is te
 
 | Test | What it proves |
 | --- | --- |
-| The corpus loads 48 passages, each with id, source, reference and text | Every passage can be cited |
+| The corpus loads 56 passages, each with id, source, reference and text | Every passage can be cited |
 | `topic_words` drops common words and repeats | "What is the GDP deflator?" gives `["gdp", "deflator"]` |
 | `find_matching_passages` ranks by shared topic words | The net national income question returns the three passages shown in 2.7, in that order |
 | `find_matching_passages` returns at most `how_many` passages | The prompt stays short |

@@ -134,7 +134,7 @@ def count_score(question_words, passage_words):
 - **Term frequency (TF):** how often the word appears in the passage.
 - **Inverse document frequency (IDF):** how rare the word is across the corpus, log(N ÷ n), where N is the number of passages and n the number that contain the word.
 
-In this corpus, "deflator" is in 2 of the 48 passages and "gdp" in 16. One "deflator" adds log(48 ÷ 2) = 3.18 to a passage's score; one "gdp" adds log(48 ÷ 16) = 1.10. A word found in every passage adds log(1) = 0: it tells the passages apart not at all.
+In this corpus, "deflator" is in 2 of the 56 passages and "gdp" in 18. One "deflator" adds log(56 ÷ 2) = 3.33 to a passage's score; one "gdp" adds log(56 ÷ 18) = 1.13. A word found in every passage adds log(1) = 0: it tells the passages apart not at all.
 
 The **document frequency** n counts passages, not appearances: a passage that says "gdp" five times adds one to n.
 
@@ -169,8 +169,8 @@ def tf_idf_score(question_words, passage_words, frequencies, number_of_passages)
     adds nothing; a word found in one passage gets the largest IDF.
 
     Example:
-        In the corpus, "deflator" is in 2 of the 48 passages and "gdp" in 16.
-        One "deflator" adds log(48/2) = 3.18; one "gdp" adds log(48/16) = 1.10.
+        In the corpus, "deflator" is in 2 of the 56 passages and "gdp" in 18.
+        One "deflator" adds log(56/2) = 3.33; one "gdp" adds log(56/18) = 1.13.
     """
     counts = count_words(passage_words)
     score = 0.0
@@ -409,7 +409,7 @@ Each step fixes a fault named earlier, and word counts also show the fault they 
 The two questions BM25 still misses show the limit of matching words:
 
 - **What is the difference between GDP and GNI? (q2-04).** The gold passage, esa10-8.94, writes "gross national income" in full; the letters "GNI" never appear in it. Asked with the full name, the same passage comes second. Matching words cannot know that GNI and gross national income are the same thing. Chapter 5 adds that knowledge from the knowledge graph.
-- **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** The question is long and most of its words ("tell", "stories", "different", "two") are not about national accounts. The answer rests on a link between ideas (the terms of trade), not on shared words.
+- **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** The question is long and most of its words ("tell", "stories", "different", "two") are not about national accounts. The answer rests on links between ideas (the terms of trade, and how PPPs are carried forward between benchmark years), not on shared words.
 
 Three points about this measure. It checks only the top three, not whether the answer is right. It uses gold passages chosen by the author. And 32 questions are few: one question is about three percentage points. Chapter 10 adds stricter measures.
 
@@ -482,7 +482,7 @@ The output (no language model is used in this chapter, so it is the same on ever
 3.6  What is the GDP deflator?  (counts)
      [una14-ch1-deflator] OECD, Understanding National Accounts, Chapter 1, p. 22, partial
      [bea-ch4-chained] US Bureau of Economic Analysis, NIPA Handbook, Chapter 4: Estimating Methods, “Chained-dollar measures”
-     [cso-gnistar-2] Central Statistics Office Ireland, Modified GNI, paragraph 2
+     [wb13-mccarthy-ipd] World Bank, Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program (ICP), Chapter 18 (Paul McCarthy), section “Consistency between Time and Space”
 
 3.6  What is the GDP deflator?  (tfidf)
      [esa10-10.47] Eurostat, European System of Accounts (ESA 2010), para. 10.47 (part)
@@ -502,7 +502,7 @@ The output (no language model is used in this chapter, so it is the same on ever
      bm25    30
 ```
 
-For the GDP deflator question, word counts put the right passage first, but fill the other places with passages that merely say "GDP" often: five times in bea-ch4-chained, three in cso-gnistar-2. TF-IDF lets esa10-10.47 overtake it, because that passage uses the rare word "deflator" three times. BM25 limits the reward for repeats, so the passage written about the GDP deflator is first again.
+For the GDP deflator question, word counts put the right passage first, but fill the other places with passages that merely say "GDP" often: five times in bea-ch4-chained, four in wb13-mccarthy-ipd. TF-IDF lets esa10-10.47 overtake it, because that passage uses the rare word "deflator" three times. BM25 limits the reward for repeats, so the passage written about the GDP deflator is first again.
 
 ## 3.10 Tests, glossary and links
 
@@ -520,7 +520,7 @@ The file `tests/test_ch03_keyword_search.py` holds 13 tests. Retrieval is tested
 | TF-IDF gives nothing to a word in every passage | IDF is log(1) = 0 |
 | BM25: repeats count for less | Five appearances score less than five times one |
 | BM25: long passages are marked down | The same word in a longer passage scores less |
-| Corpus frequencies quoted in 3.4 | "gdp" in 16 passages, "deflator" in 2 |
+| Corpus frequencies quoted in 3.4 | "gdp" in 18 passages, "deflator" in 2 |
 | BM25 ranks the deflator passage first | The ranking shown in 3.9 |
 | Hand-built BM25 matches bm25s on all 32 questions | The formula in 3.5 is typed correctly |
 | Top-three counts reported in 3.8 | 27, 29 and 30 of 32 |
