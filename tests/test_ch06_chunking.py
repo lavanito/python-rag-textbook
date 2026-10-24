@@ -207,6 +207,15 @@ def test_recursive_chunks_repeat_the_heading():
     assert recursive_chunks(text, ["Prices"], size=3) == ["Prices\n\na b.", "Prices\n\nc d."]
 
 
+def test_recursive_chunks_long_heading_is_not_repeated():
+    # A "heading" of 4 words with a limit of 9 takes more than a third:
+    # it is cut with the text instead of being repeated on every chunk.
+    text = "A B C D\n\ne f g h i j k l m n o p."
+    chunks = recursive_chunks(text, ["A B C D"], size=9)
+    assert chunks == ["A B C D", "e f g h i j k l m", "n o p."]
+    assert max(count_words(chunk) for chunk in chunks) <= 9
+
+
 def test_recursive_chunks_example_fit_and_keep_every_word():
     text, _ = clean_pdf_text(read_pdf_pages(EXAMPLE_PDF))
     heading_lines = find_heading_lines(EXAMPLE_PDF)

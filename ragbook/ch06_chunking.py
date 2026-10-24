@@ -501,7 +501,10 @@ def recursive_chunks(text, heading_lines, size=CHUNK_WORDS):
 
     Each chunk starts with its section's heading (6.6), so a chunk from
     the middle of a section still names its subject. The heading's words
-    count towards `size`.
+    count towards `size`. A heading longer than a third of `size` is not
+    repeated: it stays at the start of the section's text, which is cut
+    like any other. (In a document whose heading sizes are also used for
+    other text, many lines can run together into one long "heading".)
 
     Example:
         recursive_chunks("Prices\\n\\na b.\\n\\nc d.", ["Prices"], size=3)
@@ -511,9 +514,11 @@ def recursive_chunks(text, heading_lines, size=CHUNK_WORDS):
     for heading, body in split_sections(text, heading_lines):
         if heading == "":
             chunks.extend(cut_to_fit(body, size))
-            continue
-        for piece in cut_to_fit(body, size - count_words(heading)):
-            chunks.append(heading + "\n\n" + piece)
+        elif count_words(heading) > size // 3:
+            chunks.extend(cut_to_fit(heading + "\n\n" + body, size))
+        else:
+            for piece in cut_to_fit(body, size - count_words(heading)):
+                chunks.append(heading + "\n\n" + piece)
     return chunks
 
 
