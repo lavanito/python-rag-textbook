@@ -7,7 +7,7 @@ Chapters 2–5 searched 56 passages that were cut by hand, each under 200 words.
 This chapter turns a 34-page PDF into chunks and compares five ways of cutting it.
 
 1. **Getting text out of a PDF** (6.2): pypdf reads the text of each page.
-2. **Cleaning the text** (6.3): code removes the page numbers, running headers and the first page's footer, and applies twelve repair rules, each counted. One rule keeps the ends of paragraphs.
+2. **Cleaning the text** (6.3): code removes the page numbers, running headers and the first page's footer, and applies thirteen repair rules, each counted. One rule keeps the ends of paragraphs.
 3. **Fixed-size chunks, with and without overlap** (6.4): every chunk has the same number of words; with overlap, each chunk repeats the end of the one before.
 4. **Paragraph chunks** (6.5): a chunk is one paragraph, or several short ones.
 5. **Header chunks** (6.6): a chunk is one section, cut at its heading.
@@ -113,7 +113,7 @@ Cleaning removes text the author did not write and repairs text that extraction 
 The work is done in two steps.
 
 1. **Page by page:** remove the footer from the first page, and the page number and running header from the top of every other page.
-2. **Whole text:** join the pages, then apply twelve repair rules in a fixed order. Joining first means a word broken across two pages is repaired too.
+2. **Whole text:** join the pages, then apply thirteen repair rules in a fixed order. Joining first means a word broken across two pages is repaired too.
 
 The running header cannot be found by matching its text, because its small capitals come out differently on different pages ("econo My" on page 474, "Econo My" on page 504). Its position can: every page after the first starts with its page number. The rule removes that line, and the next line too when the number stands alone.
 
@@ -123,7 +123,7 @@ Each repair rule is a **regular expression**: a pattern that describes text to f
 
 One rule marks rather than repairs. A printed line inside a paragraph ends with a space; the last line of a paragraph, a heading or a table row does not. The rule puts an empty line after every line with no space at its end, so the cleaned text marks paragraphs as most text files do: an empty line between them, single line breaks inside them.
 
-Two rules find nothing in the example; they were added when the code was run on the manuals (6.8). A table of contents joins each title to its page number with a row of dots, which comes out as one "word" of up to 171 characters. Some tables in the 2008 SNA use a font that pypdf cannot turn into letters, so it gives the font's codes for each character instead ("/g38/g82/g81", "#23#23"). Both are removed.
+Three rules find nothing in the example; they were added when the code was run on the manuals (6.8). A table of contents joins each title to its page number with a row of dots, which comes out as one "word" of up to 171 characters. The BEA handbook draws lines under some equations, which come out as rows of up to 135 hyphens. Some tables in the 2008 SNA use a font that pypdf cannot turn into letters, so it gives the font's codes for each character instead ("/g38/g82/g81", "#23#23", "/i0"). All three are removed.
 
 Three faults are left unrepaired: tables, equations and notes. No short rule fixes them, and a retriever can still match their numbers and names. The line breaks inside a paragraph stay; the chunking methods replace them with spaces (6.4–6.7).
 
@@ -204,7 +204,8 @@ REPAIRS = [
     ("piece of a large bracket drawn from a font's private symbols", PRIVATE_SYMBOLS, ""),
     ("narrow no-break space", NARROW_NO_BREAK_SPACE, " "),
     ("dot leader: four or more dots, as in a table of contents", r"\.{4,}", " "),
-    ("word holding font codes instead of letters, such as /g38 or #23", r"\S*(?:/g\d+|#\d\d)\S*", ""),
+    ("row of four or more hyphens, as in a line drawn under an equation", r"-{4,}", " "),
+    ("word holding font codes instead of letters, such as /g38, /i0 or #23", r"\S*(?:/[gi]\d+|#\d\d)\S*", ""),
     ("two or more spaces", r" {2,}", " "),
     ("space at the start or end of a line", r" +\n *|\n +", "\n"),
     ("two or more empty lines in a row", r"\n{3,}", "\n\n"),
@@ -291,7 +292,8 @@ On the example PDF the page step removes 313 words of page numbers, running head
 | Piece of a large bracket from a font's private symbols | 244 |
 | Narrow no-break space | 177 |
 | Dot leader: four or more dots, as in a table of contents | 0 |
-| Word holding font codes instead of letters, such as /g38 or #23 | 0 |
+| Row of four or more hyphens, as in a line drawn under an equation | 0 |
+| Word holding font codes instead of letters, such as /g38, /i0 or #23 | 0 |
 | Two or more spaces | 593 |
 | Space at the start or end of a line | 1,153 |
 | Two or more empty lines in a row | 58 |
@@ -919,7 +921,7 @@ The file `tests/test_ch06_chunking.py` holds 33 tests. Small examples test each 
 | Chunk sizes | Count, smallest, median and largest |
 | Chunk limit | 90 words, the largest that kept every recursive chunk within 256 word pieces (6.8.5) |
 | Comparison on the example | The chunk counts and largest sizes in 6.8.4 |
-| Dot leaders and font codes | A row of dots becomes a space; a word of font codes ("/g38", "#23") is removed |
+| Dot leaders, hyphen rows and font codes | A row of dots or of hyphens becomes a space; a word of font codes ("/g38", "/i0", "#23") is removed |
 | Long heading not repeated | A heading longer than a third of the limit is cut with the text, so every chunk still fits |
 
 ### 6.9.2 Glossary additions
