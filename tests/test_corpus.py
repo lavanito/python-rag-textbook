@@ -25,10 +25,11 @@ PASSAGES = load_passages(CORPUS_FOLDER / "passages.jsonl")
 REQUIRED_FIELDS = {
     "id", "source", "reference", "text", "edition", "source_code",
     "topic", "components", "partial", "access", "licence",
-    "scope", "scope_note",
+    "scope", "scope_note", "licence_class",
 }
 ALLOWED_COMPONENTS = {"C1a", "C1b", "C2", "C3", "C4", "quality"}
 ALLOWED_ACCESS = {"public", "subscriber"}
+ALLOWED_LICENCE_CLASSES = {"open", "non-commercial", "quotation only"}
 ALLOWED_SCOPES = {
     "international standard",
     "international guidance",
@@ -129,3 +130,15 @@ def test_sources_without_an_open_licence_stay_short():
         assert words <= most_words, f"{name}: {words} words"
         for passage in chosen:
             assert len(passage["text"].split()) <= most_each, passage["id"]
+
+
+def test_licence_class_uses_agreed_labels_and_follows_the_source():
+    # One class per source (SOURCES.md, decision 24 Oct 2026); Chapter 8 filters on it.
+    class_of_source = {}
+    for passage in PASSAGES:
+        assert passage["licence_class"] in ALLOWED_LICENCE_CLASSES, passage["id"]
+        class_of_source.setdefault(passage["source_code"], passage["licence_class"])
+        assert passage["licence_class"] == class_of_source[passage["source_code"]], passage["id"]
+    assert class_of_source["SNA08"] == "quotation only"
+    assert class_of_source["QNA17"] == "non-commercial"
+    assert class_of_source["PPP23"] == "open"

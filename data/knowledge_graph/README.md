@@ -35,7 +35,6 @@ every passage id exists, and that every triplet has evidence.
 
 ## Known gaps
 
-- Hedonic adjustment has no passage in the corpus yet.
 - Only the economies whose manual is certain are linked to one (United States:
   BEA; euro area: ESA 2010).
 

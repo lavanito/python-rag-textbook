@@ -17,6 +17,7 @@ date given) or **to confirm** (not yet read on the publisher's page).
 | BEA | US Bureau of Economic Analysis: *NIPA Handbook: Concepts and Methods of the U.S. National Income and Product Accounts* | Chapters 1–14, December 2024 | Public domain unless stated otherwise; may be reproduced without permission; credit to BEA requested; no suggestion of BEA endorsement | confirmed 14 Oct 2026 (bea.gov FAQ and citation guidelines) | https://www.bea.gov/resources/methodologies/nipa-handbook/pdf/all-chapters.pdf |
 | CSO | Central Statistics Office, Ireland: *Modified GNI* (Statistics Explained) | web page | CC BY 4.0, source acknowledged | confirmed 12 Oct 2026, cso.ie copyright policy | https://www.cso.ie/en/interactivezone/statisticsexplained/nationalaccountsexplained/modifiedgni/ |
 | PPP23 | Eurostat and OECD: *Methodological Manual on Purchasing Power Parities*, 2023 edition | 2024 | PDF rights notice (© European Union/OECD 2024): CC BY 4.0; credit given, changes indicated. Cover image excluded | confirmed 14 Oct 2026 (PDF rights page) | https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/w/ks-gq-24-011 |
+| WB13 | World Bank: *Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program (ICP)*, quoted from the Introduction (Angus Deaton) and Chapter 18 (Paul McCarthy) | 2013 | CC BY 3.0 (book's rights page; the World Bank repository record says CC BY 3.0 IGO): copy, adapt and use commercially, with attribution | confirmed 23 Oct 2026 (rights page; repository record) | https://doi.org/10.1596/978-0-8213-9728-2 |
 | ONS | Office for National Statistics (UK), blog: *The hardest part of productivity measurement*, Josh Martin | 7 August 2019 | Open Government Licence v3.0: all content, except where otherwise stated; attribute the source | confirmed 23 Oct 2026 (licence statement on the blog page) | https://blog.ons.gov.uk/2019/08/07/the-hardest-part-of-productivity-measurement/ |
 
 ### Use of this corpus (decision, 18 Oct 2026)
@@ -69,23 +70,39 @@ headers). The PDFs themselves are not stored in this repository.
 
 ## Passage plan
 
-48 passages from eight sources (see `passages.jsonl`). They are chosen to answer
+56 passages from 10 sources (see `passages.jsonl`). They are chosen to answer
 the question bank and to cover the five components of the NNI decomposition (C1a–C4).
 
 | Source | Passages | Words |
 | --- | --- | --- |
 | ESA10 | 14 | 1,342 |
 | PPP23 | 9 | 1,034 |
-| QNA17 | 5 | 657 |
-| BEA | 5 | 478 |
+| BEA | 6 | 635 |
 | CSO | 5 | 361 |
+| QNA17 | 5 | 657 |
 | SNA25 | 5 | 354 |
+| WB13 | 5 | 703 |
 | SNA08 | 3 | 88 |
+| ONS | 2 | 118 |
 | UNA14 | 2 | 232 |
 
 One passage (esa10-10.20) carries a demonstration label "subscriber only" to show
 access rules at retrieval (Chapter 8). The label is part of the demonstration; it
 does not describe the publisher's terms.
+
+## Licence class (decision, 24 Oct 2026)
+
+Each passage carries a `licence_class`, set by its source. Chapter 8's licence
+filter reads it: a use mode decides which classes are withheld.
+
+| Class | Meaning | Sources |
+| --- | --- | --- |
+| open | Reuse allowed with attribution, commercial use included | ESA10, BEA, CSO, PPP23, ONS, WB13 |
+| non-commercial | Reuse allowed for non-commercial teaching and research only | QNA17 |
+| quotation only | No licence; short quotation with full citation only | SNA08, SNA25, UNA14 |
+
+SNA 2008 paras 15.232–15.233 (extrapolating PPPs) are not quoted: they would take
+the SNA set past its 500-word cap. McCarthy (WB13) quotes and explains them.
 
 ## Further reading cited in the book, not quoted in the corpus
 

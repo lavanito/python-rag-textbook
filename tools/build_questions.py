@@ -170,6 +170,20 @@ q("q5-03", "Q5", "R4+R2", "Does the gap in real GDP growth between the United St
   ["ons-psp-1", "ons-psp-2"],
   "Partly, and by an unknown amount. Public services are about a fifth of the UK economy; collectively provided services such as defence are measured by what they cost, so no productivity growth is recorded. Economies with different shares or methods can show different growth for the same real change.",
   "States the caveat qualitatively, gives no size for the effect, and presents the ONS figures as UK practice, not as the US or euro area.")
+# Added 24 Oct with the corpus batch. Outside Q2, so the 32 definition
+# questions that Chapters 3-7 measure are unchanged.
+q("q4-02", "Q4", "R4+R2", "Why did China's and India's GDP per head at PPP fall when new ICP results came out?",
+  ["wb13-deaton-revision", "wb13-deaton-benchmark", "wb13-deaton-updating"],
+  "Earlier PPPs for many poorer countries were extrapolated from old benchmarks or guessed; the 2005 ICP measured their prices directly. China's PPP rose by a factor of 1.65 and India's by 1.55, so their GDP per head in international dollars fell, although their economies did not change. Rich countries that compute PPPs every year saw little revision.",
+  "Says the change is relative to the United States, not a fall in output, and names the benchmark year.")
+q("q5-04", "Q5", "R4+R2", "Why does a country's growth measured at PPP differ from its official real growth?",
+  ["wb13-mccarthy-space-time", "wb13-mccarthy-ipd"],
+  "Between benchmark years, PPPs are extrapolated with each country's GDP deflator relative to the United States. PPPs compare countries at one time; national accounts compare one country over time. Both cannot be kept consistent at once, and the gap grows when economic structures differ or change fast, as for the United States and China.",
+  "Names extrapolation from the benchmark year and the conflict between comparisons across space and across time.")
+q("q5-05", "Q5", "R4+R2", "Can different price measurement make US and euro area real growth hard to compare?",
+  ["bea-ch4-quality"],
+  "Yes. Price indexes that hold quality constant, such as hedonic indexes, show lower inflation and so higher real growth for products whose quality improves fast, such as computers. Where and how much hedonic methods are used differs between countries.",
+  "Presents the BEA passage as US practice and gives no size for the effect.")
 q("q7-01", "Q7", "R5>R2", "What if the yen had been 10% weaker against the dollar in 2024?", [], "Small model extracts the parameter; the class computes.")
 q("q8-01", "Q8", "R6", "How does China now compare with the United States three years ago, and what explains the change?", ["ppp23-1.31"], "Agent loop within a step budget.")
 

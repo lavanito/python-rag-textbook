@@ -23,6 +23,7 @@ SOURCE_FILES = {
     "PPP23": "KS-GQ-24-011-EN-N.txt",
     "SNA25": "sna25.txt",
     "ONS": "The hardest part of productivity measurement - ONS blog.txt",
+    "WB13": "MeasuringSizeRealEconomy.txt",
 }
 
 SOURCE_NAMES = {
@@ -35,6 +36,25 @@ SOURCE_NAMES = {
     "PPP23": ("Eurostat and OECD, Methodological Manual on Purchasing Power Parities", "2023 edition (2024)", "CC BY 4.0 (European Union/OECD 2024): credit given, changes indicated"),
     "SNA25": ("System of National Accounts 2025", "2025 SNA, pre-edit version (2025)", "All rights reserved (EC, IMF, OECD, UN, World Bank); short quotation with full citation"),
     "ONS": ("Office for National Statistics, blog: The hardest part of productivity measurement (Josh Martin)", "Blog post of 7 August 2019, read 23 October 2026", "Open Government Licence v3.0"),
+    "WB13": ("World Bank, Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program (ICP)", "2013", "CC BY 3.0 (World Bank 2013): copy and adapt with attribution"),
+}
+
+# Licence class of each source (decision 24 Oct 2026; used by the licence
+# filter in Chapter 8):
+#   open            reuse allowed with attribution, commercial use included
+#   non-commercial  reuse allowed for non-commercial teaching and research only
+#   quotation only  no licence; short quotation with full citation only
+LICENCE_CLASS = {
+    "SNA08": "quotation only",
+    "SNA25": "quotation only",
+    "UNA14": "quotation only",
+    "QNA17": "non-commercial",
+    "ESA10": "open",
+    "BEA": "open",
+    "CSO": "open",
+    "PPP23": "open",
+    "ONS": "open",
+    "WB13": "open",
 }
 
 # (id, source code, reference, topic, components, partial, text)
@@ -194,6 +214,29 @@ add("ons-psp-2", "ONS", "paragraph 8", "Hard-to-measure services", ["C2", "quali
     "Some other public services, such as defence, are ‘collectively provided’, which mean they aren’t provided to people directly. In these cases, we usually measure the output of the services by simply looking at how much it costs to deliver them, meaning that we cannot easily measure their productivity.",
     partial=True)
 
+# --- Benchmark years, extrapolation of PPPs, hedonic adjustment (24 Oct) ---
+# World Bank (2013) is CC BY 3.0. McCarthy (Chapter 18) explains extrapolating
+# PPPs between benchmarks; Deaton (Introduction) explains why PPPs jumped when
+# the 2005 benchmark replaced extrapolated ones. SNA 2008 paras 15.232-15.233
+# are not quoted: they would take the SNA set past its 500-word cap.
+add("wb13-mccarthy-space-time", "WB13", "Chapter 18 (Paul McCarthy), introduction", "Extrapolating PPPs between benchmarks", ["C3", "quality"],
+    "Various organizations provide estimates of PPPs for years other than benchmark years. […] However, problems arise in using PPPs as though they are times series because PPPs are designed for comparing economic activity between countries (i.e., a spatial comparison) rather than comparing changes across time, which is the more common method of analyzing national accounts. Conceptually, it is impossible to maintain consistency simultaneously across both space and time except under very restrictive assumptions. A time series of PPPs may provide plausible results provided that the economic structures of the countries involved in the comparison do not change rapidly. However, distorted results are likely to be obtained if the economies of the countries are dissimilar or the economic structures of the countries are changing at very different rates (e.g., the United States and China in recent years).",
+    partial=True)
+add("wb13-mccarthy-ipd", "WB13", "Chapter 18 (Paul McCarthy), section “Consistency between Time and Space”", "Extrapolating PPPs between benchmarks", ["C3", "quality"],
+    "In practice, annual PPPs are produced to meet user demand for the annual real expenditures that can be obtained using these PPPs to “deflate” the national accounts values. A method commonly used to produce annual PPPs is based on a macro approach (as outlined in paragraphs 15.232 and 15.233 of the 2008 System of National Accounts, SNA) mainly because of the lack of data to adopt a more detailed method. It involves interpolating between benchmark years or extrapolating from the latest benchmark year using the implicit price deflators (IPDs) for GDP for each country involved. The process is to divide the IPD for GDP for each country in turn by the IPD for GDP in a reference country (usually the United States) and apply that ratio to the PPP for GDP in the relevant country in the benchmark year (the IPDs for all countries must be re–referenced to 100 in the benchmark year before calculating the ratio).",
+    partial=True)
+add("wb13-deaton-revision", "WB13", "Introduction (Angus Deaton), section “Key Findings: Inequality”", "Revisions to PPPs at a new benchmark", ["C3", "quality"],
+    "How did the 2005 ICP reshape the view of the world? The headline numbers came from India and China, whose economies “shrank” under the new estimates. The international dollar value of China’s per capita GDP in 2005 fell from $6,757 in the 2007 World Development Indicators (WDI) to $4,088 in the 2008 WDI (World Bank 2007, 2008). For India, the same comparison shows a reduction from $3,453 to $2,222. All of these numbers are for a single year, 2005, and because they come from converting the same local currency values but at different PPPs, another way of stating the change is that the PPP for China rose by a factor of 1.65, while the PPP for India rose by a factor of 1.55. Recall that GDP in international dollars is obtained by dividing a country’s own GDP by the PPP measured by the ICP, so that higher PPPs translate into lower estimates of GDP.",
+    partial=True)
+add("wb13-deaton-benchmark", "WB13", "Introduction (Angus Deaton), section “Key Findings: Inequality”", "Revisions to PPPs at a new benchmark", ["C3", "quality"],
+    "India and China are only two of the countries that moved farther apart from the United States in the 2005 ICP. Indeed, the effect was quite widespread, with many of the world’s poorest countries shrinking relative to the United States. There was relatively little change among the world’s richest countries (because many of them calculate PPPs every year, there is little opportunity for revision), so that the 2005 ICP caused a general widening of the dispersion of per capita incomes around the world. […] The upward revaluation of the PPPs for India and China turns out to be quite common, with many other countries in Africa and some in Asia experiencing similar or larger upward revisions. Indeed, the top left of the figure shows that some African countries had much larger upward revisions than India and China. A number of these had never been benchmarked in an ICP, and so the previous PPPs were little more than imputations or educated guesses.",
+    partial=True)
+add("wb13-deaton-updating", "WB13", "Introduction (Angus Deaton), section on countries missing from earlier rounds", "Extrapolating PPPs between benchmarks", ["C3", "quality"],
+    "In past rounds, when a country missed an ICP round, such as India in 1993, a guess could also be made by taking a previous PPP exchange rate, from the 1985 benchmark, and “updating” it from the relative rates of inflation in the United States and India. But the basket of goods in each country’s consumer price index (CPI) is not the same as the international baskets used in the ICP. Nor are domestic CPIs always constructed to the same principles. So this, too, is only a rough and ready substitute for collecting the data.")
+add("bea-ch4-quality", "BEA", "Chapter 4: Estimating Methods, “Adjusting for quality change”", "Hedonic adjustment", ["quality"],
+    "There are several methods used to construct price indexes, and while most of these are designed to measure price change while holding quality constant, no method is perfect in every situation. Traditional matched model indexes, which hold quality constant by specifying each variety in the sample and ensuring that exactly the same variety of product is sampled each period, work well with relatively standardized products. However, these indexes are less accurate when the characteristics, quality, market shares, and prices are changing rapidly. In such cases, alternative methods for quality adjustment may yield more accurate measures. […] The hedonic method uses regression analysis to determine statistical relationships between observed price changes and changes in the characteristics and qualities of the products, and these relationships are used to hold quality constant; this method is used by BLS in many of its producer and consumer price indexes and by the Census Bureau in its housing construction and sales price indexes.",
+    partial=True)
+
 # --- Scope: how far each passage generalises ------------------------------
 SCOPE_BY_SOURCE = {
     "SNA08": "international standard",
@@ -205,6 +248,7 @@ SCOPE_BY_SOURCE = {
     "BEA": "national practice: United States",
     "CSO": "national practice: Ireland",
     "ONS": "national practice: United Kingdom",
+    "WB13": "international guidance",
 }
 CSO_NOTE = ("Modified GNI (GNI*) is an Irish measure, published by the CSO since 2017 to remove "
             "globalisation effects specific to Ireland. It is an example, not an international standard.")
@@ -220,6 +264,7 @@ SCOPE_NOTES = {
     "bea-ch2-gnp": "GNP is the US term, still used by BEA. The 1993 SNA renamed GNP as GNI.",
     "bea-ch2-ndp-gni": "GDI here is BEA's gross domestic income: GDP measured from the income side, equal to GDP apart from the statistical discrepancy. It is not the SNA's “real gross domestic income” (esa10-10.47). The link from GNI to GNP through the statistical discrepancy is a US identity.",
     "bea-ch4-fisher": "NIPAs is the US name for the national accounts. BEA uses a Fisher formula; most EU countries chain Laspeyres volume and Paasche price indices (esa10-10.20). Both chain annually.",
+    "bea-ch4-quality": "Describes US practice: BLS and the Census Bureau produce the price indexes BEA uses. Hedonic methods are used elsewhere too, but how widely differs between countries and products, which affects comparisons of real growth.",
     "bea-ch4-chained": "Chained dollars are BEA's name for chain-linked volumes in national currency. The point about additivity holds for chain-linked volumes everywhere (esa10-10.22).",
     "esa10-10.47": "ESA 2010 follows the 2008 SNA here (2008 SNA 15.187–15.188). “Real gross domestic income” is the purchasing-power measure, not BEA's income-side GDI (bea-ch2-ndp-gni).",
     "ppp23-4.16": PPP_EUOECD_NOTE, "ppp23-8.2": PPP_EUOECD_NOTE, "ppp23-8.4": PPP_EUOECD_NOTE,
@@ -298,6 +343,7 @@ for p in P:
         "scope": SCOPE_BY_SOURCE[p["code"]],
         "scope_note": SCOPE_NOTES.get(p["pid"], ""),
         "licence": licence,
+        "licence_class": LICENCE_CLASS[p["code"]],
     })
 if not problems:
     path = REPO / "data" / "corpus" / "passages.jsonl"

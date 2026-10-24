@@ -67,7 +67,7 @@ gni_per_head_ppp,affected_by,comparison_resistant_services,ppp23-8.2,
 gni_per_head_ppp,affected_by,globalisation,sna25-23.68,Multinational profits; Ireland inside the euro area
 real_gdp,affected_by,double_deflation,esa10-10.33,
 real_gdp,affected_by,chain_linking,esa10-10.22,
-real_gdp,affected_by,hedonic_adjustment,author,No passage in the corpus yet: gap
+real_gdp,affected_by,hedonic_adjustment,bea-ch4-quality,Price indexes that hold quality constant show lower inflation for fast-improving products; methods differ between countries
 real_gdp,affected_by,terms_of_trade,esa10-10.47,Volume growth and purchasing power can diverge
 real_gdp_per_hour_ppp,affected_by,hours_worked,esa10-11.27,
 real_gdp_per_hour_ppp,affected_by,labour_quality,sna25-16.95,
@@ -77,3 +77,15 @@ hard_to_measure_services,discussed_in,ons-psp-2,ons-psp-2,Collectively provided 
 hard_to_measure_services,related_to,comparison_resistant_services,author,Same services: this concept concerns output volumes (growth); that one concerns PPPs (levels)
 real_gdp,affected_by,hard_to_measure_services,ons-psp-2,Output measured by its cost shows no productivity growth; growth answers carry a caveat
 real_gdp_per_hour_ppp,affected_by,hard_to_measure_services,ons-psp-1,
+hedonic_adjustment,discussed_in,bea-ch4-quality,bea-ch4-quality,US practice: BLS and Census Bureau price indexes
+benchmark_year,discussed_in,wb13-deaton-benchmark,wb13-deaton-benchmark,Countries never benchmarked had PPPs that were little more than guesses
+benchmark_year,discussed_in,wb13-deaton-revision,wb13-deaton-revision,The 2005 benchmark raised China's PPP by a factor of 1.65 and India's by 1.55
+ppp_extrapolation,defined_in,wb13-mccarthy-ipd,wb13-mccarthy-ipd,PPP moved from the benchmark year by the ratio of the country's GDP deflator to the US deflator
+ppp_extrapolation,discussed_in,wb13-mccarthy-space-time,wb13-mccarthy-space-time,PPPs compare across space; national accounts across time; both cannot be consistent at once
+ppp_extrapolation,discussed_in,wb13-deaton-updating,wb13-deaton-updating,Updating an old benchmark with relative inflation is a rough substitute for collecting prices
+ppp_extrapolation,related_to,benchmark_year,wb13-mccarthy-ipd,PPPs are extrapolated from the latest benchmark year until the next benchmark replaces them
+ppp_extrapolation,related_to,gdp_deflator,wb13-mccarthy-ipd,Extrapolation uses each country's GDP deflator relative to the reference country's
+ppp_extrapolation,related_to,ppp,wb13-mccarthy-space-time,Extrapolated PPPs are estimates between measured benchmarks
+gni_per_head_ppp,affected_by,benchmark_year,wb13-deaton-revision,A new benchmark can revise levels at PPP by large factors; P4 revisions
+gni_per_head_ppp,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,Growth at PPP between benchmarks differs from growth in the national accounts
+real_gdp_per_hour_ppp,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,

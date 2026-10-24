@@ -16,6 +16,7 @@ declare -A NAMES=(
   ["all-chapters.pdf"]="all-chapters.txt"
   ["Modified GNI - CSO - Central Statistics Office.pdf"]="Modified GNI - CSO - Central Statistics Office.txt"
   ["KS-GQ-24-011-EN-N.pdf"]="KS-GQ-24-011-EN-N.txt"
+  ["MeasuringSizeRealEconomy.pdf"]="MeasuringSizeRealEconomy.txt"
 )
 for pdf in "${!NAMES[@]}"; do
   txt="${NAMES[$pdf]}"
