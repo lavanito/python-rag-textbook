@@ -202,8 +202,8 @@ def clean_pdf_text(pages):
 # 6.4  Fixed-size chunks, with and without overlap
 # ---------------------------------------------------------------------------
 
-CHUNK_WORDS = 150    # the most words in a chunk, for every method in this chapter
-OVERLAP_WORDS = 30   # words a fixed-size chunk repeats from the end of the one before
+CHUNK_WORDS = 90     # the most words in a chunk, for every method in this chapter
+OVERLAP_WORDS = 18   # words a fixed-size chunk repeats from the end of the one before
 
 
 def count_words(text):

@@ -218,16 +218,23 @@ def test_chunk_sizes():
     }
 
 
+def test_chunk_limit_fits_the_embedding_model():
+    # 90 words is the largest limit at which no recursive chunk of the
+    # example passes all-MiniLM-L6-v2's 256 word pieces (checked on the
+    # laptop, 24 Oct 2026: 243 pieces at most; 100 words gave 260).
+    assert CHUNK_WORDS == 90
+
+
 def test_compare_methods_on_example():
     text, _ = clean_pdf_text(read_pdf_pages(EXAMPLE_PDF))
     methods = all_methods(text, find_heading_lines(EXAMPLE_PDF))
     counts = {name: len(chunks) for name, chunks in methods.items()}
     assert counts == {
-        "fixed size": 111,
-        "fixed size with overlap": 139,
-        "paragraph": 123,
+        "fixed size": 185,
+        "fixed size with overlap": 231,
+        "paragraph": 158,
         "header": 24,
-        "recursive": 167,
+        "recursive": 278,
     }
     assert chunk_sizes(methods["header"])["largest"] == 2638
     assert chunk_sizes(methods["paragraph"])["largest"] == 279
