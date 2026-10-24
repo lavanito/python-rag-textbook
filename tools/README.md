@@ -8,6 +8,7 @@ These scripts are for maintaining the data, not part of the book's code.
 | `para.py` | Finds and prints numbered paragraphs in that text, to copy passages from |
 | `build_corpus.py` | Holds every passage with its source, reference, topic, parts and scope; checks each sentence against the PDF text; writes `data/corpus/passages.jsonl` only if all are found |
 | `build_questions.py` | Holds the question bank; writes `data/question_bank/questions.jsonl`; lists any passage no question uses |
+| `worst_chunks.py` | Prints the recursive chunks of one PDF that pass the model's 256-word-piece limit, with their longest word and share of letters, to find the cause (6.8; laptop only, output not committed) |
 | `doc_to_md.py` | Turns a full read of a chapter tab of the shared doc (saved as JSON) into `book/chNN_*.md`, without the status line |
 
 ## Adding a passage
