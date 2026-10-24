@@ -13,6 +13,7 @@ from ragbook.ch06_chunking import (
     count_words,
     cut_to_fit,
     find_heading_lines,
+    font_sizes,
     fixed_size_chunks,
     header_chunks,
     pack,
@@ -150,6 +151,12 @@ def test_paragraph_chunks():
 
 
 # 6.6 Header chunks
+
+def test_font_sizes_example():
+    sizes = dict(font_sizes(EXAMPLE_PDF))
+    assert font_sizes(EXAMPLE_PDF)[0] == (10.0, 89714)
+    assert sizes[15.0] == 806 and sizes[12.0] == 110 and sizes[18.0] == 53
+
 
 def test_find_heading_lines_example():
     heading_lines = find_heading_lines(EXAMPLE_PDF)

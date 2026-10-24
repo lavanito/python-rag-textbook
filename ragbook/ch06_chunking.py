@@ -29,6 +29,12 @@ Run the worked example
     python -m ragbook.ch06_chunking --word-pieces
     The second also counts word pieces with the embedding model, so it
     needs the model (Chapter 4).
+
+Run on the reader's own copies of the manuals (6.8)
+    python -m ragbook.ch06_chunking --sizes FOLDER
+    python -m ragbook.ch06_chunking --document FILE SMALLEST LARGEST
+    The first lists the sizes each PDF prints; the second compares the
+    methods on one PDF, with headings at sizes SMALLEST to LARGEST.
 """
 
 import re
@@ -316,6 +322,34 @@ def paragraph_chunks(text, size=CHUNK_WORDS):
 # 6.6  Header chunks
 # ---------------------------------------------------------------------------
 
+def font_sizes(pdf_path):
+    """
+    Count how many characters a PDF prints at each size, largest count
+    first.
+
+    The size printed most is the body text. Larger sizes are candidates for
+    headings; check them by looking at the text printed in each (6.6).
+
+    Example:
+        font_sizes(EXAMPLE_PDF)[0]
+        returns (10.0, 89714): body text, 10 points
+
+    Sizes of 0 or 1 come from text that is scaled in another way, mostly in
+    tables; they are not real sizes.
+    """
+    characters = {}
+
+    def note_piece(text, page_matrix, text_matrix, font, font_size):
+        if font is None or text.strip() == "":
+            return
+        size = round(font_size * text_matrix[0], 1)
+        characters[size] = characters.get(size, 0) + len(text.strip())
+
+    for page in PdfReader(pdf_path).pages:
+        page.extract_text(visitor_text=note_piece)
+    return sorted(characters.items(), key=lambda pair: -pair[1])
+
+
 def find_heading_lines(pdf_path, smallest=12, largest=18):
     """
     Return the lines of a PDF printed in heading sizes, in reading order.
@@ -538,6 +572,26 @@ def count_word_pieces(model, chunks):
     return counts
 
 
+def print_comparison(text, heading_lines, model=None):
+    """
+    Print one line per method: number of chunks and their sizes in words.
+    Given the embedding model, also the chunks over its word-piece limit
+    and the largest word-piece count.
+    """
+    print(f"{'Method':25} {'Chunks':>6} {'Smallest':>8} {'Median':>6} {'Largest':>7}  Over 256 pieces")
+    for name, chunks in all_methods(text, heading_lines).items():
+        sizes = chunk_sizes(chunks)
+        line = (
+            f"{name:25} {sizes['chunks']:6} {sizes['smallest']:8} "
+            f"{sizes['median']:6} {sizes['largest']:7}"
+        )
+        if model is not None:
+            pieces = count_word_pieces(model, chunks)
+            over = sum(1 for how_many in pieces if how_many > model.max_seq_length)
+            line += f"  {over} (largest {max(pieces)})"
+        print(line)
+
+
 # ---------------------------------------------------------------------------
 # Worked example
 # ---------------------------------------------------------------------------
@@ -567,23 +621,70 @@ def main(word_pieces=False):
 
         model = load_model()
 
-    print(f"{'Method':25} {'Chunks':>6} {'Smallest':>8} {'Median':>6} {'Largest':>7}  Over 256 pieces")
-    for name, chunks in all_methods(text, heading_lines).items():
-        sizes = chunk_sizes(chunks)
-        line = (
-            f"{name:25} {sizes['chunks']:6} {sizes['smallest']:8} "
-            f"{sizes['median']:6} {sizes['largest']:7}"
-        )
-        if model is not None:
-            pieces = count_word_pieces(model, chunks)
-            over = sum(1 for how_many in pieces if how_many > model.max_seq_length)
-            line += f"  {over} (largest {max(pieces)})"
-        print(line)
+    print_comparison(text, heading_lines, model)
     if model is None:
         print("(Word pieces not counted: run with --word-pieces on a computer with the model.)")
+
+
+def show_sizes(folder, how_many=12, examples=3):
+    """
+    For every PDF in a folder, print its page count and the sizes it prints
+    most, with a few examples of the text at each size.
+
+    Used to choose each document's heading sizes before header chunking.
+    Run on the reader's own copies of the manuals (6.8).
+    """
+    for pdf_path in sorted(Path(folder).glob("*.pdf")):
+        pages = PdfReader(pdf_path).pages
+        print(f"== {pdf_path.name} ({len(pages)} pages)")
+        sizes = font_sizes(pdf_path)[:how_many]
+        samples = {size: [] for size, _ in sizes}
+
+        def note_piece(text, page_matrix, text_matrix, font, font_size):
+            if font is None or len(text.strip()) < 4:
+                return
+            size = round(font_size * text_matrix[0], 1)
+            if size in samples and len(samples[size]) < examples:
+                samples[size].append(text.strip()[:50])
+
+        for page in pages:
+            page.extract_text(visitor_text=note_piece)
+        for size, characters in sizes:
+            print(f"  {size:5}  {characters:9,}  {samples[size]}")
+
+
+def show_document(pdf_path, smallest, largest, model=None):
+    """
+    Clean one PDF and print the comparison table of 6.8 for it, with
+    headings taken from the sizes smallest to largest.
+
+    The cleaning rules of 6.3 were written for the example; on another
+    document some faults stay and some rules may remove a little real text.
+    The table reports counts and sizes only, so the text is never shown.
+    """
+    pages = read_pdf_pages(pdf_path)
+    text, _ = clean_pdf_text(pages)
+    heading_lines = find_heading_lines(pdf_path, smallest, largest)
+    print(f"== {Path(pdf_path).name}: {len(pages)} pages, {count_words(text):,} words, "
+          f"{len(heading_lines)} lines in heading sizes {smallest}-{largest}")
+    print_comparison(text, heading_lines, model)
 
 
 if __name__ == "__main__":
     import sys
 
-    main(word_pieces="--word-pieces" in sys.argv)
+    if "--sizes" in sys.argv:
+        show_sizes(sys.argv[sys.argv.index("--sizes") + 1])
+    elif "--document" in sys.argv:
+        # python -m ragbook.ch06_chunking --document FILE SMALLEST LARGEST
+        where = sys.argv.index("--document")
+        from ragbook.ch04_semantic_search import load_model
+
+        show_document(
+            sys.argv[where + 1],
+            float(sys.argv[where + 2]),
+            float(sys.argv[where + 3]),
+            model=load_model(),
+        )
+    else:
+        main(word_pieces="--word-pieces" in sys.argv)
