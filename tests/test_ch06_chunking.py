@@ -65,6 +65,13 @@ def test_repair_text_examples():
     assert repair_text("T esting\nT\nhe ••")[0] == "Testing\n\nThe •"
 
 
+def test_dot_leaders_and_font_codes_removed():
+    text, counts = repair_text("Computer software........ 12\nTable /g38/g82/g81;#23#23 ends.")
+    assert text == "Computer software 12\n\nTable ends."
+    assert counts["dot leader: four or more dots, as in a table of contents"] == 1
+    assert counts["word holding font codes instead of letters, such as /g38 or #23"] == 1
+
+
 def test_remove_first_page_footer():
     page_text = "Text \n18\nPaul Mccarthy\nCHAPTER\n473"
     assert remove_first_page_footer(page_text) == "Text "

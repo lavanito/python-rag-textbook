@@ -144,6 +144,8 @@ REPAIRS = [
     ("doubled bullet mark", r"••", "•"),
     ("piece of a large bracket drawn from a font's private symbols", PRIVATE_SYMBOLS, ""),
     ("narrow no-break space", NARROW_NO_BREAK_SPACE, " "),
+    ("dot leader: four or more dots, as in a table of contents", r"\.{4,}", " "),
+    ("word holding font codes instead of letters, such as /g38 or #23", r"\S*(?:/g\d+|#\d\d)\S*", ""),
     ("two or more spaces", r" {2,}", " "),
     ("space at the start or end of a line", r" +\n *|\n +", "\n"),
     ("two or more empty lines in a row", r"\n{3,}", "\n\n"),
