@@ -24,4 +24,5 @@ These scripts are for maintaining the data, not part of the book's code.
 1. Set the chapter's status line in the shared doc to "Signed off (date)".
 2. Read the chapter tab in full with the docs tool; a long read is saved to a JSON file.
 3. Run `python3 -I tools/doc_to_md.py <saved read> book/chNN_name.md`.
-4. Run `python -m pytest`. `tests/test_book_code_matches.py` fails if a code block in the book differs from the code file.
+4. A diagram becomes an image link, `images/<widget id>.png`: save the docs tool's screenshot of that widget as `book/images/<widget id>.png`.
+5. Run `python -m pytest`. `tests/test_book_code_matches.py` fails if a code block in the book differs from the code file.

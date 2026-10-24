@@ -78,6 +78,11 @@ def block(element, depth=0):
             for rest in parts[1:]:
                 lines.append(rest)
         return "\n".join(lines)
+    if tag == "embed":
+        # A diagram: link an image saved as book/images/<widget id>.png
+        # (from the docs tool's screenshot of the widget).
+        widget_id = element.get("ref").split("/")[-1]
+        return f"![{element.get('caption') or ''}](images/{widget_id}.png)"
     if tag == "table":
         rows = []
         for row in element.findall("row"):
