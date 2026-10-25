@@ -894,20 +894,20 @@ Recursive chunking at the 90-word limit, with word pieces counted by all-MiniLM-
 
 | Manual | Pages | Words after cleaning | Heading sizes (points) | Chunks | Over 256 word pieces | Largest (word pieces) |
 | --- | --- | --- | --- | --- | --- | --- |
-| SNA08 | 722 | 519,211 | 12 | 6,573 | 1 | 295 |
-| SNA25 | 1,260 | 742,670 | 14 | 12,176 | 3 | 275 |
-| QNA17 | 285 | 169,935 | 12–22 | 2,865 | 11 | 326 |
+| SNA08 | 722 | 519,211 | 12 | 6,560 | 1 | 295 |
+| SNA25 | 1,260 | 742,670 | 14 | 12,921 | 3 | 275 |
+| QNA17 | 285 | 169,935 | 12–22 | 2,879 | 11 | 326 |
 | UNA14 | 520 | 186,539 | 9.8–10.5 | 2,558 | 6 | 319 |
-| ESA10 | 688 | 294,566 | 10.5–14 | 4,882 | 1 | 273 |
-| PPP23 | 422 | 188,502 | 14–16 | 3,111 | 91 | 649 |
-| BEA | 481 | 189,236 | 15–40 | 3,263 | 0 | 252 |
-| All seven | 4,378 | 2,290,659 |  | 35,428 | 113 | 649 |
+| ESA10 | 688 | 294,566 | 10.5–14 | 4,880 | 1 | 273 |
+| PPP23 | 422 | 188,502 | 14–16 | 3,101 | 91 | 649 |
+| BEA | 481 | 189,236 | 15–40 | 3,261 | 0 | 252 |
+| All seven | 4,378 | 2,290,659 |  | 36,160 | 113 | 649 |
 
-- **Recursive chunking fits almost everything.** 35,315 of 35,428 chunks (99.7%) are within the model's limit.
+- **Recursive chunking fits almost everything.** 36,047 of 36,160 chunks (99.7%) are within the model's limit.
 - **Cleaning made the largest difference.** Before the rules for dot leaders, hyphen rows and font codes (6.3), 226 of SNA08's recursive chunks were over the limit, the largest at 10,302 word pieces. After them, one is: part of a reference list with long web addresses. BEA's two chunks over the limit, both rows of hyphens, are gone.
 - **PPP23 holds 91 of the 113.** Its worked examples of price-index formulas, such as "[(FB/A/FA/A)(FB/B/FA/B)(FB/C/FA/C)(FB/D/FA/D)]1/4", count as one word but split into dozens of word pieces: one chunk of 88 words has 649. No cleaning rule should remove them, because they are the text. This is the strongest case for 6.8.6: in a document full of formulas, limit word pieces, not words.
 - **Header chunking fails on every manual,** from 3 of 3 chunks over the limit (BEA) to 535 of 1,342 (ESA10). BEA prints its headings at the size of its body text, so a range of sizes finds only 18 heading lines and 3 sections. Finding BEA's headings would need the font's name as well as its size.
-- **Paragraph chunking fails on SNA25:** 1,301 of 3,797 chunks are over the limit, with a median of 133 words. This suggests the paragraph rule of 6.3 finds few paragraph ends in its text; the cause has not been checked.
+- **SNA25's paragraph ends needed their own rule.** pypdf ends the last line of each SNA25 paragraph with a space, like every other line, so the paragraph rule of 6.3 missed them: 1,301 of 3,797 paragraph chunks were over the limit, with a median of 133 words. The rule for paragraph numbers (6.3) brings this to 425 of 7,384, with a median of 88, and helps QNA17 too (158 to 65). The rest are long paragraphs, which paragraph chunking never cuts, and lettered items ("c. Control of…"), which have no number and still run together.
 
 ## 6.9 Tests, glossary and links
 
