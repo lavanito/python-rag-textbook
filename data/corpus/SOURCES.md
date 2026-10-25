@@ -86,9 +86,10 @@ the question bank and to cover the five components of the NNI decomposition (C1a
 | ONS | 2 | 118 |
 | UNA14 | 2 | 232 |
 
-One passage (esa10-10.20) carries a demonstration label "subscriber only" to show
-access rules at retrieval (Chapter 8). The label is part of the demonstration; it
-does not describe the publisher's terms.
+Every passage is labelled `access: public`. Chapter 8 decides what a question may
+use from `licence_class` and the use mode, not from this label. (Until 25 Oct 2026
+one passage, esa10-10.20, carried a demonstration label "subscriber"; the licence
+filter replaced it.)
 
 ## Licence class (decision, 24 Oct 2026)
 

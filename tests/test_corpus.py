@@ -28,7 +28,7 @@ REQUIRED_FIELDS = {
     "scope", "scope_note", "licence_class",
 }
 ALLOWED_COMPONENTS = {"C1a", "C1b", "C2", "C3", "C4", "quality"}
-ALLOWED_ACCESS = {"public", "subscriber"}
+ALLOWED_ACCESS = {"public"}
 ALLOWED_LICENCE_CLASSES = {"open", "non-commercial", "quotation only"}
 ALLOWED_SCOPES = {
     "international standard",
@@ -68,10 +68,10 @@ def test_components_and_access_use_agreed_labels():
         assert passage["access"] in ALLOWED_ACCESS, passage["id"]
 
 
-def test_exactly_one_passage_is_marked_subscriber_only():
-    # One passage carries a demonstration label for Chapter 8 (access rules).
-    subscriber = [passage["id"] for passage in PASSAGES if passage["access"] == "subscriber"]
-    assert len(subscriber) == 1
+def test_access_is_decided_by_licence_class_not_a_label():
+    # Chapter 8's licence filter reads licence_class; the old demonstration
+    # label "subscriber" (esa10-10.20) is gone.
+    assert [passage["id"] for passage in PASSAGES if passage["access"] != "public"] == []
 
 
 def test_every_source_code_is_listed_in_sources_file():

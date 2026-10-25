@@ -178,7 +178,7 @@ add("esa10-10.47", "ESA10", "para. 10.47 (part)", "Real income and the terms of 
     partial=True)
 add("esa10-10.20", "ESA10", "para. 10.20 (last part)", "Price and volume measures", ["C2"],
     "In the calculation of the volume, quantities are weighted up by prices of the base period, so that the result depends on the price structure. Changes in price structure are likely to be less important for short periods than for long periods. Therefore, the calculation of the volume is made only for two successive years, i.e. the volume is calculated at the prices of the previous year. For comparisons over longer periods of time, the Laspeyres volume indices and the Paasche price indices are calculated first in relation to the previous year and then the chain indices are determined.",
-    partial=True, access="subscriber")
+    partial=True)
 add("esa10-10.22", "ESA10", "para. 10.22", "Nominal and real value added", ["C2"],
     "10.22 Chained indices present the drawback that they lead to volumes having no additivity so that they cannot be used in the balancing procedures of products based on supply and use tables.")
 add("esa10-10.32", "ESA10", "para. 10.32 (part)", "Nominal and real value added", ["C2"],
