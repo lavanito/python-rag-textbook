@@ -140,6 +140,7 @@ REPAIRS = [
     ("word broken by a hyphen at the end of a line", r"(\w) ?-\n(\w)", r"\1\2"),
     ("capital T split from the rest of its word", r"\bT\s(?=[a-z])", "T"),
     ("line with no space at its end: a paragraph ends, so add an empty line", r"(?<=[^ \n])\n", "\n\n"),
+    ("line starting with a paragraph number, such as 20.123: a paragraph starts, so add an empty line", r"(?<=[^\n])\n(?=\d{1,2}\.\d{1,3} [A-Z])", "\n\n"),
     ("space before a full stop, comma, colon, semicolon or bracket", r" +([.,;:)])", r"\1"),
     ("doubled bullet mark", r"••", "•"),
     ("piece of a large bracket drawn from a font's private symbols", PRIVATE_SYMBOLS, ""),

@@ -75,6 +75,13 @@ def test_dot_leaders_hyphen_rows_and_font_codes_removed():
     assert counts["word holding font codes instead of letters, such as /g38, /i0 or #23"] == 2
 
 
+def test_numbered_paragraph_starts_a_paragraph():
+    # In the 2025 SNA the last line of a paragraph also ends with a space.
+    text, counts = repair_text("is high. \n20.123 A particular aspect \nof time.")
+    assert text == "is high.\n\n20.123 A particular aspect\nof time."
+    assert counts["line starting with a paragraph number, such as 20.123: a paragraph starts, so add an empty line"] == 1
+
+
 def test_remove_first_page_footer():
     page_text = "Text \n18\nPaul Mccarthy\nCHAPTER\n473"
     assert remove_first_page_footer(page_text) == "Text "
