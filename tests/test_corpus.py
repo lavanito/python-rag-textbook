@@ -24,11 +24,10 @@ PASSAGES = load_passages(CORPUS_FOLDER / "passages.jsonl")
 
 REQUIRED_FIELDS = {
     "id", "source", "reference", "text", "edition", "source_code",
-    "topic", "components", "partial", "access", "licence",
+    "topic", "components", "partial", "licence",
     "scope", "scope_note", "licence_class",
 }
 ALLOWED_COMPONENTS = {"C1a", "C1b", "C2", "C3", "C4", "quality"}
-ALLOWED_ACCESS = {"public"}
 ALLOWED_LICENCE_CLASSES = {"open", "non-commercial", "quotation only"}
 ALLOWED_SCOPES = {
     "international standard",
@@ -62,16 +61,15 @@ def test_no_field_is_empty():
             assert passage[field].strip() != "", f"{passage['id']} has an empty {field}"
 
 
-def test_components_and_access_use_agreed_labels():
+def test_components_use_agreed_labels():
     for passage in PASSAGES:
         assert set(passage["components"]) <= ALLOWED_COMPONENTS, passage["id"]
-        assert passage["access"] in ALLOWED_ACCESS, passage["id"]
 
 
-def test_access_is_decided_by_licence_class_not_a_label():
-    # Chapter 8's licence filter reads licence_class; the old demonstration
-    # label "subscriber" (esa10-10.20) is gone.
-    assert [passage["id"] for passage in PASSAGES if passage["access"] != "public"] == []
+def test_no_access_label():
+    # Chapter 8's licence filter reads licence_class. The access field, and
+    # its demonstration label "subscriber" (esa10-10.20), were dropped.
+    assert [passage["id"] for passage in PASSAGES if "access" in passage] == []
 
 
 def test_every_source_code_is_listed_in_sources_file():

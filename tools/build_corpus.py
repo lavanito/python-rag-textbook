@@ -61,9 +61,9 @@ LICENCE_CLASS = {
 P = []
 
 
-def add(pid, code, reference, topic, components, text, partial=False, access="public"):
+def add(pid, code, reference, topic, components, text, partial=False):
     P.append(dict(pid=pid, code=code, reference=reference, topic=topic,
-                  components=components, text=text, partial=partial, access=access))
+                  components=components, text=text, partial=partial))
 
 
 # --- SNA 2008 -------------------------------------------------------------
@@ -339,7 +339,6 @@ for p in P:
         "topic": p["topic"],
         "components": p["components"],
         "partial": p["partial"],
-        "access": p["access"],
         "scope": SCOPE_BY_SOURCE[p["code"]],
         "scope_note": SCOPE_NOTES.get(p["pid"], ""),
         "licence": licence,

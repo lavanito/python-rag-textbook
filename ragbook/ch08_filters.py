@@ -1,5 +1,5 @@
 """
-Chapter 8 — Filters and access rules
+Chapter 8 — Filters, metadata and access rules
 
 What this file does
     Decides, before any search, which passages a question may use. A licence
@@ -249,7 +249,7 @@ def add_filter_fields(collection, passages):
     """
     Add the fields the filters read to each stored passage's metadata.
 
-    Chapter 7 stored source, reference, edition and licence. Chroma merges
+    Chapter 7 stored source, reference, edition, scope and licence. Chroma merges
     new fields into the metadata already stored, so nothing else changes.
 
     Example:
@@ -257,8 +257,8 @@ def add_filter_fields(collection, passages):
     """
     collection.update(
         ids=[passage["id"] for passage in passages],
-        metadatas=[{"licence_class": passage["licence_class"], "topic": passage["topic"],
-                    "passage_id": passage["id"]} for passage in passages],
+        metadatas=[{"licence_class": passage["licence_class"], "passage_id": passage["id"]}
+                   for passage in passages],
     )
 
 

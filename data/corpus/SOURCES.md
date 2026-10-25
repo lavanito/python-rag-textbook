@@ -86,10 +86,10 @@ the question bank and to cover the five components of the NNI decomposition (C1a
 | ONS | 2 | 118 |
 | UNA14 | 2 | 232 |
 
-Every passage is labelled `access: public`. Chapter 8 decides what a question may
-use from `licence_class` and the use mode, not from this label. (Until 25 Oct 2026
-one passage, esa10-10.20, carried a demonstration label "subscriber"; the licence
-filter replaced it.)
+Chapter 8 decides what a question may use from `licence_class` and the use mode.
+Until 25 Oct 2026 every passage also carried an `access` field, and one passage,
+esa10-10.20, a demonstration label "subscriber"; both were dropped, so no field
+other than `licence_class` can be read as a term of use.
 
 ## Licence class (decision, 24 Oct 2026)
 

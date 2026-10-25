@@ -324,7 +324,7 @@ The defaults are Chroma's own, read from a new collection's configuration. This 
 | A unique name | id | The passage id, such as "sna08-2.144" |
 | The embedding | embedding | The 384 numbers saved in Chapter 4 |
 | The text | document | The quoted passage |
-| Facts about it | **metadata** | Source, reference, edition, scope, access and licence |
+| Facts about it | **metadata** | Source, reference, edition, scope and licence |
 
 The embeddings are those saved in Chapter 4, so this section needs no model. Chroma is told not to load a model of its own, and to use cosine similarity rather than its default (7.4).
 
@@ -359,7 +359,7 @@ def open_store(folder=CHROMA_FOLDER):
 
 ```python
 # The facts stored beside each passage; Chapter 8 filters on them.
-METADATA_FIELDS = ["source", "source_code", "reference", "edition", "scope", "access", "licence"]
+METADATA_FIELDS = ["source", "source_code", "reference", "edition", "scope", "licence"]
 ```
 
 ```python

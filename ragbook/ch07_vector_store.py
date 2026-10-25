@@ -267,7 +267,7 @@ def open_store(folder=CHROMA_FOLDER):
 
 
 # The facts stored beside each passage; Chapter 8 filters on them.
-METADATA_FIELDS = ["source", "source_code", "reference", "edition", "scope", "access", "licence"]
+METADATA_FIELDS = ["source", "source_code", "reference", "edition", "scope", "licence"]
 
 
 def store_passages(client, passages, embeddings, name="corpus"):
