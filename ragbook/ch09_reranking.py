@@ -175,7 +175,7 @@ def saved_scorer(questions, scores):
 
     Example:
         score_passages = saved_scorer(load_questions(), load_scores())
-        score_passages("What is net national income?", passages[:2])
+        score_passages("What is consumption of fixed capital?", passages[:2])
         returns the two saved scores
     """
     ids_by_text = {}
@@ -232,7 +232,7 @@ class RerankedSearch:
 
     Example:
         search = RerankedSearch(load_corpus(), load_embeddings(), embed_question, score_passages)
-        results, withheld = search.rank("What is net national income?", "non-commercial")
+        results, withheld = search.rank("What is consumption of fixed capital?", "non-commercial")
     """
 
     def __init__(self, passages, saved, embed_question, score_passages):
