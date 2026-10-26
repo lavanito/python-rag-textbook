@@ -329,7 +329,10 @@ def main():
     for pool_size in (5, 10, 20):
         counts = [hits_at(lambda q: reranked.rank(q, use_mode, pool_size, how_many=10)[0],
                           questions, depth) for depth in (1, 3, 10)]
-        print(f"     reranked, pool of {pool_size:>2}           {counts[0]:>3} {counts[1]:>3} {counts[2]:>3}")
+        ceiling = hits_at(lambda q: first_stage.rank(q, use_mode, how_many=pool_size)[0],
+                          questions, pool_size)
+        print(f"     reranked, pool of {pool_size:>2}           {counts[0]:>3} {counts[1]:>3} {counts[2]:>3}"
+              f"   (ceiling {ceiling})")
 
     lost, gained = compare_first_places(
         questions,

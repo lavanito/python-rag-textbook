@@ -136,3 +136,45 @@ def test_saved_scores_cover_every_definition_question_and_passage():
     assert set(scores) == {question["id"] for question in QUESTIONS}
     for row in scores.values():
         assert set(row) == {passage["id"] for passage in PASSAGES}
+
+
+@pytest.fixture(scope="module")
+def saved_searches():
+    return build_searches(SCORE_FILE)
+
+
+@needs_saved_scores
+def test_reranker_does_not_beat_the_first_stage(saved_searches):
+    first_stage, reranked, questions = saved_searches
+    use_mode = "non-commercial"
+    before = [hits_at(lambda q: first_stage.rank(q, use_mode, how_many=10)[0], questions, depth)
+              for depth in (1, 3, 10)]
+    assert before == [25, 30, 32]
+    expected = {5: [24, 30, 31], 10: [24, 29, 32], 20: [24, 30, 32]}
+    for pool_size, counts in expected.items():
+        after = [hits_at(lambda q: reranked.rank(q, use_mode, pool_size, how_many=10)[0],
+                         questions, depth) for depth in (1, 3, 10)]
+        assert after == counts
+
+
+@needs_saved_scores
+def test_first_places_gained_and_lost(saved_searches):
+    first_stage, reranked, questions = saved_searches
+    lost, gained = compare_first_places(
+        questions,
+        lambda q: first_stage.rank(q, "non-commercial", how_many=10)[0],
+        lambda q: reranked.rank(q, "non-commercial", pool_size=10)[0])
+    assert (lost, gained) == (["q2-15", "q2-25"], ["q2-30"])
+
+
+@needs_saved_scores
+def test_pool_of_ten_holds_a_gold_passage_for_every_question(saved_searches):
+    first_stage, reranked, questions = saved_searches
+    assert hits_at(lambda q: first_stage.rank(q, "non-commercial", how_many=10)[0], questions, 10) == 32
+
+
+@needs_saved_scores
+def test_saved_timing_covers_every_pair():
+    seconds, pairs = scoring_time(SCORE_FILE)
+    assert pairs == 32 * 56
+    assert seconds > 0
