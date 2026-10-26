@@ -30,7 +30,7 @@ Uses
     (RerankedSearch, saved_scorer, load_scores). Python's math module.
 
 Run the worked example
-    python -m ragbook.ch10_measuring_retrieval
+    python -m ragbook.ch10_evaluation
         Reads the saved files, so it needs no model and no internet.
 """
 

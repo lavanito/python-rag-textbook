@@ -1,5 +1,5 @@
 """
-Tests for Chapter 10: ragbook/ch10_measuring_retrieval.py.
+Tests for Chapter 10: ragbook/ch10_evaluation.py.
 
 What this checks
     Each measure gives the value worked out by hand on small examples, stays
@@ -18,7 +18,7 @@ import pytest
 
 from ragbook.ch03_keyword_search import load_questions
 from ragbook.ch05_hybrid_search import hits_at
-from ragbook.ch10_measuring_retrieval import (
+from ragbook.ch10_evaluation import (
     ADDED_26_OCTOBER, average_precision, build_searches, compare_by_question,
     earlier_gold_lists, f1, measure_question, measure_search, precision_at, recall_at,
     reciprocal_rank, sign_test,
