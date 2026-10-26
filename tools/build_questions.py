@@ -148,10 +148,14 @@ q("amb-03", "AMB", "clarify", "Is the UK falling behind?",
   "Behind whom, and on what: growth, living standards or productivity? Ask before answering.")
 
 # --- Q6 Mixed: definition plus number --------------------------------------
-q("q6-01", "Q6", "R4+R2", "What is the exchange-rate component, and how large was it for Japan in 2024?",
-  ["ppp23-1.14", "ppp23-ov.13"], "Definition from the manuals plus the C1b value from the model.")
-q("q6-02", "Q6", "R4+R2", "What is the PPP component, and how large was it for India in 2024?",
-  ["ppp23-1.17", "ppp23-ov.12"], "Definition plus the C3 value.")
+q("q6-01", "Q6", "R4+R2", "What is the deflator mix, and how large was it for Japan in 2024?",
+  ["esa10-10.47", "sna08-15.187"],
+  "Definition plus the C2 value: growth of the GDP deflator minus growth of the household consumption deflator, in log points.",
+  "Should link it to the terms of trade without calling it the trading gain.")
+q("q6-02", "Q6", "R4+R2", "What is output per hour worked, and how did it change for India in 2023?",
+  ["esa10-11.27", "sna25-16.95"],
+  "Definition plus the C4a value. The DQR is Low: India's hours rest on weak underlying data, and its employment source changed in 2019.",
+  "Must report the Low DQR and its reason.")
 q("q6-03", "Q6", "R4+R2", "What is the gap between GDP and national income, and how large is it for the euro area?",
   ["esa10-8.94", "sna25-23.68", "cso-gnistar-2"],
   "Definition plus the C1a value. Ireland's multinational profits sit inside the euro area total.",
@@ -161,7 +165,7 @@ q("q6-03", "Q6", "R4+R2", "What is the gap between GDP and national income, and 
 q("q1-01", "Q1", "R2", "What was GNI per head at PPP in the United Kingdom in 2024?", ["ppp23-ov.12"], "A single value from the fact table, with unit and vintage.")
 q("q1-02", "Q1", "R2", "What was the population of India in 2022?", ["esa10-11.05"], "A single value with source and vintage.")
 q("q3-01", "Q3", "R2", "What drove growth in real NNI per head in Japan last year?", [], "The five components and the check term.")
-q("q3-02", "Q3", "R2", "How much of the United Kingdom's growth came from prices rather than volumes?", ["una14-ch1-deflator"], "C2 from the model.")
+q("q3-02", "Q3", "R2", "How much of the United Kingdom's growth came from prices rather than volumes?", ["una14-ch1-deflator"], "Growth of the GDP deflator against growth of real GDP, from the model: nominal GDP growth is their sum, in log points.")
 q("q4-01", "Q4", "R2", "How has the estimate of India's GNI per head for 2016 changed between data vintages?", ["qna17-12.1"], "Both vintages and the revision.")
 q("q5-01", "Q5", "R2", "How does the euro area compare with the United States on GNI per head at PPP, and on GDP per hour worked?", ["ppp23-1.17", "esa10-11.27"],
   "Two ratios; the gap per head is larger than the gap per hour because Europeans work fewer hours.",
