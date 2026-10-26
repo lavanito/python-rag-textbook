@@ -498,7 +498,7 @@ def build_corpus_store(client):
 - `chroma_ids == exact_ids` compares two lists: equal only if they hold the same ids in the same order.
 - `build_corpus_store` builds both from one copy of the saved embeddings, so any difference comes from the search, not the data.
 
-On the 32 definition questions, Chroma's top three equal Chapter 4's in all 32, in the same order. So Chapter 4's result carries over: 30 of 32 questions have a correct passage in the top three. A test keeps the check.
+On the 32 definition questions, Chroma's top three equal Chapter 4's in all 32, in the same order. So Chapter 4's result carries over: 32 of 32 questions have a correct passage in the top three. A test keeps the check.
 
 ## 7.7 Chapter 6's chunks in Chroma
 

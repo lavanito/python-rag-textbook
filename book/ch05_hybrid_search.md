@@ -2,7 +2,7 @@
 
 ## 5.1 What this chapter builds
 
-We have seen that Chapter 3's keyword search and Chapter 4's semantic search miss different questions. This chapter combines their rankings, then adds the knowledge graph so that a question can find passages written under another manual's name.
+Chapter 3's keyword search and Chapter 4's semantic search succeed on different questions: semantic search finds the two BM25 misses, but puts a gold passage first less often. This chapter combines their rankings, then adds the knowledge graph so that a question can find passages written under another manual's name.
 
 1. **Reciprocal rank fusion** (5.2): two rankings become one, using only positions, not scores.
 2. **The knowledge graph** (5.3): the code reads the knowledge graph built for this book and finds the concept that is named in a concept.
@@ -13,12 +13,12 @@ Each step is measured on the same 32 definition questions (5.6), at three depths
 
 | Method | First place | Top three | Top ten |
 | --- | --- | --- | --- |
-| BM25 (Chapter 3) | 24 | 30 | 31 |
-| Semantic search (Chapter 4) | 19 | 30 | 32 |
-| Hybrid search | 25 | 29 | 32 |
-| Hybrid search with query expansion | 24 | 30 | 32 |
+| BM25 (Chapter 3) | 26 | 30 | 31 |
+| Semantic search (Chapter 4) | 20 | 32 | 32 |
+| Hybrid search | 27 | 31 | 32 |
+| Hybrid search with query expansion | 26 | 32 | 32 |
 
-Combining the two methods puts a correct passage first more often and finds one for every question within ten places. It does not improve the top three. Section 5.6 shows why.
+Combining the two methods puts a correct passage first more often and finds one for every question within ten places. In the top three it finds one question fewer than semantic search alone; query expansion brings it back to all 32. Section 5.6 shows why.
 
 **Code file:** `ragbook/ch05_hybrid_search.py`
 
@@ -433,18 +433,18 @@ Chapter 3's measure counts questions with a gold passage in the top three. This 
 
 | Method | First place | Top three | Top ten | Missed in the top three |
 | --- | --- | --- | --- | --- |
-| BM25 (Chapter 3) | 24 | 30 | 31 | q2-04, q2-30 |
-| Semantic search (Chapter 4) | 19 | 30 | 32 | q2-24, q2-31 |
-| Hybrid search | 25 | 29 | 32 | q2-04, q2-17, q2-24 |
-| Hybrid search with query expansion | 24 | 30 | 32 | q2-17, q2-24 |
+| BM25 (Chapter 3) | 26 | 30 | 31 | q2-04, q2-30 |
+| Semantic search (Chapter 4) | 20 | 32 | 32 | None |
+| Hybrid search | 27 | 31 | 32 | q2-04 |
+| Hybrid search with query expansion | 26 | 32 | 32 | None |
 
-**Hybrid search helps at first place and at ten.** Hybrid search puts a gold passage first for 25 questions, more than either method alone, and finds one within ten places for all 32.
+**Hybrid search helps at first place and at ten.** Hybrid search puts a gold passage first for 27 questions, more than either method alone, and finds one within ten places for all 32.
 
-**Hybrid search does not help in the top three.** RRF rewards passages both methods rank fairly well. A passage one method ranks second and the other eighth ends up between them. For "Is net domestic product a better measure than GDP?" (q2-24), BM25 ranks the gold passage second and semantic search eighth; the hybrid ranking puts it fourth. For "What is the difference between GDP and GNI?" (q2-04), semantic search ranks it second and BM25 nineteenth; the hybrid ranking puts it ninth.
+**Hybrid search loses one question in the top three.** RRF rewards passages both methods rank fairly well. A passage one method ranks second and the other far down ends up between them. For "What is the difference between GDP and GNI?" (q2-04), semantic search ranks a gold passage second and BM25 nineteenth; the hybrid ranking puts it ninth, so semantic search alone finds the question and hybrid search does not.
 
-**Query expansion fixes some questions and not others.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of nineteenth, and the hybrid ranking third. It does not rescue "Why are GDP estimates revised?" (q2-17). Hybrid search ranks bea-ch1-revisions fourth, behind Deaton's passage on the 2005 revisions of PPPs; query expansion adds "gross domestic product" and "domestic product", words found in 10 to 11 of the 56 passages, which push it down to sixth. q2-30 is found with and without query expansion: McCarthy's passage on extrapolating PPPs comes second or third.
+**Query expansion wins q2-04 back, and can also push passages down.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of nineteenth, and the hybrid ranking third. For "Why are GDP estimates revised?" (q2-17), hybrid search ranks bea-ch1-revisions fourth, behind Deaton's passage on the 2005 revisions of PPPs; query expansion adds "gross domestic product" and "domestic product", words found in 10 to 11 of the 56 passages, which push it down to sixth. q2-17 still counts as found, because qna17-10.48, added to its gold list on 26 October 2026, comes first either way. q2-30 is found with and without query expansion: McCarthy's passage on extrapolating PPPs comes second or third.
 
-These figures are for the corpus of 56 passages. With the first 48, semantic search found 31 questions, and hybrid search missed q2-30 instead of q2-17: adding passages moves results, which is why Chapter 10 measures retrieval again whenever the corpus changes.
+These figures are for the corpus of 56 passages and the gold lists as revised on 26 October 2026. Adding passages, or gold passages, moves results, which is why Chapter 10 measures retrieval again whenever either changes.
 
 Several rules to limit query expansion were tried: expanding only concepts named in few passages, and giving added words less weight. Each fixed one question and broke another. With 32 questions, one question is about three percentage points, and choosing a rule because it scores best on these same questions would only fit these questions. The chapter keeps the plain rule and reports what it does.
 
@@ -571,10 +571,10 @@ The output from the test laptop (Windows), 23 October 2026, identical to the run
        ESA10: esa10-10.47 [discussed_in]
 
 5.6  Questions with a gold passage within the first 1, 3 and 10 places (of 32)
-     BM25 (Chapter 3)                  24  30  31
-     Semantic search (Chapter 4)       19  30  32
-     Hybrid search                     25  29  32
-     Hybrid search + query expansion   24  30  32
+     BM25 (Chapter 3)                  26  30  31
+     Semantic search (Chapter 4)       20  32  32
+     Hybrid search                     27  31  32
+     Hybrid search + query expansion   26  32  32
 ```
 
 Three points stand out.

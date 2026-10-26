@@ -7,7 +7,7 @@ A **filter** decides which passages a question may use, before any search. A pas
 1. **The licence filter** (8.2): a **use mode** keeps only the licence classes it allows. Commercial use keeps 41 of the 56 passages.
 2. **The edition filter** (8.3): a question gets the SNA edition it names, or the latest edition on each topic when it names none.
 3. **Both filters and the log** (8.4): every withheld passage is written to a log with the reason.
-4. **Searching only what passes** (8.5): hit counts in each use mode. Six questions lose every gold passage in commercial use.
+4. **Searching only what passes** (8.5): hit counts in each use mode. Five questions lose every gold passage in commercial use.
 5. **The same filters in Chroma** (8.6): conditions on metadata give the same top three as exact search on all 32 definition questions, in both use modes.
 
 Until this chapter one passage, esa10-10.20, carried the label `access: subscriber`. The label stood for a rule no publisher set. The licence class is a real term of use, recorded for every passage, so the filter reads it instead. The label and the `access` field that held it are gone, so no field other than the licence class can be read as a term of use.
@@ -316,14 +316,14 @@ Hybrid search with query expansion, on the 32 definition questions:
 
 | Use mode | Passages kept | Questions reachable | Hits at 1 | Hits at 3 | Hits at 10 |
 | --- | --- | --- | --- | --- | --- |
-| No filter (Chapter 5) | 56 | 32 | 24 | 30 | 32 |
-| non-commercial | 54 | 32 | 25 | 30 | 32 |
-| commercial | 41 | 26 | 20 | 24 | 26 |
+| No filter (Chapter 5) | 56 | 32 | 26 | 32 | 32 |
+| non-commercial | 54 | 32 | 27 | 32 | 32 |
+| commercial | 41 | 27 | 21 | 25 | 27 |
 
 "Passages kept" is for a question that names no edition.
 
-- **Non-commercial** differs from Chapter 5 only through the edition filter. q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings. q2-31's gold passage rises from third place to second for the same reason.
-- **Commercial** finds a gold passage within ten places for every reachable question. The six it cannot reach, q2-03, q2-16, q2-18, q2-19, q2-24 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus holds no passage it may use.
+- **Non-commercial** differs from Chapter 5 only through the edition filter. q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings. For q2-31, the definition esa10-11.27 rises from third place to second for the same reason.
+- **Commercial** finds a gold passage within ten places for every reachable question. The five it cannot reach, q2-03, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus holds no passage it may use.
 
 ## 8.6 The same filters inside Chroma
 
@@ -441,7 +441,7 @@ The file `tests/test_ch08_filters.py` holds 12 tests. The Chroma tests build the
 | Both filters | No passage is both kept and withheld; together they make 56, for every question in both use modes |
 | Log | One line per withheld passage, added to, with six fields |
 | Filtered search | No withheld passage appears in the first ten places |
-| Reachable questions | Commercial use loses q2-03, q2-16, q2-18, q2-19, q2-24 and q2-32 |
+| Reachable questions | Commercial use loses q2-03, q2-16, q2-18, q2-19 and q2-32 |
 | Chroma condition | The condition written for each use mode |
 | Chroma licence | Commercial results are all open |
 | Chroma agrees | Same top three as filtered exact search on all 32 questions, both use modes |

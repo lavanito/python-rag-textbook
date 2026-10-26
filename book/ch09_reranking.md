@@ -8,7 +8,7 @@
 2. **The cross-encoder** (9.3): the model that reads a question and a passage as one text and returns one score.
 3. **Saving the scores** (9.4): the model scores every pair of definition question and passage once, on the laptop; the chapter and the tests read the saved file.
 4. **Reranking the pool** (9.5): sort the pool by score; equal scores keep their first-stage order.
-5. **Measuring** (9.6): hits at 1, 3 and 10 on the 32 definition questions, against Chapter 8's 25, 30 and 32, for pools of 5, 10 and 20.
+5. **Measuring** (9.6): hits at 1, 3 and 10 on the 32 definition questions, against Chapter 8's 27, 32 and 32, for pools of 5, 10 and 20.
 6. **What it costs** (9.7): time per pair on the target laptop, and per question for each pool size.
 7. **Late interaction** (9.8): ColBERT, a third design between the two, described but not built.
 
@@ -311,36 +311,36 @@ The reranker agrees on the first passage and gives it a score far above the rest
 
 ### 9.6.1 Results
 
-On this corpus the reranker does not improve on the first stage. It puts a gold passage first for 24 of the 32 definition questions, against 25 without it, and leaves the top three and top ten about where they were.
+On this corpus the reranker gives a mixed result. It puts a gold passage first for 28 of the 32 definition questions, one more than the first stage's 27, but finds one in the top three for 30, two fewer.
 
 Hits at 1, 3 and 10, non-commercial use:
 
 | Search | First place | Top three | Top ten | Ceiling |
 | --- | --- | --- | --- | --- |
-| First stage only (Chapter 8) | 25 | 30 | 32 |  |
-| Reranked, pool of 5 | 24 | 30 | 31 | 31 |
-| Reranked, pool of 10 | 24 | 29 | 32 | 32 |
-| Reranked, pool of 20 | 24 | 30 | 32 | 32 |
+| First stage only (Chapter 8) | 27 | 32 | 32 |  |
+| Reranked, pool of 5 | 28 | 31 | 32 | 32 |
+| Reranked, pool of 10 | 28 | 30 | 32 | 32 |
+| Reranked, pool of 20 | 28 | 30 | 32 | 32 |
 
-A pool of 5 can hold at most 5 passages, so its top ten is its ceiling: 31. From a pool of 10, every question has a gold passage in the pool. The pool is therefore not what holds the reranker back; its scores are.
+Even a pool of 5 holds a gold passage for every question. The pool is therefore not what holds the reranker back; its scores are.
 
 ### 9.6.2 What changed
 
 With a pool of 10, the reranker changes the first passage for three questions:
 
+- **Gained, q2-24** ("Is net domestic product a better measure than GDP?"): bea-ch2-ndp-gni, the BEA definition of NDP, moves from third to first.
 - **Gained, q2-30** ("Why can real GDP growth and comparisons at PPP tell different stories about two economies?"): McCarthy's passage on comparisons across countries and across time (wb13-mccarthy-space-time) moves from fourth to first.
-- **Lost, q2-15** ("Should annual price and volume indices be chained?"): esa10-10.22, on the drawback of chained indices, moves from fifth to first, above both gold passages (esa10-10.20, first before reranking, and bea-ch4-fisher).
 - **Lost, q2-25** ("What is real gross domestic income, and how does it lead to real national income?"): esa10-8.94, the definition of national income, moves above the gold passage esa10-10.47, which explains how the terms of trade affect real income.
 
-The top three changes for three questions, one fewer in all. q2-04 and q2-29 lose their gold passage from it; for q2-29, ppp23-ov.13, eighth before reranking, moves above the gold passage ppp23-ov.12. q2-24 gains one: sna25-A4.10 moves from fourth to third.
+The top three loses two questions and gains none. q2-04 and q2-29 lose their gold passage from it; for q2-29, ppp23-ov.13, eighth before reranking, moves above the gold passage ppp23-ov.12.
 
 ### 9.6.3 Why
 
-- **The first stage is already strong.** It misses first place on 7 questions and the top three on 2, so there is little to gain.
+- **The first stage is already strong.** It misses first place on 5 questions and the top three on none, so there is little to gain and something to lose.
 - **The model learned from web searches.** It appears to reward a passage that shares the question's terms and reads like an answer. Several passages in the corpus do both without being the definition the question asks for, such as esa10-8.94 for q2-25.
-- **Some of its first choices are defensible.** esa10-10.22 states the case against chaining, which a full answer to q2-15 needs, but it is not in q2-15's gold list. A count can only be as good as the gold lists; Chapter 10 measures how much that matters.
+- **Its first choices exposed gaps in the gold lists.** On the first measurement, four of the reranker's first choices answered their question but were not in its gold list, among them esa10-10.22, on the drawback of chaining, for q2-15. The lists were reviewed and those passages added on 26 October 2026; all figures in Chapters 2 to 9 use the revised lists. A count can only be as good as the gold lists; Chapter 10 returns to this.
 
-The reranker is measured, not assumed to help. On 56 short passages with a strong first stage it adds time (9.7) and no hits.
+The reranker is measured, not assumed to help. On 56 short passages with a strong first stage it adds time (9.7), moves one question up at first place, and moves two out of the top three.
 
 ### 9.6.4 When rerankers do not help
 
@@ -348,17 +348,17 @@ A reranker pays off when a crude first stage leaves the right passage low in a p
 
 | Condition | Why the reranker cannot help | In this chapter |
 | --- | --- | --- |
-| The first stage is near the ceiling | The reranker can only reorder; if the right passage is already first, it can only lose | Holds: the first stage misses first place on 7 of 32 questions |
-| The pool lacks the gold passage | No reordering finds a passage outside the pool | Holds for a pool of 5 (ceiling 31); not for 10 or 20 |
+| The first stage is near the ceiling | The reranker can only reorder; if the right passage is already first, it can only lose | Holds: the first stage misses first place on 5 of 32 questions and the top three on none |
+| The pool lacks the gold passage | No reordering finds a passage outside the pool | Does not hold: every pool from 5 to 20 holds a gold passage for all 32 questions |
 | The model was trained on other text | It learned what relevant means from web searches, not from statistical manuals | Holds: MS MARCO; esa10-8.94 beat the gold passage for q2-25 |
 | The candidates are close | Several passages on one concept, in similar words, get scores a small margin apart | Likely: SNA, ESA 2010 and BEA passages cover the same concepts |
-| The gold lists are incomplete | A correct passage that is not listed counts as a miss | Holds: esa10-10.22 for q2-15 |
+| The gold lists are incomplete | A correct passage that is not listed counts as a miss | Held at first: four first choices were missing from the gold lists, added on 26 October 2026 |
 | The answer needs several passages | The reranker scores each passage alone; it cannot see that two together answer the question | Likely for comparisons: q2-04 ("What is the difference between GDP and GNI?") lost its top-three place |
 | Passages are cut or too long | Text past the input limit is dropped before scoring | Does not hold: the longest passage, 180 words, fits |
 | The question is short or vague | Few words give the model little to compare | Not tested: definition questions are specific |
 | The collection is small | A small collection lets the first stage use careful methods, leaving little for a second stage | Holds: 56 passages, searched with BM25, embeddings, fusion and query expansion |
 
-A reranker would be worth measuring again with a model trained on statistical text, with a larger collection searched by a cruder first stage, or after the gold lists are reviewed (Chapter 10).
+A reranker would be worth measuring again with a model trained on statistical text, or with a larger collection searched by a cruder first stage.
 
 **Decision (Lavan, 26 October 2026):** the demonstrator app shows the first-stage ranking. The reranker stays in the book as a measured step that did not pay off on this corpus.
 
@@ -410,11 +410,11 @@ The file `tests/test_ch09_reranking.py` holds 15 tests. None needs the model. Ru
 | Ceiling | Hits at the pool's depth are the same before and after reranking |
 | First places | Questions gained and lost at first place are listed correctly |
 | Saved file | Covers every definition question and every passage |
-| Results | First stage 25, 30, 32; reranked 24, 30, 31 (pool of 5), 24, 29, 32 (10) and 24, 30, 32 (20) |
-| Gained and lost | Pool of 10: q2-30 gained first place; q2-15 and q2-25 lost it |
+| Results | First stage 27, 32, 32; reranked 28, 31, 32 (pool of 5), 28, 30, 32 (10) and 28, 30, 32 (20) |
+| Gained and lost | Pool of 10: q2-24 and q2-30 gained first place; q2-25 lost it |
 | Pool of ten | Holds a gold passage for all 32 questions |
 | Timing | The saved time covers 1,792 pairs |
-| Top three | Pool of 10: q2-04 and q2-29 leave the top three; q2-24 enters it |
+| Top three | Pool of 10: q2-04 and q2-29 leave the top three |
 
 The pool and ceiling tests use a stand-in score file built from the saved embeddings, so they check the code, not the model. The last five hold the results of 9.6 and 9.7.
 

@@ -12,9 +12,9 @@ All three need the same first step: splitting text into words properly (3.2). BM
 
 | Method | Definition questions with a correct passage in the top three |
 | --- | --- |
-| Chapter 2: shared topic words | 24 of 32 |
-| Word counts | 27 of 32 |
-| TF-IDF | 29 of 32 |
+| Chapter 2: shared topic words | 25 of 32 |
+| Word counts | 28 of 32 |
+| TF-IDF | 30 of 32 |
 | BM25 | 30 of 32 |
 
 **Code file:** `ragbook/ch03_keyword_search.py`
@@ -123,7 +123,7 @@ def count_score(question_words, passage_words):
 ### 3.3.3 Annotations
 
 - `set(question_words)` keeps each question word once, so a question that repeats a word does not count it twice.
-- Score: 27 of 32 questions now have a correct passage in the top three, up from 24 (3.8).
+- Score: 28 of 32 questions now have a correct passage in the top three, up from 25 (3.8).
 
 ## 3.4 TF-IDF: rare words count for more
 
@@ -186,7 +186,7 @@ def tf_idf_score(question_words, passage_words, frequencies, number_of_passages)
 - `math.log` is the natural logarithm. Any base gives the same ranking; only the size of the scores changes.
 - `for word in set(words):` inside `document_frequencies` counts each word once per passage, however often it appears there.
 - `frequencies.get(word, 0) + 1` adds one to the count, starting from 0 for a word seen for the first time.
-- Score: 29 of 32.
+- Score: 30 of 32.
 
 ## 3.5 BM25: repeats and passage length
 
@@ -245,7 +245,7 @@ def bm25_score(question_words, passage_words, frequencies, number_of_passages,
 
 - `k1=1.5, b=0.75` are default values (Chapter 2, 2.2.3), the same as bm25s's defaults. Elasticsearch uses k1 = 1.2 with the same b. Chapter 10 tests whether other settings work better on this corpus.
 - `length_ratio` is above 1 for a passage longer than average, which makes the bottom of the fraction larger and the score smaller.
-- Score: 30 of 32.
+- Score: 30 of 32, the same as TF-IDF (3.8).
 
 ## 3.6 Ranking with an index
 
@@ -387,7 +387,7 @@ def bm25s_rank(passages, question, how_many=3):
 - `retriever.retrieve` returns two lists: the positions of the best passages and their scores. `zip` walks through both together.
 - `int(position)` turns bm25s's number type into an ordinary Python whole number, so it can pick a passage from the list.
 
-## 3.8 Measuring: from 24 to 30 of 32
+## 3.8 Measuring: from 25 to 30 of 32
 
 ### 3.8.1 Principles
 
@@ -395,16 +395,16 @@ Each definition question (class Q2) in the question bank lists its **gold passag
 
 | Method | Questions with a gold passage in the top three | Questions missed |
 | --- | --- | --- |
-| Chapter 2: shared topic words | 24 of 32 | 8 |
-| Word counts | 27 of 32 | q2-04, q2-21, q2-26, q2-30, q2-31 |
-| TF-IDF | 29 of 32 | q2-04, q2-30, q2-31 |
+| Chapter 2: shared topic words | 25 of 32 | 7 |
+| Word counts | 28 of 32 | q2-04, q2-21, q2-26, q2-30 |
+| TF-IDF | 30 of 32 | q2-04, q2-30 |
 | BM25 | 30 of 32 | q2-04, q2-30 |
 
 Each step fixes a fault named earlier, and word counts also show the fault they bring:
 
-- **Word counts** find five questions Chapter 2 missed, among them the GDP deflator (q2-16, helped by the curly-quote fix) and consumption of fixed capital (q2-01). But they lose two Chapter 2 found: double deflation (q2-26) and labour input (q2-31). Long passages on PPPs that repeat some of the question's everyday words many times now crowd out the right ones.
+- **Word counts** find four questions Chapter 2 missed, among them the GDP deflator (q2-16, helped by the curly-quote fix) and consumption of fixed capital (q2-01). But they lose one Chapter 2 found: double deflation (q2-26). Long passages on PPPs that repeat some of the question's everyday words many times now crowd out the right ones.
 - **TF-IDF** wins back double deflation and adds remittances (q2-21): the rare word "remittances" now outweighs "national" and "income".
-- **BM25** wins back labour input: marking down long passages lets esa10-11.27 back into the top three.
+- **BM25** finds the same 30 questions as TF-IDF. Marking down long passages still shows: for labour input (q2-31), the definition esa10-11.27 rises from fifth place to second.
 
 The two questions BM25 still misses show the limit of matching words:
 
@@ -497,8 +497,8 @@ The output (no language model is used in this chapter, so it is the same on ever
 3.7  Hand-built BM25 and bm25s agree on the top three: True
 
 3.8  Questions with a correct passage in the top three (of 32)
-     counts  27
-     tfidf   29
+     counts  28
+     tfidf   30
      bm25    30
 ```
 
@@ -523,7 +523,7 @@ The file `tests/test_ch03_keyword_search.py` holds 13 tests. Retrieval is tested
 | Corpus frequencies quoted in 3.4 | "gdp" in 18 passages, "deflator" in 2 |
 | BM25 ranks the deflator passage first | The ranking shown in 3.9 |
 | Hand-built BM25 matches bm25s on all 32 questions | The formula in 3.5 is typed correctly |
-| Top-three counts reported in 3.8 | 27, 29 and 30 of 32 |
+| Top-three counts reported in 3.8 | 28, 30 and 30 of 32 |
 | An unknown method is refused | A misspelt method name fails loudly |
 
 ### 3.10.2 Glossary additions

@@ -96,10 +96,10 @@ def test_filtered_search_never_returns_a_withheld_passage():
         assert all(result["id"] not in withheld_ids for result in results)
 
 
-def test_six_questions_cannot_be_reached_in_commercial_use():
+def test_five_questions_cannot_be_reached_in_commercial_use():
     kept_ids = {question["id"] for question in reachable(QUESTIONS, PASSAGES, "commercial")}
     lost = sorted({question["id"] for question in QUESTIONS} - kept_ids)
-    assert lost == ["q2-03", "q2-16", "q2-18", "q2-19", "q2-24", "q2-32"]
+    assert lost == ["q2-03", "q2-16", "q2-18", "q2-19", "q2-32"]
 
 
 def test_chroma_filter_examples():

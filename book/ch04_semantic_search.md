@@ -14,9 +14,9 @@ Semantic search is measured on the same 32 definition questions as Chapter 3 (4.
 | Method | Definition questions with a correct passage in the top three |
 | --- | --- |
 | Chapter 3: BM25 | 30 of 32 |
-| Semantic search | 30 of 32 |
+| Semantic search | 32 of 32 |
 
-The two methods miss different questions. Chapter 5 combines them.
+Semantic search finds the two questions BM25 misses, but puts a gold passage first less often (Chapter 5, 5.6). Chapter 5 combines them.
 
 **Code file:** `ragbook/ch04_semantic_search.py`
 
@@ -325,7 +325,7 @@ class SemanticIndex:
 - `order[:how_many]` keeps the first three positions; the loop turns them back into passages.
 - `rank` takes a question and returns passages, the same shape as Chapter 3's rankings, so `top_three_hits` measures it unchanged (4.7).
 
-## 4.7 Measuring: 30 of 32, and different misses
+## 4.7 Measuring: 32 of 32
 
 ### 4.7.1 Principles
 
@@ -334,17 +334,15 @@ The measure is Chapter 3's: the number of definition questions with at least one
 | Method | Questions with a gold passage in the top three | Questions missed |
 | --- | --- | --- |
 | BM25 (Chapter 3) | 30 of 32 | q2-04, q2-30 |
-| Semantic search | 30 of 32 | q2-24, q2-31 |
+| Semantic search | 32 of 32 | None |
 
-The headline is one question short of BM25. The more useful finding is that the two methods miss different questions.
+Semantic search finds a gold passage in the top three for every question, including the two BM25 misses.
 
 **What is the difference between GDP and GNI? (q2-04).** BM25 missed it because the gold passages never write "GNI". Semantic search ranks bea-ch2-gnp second (similarity 0.728). That passage says GNP equals GDP minus net income paid abroad: it answers the question without sharing its key word. But the other gold passage, esa10-8.94, which writes "gross national income" in full, comes only twelfth (0.495). The model did not reliably treat "GNI" and "gross national income" as the same thing. Chapter 5 adds that knowledge from the knowledge graph.
 
 **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** Semantic search ranks wb13-mccarthy-space-time first (0.648): McCarthy explains that PPPs compare countries at one time and national accounts compare one country over time, and that both cannot be kept consistent. That is half the answer. The passages on the terms of trade, the other half, come 12th and 43rd.
 
-**What is the best measure of labour input for comparing productivity? (q2-31).** The gold passage, esa10-11.27 on hours worked, comes fifth. Above it are esa10-10.33 on measuring output with a single indicator, sna25-16.95 on the quality of hours worked, and the two ONS passages on public-sector productivity. All are close to the topic; only esa10-11.27 defines the measure. A larger corpus gives more passages close to the topic to compete for three places.
-
-**Is net domestic product a better measure than GDP? (q2-24).** BM25 finds it; semantic search does not. Its top three are passages about GDP and other measures in general. The passage that gives the judgement, sna25-A4.10 ("the conceptually preferred measure of economic growth"), comes eighth (0.561). Close in meaning to the question is not the same as answering it.
+**Two questions are found only through passages added to their gold lists on 26 October 2026.** For "What is the best measure of labour input for comparing productivity?" (q2-31), the top three include sna25-16.95, on the quality of hours worked; the definition, esa10-11.27, comes fifth. For "Is net domestic product a better measure than GDP?" (q2-24), they include bea-ch2-ndp-gni, the BEA definition of NDP; the passage that gives the judgement, sna25-A4.10 ("the conceptually preferred measure of economic growth"), comes eighth (0.561). Both count as hits, but the passage that answers most directly is outside the top three. Close in meaning to the question is not the same as answering it.
 
 The pattern is general: keyword search is exact on terms the question names; semantic search finds passages written in other words, but can drift to the topic. Chapter 5 combines the two rankings.
 
@@ -390,7 +388,7 @@ The output from the test laptop (Windows, Python 3.14, CPU only), 21 October 202
      0.589  [bea-ch2-gnp] US Bureau of Economic Analysis, NIPA Handbook, Chapter 2: Fundamental Concepts
      0.583  [una14-ch1-deflator] OECD, Understanding National Accounts, Chapter 1, p. 22, partial
 
-4.7  Questions with a correct passage in the top three: 30 of 32 (BM25 in Chapter 3: 30)
+4.7  Questions with a correct passage in the top three: 32 of 32 (BM25 in Chapter 3: 30)
 ```
 
 The first five of the 384 numbers show that no single number means anything to a reader; only comparisons between embeddings do.
@@ -418,8 +416,8 @@ The file `tests/test_ch04_semantic_search.py` holds 12 tests. The first eight us
 | Equal scores keep corpus order | Ties are broken the same way as in Chapter 3 |
 | Saving and loading round trip | Ids, numbers and the model name come back unchanged |
 | Saved embeddings cover the corpus and questions | All 56 passages (384 numbers each) and 32 questions |
-| 30 of 32 questions | The count reported in 4.7 |
-| Semantic search misses q2-24 and q2-31 | The different misses reported in 4.7 |
+| 32 of 32 questions | The count reported in 4.7 |
+| Semantic search finds the BM25 misses | q2-04 and q2-30 found; no question missed (4.7) |
 | Deflator ranking | The ranking shown in 4.8 |
 
 ### 4.9.2 Glossary additions

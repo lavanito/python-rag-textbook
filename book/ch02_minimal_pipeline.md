@@ -387,9 +387,9 @@ Without Ollama running, the example prints the matches and then a line saying th
 
 ## 2.8 How often matching finds the right passages
 
-Every definition question in the question bank (`data/question_bank/questions.jsonl`) lists its **gold passages**: the passages a correct answer should rest on. Running `find_matching_passages` on all 32 definition questions, at least one gold passage is among the top three for 24 of them.
+Every definition question in the question bank (`data/question_bank/questions.jsonl`) lists its **gold passages**: the passages a correct answer should rest on. Running `find_matching_passages` on all 32 definition questions, at least one gold passage is among the top three for 25 of them.
 
-Three of the eight misses show the method's limits:
+Three of the seven misses show the method's limits:
 
 | Question | What went wrong |
 | --- | --- |

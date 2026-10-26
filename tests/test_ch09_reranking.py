@@ -144,13 +144,13 @@ def saved_searches():
 
 
 @needs_saved_scores
-def test_reranker_does_not_beat_the_first_stage(saved_searches):
+def test_reranker_gains_at_first_place_and_loses_in_the_top_three(saved_searches):
     first_stage, reranked, questions = saved_searches
     use_mode = "non-commercial"
     before = [hits_at(lambda q: first_stage.rank(q, use_mode, how_many=10)[0], questions, depth)
               for depth in (1, 3, 10)]
-    assert before == [25, 30, 32]
-    expected = {5: [24, 30, 31], 10: [24, 29, 32], 20: [24, 30, 32]}
+    assert before == [27, 32, 32]
+    expected = {5: [28, 31, 32], 10: [28, 30, 32], 20: [28, 30, 32]}
     for pool_size, counts in expected.items():
         after = [hits_at(lambda q: reranked.rank(q, use_mode, pool_size, how_many=10)[0],
                          questions, depth) for depth in (1, 3, 10)]
@@ -164,7 +164,7 @@ def test_first_places_gained_and_lost(saved_searches):
         questions,
         lambda q: first_stage.rank(q, "non-commercial", how_many=10)[0],
         lambda q: reranked.rank(q, "non-commercial", pool_size=10)[0])
-    assert (lost, gained) == (["q2-15", "q2-25"], ["q2-30"])
+    assert (lost, gained) == (["q2-25"], ["q2-24", "q2-30"])
 
 
 @needs_saved_scores
@@ -190,4 +190,4 @@ def test_top_three_gained_and_lost(saved_searches):
         after = any(p["id"] in gold for p in reranked.rank(question["question"], "non-commercial", 10, how_many=3)[0])
         if before != after:
             changes[question["id"]] = "gained" if after else "lost"
-    assert changes == {"q2-04": "lost", "q2-24": "gained", "q2-29": "lost"}
+    assert changes == {"q2-04": "lost", "q2-29": "lost"}

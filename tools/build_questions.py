@@ -65,15 +65,15 @@ q("q2-14", "Q2", R4, "Do chain-linked volume measures add up to the total?",
   "No. Chain-linked volumes are not additive, so components do not sum to the total and shares are inaccurate.",
   "BEA passage is US practice (chained dollars); the point holds for chain-linked volumes everywhere.")
 q("q2-15", "Q2", R4, "Should annual price and volume indices be chained?",
-  ["esa10-10.20", "bea-ch4-fisher"],
-  "Yes. Volumes are measured at the previous year's prices and the annual links are chained. ESA 2010 uses Laspeyres volume and Paasche price indices; BEA uses Fisher indices.",
+  ["esa10-10.20", "bea-ch4-fisher", "esa10-10.22"],
+  "Yes. Volumes are measured at the previous year's prices and the annual links are chained. ESA 2010 uses Laspeyres volume and Paasche price indices; BEA uses Fisher indices. The cost: chained volumes are not additive, so they cannot be used to balance supply and use tables (ESA 2010).",
   "Should say the index formula differs between the EU and the US but both chain annually.")
 q("q2-16", "Q2", R4, "What is the GDP deflator?",
   ["una14-ch1-deflator"],
   "The price index that separates GDP growth at current prices from GDP growth in volume; nominal divided by real.",
   "Should not equate it with a producer price index.")
 q("q2-17", "Q2", R4, "Why are GDP estimates revised?",
-  ["qna17-12.1", "qna17-12.2", "bea-ch1-revisions"],
+  ["qna17-12.1", "qna17-12.2", "bea-ch1-revisions", "qna17-10.48"],
   "Early estimates use incomplete data; later data and new methods replace them.",
   "Scope: the BEA schedule is an example of national practice.")
 q("q2-18", "Q2", R4, "What problems can revisions cause, and how should they be handled?",
@@ -96,8 +96,8 @@ q("q2-23", "Q2", R4, "Why can GDP mislead for economies with large multinational
   ["sna25-23.68", "cso-gnistar-2", "cso-gnistar-4"],
   "MNE profits and IP moves inflate GDP; GNI, NNI and household income are less affected.")
 q("q2-24", "Q2", R4, "Is net domestic product a better measure than GDP?",
-  ["sna25-A4.10", "sna25-3.145"],
-  "Conceptually yes: the 2025 SNA names NDP growth the preferred measure, used alongside GDP, not replacing it. NDP deducts depreciation and depletion.",
+  ["sna25-A4.10", "sna25-3.145", "bea-ch2-ndp-gni"],
+  "Conceptually yes. Setting aside how hard depreciation is to measure, NDP is the better measure of the output an economy generates sustainably. It deducts consumption of fixed capital (wear, tear and obsolescence) and, in the 2025 SNA, depletion of natural resources, so it counts only what is available for consumption or for adding to wealth. GDP measures total production before those deductions. The 2025 SNA names NDP growth the preferred measure of growth, used alongside GDP, not replacing it. In US practice (BEA), NDP is GDP minus consumption of fixed capital.",
   "Must say NDP complements GDP rather than replaces it.")
 q("q2-25", "Q2", R4, "What is real gross domestic income, and how does it lead to real national income?",
   ["esa10-10.47"],
@@ -127,8 +127,8 @@ q("q2-30", "Q2", R4, "Why can real GDP growth and comparisons at PPP tell differ
   "Should link to terms of trade and real GDI; Krugman (2026) is book text, not corpus.")
 
 q("q2-31", "Q2", R4, "What is the best measure of labour input for comparing productivity?",
-  ["esa10-11.27"],
-  "Total hours actually worked by employees and the self-employed, not a head count.",
+  ["esa10-11.27", "sna25-16.95"],
+  "Total hours actually worked by employees and the self-employed, not a head count. Hours worked still treat every hour as equal in quality, whatever the worker's skills (2025 SNA).",
   "Should note that hours are estimated, which limits comparisons of levels across countries.")
 q("q2-32", "Q2", R4, "Does output per hour worked allow for differences in workers' skills?",
   ["sna25-16.95"],
