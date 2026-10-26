@@ -67,7 +67,7 @@ q("q2-14", "Q2", R4, "Do chain-linked volume measures add up to the total?",
 q("q2-15", "Q2", R4, "Should annual price and volume indices be chained?",
   ["esa10-10.20", "bea-ch4-fisher"],
   "Yes. Volumes are measured at the previous year's prices and the annual links are chained. ESA 2010 uses Laspeyres volume and Paasche price indices; BEA uses Fisher indices.",
-  "Should say the index formula differs between the EU and the US but both chain annually. Access test: esa10-10.20 is labelled subscriber-only; a public user must not see it.")
+  "Should say the index formula differs between the EU and the US but both chain annually.")
 q("q2-16", "Q2", R4, "What is the GDP deflator?",
   ["una14-ch1-deflator"],
   "The price index that separates GDP growth at current prices from GDP growth in volume; nominal divided by real.",
