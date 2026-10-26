@@ -338,7 +338,7 @@ The top three loses two questions and gains none. q2-04 and q2-29 lose their gol
 
 - **The first stage is already strong.** It misses first place on 5 questions and the top three on none, so there is little to gain and something to lose.
 - **The model learned from web searches.** It appears to reward a passage that shares the question's terms and reads like an answer. Several passages in the corpus do both without being the definition the question asks for, such as esa10-8.94 for q2-25.
-- **Its first choices exposed gaps in the gold lists.** On the first measurement, four of the reranker's first choices answered their question but were not in its gold list, among them esa10-10.22, on the drawback of chaining, for q2-15. The lists were reviewed and those passages added on 26 October 2026; all figures in Chapters 2 to 9 use the revised lists. A count can only be as good as the gold lists; Chapter 10 returns to this.
+- **Its first choices exposed gaps in the gold lists.** On the first measurement, four of the reranker's first choices answered their question but were not in its gold list, among them esa10-10.22, on the drawback of chaining, for q2-15. The lists were reviewed and those passages added on 26 October 2026; all figures in Chapters 2 to 9 use the revised lists. On the lists before revision the reranker put a gold passage first for 24 questions, against the first stage's 25, so the gain of one at first place rests on the revision. A count can only be as good as the gold lists; Chapter 10 returns to this (10.7).
 
 The reranker is measured, not assumed to help. On 56 short passages with a strong first stage it adds time (9.7), moves one question up at first place, and moves two out of the top three.
 
@@ -352,7 +352,7 @@ A reranker pays off when a crude first stage leaves the right passage low in a p
 | The pool lacks the gold passage | No reordering finds a passage outside the pool | Does not hold: every pool from 5 to 20 holds a gold passage for all 32 questions |
 | The model was trained on other text | It learned what relevant means from web searches, not from statistical manuals | Holds: MS MARCO; esa10-8.94 beat the gold passage for q2-25 |
 | The candidates are close | Several passages on one concept, in similar words, get scores a small margin apart | Likely: SNA, ESA 2010 and BEA passages cover the same concepts |
-| The gold lists are incomplete | A correct passage that is not listed counts as a miss | Held at first: four first choices were missing from the gold lists, added on 26 October 2026 |
+| The gold lists are incomplete | A correct passage that is not listed counts as a miss | Held at first: four first choices were missing from the gold lists, added on 26 October 2026; before the revision the reranker had one fewer first place than the first stage, not one more (10.7) |
 | The answer needs several passages | The reranker scores each passage alone; it cannot see that two together answer the question | Likely for comparisons: q2-04 ("What is the difference between GDP and GNI?") lost its top-three place |
 | Passages are cut or too long | Text past the input limit is dropped before scoring | Does not hold: the longest passage, 180 words, fits |
 | The question is short or vague | Few words give the model little to compare | Not tested: definition questions are specific |
