@@ -178,3 +178,16 @@ def test_saved_timing_covers_every_pair():
     seconds, pairs = scoring_time(SCORE_FILE)
     assert pairs == 32 * 56
     assert seconds > 0
+
+
+@needs_saved_scores
+def test_top_three_gained_and_lost(saved_searches):
+    first_stage, reranked, questions = saved_searches
+    changes = {}
+    for question in questions:
+        gold = set(question["gold_passages"])
+        before = any(p["id"] in gold for p in first_stage.rank(question["question"], "non-commercial", how_many=3)[0])
+        after = any(p["id"] in gold for p in reranked.rank(question["question"], "non-commercial", 10, how_many=3)[0])
+        if before != after:
+            changes[question["id"]] = "gained" if after else "lost"
+    assert changes == {"q2-04": "lost", "q2-24": "gained", "q2-29": "lost"}
