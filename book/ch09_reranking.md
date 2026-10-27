@@ -337,11 +337,11 @@ The top three loses two questions and gains one. q2-30 gains, through the move a
 
 ### 9.6.3 Why
 
-- **The first stage is already fairly strong.** It misses first place on 9 questions and the top three on 2, so there is something to gain and something to lose.
+- **The first stage is already strong.** It misses first place on 9 questions and the top three on 2, so there is something to gain and something to lose.
 - **The model learned from web searches.** It appears to reward a passage that shares the question's terms and reads like an answer. Several passages in the corpus do both without being the definition the question asks for, such as esa10-8.94 for q2-25.
-- **Its result depends on the gold lists.** On the first measurement, four of the reranker's first choices answered part of their question but were not in its gold list, among them esa10-10.22, on the drawback of chaining, for q2-15. They were added on 26 October 2026. On 27 October every passage was judged against every question: 15 passages left the gold lists and 2 joined, and three of the four additions stayed only as supporting passages, which carry part of an expected answer (Chapter 10, 10.7). All figures in Chapters 2 to 9 use the lists of 27 October. The reranker's first places against the first stage's: 24 against 25 on the lists before 26 October, 28 against 27 on those of 26 October, 25 against 23 on those of 27 October, and 21 against 21 counting gold passages only. A count can only be as good as the gold lists; Chapter 10 returns to this (10.7).
+- **Its first choices exposed gaps in the gold lists.** On the first measurement, four of the reranker's first choices answered part of their question but were not in its gold list, among them esa10-10.22, on the drawback of chaining, for q2-15. They were added on 26 October 2026. On 27 October every passage was judged against every question: 15 passages left the gold lists and 2 joined, and three of the four additions stayed only as supporting passages, which carry part of an expected answer (Chapter 10, 10.7). All figures in Chapters 2 to 9 use the lists of 27 October. The reranker's first places against the first stage's: 24 against 25 on the lists before 26 October, 28 against 27 on those of 26 October, 25 against 23 on those of 27 October, and 21 against 21 counting gold passages only. A count can only be as good as the gold lists; Chapter 10 returns to this (10.7).
 
-The reranker is measured, not assumed to help. On 56 short passages with a fairly strong first stage it adds time (9.7), moves two questions up at first place, and moves one out of the top three.
+The reranker is measured, not assumed to help. On 56 short passages with a strong first stage it adds time (9.7), moves two questions up at first place, and moves one out of the top three.
 
 ### 9.6.4 When rerankers do not help
 
