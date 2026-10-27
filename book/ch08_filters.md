@@ -97,11 +97,13 @@ Rule 2 applied to the three 2008 SNA passages:
 | sna08-12.26 | Depletion of natural resources | sna25-A4.59 | Withheld |
 | sna08-15.187 | Real income and the terms of trade | None | Kept |
 
-Withholding every 2008 passage would remove 15.187, the only SNA passage on the terms of trade and the trading gain (gold for q2-06, q2-07 and q2-30).
+Withholding every 2008 passage would remove 15.187, the only SNA passage on the terms of trade and the trading gain (gold for q2-06 and q2-30).
 
 The filter recognises "2008 SNA", "SNA 2008", "2025 SNA" and "SNA 2025", in any mix of capitals. It does not recognise "the previous SNA" or "SNA08".
 
-q2-02 and q2-03 ask about the difference between the editions but name neither. Rule 2 withholds the 2008 passage, so they are answered from the 2025 SNA alone (decision, 25 Oct 2026). A reader who wants the comparison names both editions in the question.
+q2-02 asks about the difference between the editions but names neither. Rule 2 withholds the 2008 passage, so it is answered from the 2025 SNA alone (decision, 25 Oct 2026). A reader who wants the comparison names both editions in the question.
+
+q2-03 asks what the depletion of natural resources includes. Its one gold passage, sna08-12.26, is a 2008 SNA passage that rule 2 withholds, so no use mode can reach the question (8.5).
 
 ### 8.3.2 Code
 
@@ -293,7 +295,7 @@ def reachable(questions, passages, use_mode):
 
     Example:
         len(reachable(load_questions(), load_corpus(), "commercial"))
-        returns 26
+        returns 23
     """
     kept_questions = []
     for question in questions:
@@ -316,14 +318,14 @@ Hybrid search with query expansion, on the 32 definition questions:
 
 | Use mode | Passages kept | Questions reachable | Hits at 1 | Hits at 3 | Hits at 10 |
 | --- | --- | --- | --- | --- | --- |
-| No filter (Chapter 5) | 56 | 32 | 26 | 32 | 32 |
-| non-commercial | 54 | 32 | 27 | 32 | 32 |
-| commercial | 41 | 27 | 21 | 25 | 27 |
+| No filter (Chapter 5) | 56 | 32 | 23 | 31 | 32 |
+| non-commercial | 54 | 31 | 23 | 30 | 31 |
+| commercial | 41 | 23 | 18 | 23 | 23 |
 
 "Passages kept" is for a question that names no edition.
 
-- **Non-commercial** differs from Chapter 5 only through the edition filter. q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings. For q2-31, the definition esa10-11.27 rises from third place to second for the same reason.
-- **Commercial** finds a gold passage within ten places for every reachable question. The five it cannot reach, q2-03, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus holds no passage it may use.
+- **Non-commercial** differs from Chapter 5 only through the edition filter. It loses q2-03, whose one gold passage it withholds (8.3). q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings. For q2-31, the definition esa10-11.27 rises from third place to second for the same reason.
+- **Commercial** finds a gold passage within ten places for every reachable question. The nine it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-17, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus holds no passage it may use.
 
 ## 8.6 The same filters inside Chroma
 
@@ -441,7 +443,7 @@ The file `tests/test_ch08_filters.py` holds 12 tests. The Chroma tests build the
 | Both filters | No passage is both kept and withheld; together they make 56, for every question in both use modes |
 | Log | One line per withheld passage, added to, with six fields |
 | Filtered search | No withheld passage appears in the first ten places |
-| Reachable questions | Commercial use loses q2-03, q2-16, q2-18, q2-19 and q2-32 |
+| Reachable questions | Commercial use loses q2-02, q2-03, q2-06, q2-08, q2-16, q2-17, q2-18, q2-19 and q2-32 |
 | Chroma condition | The condition written for each use mode |
 | Chroma licence | Commercial results are all open |
 | Chroma agrees | Same top three as filtered exact search on all 32 questions, both use modes |

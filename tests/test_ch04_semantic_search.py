@@ -107,8 +107,9 @@ def test_semantic_search_finds_a_gold_passage_for_32_of_32():
 
 @needs_saved_embeddings
 def test_semantic_search_finds_the_bm25_misses():
-    # Semantic search finds the two BM25 misses (q2-04, q2-30) and misses none.
-    # Before the gold lists were revised (26 Oct) it missed q2-24 and q2-31.
+    # Semantic search finds the three BM25 misses (q2-04, q2-12, q2-30) and
+    # misses none. Counting gold passages only, without supporting passages,
+    # it would miss q2-05, q2-24 and q2-31 (27 Oct).
     index = saved_semantic_index()
     missed = []
     for question in load_questions():

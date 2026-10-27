@@ -13,12 +13,12 @@ Each step is measured on the same 32 definition questions (5.6), at three depths
 
 | Method | First place | Top three | Top ten |
 | --- | --- | --- | --- |
-| BM25 (Chapter 3) | 26 | 30 | 31 |
-| Semantic search (Chapter 4) | 20 | 32 | 32 |
-| Hybrid search | 27 | 31 | 32 |
-| Hybrid search with query expansion | 26 | 32 | 32 |
+| BM25 (Chapter 3) | 25 | 29 | 31 |
+| Semantic search (Chapter 4) | 17 | 32 | 32 |
+| Hybrid search | 26 | 30 | 32 |
+| Hybrid search with query expansion | 23 | 31 | 32 |
 
-Combining the two methods puts a correct passage first more often and finds one for every question within ten places. In the top three it finds one question fewer than semantic search alone; query expansion brings it back to all 32. Section 5.6 shows why.
+Combining the two methods puts a correct passage first more often and finds one for every question within ten places. In the top three it finds two questions fewer than semantic search alone; query expansion wins one back, and costs three first places. Section 5.6 shows why.
 
 **Code file:** `ragbook/ch05_hybrid_search.py`
 
@@ -433,18 +433,18 @@ Chapter 3's measure counts questions with a gold passage in the top three. This 
 
 | Method | First place | Top three | Top ten | Missed in the top three |
 | --- | --- | --- | --- | --- |
-| BM25 (Chapter 3) | 26 | 30 | 31 | q2-04, q2-30 |
-| Semantic search (Chapter 4) | 20 | 32 | 32 | None |
-| Hybrid search | 27 | 31 | 32 | q2-04 |
-| Hybrid search with query expansion | 26 | 32 | 32 | None |
+| BM25 (Chapter 3) | 25 | 29 | 31 | q2-04, q2-12, q2-30 |
+| Semantic search (Chapter 4) | 17 | 32 | 32 | None |
+| Hybrid search | 26 | 30 | 32 | q2-04, q2-30 |
+| Hybrid search with query expansion | 23 | 31 | 32 | q2-30 |
 
-**Hybrid search helps at first place and at ten.** Hybrid search puts a gold passage first for 27 questions, more than either method alone, and finds one within ten places for all 32.
+**Hybrid search helps at first place and at ten.** Hybrid search puts a gold passage first for 26 questions, more than either method alone, and finds one within ten places for all 32.
 
-**Hybrid search loses one question in the top three.** RRF rewards passages both methods rank fairly well. A passage one method ranks second and the other far down ends up between them. For "What is the difference between GDP and GNI?" (q2-04), semantic search ranks a gold passage second and BM25 nineteenth; the hybrid ranking puts it ninth, so semantic search alone finds the question and hybrid search does not.
+**Hybrid search loses two questions in the top three.** RRF rewards passages both methods rank fairly well. A passage one method ranks second and the other far down ends up between them. For "What is the difference between GDP and GNI?" (q2-04), semantic search ranks a gold passage second and BM25 nineteenth; the hybrid ranking puts it ninth, so semantic search alone finds the question and hybrid search does not. For q2-30, the long question on real GDP growth and PPPs, McCarthy's passage on extrapolating PPPs (wb13-mccarthy-ipd) comes second; it is not in q2-30's gold list. The gold passage on comparisons across countries and across time comes sixth.
 
-**Query expansion wins q2-04 back, and can also push passages down.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of nineteenth, and the hybrid ranking third. For "Why are GDP estimates revised?" (q2-17), hybrid search ranks bea-ch1-revisions fourth, behind Deaton's passage on the 2005 revisions of PPPs; query expansion adds "gross domestic product" and "domestic product", words found in 10 to 11 of the 56 passages, which push it down to sixth. q2-17 still counts as found, because qna17-10.48, added to its gold list on 26 October 2026, comes first either way. q2-30 is found with and without query expansion: McCarthy's passage on extrapolating PPPs comes second or third.
+**Query expansion wins q2-04 back, and can also push passages down.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of nineteenth, and the hybrid ranking third. For "Why are GDP estimates revised?" (q2-17), hybrid search ranks bea-ch1-revisions, BEA's account of why it revises, fourth, behind Deaton's passage on the 2005 revisions of PPPs; query expansion adds "gross domestic product" and "domestic product", words found in 10 to 11 of the 56 passages, which push it down to sixth. q2-17 counts as found either way, because qna17-10.48 comes first. Query expansion also costs three first places (26 to 23), and does not win back q2-30: its gold passages rise to fourth and fifth.
 
-These figures are for the corpus of 56 passages and the gold lists as revised on 26 October 2026. Adding passages, or gold passages, moves results, which is why Chapter 10 measures retrieval again whenever either changes.
+These figures are for the corpus of 56 passages and the gold lists of 27 October 2026. Adding passages, or gold passages, moves results, which is why Chapter 10 measures retrieval again whenever either changes.
 
 Several rules to limit query expansion were tried: expanding only concepts named in few passages, and giving added words less weight. Each fixed one question and broke another. With 32 questions, one question is about three percentage points, and choosing a rule because it scores best on these same questions would only fit these questions. The chapter keeps the plain rule and reports what it does.
 
@@ -571,10 +571,10 @@ The output from the test laptop (Windows), 23 October 2026, identical to the run
        ESA10: esa10-10.47 [discussed_in]
 
 5.6  Questions with a gold passage within the first 1, 3 and 10 places (of 32)
-     BM25 (Chapter 3)                  26  30  31
-     Semantic search (Chapter 4)       20  32  32
-     Hybrid search                     27  31  32
-     Hybrid search + query expansion   26  32  32
+     BM25 (Chapter 3)                  25  29  31
+     Semantic search (Chapter 4)       17  32  32
+     Hybrid search                     26  30  32
+     Hybrid search + query expansion   23  31  32
 ```
 
 Three points stand out.

@@ -230,7 +230,7 @@ def reachable(questions, passages, use_mode):
 
     Example:
         len(reachable(load_questions(), load_corpus(), "commercial"))
-        returns 26
+        returns 23
     """
     kept_questions = []
     for question in questions:
