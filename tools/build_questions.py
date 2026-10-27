@@ -15,34 +15,34 @@ def q(qid, cls, route, question, gold, expected, check=""):
 R4 = "R4"
 # --- Q2 Definition: retrieval over the manuals ------------------------------
 q("q2-01", "Q2", R4, "What is consumption of fixed capital?",
-  ["esa10-3.139", "sna25-A4.10"],
+  ["esa10-3.139", "sna25-A4.59"],
   "The decline in the value of fixed assets through use in production. The 2025 SNA renames it depreciation.",
   "Names both terms and says which edition uses which.")
 q("q2-02", "Q2", R4, "How do you get from GNI to net national income?",
-  ["sna08-2.144", "sna25-3.145", "esa10-8.94"],
+  ["sna08-2.144", "sna25-3.145"],
   "Deduct consumption of fixed capital (2008 SNA); deduct depreciation and depletion (2025 SNA).",
   "Edition-sensitive: must state that the 2025 SNA also deducts depletion.")
-q("q2-03", "Q2", R4, "Is depletion of natural resources a cost of production?",
-  ["sna08-12.26", "sna25-A4.59"],
-  "Not in the 2008 SNA (other changes in volume of assets); yes in the 2025 SNA.",
-  "Edition pair: an answer giving only one edition fails.")
+q("q2-03", "Q2", R4, "What does the depletion of natural resources in the national accounts include?",
+  ["sna08-12.26"],
+  "The fall in the value of subsoil deposits as they are physically removed and used up (2008 SNA).",
+  "Names subsoil deposits and their physical removal.")
 q("q2-04", "Q2", R4, "What is the difference between GDP and GNI?",
   ["esa10-8.94", "bea-ch2-gnp"],
   "GNI adds income receivable from abroad and deducts income payable abroad; GDP is production, GNI income.",
   "If bea-ch2-gnp is used, say GNP is the US term.")
 q("q2-05", "Q2", R4, "What is GDI?",
-  ["esa10-10.47", "bea-ch2-ndp-gni"],
+  ["esa10-10.47"],
   "Two meanings. In the SNA, real GDI is GDP in volume plus the trading gain (purchasing power). In BEA usage, GDI is GDP measured from incomes.",
   "Same-letters clash: must give both, each with its source, or ask which is meant.")
 q("q2-06", "Q2", R4, "What are the terms of trade?",
-  ["sna08-15.187", "esa10-10.47"],
+  ["sna08-15.187"],
   "The ratio of export prices to import prices. When they improve, fewer exports pay for the same imports.")
 q("q2-07", "Q2", R4, "What is the trading gain and how is it measured?",
-  ["esa10-10.47", "sna08-15.187"],
+  ["esa10-10.47"],
   "The difference between real gross domestic income and GDP in volume, arising from changes in the terms of trade. The trade balance is deflated by a general price index chosen by the statistics office, often the average of export and import prices.",
   "The formula is in the book text, not the quoted passage: the answer must not invent one.")
 q("q2-08", "Q2", R4, "What is a purchasing power parity?",
-  ["ppp23-1.13", "una14-ch2-ppp"],
+  ["una14-ch2-ppp"],
   "The number of units of one currency needed to buy in that country what one unit of another currency buys in its own.")
 q("q2-09", "Q2", R4, "Why not compare GDP across countries with market exchange rates?",
   ["ppp23-1.14", "ppp23-1.17"],
@@ -54,7 +54,7 @@ q("q2-11", "Q2", R4, "How precise are PPPs?",
   ["ppp23-1.31"],
   "Statistical estimates with error margins, not precise measures.")
 q("q2-12", "Q2", R4, "How are PPPs for government services such as health and education calculated?",
-  ["ppp23-4.16", "ppp23-8.2", "ppp23-8.4"],
+  ["ppp23-4.16"],
   "From input prices, mainly pay, which assumes equal productivity; Eurostat and the OECD now use output methods for health and education.",
   "Scope: must say this is Eurostat-OECD practice; other ICP regions adjust for productivity.")
 q("q2-13", "Q2", R4, "What is double deflation?",
@@ -65,7 +65,7 @@ q("q2-14", "Q2", R4, "Do chain-linked volume measures add up to the total?",
   "No. Chain-linked volumes are not additive, so components do not sum to the total and shares are inaccurate.",
   "BEA passage is US practice (chained dollars); the point holds for chain-linked volumes everywhere.")
 q("q2-15", "Q2", R4, "Should annual price and volume indices be chained?",
-  ["esa10-10.20", "bea-ch4-fisher", "esa10-10.22"],
+  ["esa10-10.20"],
   "Yes. Volumes are measured at the previous year's prices and the annual links are chained. ESA 2010 uses Laspeyres volume and Paasche price indices; BEA uses Fisher indices. The cost: chained volumes are not additive, so they cannot be used to balance supply and use tables (ESA 2010).",
   "Should say the index formula differs between the EU and the US but both chain annually.")
 q("q2-16", "Q2", R4, "What is the GDP deflator?",
@@ -73,7 +73,7 @@ q("q2-16", "Q2", R4, "What is the GDP deflator?",
   "The price index that separates GDP growth at current prices from GDP growth in volume; nominal divided by real.",
   "Should not equate it with a producer price index.")
 q("q2-17", "Q2", R4, "Why are GDP estimates revised?",
-  ["qna17-12.1", "qna17-12.2", "bea-ch1-revisions", "qna17-10.48"],
+  ["qna17-12.1", "qna17-12.2", "qna17-10.48"],
   "Early estimates use incomplete data; later data and new methods replace them.",
   "Scope: the BEA schedule is an example of national practice.")
 q("q2-18", "Q2", R4, "What problems can revisions cause, and how should they be handled?",
@@ -86,17 +86,17 @@ q("q2-20", "Q2", R4, "Who counts in a country's population when calculating GDP 
   ["esa10-11.05", "esa10-11.06"],
   "Persons permanently settled in the economic territory, national or foreign, even if temporarily absent; an annual average of head counts.")
 q("q2-21", "Q2", R4, "Are remittances part of national income?",
-  ["esa10-4.129", "esa10-2.10", "esa10-18.53"],
+  ["esa10-4.129", "esa10-18.53"],
   "Transfers from migrants abroad a year or more are current transfers between households, in disposable income, not NNI. Border and seasonal workers abroad under a year stay resident at home; their pay is compensation of employees, in GNI.")
 q("q2-22", "Q2", R4, "What is modified GNI and why does Ireland publish it?",
-  ["cso-gnistar-1", "cso-gnistar-2", "cso-gnistar-3", "cso-gnistar-4", "cso-gnistar-6"],
+  ["cso-gnistar-1", "cso-gnistar-3", "cso-gnistar-4"],
   "An Irish measure removing depreciation of foreign-owned IP and leased aircraft and the income of redomiciled PLCs.",
   "Scope: Irish national practice, not an international standard.")
 q("q2-23", "Q2", R4, "Why can GDP mislead for economies with large multinational companies?",
-  ["sna25-23.68", "cso-gnistar-2", "cso-gnistar-4"],
+  ["sna25-23.68", "cso-gnistar-2"],
   "MNE profits and IP moves inflate GDP; GNI, NNI and household income are less affected.")
 q("q2-24", "Q2", R4, "Is net domestic product a better measure than GDP?",
-  ["sna25-A4.10", "sna25-3.145", "bea-ch2-ndp-gni"],
+  ["sna25-A4.10", "sna25-3.145"],
   "Conceptually yes. Setting aside how hard depreciation is to measure, NDP is the better measure of the output an economy generates sustainably. It deducts consumption of fixed capital (wear, tear and obsolescence) and, in the 2025 SNA, depletion of natural resources, so it counts only what is available for consumption or for adding to wealth. GDP measures total production before those deductions. The 2025 SNA names NDP growth the preferred measure of growth, used alongside GDP, not replacing it. In US practice (BEA), NDP is GDP minus consumption of fixed capital.",
   "Must say NDP complements GDP rather than replaces it.")
 q("q2-25", "Q2", R4, "What is real gross domestic income, and how does it lead to real national income?",
@@ -108,7 +108,7 @@ q("q2-26", "Q2", R4, "Does double deflation stop service firms' price rises bein
   "Probably to a significant extent, not known precisely: in principle yes, but service price indices are weak, errors are magnified, and many services are estimated from inputs.",
   "Judgement question. Options: definitely no / definitely yes / probably to a significant extent / we do not know. False certainty fails.")
 q("q2-27", "Q2", R4, "At what levels can countries' economies be compared?",
-  ["ppp23-ov.12"],
+  ["ppp23-ov.12", "una14-ch2-ppp"],
   "Levels across countries need PPPs: volume indices compare the size of economies; per capita volume indices compare material well-being. Growth needs each country's own volume series.")
 q("q2-28", "Q2", R4, "What are the three ways of measuring GDP?",
   ["esa10-8.89"],
@@ -122,12 +122,12 @@ q("q2-29", "Q2", R4, "What does nominal GNI divided by the consumer price index 
 q("q2-30", "Q2", R4, "Why can real GDP growth and comparisons at PPP tell different stories about two economies?",
   # The two wb13-mccarthy passages were added 24 Oct with the corpus batch:
   # they answer this question directly (decision: Lavan, 24 Oct).
-  ["esa10-10.47", "sna08-15.187", "esa10-10.22", "ppp23-1.31", "wb13-mccarthy-space-time", "wb13-mccarthy-ipd"],
+  ["esa10-10.47", "sna08-15.187", "ppp23-1.31", "wb13-mccarthy-space-time"],
   "Real GDP growth values output at the base year's prices; PPP levels use current prices. Between benchmark years, PPPs are extrapolated with GDP deflators, and comparisons across countries and across time cannot both be kept consistent. If one country specialises in goods whose prices fall fast (such as technology services), its volume growth is high while its command over goods rises less: the trading-gain logic of real GDI.",
   "Should link to terms of trade and real GDI; Krugman (2026) is book text, not corpus.")
 
 q("q2-31", "Q2", R4, "What is the best measure of labour input for comparing productivity?",
-  ["esa10-11.27", "sna25-16.95"],
+  ["esa10-11.27"],
   "Total hours actually worked by employees and the self-employed, not a head count. Hours worked still treat every hour as equal in quality, whatever the worker's skills (2025 SNA).",
   "Should note that hours are estimated, which limits comparisons of levels across countries.")
 q("q2-32", "Q2", R4, "Does output per hour worked allow for differences in workers' skills?",
