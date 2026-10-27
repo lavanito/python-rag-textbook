@@ -24,10 +24,11 @@ Used by
     Chapter 11 (prompts and settings) and Chapter 14 (checking answers).
 
 Uses
-    Chapter 2 (load_corpus); Chapter 3 (load_questions); Chapter 4
-    (load_embeddings); Chapter 5 (build_indexes, expand_question,
-    saved_question_embedder); Chapter 8 (FilteredSearch); Chapter 9
-    (RerankedSearch, saved_scorer, load_scores). Python's math module.
+    Chapter 2 (load_corpus); Chapter 3 (load_questions, KeywordIndex);
+    Chapter 4 (load_embeddings, SemanticIndex, EMBEDDING_FILE); Chapter 5
+    (HybridIndex, KnowledgeGraph, expand_question, saved_question_embedder);
+    Chapter 8 (FilteredSearch); Chapter 9 (RerankedSearch, saved_scorer,
+    load_scores, SCORE_FILE). Python's math module.
 
 Run the worked example
     python -m ragbook.ch10_evaluation
@@ -38,10 +39,16 @@ import math
 
 from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import load_questions
-from ragbook.ch04_semantic_search import load_embeddings
-from ragbook.ch05_hybrid_search import build_indexes, expand_question, saved_question_embedder
+from ragbook.ch03_keyword_search import KeywordIndex
+from ragbook.ch04_semantic_search import EMBEDDING_FILE, SemanticIndex, load_embeddings
+from ragbook.ch05_hybrid_search import HybridIndex, KnowledgeGraph, expand_question, saved_question_embedder
 from ragbook.ch08_filters import FilteredSearch
-from ragbook.ch09_reranking import RerankedSearch, load_scores, saved_scorer
+from ragbook.ch09_reranking import SCORE_FILE, RerankedSearch, load_scores, saved_scorer
+
+# The saved embeddings and reranker scores as they were on 26 October 2026,
+# before q2-03 was reworded. They rebuild the figures on the earlier lists.
+EMBEDDING_FILE_26_OCTOBER = EMBEDDING_FILE.with_name("all-MiniLM-L6-v2-26-october.npz")
+SCORE_FILE_26_OCTOBER = SCORE_FILE.with_name("ms-marco-MiniLM-L6-v2-26-october.npz")
 
 TOP = 3      # the places precision, recall and F1 look at: the passages an answer uses
 DEPTH = 10   # the places reciprocal rank and average precision look at
@@ -190,25 +197,32 @@ def measure_search(rank_function, questions, places=TOP, depth=DEPTH):
     return means, by_question
 
 
-def build_searches(use_mode="non-commercial"):
+def build_searches(use_mode="non-commercial", questions=None,
+                   embedding_file=EMBEDDING_FILE, score_file=SCORE_FILE):
     """
     Every search from Chapters 3 to 9, as rank functions that return the
     first DEPTH passages. Query expansion appears twice: on BM25 alone, and
-    inside hybrid search.
+    inside hybrid search. Pass earlier questions and saved files to rebuild
+    earlier figures.
 
     Example:
         searches, questions = build_searches()
         searches["BM25"]("What is GDI?")
         returns ten passages
     """
-    keyword_index, semantic_index, hybrid_index, questions = build_indexes()
-    knowledge_graph = hybrid_index.knowledge_graph
     passages = load_corpus()
-    saved = load_embeddings()
+    if questions is None:
+        questions = load_questions()
+    saved = load_embeddings(embedding_file)
     embed_question = saved_question_embedder(questions, saved)
+    keyword_index = KeywordIndex(passages)
+    semantic_index = SemanticIndex(passages, [saved[passage["id"]] for passage in passages],
+                                   embed_question)
+    knowledge_graph = KnowledgeGraph(passages)
+    hybrid_index = HybridIndex(keyword_index, semantic_index, knowledge_graph)
     filtered = FilteredSearch(passages, saved, embed_question)
     reranked = RerankedSearch(passages, saved, embed_question,
-                              saved_scorer(questions, load_scores()))
+                              saved_scorer(questions, load_scores(score_file)))
 
     def bm25_expanded(question):
         return keyword_index.rank(expand_question(knowledge_graph, question), "bm25", how_many=DEPTH)
