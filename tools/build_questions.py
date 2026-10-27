@@ -8,9 +8,16 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 Q = []
 
-def q(qid, cls, route, question, gold, expected, check=""):
+def q(qid, cls, route, question, gold, expected, check="", supporting=()):
+    """Add a question. gold_passages lists every passage measured as correct:
+    those that answer the question by themselves, then the supporting ones,
+    which carry part of the expected answer only (rule of 27 October 2026).
+    supporting_passages repeats the supporting ones, so gold-only figures can
+    be shown."""
     Q.append({"id": qid, "question": question, "class": cls, "route": route,
-              "gold_passages": gold, "expected": expected, "check": check})
+              "gold_passages": gold + list(supporting),
+              "supporting_passages": list(supporting),
+              "expected": expected, "check": check})
 
 R4 = "R4"
 # --- Q2 Definition: retrieval over the manuals ------------------------------
@@ -33,7 +40,8 @@ q("q2-04", "Q2", R4, "What is the difference between GDP and GNI?",
 q("q2-05", "Q2", R4, "What is GDI?",
   ["esa10-10.47"],
   "Two meanings. In the SNA, real GDI is GDP in volume plus the trading gain (purchasing power). In BEA usage, GDI is GDP measured from incomes.",
-  "Same-letters clash: must give both, each with its source, or ask which is meant.")
+  "Same-letters clash: must give both, each with its source, or ask which is meant.",
+  supporting=["bea-ch2-ndp-gni"])
 q("q2-06", "Q2", R4, "What are the terms of trade?",
   ["sna08-15.187"],
   "The ratio of export prices to import prices. When they improve, fewer exports pay for the same imports.")
@@ -67,7 +75,8 @@ q("q2-14", "Q2", R4, "Do chain-linked volume measures add up to the total?",
 q("q2-15", "Q2", R4, "Should annual price and volume indices be chained?",
   ["esa10-10.20"],
   "Yes. Volumes are measured at the previous year's prices and the annual links are chained. ESA 2010 uses Laspeyres volume and Paasche price indices; BEA uses Fisher indices. The cost: chained volumes are not additive, so they cannot be used to balance supply and use tables (ESA 2010).",
-  "Should say the index formula differs between the EU and the US but both chain annually.")
+  "Should say the index formula differs between the EU and the US but both chain annually.",
+  supporting=["bea-ch4-fisher", "esa10-10.22"])
 q("q2-16", "Q2", R4, "What is the GDP deflator?",
   ["una14-ch1-deflator"],
   "The price index that separates GDP growth at current prices from GDP growth in volume; nominal divided by real.",
@@ -98,7 +107,8 @@ q("q2-23", "Q2", R4, "Why can GDP mislead for economies with large multinational
 q("q2-24", "Q2", R4, "Is net domestic product a better measure than GDP?",
   ["sna25-A4.10", "sna25-3.145"],
   "Conceptually yes. Setting aside how hard depreciation is to measure, NDP is the better measure of the output an economy generates sustainably. It deducts consumption of fixed capital (wear, tear and obsolescence) and, in the 2025 SNA, depletion of natural resources, so it counts only what is available for consumption or for adding to wealth. GDP measures total production before those deductions. The 2025 SNA names NDP growth the preferred measure of growth, used alongside GDP, not replacing it. In US practice (BEA), NDP is GDP minus consumption of fixed capital.",
-  "Must say NDP complements GDP rather than replaces it.")
+  "Must say NDP complements GDP rather than replaces it.",
+  supporting=["bea-ch2-ndp-gni"])
 q("q2-25", "Q2", R4, "What is real gross domestic income, and how does it lead to real national income?",
   ["esa10-10.47"],
   "Real gross domestic income is GDP in volume plus the trading gain from changes in the terms of trade. Adding real primary income from abroad, net, gives real national income.",
@@ -129,7 +139,8 @@ q("q2-30", "Q2", R4, "Why can real GDP growth and comparisons at PPP tell differ
 q("q2-31", "Q2", R4, "What is the best measure of labour input for comparing productivity?",
   ["esa10-11.27"],
   "Total hours actually worked by employees and the self-employed, not a head count. Hours worked still treat every hour as equal in quality, whatever the worker's skills (2025 SNA).",
-  "Should note that hours are estimated, which limits comparisons of levels across countries.")
+  "Should note that hours are estimated, which limits comparisons of levels across countries.",
+  supporting=["sna25-16.95"])
 q("q2-32", "Q2", R4, "Does output per hour worked allow for differences in workers' skills?",
   ["sna25-16.95"],
   "No: it treats every hour alike. A quality-adjusted labour input weights hours by type of worker.")
@@ -199,11 +210,27 @@ q("out-02", "OUT", "escalate", "Should the Bank of England cut interest rates?",
 q("out-03", "OUT", "escalate", "What will China's GDP be in 2030?", [], "Escalate: no forecasts in the data.")
 q("out-04", "OUT", "escalate", "What is the best restaurant in Dublin?", [], "Decline: outside the corpus and the data.")
 
+# Distractors: passages that answer no question. They test whether a search
+# avoids related but wrong passages. Lavan Mahadeva removed them from the gold
+# lists on 27 October 2026 as passages on neighbouring topics.
+DISTRACTORS = {
+    "bea-ch1-revisions": "Why BEA revises its estimates. Removed from q2-17's gold list.",
+    "cso-gnistar-6": "Modified GNI excludes the income of redomiciled PLCs. Removed from q2-22's.",
+    "esa10-2.10": "Residence of households. Removed from q2-21's.",
+    "ppp23-1.13": "International comparisons with exchange rates before PPPs. Removed from q2-08's.",
+    "ppp23-8.2": "PPPs for government services from pay. Removed from q2-12's.",
+    "ppp23-8.4": "Education as a comparison-resistant service. Removed from q2-12's.",
+}
+
 path = REPO / "data" / "question_bank" / "questions.jsonl"
 path.write_text("\n".join(json.dumps(x, ensure_ascii=False) for x in Q) + "\n", encoding="utf-8")
 
 corpus = {json.loads(l)["id"] for l in (REPO / "data/corpus/passages.jsonl").read_text().splitlines()}
 used = {g for x in Q for g in x["gold_passages"]}
-missing = used - corpus
+missing = (used | set(DISTRACTORS)) - corpus
+assert not used & set(DISTRACTORS), "a distractor is gold for some question"
+(REPO / "data" / "question_bank" / "distractors.jsonl").write_text(
+    "\n".join(json.dumps({"id": k, "note": v}, ensure_ascii=False) for k, v in DISTRACTORS.items()) + "\n",
+    encoding="utf-8")
 print("questions:", len(Q), "| unknown gold ids:", sorted(missing))
-print("passages not used by any question:", sorted(corpus - used))
+print("passages neither gold nor distractor:", sorted(corpus - used - set(DISTRACTORS)))

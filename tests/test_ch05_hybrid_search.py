@@ -143,10 +143,10 @@ def test_measured_hits_at_depths_1_3_10():
     }
     counts = {name: [hits_at(f, questions, depth) for depth in (1, 3, 10)] for name, f in results.items()}
     assert counts == {
-        "bm25": [26, 30, 31],
-        "semantic": [20, 32, 32],
-        "hybrid": [27, 31, 32],
-        "expanded": [26, 32, 32],
+        "bm25": [25, 29, 31],
+        "semantic": [17, 32, 32],
+        "hybrid": [26, 30, 32],
+        "expanded": [23, 31, 32],
     }
 
 
@@ -162,8 +162,8 @@ def test_which_questions_each_hybrid_misses_in_the_top_three():
                 missed.append(question["id"])
         return missed
 
-    assert misses(expand=False) == ["q2-04"]
-    assert misses(expand=True) == []
+    assert misses(expand=False) == ["q2-04", "q2-30"]
+    assert misses(expand=True) == ["q2-30"]
 
 
 @needs_saved_embeddings

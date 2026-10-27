@@ -86,9 +86,9 @@ def test_hand_built_bm25_matches_bm25s_on_every_definition_question():
 
 def test_top_three_hits_reported_in_the_chapter():
     assert len(QUESTIONS) == 32
-    assert top_three_hits(lambda q: INDEX.rank(q, "counts"), QUESTIONS) == 28
-    assert top_three_hits(lambda q: INDEX.rank(q, "tfidf"), QUESTIONS) == 30
-    assert top_three_hits(lambda q: INDEX.rank(q, "bm25"), QUESTIONS) == 30
+    assert top_three_hits(lambda q: INDEX.rank(q, "counts"), QUESTIONS) == 26
+    assert top_three_hits(lambda q: INDEX.rank(q, "tfidf"), QUESTIONS) == 29
+    assert top_three_hits(lambda q: INDEX.rank(q, "bm25"), QUESTIONS) == 29
 
 
 def test_unknown_method_is_refused():

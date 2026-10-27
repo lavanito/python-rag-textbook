@@ -256,6 +256,9 @@ ADDED_26_OCTOBER = {
 # The changes of 27 October 2026, after Lavan Mahadeva judged every passage
 # against every definition question with the same rule. Most changes remove
 # passages: the earlier lists had counted passages on neighbouring topics.
+# Five passages that carry part of an expected answer but do not answer the
+# question by themselves stay in the gold lists as supporting passages; each
+# question's supporting_passages names them.
 ADDED_27_OCTOBER = {
     "q2-01": ["sna25-A4.59"],
     "q2-27": ["una14-ch2-ppp"],
@@ -264,19 +267,15 @@ REMOVED_27_OCTOBER = {
     "q2-01": ["sna25-A4.10"],
     "q2-02": ["esa10-8.94"],
     "q2-03": ["sna25-A4.59"],
-    "q2-05": ["bea-ch2-ndp-gni"],
     "q2-06": ["esa10-10.47"],
     "q2-07": ["sna08-15.187"],
     "q2-08": ["ppp23-1.13"],
     "q2-12": ["ppp23-8.2", "ppp23-8.4"],
-    "q2-15": ["bea-ch4-fisher", "esa10-10.22"],
     "q2-17": ["bea-ch1-revisions"],
     "q2-21": ["esa10-2.10"],
     "q2-22": ["cso-gnistar-2", "cso-gnistar-6"],
     "q2-23": ["cso-gnistar-4"],
-    "q2-24": ["bea-ch2-ndp-gni"],
     "q2-30": ["esa10-10.22", "wb13-mccarthy-ipd"],
-    "q2-31": ["sna25-16.95"],
 }
 # q2-03 was replaced the same day: the corpus did not answer the old question.
 REPLACED_27_OCTOBER = {
@@ -318,7 +317,28 @@ def earlier_gold_lists(questions, added=ADDED_26_OCTOBER, removed=None, replaced
 
 def gold_lists_of_26_october(questions):
     """The gold lists of 26 October 2026, rebuilt from the current ones."""
-    return earlier_gold_lists(questions, ADDED_27_OCTOBER, REMOVED_27_OCTOBER, REPLACED_27_OCTOBER)
+    earlier = earlier_gold_lists(questions, ADDED_27_OCTOBER, REMOVED_27_OCTOBER, REPLACED_27_OCTOBER)
+    for question in earlier:
+        question["supporting_passages"] = []
+    return earlier
+
+
+def gold_only(questions):
+    """
+    Copies of the questions without their supporting passages: only the
+    passages that answer each question by themselves count.
+
+    Example:
+        gold_only(load_questions())
+        returns 32 questions; q2-31 has one gold passage instead of two
+    """
+    stricter = []
+    for question in questions:
+        copy = dict(question)
+        supporting = question.get("supporting_passages", [])
+        copy["gold_passages"] = [p for p in question["gold_passages"] if p not in supporting]
+        stricter.append(copy)
+    return stricter
 
 
 # ---------------------------------------------------------------------------
@@ -390,11 +410,20 @@ def main():
     print("     ", measure_question(["a", "x", "b"], ["a", "b"]))
 
     searches, questions = build_searches()
-    print(f"\n10.6  Means over {len(questions)} definition questions (revised gold lists)")
+    print(f"\n10.6  Means over {len(questions)} definition questions (gold lists of 27 October 2026)")
     revised = print_table(searches, questions)
 
-    print("\n10.7  The same, on the gold lists before 26 October 2026")
-    earlier = print_table(searches, earlier_gold_lists(questions))
+    print("\n10.7  The same, counting gold passages only (no supporting passages)")
+    print_table(searches, gold_only(questions))
+
+    questions_26 = gold_lists_of_26_october(questions)
+    searches_26, questions_26 = build_searches(questions=questions_26,
+                                               embedding_file=EMBEDDING_FILE_26_OCTOBER,
+                                               score_file=SCORE_FILE_26_OCTOBER)
+    print("\n      On the gold lists of 26 October 2026")
+    print_table(searches_26, questions_26)
+    print("\n      On the gold lists before 26 October 2026")
+    print_table(searches_26, earlier_gold_lists(questions_26))
 
     print("\n10.8  Question by question, average precision")
     pairs = [("BM25 + query expansion", "BM25"),

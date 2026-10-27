@@ -105,9 +105,9 @@ def test_ask_model_sends_settings_inside_options_and_reads_the_reply(monkeypatch
     assert captured["body"]["model"] == "qwen3:4b-instruct"
 
 
-def test_matching_finds_a_gold_passage_for_25_of_32_definition_questions():
-    # The count reported in 2.8. It rose from 24 when the gold lists were
-    # revised on 26 Oct 2026 (q2-31 gained sna25-16.95).
+def test_matching_finds_a_gold_passage_for_24_of_32_definition_questions():
+    # The count reported in 2.8: 24 on the gold lists of 27 Oct 2026 (25 on
+    # those of 26 Oct, 24 before).
     from pathlib import Path
     question_file = Path(__file__).parent.parent / "data" / "question_bank" / "questions.jsonl"
     hits = 0
@@ -120,4 +120,4 @@ def test_matching_finds_a_gold_passage_for_25_of_32_definition_questions():
         found = [passage["id"] for passage in find_matching_passages(PASSAGES, question["question"])]
         if any(gold in found for gold in question["gold_passages"]):
             hits = hits + 1
-    assert (hits, total) == (25, 32)
+    assert (hits, total) == (24, 32)
