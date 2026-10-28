@@ -7,7 +7,7 @@ Chapter 4 compared a question with every passage. That is **exact search**: alwa
 1. **Exact search and what it costs** (7.2): time per search on 1,000 to 100,000 embeddings.
 2. **Near-neighbour graphs** (7.3): two graphs built by hand and searched the way vector databases search; one fails, one finds almost every true neighbour for a few per cent of the work.
 3. **HNSW** (7.4): how the method most vector databases use adds layers to that graph, and the settings it exposes.
-4. **Storing the corpus in Chroma** (7.5): the 56 passages, their embeddings and their source, edition, scope and licence in one database on disk.
+4. **Storing the corpus in Chroma** (7.5): the 57 passages, their embeddings and their source, edition, scope and licence in one database on disk.
 5. **A check** (7.6): Chroma ranks passages as Chapter 4 did, on all 32 definition questions.
 6. **Chapter 6's chunks** (7.7): McCarthy's chapter, cut into chunks, embedded and searched.
 
@@ -376,7 +376,7 @@ def store_passages(client, passages, embeddings, name="corpus"):
     Example:
         collection = store_passages(client, passages, embeddings)
         collection.count()
-        returns 56
+        returns 57
     """
     if name in [collection.name for collection in client.list_collections()]:
         client.delete_collection(name)
@@ -431,7 +431,7 @@ def search_store(collection, question_vector, how_many=3):
 - `collection.query` can take several questions at once, so every part of its answer is a list with one entry per question; `[0]` takes the entry for the one question asked.
 - `result.update(metadata)` adds the metadata's fields to the result's dictionary.
 
-On the corpus, the collection holds 56 passages. For "What is consumption of fixed capital?":
+On the corpus, the collection holds 57 passages. For "What is consumption of fixed capital?":
 
 | Similarity | Passage |
 | --- | --- |
@@ -443,7 +443,7 @@ On the corpus, the collection holds 56 passages. For "What is consumption of fix
 
 ### 7.6.1 Principles
 
-HNSW gives approximate answers (7.3), so Chroma could rank passages differently from Chapter 4's exact search. With 56 passages and a candidate list of 100, the search can reach every passage, so the two should agree exactly. The check runs every definition question through both and compares the top three passages, in order.
+HNSW gives approximate answers (7.3), so Chroma could rank passages differently from Chapter 4's exact search. With 57 passages and a candidate list of 100, the search can reach every passage, so the two should agree exactly. The check runs every definition question through both and compares the top three passages, in order.
 
 ### 7.6.2 Code
 
@@ -592,10 +592,10 @@ The file `tests/test_ch07_vector_store.py` holds 12 tests. The Chroma tests buil
 | Graph search on a chain | The search walks a line of eight points to the far end, comparing each once |
 | Recall | Two of three found gives 2/3 |
 | The two graphs compared | On 5,000 rows, the nearest-only graph finds under 2%; the other over 98% with under 300 comparisons, and all at list length 50 |
-| Corpus in Chroma | 56 passages, each with its metadata |
+| Corpus in Chroma | 57 passages, each with its metadata |
 | Search example | "What is consumption of fixed capital?" gives the three passages in 7.5, the first at 0.816 |
 | Agreement with exact search | Same top three on all 32 definition questions |
-| Kept on disk | A database reopened from its folder still holds 56 passages |
+| Kept on disk | A database reopened from its folder still holds 57 passages |
 
 ### 7.8.2 Glossary additions
 

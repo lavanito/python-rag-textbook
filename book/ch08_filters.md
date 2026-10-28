@@ -4,7 +4,7 @@
 
 A **filter** decides which passages a question may use, before any search. A passage the filter withholds never enters a ranking, so it never reaches the model.
 
-1. **The licence filter** (8.2): a **use mode** keeps only the licence classes it allows. Commercial use keeps 41 of the 56 passages.
+1. **The licence filter** (8.2): a **use mode** keeps only the licence classes it allows. Commercial use keeps 41 of the 57 passages.
 2. **The edition filter** (8.3): a question gets the SNA edition it names, or the latest edition on each topic when it names none.
 3. **Both filters and the log** (8.4): every withheld passage is written to a log with the reason.
 4. **Searching only what passes** (8.5): hit counts in each use mode. Five questions lose every gold passage in commercial use.
@@ -26,7 +26,7 @@ Each source sets its own terms for reuse. The corpus records them as one of thre
 | --- | --- | --- | --- |
 | open | Reuse allowed with attribution, commercial use included | ESA10, BEA, CSO, PPP23, ONS, WB13 | 41 |
 | non-commercial | Reuse allowed for non-commercial teaching and research only | QNA17 | 5 |
-| quotation only | No licence; short quotation with full citation only | SNA08, SNA25, UNA14 | 10 |
+| quotation only | No licence; short quotation with full citation only | SNA08, SNA25, UNA14 | 11 |
 
 A use mode states how the answers will be used. The book has two:
 
@@ -57,7 +57,7 @@ def licence_filter(passages, use_mode):
     Example:
         kept, withheld = licence_filter(load_corpus(), "commercial")
         len(kept), len(withheld)
-        returns (41, 15)
+        returns (41, 16)
     """
     allowed = USE_MODES[use_mode]
     kept = []
@@ -75,13 +75,13 @@ def licence_filter(passages, use_mode):
 
 - `USE_MODES` maps each use mode to the licence classes it allows. A new use mode is one more line.
 - Each withheld passage gets a record of three fields: `id`, `filter` and `reason`. The reason is written for a person reading the log (8.4).
-- Commercial use keeps 41 passages and withholds 15: five from QNA17 and ten quotation-only passages.
+- Commercial use keeps 41 passages and withholds 16: five from QNA17 and eleven quotation-only passages.
 
 ## 8.3 The edition filter
 
 ### 8.3.1 Principles
 
-The corpus holds two editions of the SNA: the 2008 SNA (3 passages) and the 2025 SNA (5). They differ. The 2025 SNA calls consumption of fixed capital "depreciation", and deducts depletion of natural resources as well when moving from GNI to net national income (q2-02). An answer that mixes the two editions without saying so is wrong for one of them.
+The corpus holds two editions of the SNA: the 2008 SNA (3 passages) and the 2025 SNA (6). They differ. The 2025 SNA calls consumption of fixed capital "depreciation", and deducts depletion of natural resources as well when moving from GNI to net national income (q2-02). An answer that mixes the two editions without saying so is wrong for one of them.
 
 The rule:
 
@@ -94,7 +94,7 @@ Rule 2 applied to the three 2008 SNA passages:
 | 2008 SNA passage | Topic | 2025 SNA passage on the same topic | Result |
 | --- | --- | --- | --- |
 | sna08-2.144 | Net national income | sna25-3.145 | Withheld |
-| sna08-12.26 | Depletion of natural resources | sna25-A4.59 | Withheld |
+| sna08-12.26 | Depletion of natural resources | sna25-A4.59, sna25-11.238 | Withheld |
 | sna08-15.187 | Real income and the terms of trade | None | Kept |
 
 Withholding every 2008 passage would remove 15.187, the only SNA passage on the terms of trade and the trading gain (gold for q2-06 and q2-30).
@@ -103,7 +103,7 @@ The filter recognises "2008 SNA", "SNA 2008", "2025 SNA" and "SNA 2025", in any 
 
 q2-02 asks about the difference between the editions but names neither. Rule 2 withholds the 2008 passage, so it is answered from the 2025 SNA alone (decision, 25 Oct 2026). A reader who wants the comparison names both editions in the question.
 
-q2-03 asks what the depletion of natural resources includes. Its one gold passage, sna08-12.26, is a 2008 SNA passage that rule 2 withholds, so no use mode can reach the question (8.5).
+q2-03 asks what the depletion of natural resources includes. Rule 2 withholds one of its gold passages, sna08-12.26, and keeps the other, sna25-11.238, so the question is answered from the 2025 SNA.
 
 ### 8.3.2 Code
 
@@ -252,7 +252,7 @@ One line of the log, for "How do you get from GNI to net national income?" in co
 
 The filters run before the search, not after it. Removing passages from a finished ranking would leave fewer than three, or force a deeper search to fill the gap. Filtering first also means BM25's word statistics (Chapter 3) count only the passages that may be used.
 
-`FilteredSearch` rebuilds Chapter 5's keyword, semantic and hybrid indexes from the kept passages for each question. At 56 passages that takes a few milliseconds. A **reachable** question is one that keeps at least one gold passage after filtering; no search can find a gold passage that was withheld.
+`FilteredSearch` rebuilds Chapter 5's keyword, semantic and hybrid indexes from the kept passages for each question. At 57 passages that takes a few milliseconds. A **reachable** question is one that keeps at least one gold passage after filtering; no search can find a gold passage that was withheld.
 
 ### 8.5.2 Code
 
@@ -265,7 +265,7 @@ class FilteredSearch:
 
     The indexes are rebuilt for each question from the kept passages, so a
     withheld passage cannot appear in a ranking and does not count in the
-    BM25 word statistics. At 56 passages this takes a few milliseconds.
+    BM25 word statistics. At 57 passages this takes a few milliseconds.
 
     Example:
         search = FilteredSearch(load_corpus(), load_embeddings(), embed_question)
@@ -295,7 +295,7 @@ def reachable(questions, passages, use_mode):
 
     Example:
         len(reachable(load_questions(), load_corpus(), "commercial"))
-        returns 23
+        returns 24
     """
     kept_questions = []
     for question in questions:
@@ -318,14 +318,14 @@ Hybrid search with query expansion, on the 32 definition questions:
 
 | Use mode | Passages kept | Questions reachable | Hits at 1 | Hits at 3 | Hits at 10 |
 | --- | --- | --- | --- | --- | --- |
-| No filter (Chapter 5) | 56 | 32 | 23 | 31 | 32 |
-| non-commercial | 54 | 31 | 23 | 30 | 31 |
-| commercial | 41 | 23 | 18 | 23 | 23 |
+| No filter (Chapter 5) | 57 | 32 | 24 | 31 | 32 |
+| non-commercial | 55 | 32 | 25 | 31 | 32 |
+| commercial | 41 | 24 | 19 | 23 | 24 |
 
 "Passages kept" is for a question that names no edition.
 
-- **Non-commercial** differs from Chapter 5 only through the edition filter. It loses q2-03, whose one gold passage it withholds (8.3). q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings. For q2-31, the definition esa10-11.27 rises from third place to second for the same reason.
-- **Commercial** finds a gold passage within ten places for every reachable question. The nine it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-17, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus holds no passage it may use.
+- **Non-commercial** differs from Chapter 5 only through the edition filter. q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings.
+- **Commercial** finds a gold passage within ten places for every reachable question. The eight it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus holds no passage it may use.
 
 ## 8.6 The same filters inside Chroma
 
@@ -435,15 +435,15 @@ The file `tests/test_ch08_filters.py` holds 12 tests. The Chroma tests build the
 
 | Test | What it proves |
 | --- | --- |
-| Non-commercial use | Keeps all 56 passages |
-| Commercial use | Keeps only open passages: 41 kept, 15 withheld, each with a reason |
+| Non-commercial use | Keeps all 57 passages |
+| Commercial use | Keeps only open passages: 41 kept, 16 withheld, each with a reason |
 | Editions named | Finds "2008 SNA", both editions, or none |
 | Latest edition | Withholds sna08-2.144 and sna08-12.26; keeps sna08-15.187 |
 | Named edition | Withholds the 2025 SNA only; ESA 2010 and BEA stay |
-| Both filters | No passage is both kept and withheld; together they make 56, for every question in both use modes |
+| Both filters | No passage is both kept and withheld; together they make 57, for every question in both use modes |
 | Log | One line per withheld passage, added to, with six fields |
 | Filtered search | No withheld passage appears in the first ten places |
-| Reachable questions | Commercial use loses q2-02, q2-03, q2-06, q2-08, q2-16, q2-17, q2-18, q2-19 and q2-32 |
+| Reachable questions | Commercial use loses q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32 |
 | Chroma condition | The condition written for each use mode |
 | Chroma licence | Commercial results are all open |
 | Chroma agrees | Same top three as filtered exact search on all 32 questions, both use modes |

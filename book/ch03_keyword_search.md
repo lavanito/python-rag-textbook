@@ -12,10 +12,10 @@ All three need the same first step: splitting text into words properly (3.2). BM
 
 | Method | Definition questions with a correct passage in the top three |
 | --- | --- |
-| Chapter 2: shared topic words | 24 of 32 |
-| Word counts | 26 of 32 |
+| Chapter 2: shared topic words | 25 of 32 |
+| Word counts | 27 of 32 |
 | TF-IDF | 29 of 32 |
-| BM25 | 29 of 32 |
+| BM25 | 30 of 32 |
 
 **Code file:** `ragbook/ch03_keyword_search.py`
 
@@ -123,7 +123,7 @@ def count_score(question_words, passage_words):
 ### 3.3.3 Annotations
 
 - `set(question_words)` keeps each question word once, so a question that repeats a word does not count it twice.
-- Score: 26 of 32 questions now have a correct passage in the top three, up from 24 (3.8).
+- Score: 27 of 32 questions now have a correct passage in the top three, up from 25 (3.8).
 
 ## 3.4 TF-IDF: rare words count for more
 
@@ -134,7 +134,7 @@ def count_score(question_words, passage_words):
 - **Term frequency (TF):** how often the word appears in the passage.
 - **Inverse document frequency (IDF):** how rare the word is across the corpus, log(N ÷ n), where N is the number of passages and n the number that contain the word.
 
-In this corpus, "deflator" is in 2 of the 56 passages and "gdp" in 18. One "deflator" adds log(56 ÷ 2) = 3.33 to a passage's score; one "gdp" adds log(56 ÷ 18) = 1.13. A word found in every passage adds log(1) = 0: it tells the passages apart not at all.
+In this corpus, "deflator" is in 2 of the 57 passages and "gdp" in 18. One "deflator" adds log(57 ÷ 2) = 3.35 to a passage's score; one "gdp" adds log(57 ÷ 18) = 1.15. A word found in every passage adds log(1) = 0: it tells the passages apart not at all.
 
 The **document frequency** n counts passages, not appearances: a passage that says "gdp" five times adds one to n.
 
@@ -169,8 +169,8 @@ def tf_idf_score(question_words, passage_words, frequencies, number_of_passages)
     adds nothing; a word found in one passage gets the largest IDF.
 
     Example:
-        In the corpus, "deflator" is in 2 of the 56 passages and "gdp" in 18.
-        One "deflator" adds log(56/2) = 3.33; one "gdp" adds log(56/18) = 1.13.
+        In the corpus, "deflator" is in 2 of the 57 passages and "gdp" in 18.
+        One "deflator" adds log(57/2) = 3.35; one "gdp" adds log(57/18) = 1.15.
     """
     counts = count_words(passage_words)
     score = 0.0
@@ -245,7 +245,7 @@ def bm25_score(question_words, passage_words, frequencies, number_of_passages,
 
 - `k1=1.5, b=0.75` are default values (Chapter 2, 2.2.3), the same as bm25s's defaults. Elasticsearch uses k1 = 1.2 with the same b. Chapter 10 tests whether other settings work better on this corpus.
 - `length_ratio` is above 1 for a passage longer than average, which makes the bottom of the fraction larger and the score smaller.
-- Score: 29 of 32, the same count as TF-IDF but not the same questions (3.8).
+- Score: 30 of 32 (3.8).
 
 ## 3.6 Ranking with an index
 
@@ -387,7 +387,7 @@ def bm25s_rank(passages, question, how_many=3):
 - `retriever.retrieve` returns two lists: the positions of the best passages and their scores. `zip` walks through both together.
 - `int(position)` turns bm25s's number type into an ordinary Python whole number, so it can pick a passage from the list.
 
-## 3.8 Measuring: from 24 to 29 of 32
+## 3.8 Measuring: from 25 to 30 of 32
 
 ### 3.8.1 Principles
 
@@ -395,18 +395,18 @@ Each definition question (class Q2) in the question bank lists its **gold passag
 
 | Method | Questions with a gold passage in the top three | Questions missed |
 | --- | --- | --- |
-| Chapter 2: shared topic words | 24 of 32 | 8 |
-| Word counts | 26 of 32 | q2-02, q2-03, q2-04, q2-21, q2-26, q2-30 |
+| Chapter 2: shared topic words | 25 of 32 | 7 |
+| Word counts | 27 of 32 | q2-02, q2-04, q2-21, q2-26, q2-30 |
 | TF-IDF | 29 of 32 | q2-02, q2-04, q2-30 |
-| BM25 | 29 of 32 | q2-04, q2-12, q2-30 |
+| BM25 | 30 of 32 | q2-04, q2-30 |
 
-Each step fixes a fault named earlier, and each also brings a fault of its own:
+Each step fixes a fault named earlier, and word counts also show the fault they bring:
 
-- **Word counts** find five questions Chapter 2 missed, among them the GDP deflator (q2-16, helped by the curly-quote fix) and consumption of fixed capital (q2-01). But they lose three Chapter 2 found: GNI to net national income (q2-02), depletion (q2-03) and double deflation (q2-26). Passages that repeat some of the question's everyday words many times now crowd out the right ones.
-- **TF-IDF** wins back depletion and double deflation, and adds remittances (q2-21): the rare word "remittances" now outweighs "national" and "income". It still misses q2-02: the two SNA definitions of net national income come fourth and fifth.
-- **BM25** finds q2-02: the two definitions, both short, come first and second. Marking down long passages also shows for labour input (q2-31), where the definition esa10-11.27 rises from fifth place to second. But it costs one question: for PPPs for government services (q2-12), the gold passage ppp23-4.16, the longest in the corpus, falls from second place to fourth, behind two shorter passages on the same methods that the gold list does not count.
+- **Word counts** find four questions Chapter 2 missed, among them the GDP deflator (q2-16, helped by the curly-quote fix) and consumption of fixed capital (q2-01). But they lose two Chapter 2 found: GNI to net national income (q2-02) and double deflation (q2-26). Passages that repeat some of the question's everyday words many times now crowd out the right ones.
+- **TF-IDF** wins back double deflation and adds remittances (q2-21): the rare word "remittances" now outweighs "national" and "income". It still misses q2-02: the two SNA definitions of net national income come fourth and fifth.
+- **BM25** finds q2-02: the two definitions, both short, come first and second. Marking down long passages also shows for labour input (q2-31), where the definition esa10-11.27 rises from fifth place to second.
 
-Two of the questions BM25 misses show the limit of matching words:
+The two questions BM25 still misses show the limit of matching words:
 
 - **What is the difference between GDP and GNI? (q2-04).** The gold passage, esa10-8.94, writes "gross national income" in full; the letters "GNI" never appear in it. Asked with the full name, the same passage comes second. Matching words cannot know that GNI and gross national income are the same thing. Chapter 5 adds that knowledge from the knowledge graph.
 - **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** The question is long and most of its words ("tell", "stories", "different", "two") are not about national accounts. The answer rests on links between ideas (the terms of trade, and how PPPs are carried forward between benchmark years), not on shared words.
@@ -497,9 +497,9 @@ The output (no language model is used in this chapter, so it is the same on ever
 3.7  Hand-built BM25 and bm25s agree on the top three: True
 
 3.8  Questions with a correct passage in the top three (of 32)
-     counts  26
+     counts  27
      tfidf   29
-     bm25    29
+     bm25    30
 ```
 
 For the GDP deflator question, word counts put the right passage first, but fill the other places with passages that merely say "GDP" often: five times in bea-ch4-chained, four in wb13-mccarthy-ipd. TF-IDF lets esa10-10.47 overtake it, because that passage uses the rare word "deflator" three times. BM25 limits the reward for repeats, so the passage written about the GDP deflator is first again.
@@ -523,7 +523,7 @@ The file `tests/test_ch03_keyword_search.py` holds 13 tests. Retrieval is tested
 | Corpus frequencies quoted in 3.4 | "gdp" in 18 passages, "deflator" in 2 |
 | BM25 ranks the deflator passage first | The ranking shown in 3.9 |
 | Hand-built BM25 matches bm25s on all 32 questions | The formula in 3.5 is typed correctly |
-| Top-three counts reported in 3.8 | 26, 29 and 29 of 32 |
+| Top-three counts reported in 3.8 | 27, 29 and 30 of 32 |
 | An unknown method is refused | A misspelt method name fails loudly |
 
 ### 3.10.2 Glossary additions

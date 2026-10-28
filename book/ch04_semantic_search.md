@@ -13,7 +13,7 @@ Semantic search is measured on the same 32 definition questions as Chapter 3 (4.
 
 | Method | Definition questions with a correct passage in the top three |
 | --- | --- |
-| Chapter 3: BM25 | 29 of 32 |
+| Chapter 3: BM25 | 30 of 32 |
 | Semantic search | 32 of 32 |
 
 Semantic search finds the two questions BM25 misses, but puts a gold passage first less often (Chapter 5, 5.6). Chapter 5 combines them.
@@ -57,7 +57,7 @@ To compare two embeddings, measure the angle between their arrows. **Cosine simi
 
 The result runs from −1 to 1. Arrows pointing the same way give 1; at right angles, 0; opposite, −1. A score is a ranking aid, not a probability: 0.62 does not mean "62% relevant", and no threshold stops a model from inventing an answer.
 
-The hand-written version loops over 384 numbers for each passage. numpy, a library for tables of numbers, does the same for all 56 passages in one step, and the two give the same answers (a test checks this, 4.9).
+The hand-written version loops over 384 numbers for each passage. numpy, a library for tables of numbers, does the same for all 57 passages in one step, and the two give the same answers (a test checks this, 4.9).
 
 ### 4.3.2 Code
 
@@ -133,7 +133,7 @@ def cosine_similarities(passage_vectors, question_vector):
 - `math.sqrt` is the square root, from Python's `math` module.
 - `np.asarray(..., dtype=float)` turns a list of lists into a numpy **array**: a table of numbers numpy can work on all at once.
 - `np.linalg.norm(passage_vectors, axis=1)` gives the length of each row; `axis=1` means "along each row".
-- `@` is numpy's matrix product: each passage row's dot product with the question, 56 results in one step.
+- `@` is numpy's matrix product: each passage row's dot product with the question, 57 results in one step.
 - Dividing one array by another divides position by position, so each passage's dot product is divided by its own length.
 
 ## 4.4 The embedding model
@@ -333,16 +333,14 @@ The measure is Chapter 3's: the number of definition questions with at least one
 
 | Method | Questions with a gold passage in the top three | Questions missed |
 | --- | --- | --- |
-| BM25 (Chapter 3) | 29 of 32 | q2-04, q2-12, q2-30 |
+| BM25 (Chapter 3) | 30 of 32 | q2-04, q2-30 |
 | Semantic search | 32 of 32 | None |
 
-Semantic search finds a gold passage in the top three for every question, including the three BM25 misses.
+Semantic search finds a gold passage in the top three for every question, including the two BM25 misses.
 
 **What is the difference between GDP and GNI? (q2-04).** BM25 missed it because the gold passages never write "GNI". Semantic search ranks bea-ch2-gnp second (similarity 0.728). That passage says GNP equals GDP minus net income paid abroad: it answers the question without sharing its key word. But the other gold passage, esa10-8.94, which writes "gross national income" in full, comes only twelfth (0.495). The model did not reliably treat "GNI" and "gross national income" as the same thing. Chapter 5 adds that knowledge from the knowledge graph.
 
 **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** Semantic search ranks wb13-mccarthy-space-time first (0.648): McCarthy explains that PPPs compare countries at one time and national accounts compare one country over time, and that both cannot be kept consistent. That is half the answer. The passages on the terms of trade, the other half, come 12th and 43rd.
-
-**How are PPPs for government services such as health and education calculated? (q2-12).** BM25 missed it because the gold passage, ppp23-4.16, is the longest in the corpus. Semantic search ranks it second (0.586): similarity does not depend on a passage's length.
 
 **Three questions are found only through supporting passages.** A supporting passage carries part of the expected answer but does not answer the question by itself; the gold lists count it (Chapter 10, 10.7). For "What is the best measure of labour input for comparing productivity?" (q2-31), the top three include sna25-16.95, on the quality of hours worked; the definition, esa10-11.27, comes fifth. For "Is net domestic product a better measure than GDP?" (q2-24), they include bea-ch2-ndp-gni, the BEA definition of NDP; the passage that gives the judgement, sna25-A4.10 ("the conceptually preferred measure of economic growth"), comes eighth (0.561). For "What is GDI?" (q2-05), they include the same BEA passage; the ESA passage on real gross domestic income comes 40th. All three count as hits, but the passage that answers most directly is outside the top three. Close in meaning to the question is not the same as answering it.
 
@@ -380,7 +378,7 @@ The output from the test laptop (Windows, Python 3.14, CPU only), 21 October 202
      at right angles: 0.0
 
 4.4  Loading sentence-transformers/all-MiniLM-L6-v2 (the first run downloads it)
-     passage embeddings: (56, 384)
+     passage embeddings: (57, 384)
      first five numbers of the first passage: [-0.031 -0.014  0.059 -0.01   0.018]
 
 4.5  Saved to data\embeddings\all-MiniLM-L6-v2.npz
@@ -390,7 +388,7 @@ The output from the test laptop (Windows, Python 3.14, CPU only), 21 October 202
      0.589  [bea-ch2-gnp] US Bureau of Economic Analysis, NIPA Handbook, Chapter 2: Fundamental Concepts
      0.583  [una14-ch1-deflator] OECD, Understanding National Accounts, Chapter 1, p. 22, partial
 
-4.7  Questions with a correct passage in the top three: 32 of 32 (BM25 in Chapter 3: 29)
+4.7  Questions with a correct passage in the top three: 32 of 32 (BM25 in Chapter 3: 30)
 ```
 
 The first five of the 384 numbers show that no single number means anything to a reader; only comparisons between embeddings do.
@@ -417,9 +415,9 @@ The file `tests/test_ch04_semantic_search.py` holds 12 tests. The first eight us
 | Ranking puts the closest direction first | A small three-passage example ranks correctly |
 | Equal scores keep corpus order | Ties are broken the same way as in Chapter 3 |
 | Saving and loading round trip | Ids, numbers and the model name come back unchanged |
-| Saved embeddings cover the corpus and questions | All 56 passages (384 numbers each) and 32 questions |
+| Saved embeddings cover the corpus and questions | All 57 passages (384 numbers each) and 32 questions |
 | 32 of 32 questions | The count reported in 4.7 |
-| Semantic search finds the BM25 misses | q2-04, q2-12 and q2-30 found; no question missed (4.7) |
+| Semantic search finds the BM25 misses | q2-04 and q2-30 found; no question missed (4.7) |
 | Deflator ranking | The ranking shown in 4.8 |
 
 ### 4.9.2 Glossary additions

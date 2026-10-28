@@ -67,7 +67,7 @@ def licence_filter(passages, use_mode):
     Example:
         kept, withheld = licence_filter(load_corpus(), "commercial")
         len(kept), len(withheld)
-        returns (41, 15)
+        returns (41, 16)
     """
     allowed = USE_MODES[use_mode]
     kept = []
@@ -200,7 +200,7 @@ class FilteredSearch:
 
     The indexes are rebuilt for each question from the kept passages, so a
     withheld passage cannot appear in a ranking and does not count in the
-    BM25 word statistics. At 56 passages this takes a few milliseconds.
+    BM25 word statistics. At 57 passages this takes a few milliseconds.
 
     Example:
         search = FilteredSearch(load_corpus(), load_embeddings(), embed_question)
@@ -230,7 +230,7 @@ def reachable(questions, passages, use_mode):
 
     Example:
         len(reachable(load_questions(), load_corpus(), "commercial"))
-        returns 23
+        returns 24
     """
     kept_questions = []
     for question in questions:

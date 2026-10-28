@@ -6,7 +6,7 @@ This chapter answers a question about national accounts from quoted passages, in
 
 **RAG** (retrieval-augmented generation) means: find passages that bear on a question, then give them to a language model with the question, so its answer rests on those passages. The model writes the answer; the passages supply the facts.
 
-1. Load the corpus: read the 56 quoted passages from file (2.2).
+1. Load the corpus: read the 57 quoted passages from file (2.2).
 2. Find matching passages: keep the few that share most words with the question (2.3).
 3. Build the prompt: put rules, question and passages into messages for the model (2.4).
 4. Ask the model: send the messages to Qwen3 running on your own computer (2.5).
@@ -16,7 +16,7 @@ This chapter answers a question about national accounts from quoted passages, in
 
 **Uses:** Chapter 1 (`split_into_words`, `format_passages`, `load_passages`); Python's standard library; Ollama with the model `qwen3:4b-instruct`.
 
-**Data:** `data/corpus/passages.jsonl`, 56 passages quoted word for word from ten manuals, statistics offices and books, each with its source, paragraph reference, edition, licence and scope. `data/corpus/SOURCES.md` lists the sources and their terms.
+**Data:** `data/corpus/passages.jsonl`, 57 passages quoted word for word from ten manuals, statistics offices and books, each with its source, paragraph reference, edition, licence and scope. `data/corpus/SOURCES.md` lists the sources and their terms.
 
 **Before you start:** install Ollama from ollama.com, then run `ollama pull qwen3:4b-instruct` once. The download is 2.5 GB. The model runs on the processor; no graphics card or internet connection is needed once it is downloaded.
 
@@ -337,7 +337,7 @@ python -m ragbook.ch02_minimal_pipeline
 The example loads the corpus and, for three questions, prints the topic words, the passages matched and the model's answer. The retrieval part of the output is fixed:
 
 ```text
-2.2  Loaded 56 passages
+2.2  Loaded 57 passages
 
 Question: How do you get from GNI to net national income?
 2.3  Topic words: ['gni', 'net', 'national', 'income']
@@ -387,9 +387,9 @@ Without Ollama running, the example prints the matches and then a line saying th
 
 ## 2.8 How often matching finds the right passages
 
-Every definition question in the question bank (`data/question_bank/questions.jsonl`) lists its **gold passages**: the passages a correct answer should rest on. Running `find_matching_passages` on all 32 definition questions, at least one gold passage is among the top three for 24 of them.
+Every definition question in the question bank (`data/question_bank/questions.jsonl`) lists its **gold passages**: the passages a correct answer should rest on. Running `find_matching_passages` on all 32 definition questions, at least one gold passage is among the top three for 25 of them.
 
-Three of the eight misses show the method's limits:
+Three of the seven misses show the method's limits:
 
 | Question | What went wrong |
 | --- | --- |
@@ -407,7 +407,7 @@ The file `tests/test_ch02_minimal_pipeline.py` holds nine tests. Retrieval is te
 
 | Test | What it proves |
 | --- | --- |
-| The corpus loads 56 passages, each with id, source, reference and text | Every passage can be cited |
+| The corpus loads 57 passages, each with id, source, reference and text | Every passage can be cited |
 | `topic_words` drops common words and repeats | "What is the GDP deflator?" gives `["gdp", "deflator"]` |
 | `find_matching_passages` ranks by shared topic words | The net national income question returns the three passages shown in 2.7, in that order |
 | `find_matching_passages` returns at most `how_many` passages | The prompt stays short |

@@ -115,7 +115,7 @@ def score_everything(score_passages, questions, passages):
     Example:
         scores, seconds = score_everything(score_passages, questions, passages)
         scores.shape
-        returns (32, 56)
+        returns (32, 57)
     """
     rows = []
     start = time.perf_counter()
