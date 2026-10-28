@@ -44,7 +44,7 @@ def test_non_commercial_use_keeps_every_passage():
 def test_commercial_use_keeps_only_open_passages():
     kept, withheld = licence_filter(PASSAGES, "commercial")
     assert {passage["licence_class"] for passage in kept} == {"open"}
-    assert (len(kept), len(withheld)) == (41, 15)
+    assert (len(kept), len(withheld)) == (41, 16)
     assert all(record["filter"] == "licence" and record["reason"] for record in withheld)
 
 
@@ -96,10 +96,10 @@ def test_filtered_search_never_returns_a_withheld_passage():
         assert all(result["id"] not in withheld_ids for result in results)
 
 
-def test_nine_questions_cannot_be_reached_in_commercial_use():
+def test_eight_questions_cannot_be_reached_in_commercial_use():
     kept_ids = {question["id"] for question in reachable(QUESTIONS, PASSAGES, "commercial")}
     lost = sorted({question["id"] for question in QUESTIONS} - kept_ids)
-    assert lost == ["q2-02", "q2-03", "q2-06", "q2-08", "q2-16", "q2-17", "q2-18", "q2-19", "q2-32"]
+    assert lost == ["q2-02", "q2-03", "q2-06", "q2-08", "q2-16", "q2-18", "q2-19", "q2-32"]
 
 
 def test_chroma_filter_examples():

@@ -24,7 +24,8 @@ Used by
     (measuring retrieval).
 
 Uses
-    Chapter 2 (load_corpus); Chapter 3 (load_questions, top_three_hits).
+    Chapter 2 (load_corpus); Chapter 3 (KeywordIndex, load_questions,
+    top_three_hits).
     Python's math module; numpy; the sentence-transformers library and the
     all-MiniLM-L6-v2 model (section 4.4).
 
@@ -39,7 +40,7 @@ from pathlib import Path
 import numpy as np
 
 from ragbook.ch02_minimal_pipeline import load_corpus
-from ragbook.ch03_keyword_search import load_questions, top_three_hits
+from ragbook.ch03_keyword_search import KeywordIndex, load_questions, top_three_hits
 
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 EMBEDDING_FILE = Path(__file__).parent.parent / "data" / "embeddings" / "all-MiniLM-L6-v2.npz"
@@ -251,8 +252,10 @@ def main():
         print(f"     {score:.3f}  [{passage['id']}] {passage['source']}, {passage['reference']}")
 
     hits = top_three_hits(index.rank, questions)
+    keyword_index = KeywordIndex(passages)
+    bm25_hits = top_three_hits(lambda q: keyword_index.rank(q, "bm25"), questions)
     print(f"\n4.7  Questions with a correct passage in the top three: {hits} of {len(questions)}"
-          " (BM25 in Chapter 3: 30)")
+          f" (BM25 in Chapter 3: {bm25_hits})")
 
 
 if __name__ == "__main__":

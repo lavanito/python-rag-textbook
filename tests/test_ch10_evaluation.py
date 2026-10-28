@@ -107,8 +107,8 @@ def test_the_27_october_revision_rebuilds_the_26_october_lists():
     assert by_id["q2-03"]["question"] == "Is depletion of natural resources a cost of production?"
     assert by_id["q2-03"]["gold_passages"] == ["sna08-12.26", "sna25-A4.59"]
     assert sum(len(question["gold_passages"]) for question in QUESTIONS_26_OCTOBER) == 71
-    assert sum(len(question["gold_passages"]) for question in QUESTIONS) == 58
-    assert sum(len(question["gold_passages"]) for question in gold_only(QUESTIONS)) == 53
+    assert sum(len(question["gold_passages"]) for question in QUESTIONS) == 62
+    assert sum(len(question["gold_passages"]) for question in gold_only(QUESTIONS)) == 56
 
 
 @pytest.fixture(scope="module")
@@ -139,25 +139,25 @@ def test_recall_above_zero_counts_the_same_questions_as_hits_at_three(searches, 
 
 
 EXPECTED = {
-    # search: (P@3, R@3, F1@3, MRR, MAP) on the gold lists of 27 October 2026,
-    # supporting passages counted, two decimals
-    "BM25": (0.38, 0.71, 0.47, 0.85, 0.74),
-    "BM25 + query expansion": (0.38, 0.72, 0.48, 0.75, 0.66),
-    "Semantic search": (0.39, 0.74, 0.48, 0.74, 0.62),
-    "Hybrid search": (0.39, 0.74, 0.49, 0.88, 0.74),
-    "Hybrid search + query expansion": (0.43, 0.81, 0.54, 0.84, 0.72),
-    "Filtered, non-commercial": (0.42, 0.78, 0.52, 0.83, 0.70),
-    "Reranked, pool of 10": (0.42, 0.76, 0.52, 0.85, 0.72),
+    # search: (P@3, R@3, F1@3, MRR, MAP) on the corpus and gold lists of
+    # 28 October 2026, supporting passages counted, two decimals
+    "BM25": (0.41, 0.72, 0.50, 0.87, 0.76),
+    "BM25 + query expansion": (0.41, 0.74, 0.50, 0.80, 0.69),
+    "Semantic search": (0.43, 0.74, 0.52, 0.76, 0.65),
+    "Hybrid search": (0.42, 0.74, 0.51, 0.90, 0.76),
+    "Hybrid search + query expansion": (0.46, 0.81, 0.56, 0.86, 0.74),
+    "Filtered, non-commercial": (0.45, 0.79, 0.55, 0.87, 0.73),
+    "Reranked, pool of 10": (0.45, 0.78, 0.54, 0.88, 0.74),
 }
 
 EXPECTED_GOLD_ONLY = {
-    "BM25": (0.34, 0.71, 0.45, 0.81, 0.70),
-    "BM25 + query expansion": (0.33, 0.71, 0.44, 0.71, 0.63),
-    "Semantic search": (0.34, 0.71, 0.44, 0.71, 0.61),
-    "Hybrid search": (0.34, 0.73, 0.45, 0.82, 0.71),
-    "Hybrid search + query expansion": (0.39, 0.79, 0.50, 0.79, 0.69),
-    "Filtered, non-commercial": (0.38, 0.76, 0.49, 0.78, 0.68),
-    "Reranked, pool of 10": (0.36, 0.74, 0.47, 0.76, 0.65),
+    "BM25": (0.36, 0.72, 0.46, 0.83, 0.72),
+    "BM25 + query expansion": (0.35, 0.72, 0.46, 0.75, 0.65),
+    "Semantic search": (0.38, 0.71, 0.47, 0.72, 0.62),
+    "Hybrid search": (0.36, 0.73, 0.47, 0.84, 0.72),
+    "Hybrid search + query expansion": (0.41, 0.79, 0.52, 0.80, 0.71),
+    "Filtered, non-commercial": (0.40, 0.77, 0.51, 0.82, 0.70),
+    "Reranked, pool of 10": (0.39, 0.76, 0.49, 0.79, 0.67),
 }
 
 EXPECTED_26_OCTOBER = {
@@ -216,7 +216,7 @@ def test_results_on_gold_lists_before_26_october(searches_26_october):
 def test_commercial_use():
     searches = build_searches("commercial")[0]
     means = measure_search(searches["Filtered, commercial"], QUESTIONS)[0]
-    assert rounded(means) == (0.30, 0.52, 0.37, 0.63, 0.48)
+    assert rounded(means) == (0.32, 0.53, 0.38, 0.65, 0.50)
 
 
 def test_query_expansion_on_bm25_question_by_question(results):
@@ -225,19 +225,19 @@ def test_query_expansion_on_bm25_question_by_question(results):
     lost_first = [q for q in without if without[q]["rr"] == 1.0 and with_expansion[q]["rr"] < 1.0]
     assert lost_first == ["q2-06", "q2-08", "q2-11", "q2-17", "q2-25"]
     assert compare_by_question(with_expansion, without) == (
-        ["q2-04", "q2-05", "q2-14", "q2-18", "q2-21", "q2-23", "q2-30"],
-        ["q2-06", "q2-08", "q2-09", "q2-11", "q2-12", "q2-15", "q2-17", "q2-20", "q2-24",
-         "q2-25", "q2-29"],
+        ["q2-04", "q2-05", "q2-14", "q2-18", "q2-21", "q2-23", "q2-24", "q2-30"],
+        ["q2-06", "q2-08", "q2-09", "q2-11", "q2-12", "q2-15", "q2-17", "q2-20", "q2-25",
+         "q2-29"],
         14,
     )
 
 
 def test_no_comparison_is_clear_on_32_questions(results):
     # Clear would mean a sign-test probability below 0.05.
-    pairs = [("BM25 + query expansion", "BM25", (7, 11), 0.48),
-             ("Hybrid search", "BM25", (9, 6), 0.61),
+    pairs = [("BM25 + query expansion", "BM25", (8, 10), 0.81),
+             ("Hybrid search", "BM25", (8, 6), 0.79),
              ("Hybrid search + query expansion", "Hybrid search", (8, 9), 1.0),
-             ("Reranked, pool of 10", "Filtered, non-commercial", (7, 7), 1.0)]
+             ("Reranked, pool of 10", "Filtered, non-commercial", (8, 7), 1.0)]
     for a, b, expected, probability in pairs:
         better, worse, ties = compare_by_question(results[a][1], results[b][1])
         assert (len(better), len(worse)) == expected, (a, b)

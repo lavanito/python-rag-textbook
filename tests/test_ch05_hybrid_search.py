@@ -143,10 +143,10 @@ def test_measured_hits_at_depths_1_3_10():
     }
     counts = {name: [hits_at(f, questions, depth) for depth in (1, 3, 10)] for name, f in results.items()}
     assert counts == {
-        "bm25": [25, 29, 31],
-        "semantic": [17, 32, 32],
-        "hybrid": [26, 30, 32],
-        "expanded": [23, 31, 32],
+        "bm25": [26, 30, 31],
+        "semantic": [18, 32, 32],
+        "hybrid": [27, 30, 32],
+        "expanded": [24, 31, 32],
     }
 
 

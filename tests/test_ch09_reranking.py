@@ -149,8 +149,8 @@ def test_reranker_gains_at_first_place_and_loses_in_the_top_three(saved_searches
     use_mode = "non-commercial"
     before = [hits_at(lambda q: first_stage.rank(q, use_mode, how_many=10)[0], questions, depth)
               for depth in (1, 3, 10)]
-    assert before == [23, 30, 31]
-    expected = {5: [25, 30, 31], 10: [25, 29, 31], 20: [25, 29, 31]}
+    assert before == [25, 31, 32]
+    expected = {5: [26, 31, 32], 10: [26, 30, 32], 20: [26, 30, 32]}
     for pool_size, counts in expected.items():
         after = [hits_at(lambda q: reranked.rank(q, use_mode, pool_size, how_many=10)[0],
                          questions, depth) for depth in (1, 3, 10)]
@@ -164,19 +164,19 @@ def test_first_places_gained_and_lost(saved_searches):
         questions,
         lambda q: first_stage.rank(q, "non-commercial", how_many=10)[0],
         lambda q: reranked.rank(q, "non-commercial", pool_size=10)[0])
-    assert (lost, gained) == (["q2-25"], ["q2-06", "q2-24", "q2-30"])
+    assert (lost, gained) == (["q2-03", "q2-25"], ["q2-06", "q2-24", "q2-30"])
 
 
 @needs_saved_scores
-def test_pool_of_ten_holds_a_gold_passage_for_all_but_one_question(saved_searches):
+def test_pool_of_ten_holds_a_gold_passage_for_every_question(saved_searches):
     first_stage, reranked, questions = saved_searches
-    assert hits_at(lambda q: first_stage.rank(q, "non-commercial", how_many=10)[0], questions, 10) == 31
+    assert hits_at(lambda q: first_stage.rank(q, "non-commercial", how_many=10)[0], questions, 10) == 32
 
 
 @needs_saved_scores
 def test_saved_timing_covers_every_pair():
     seconds, pairs = scoring_time(SCORE_FILE)
-    assert pairs == 32 * 56
+    assert pairs == 32 * 57
     assert seconds > 0
 
 
