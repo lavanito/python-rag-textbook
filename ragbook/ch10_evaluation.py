@@ -245,7 +245,7 @@ def build_searches(use_mode="non-commercial", questions=None, passages=None,
 # ---------------------------------------------------------------------------
 
 # The passages added to four gold lists on 26 October 2026. The rule used:
-# a passage is gold if the expected answer can rest on it.
+# a passage is gold if it states what the expected answer says.
 ADDED_26_OCTOBER = {
     "q2-15": ["esa10-10.22"],
     "q2-17": ["qna17-10.48"],
