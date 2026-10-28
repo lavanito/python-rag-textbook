@@ -391,7 +391,7 @@ def bm25s_rank(passages, question, how_many=3):
 
 ### 3.8.1 Principles
 
-Each definition question (class Q2) in the question bank lists its **gold passages**: the passages a correct answer should rest on. The measure used since Chapter 2 counts the questions for which at least one gold passage is in the top three.
+Each definition question (class Q2) in the question bank lists its **gold passages**: the passages that state what a correct answer says. The measure used since Chapter 2 counts the questions for which at least one gold passage is in the top three.
 
 | Method | Questions with a gold passage in the top three | Questions missed |
 | --- | --- | --- |
@@ -409,7 +409,7 @@ Each step fixes a fault named earlier, and word counts also show the fault they 
 The two questions BM25 still misses show the limit of matching words:
 
 - **What is the difference between GDP and GNI? (q2-04).** The gold passage, esa10-8.94, writes "gross national income" in full; the letters "GNI" never appear in it. Asked with the full name, the same passage comes second. Matching words cannot know that GNI and gross national income are the same thing. Chapter 5 adds that knowledge from the knowledge graph.
-- **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** The question is long and most of its words ("tell", "stories", "different", "two") are not about national accounts. The answer rests on links between ideas (the terms of trade, and how PPPs are carried forward between benchmark years), not on shared words.
+- **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** The question is long and most of its words ("tell", "stories", "different", "two") are not about national accounts. The answer depends on links between ideas (the terms of trade, and how PPPs are carried forward between benchmark years), not on shared words.
 
 Three points about this measure. It checks only the top three, not whether the answer is right. It uses gold passages judged by the author. And 32 questions are few: one question is about three percentage points. Chapter 10 adds stricter measures.
 
@@ -422,8 +422,8 @@ def load_questions(file_path=QUESTION_FILE, question_class="Q2"):
     """
     Read the questions of one class from the question bank.
 
-    Class Q2 holds the definition questions, each with its gold passages:
-    the passages a correct answer should rest on.
+    Class Q2 is the definition questions, each with its gold passages:
+    the passages that state what a correct answer says.
 
     Example:
         len(load_questions()) returns 32

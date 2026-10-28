@@ -4,7 +4,7 @@
 
 This chapter answers a question about national accounts from quoted passages, in five steps. Each step is one function; later chapters replace one step at a time with a better one.
 
-**RAG** (retrieval-augmented generation) means: find passages that bear on a question, then give them to a language model with the question, so its answer rests on those passages. The model writes the answer; the passages supply the facts.
+**RAG** (retrieval-augmented generation) means: find passages that bear on a question, then give them to a language model with the question, so the model answers from those passages. The model writes the answer; the passages supply the facts.
 
 1. Load the corpus: read the 57 quoted passages from file (2.2).
 2. Find matching passages: keep the few that share most words with the question (2.3).
@@ -68,7 +68,7 @@ def load_corpus(file_path=CORPUS_FILE):
 
 ### 2.3.1 Principles
 
-The model sees only the passages it is given, so this step decides what the answer can rest on. A passage left out cannot be used; a wrong passage can mislead.
+The model sees only the passages it is given, so this step decides which facts the answer can use. A passage left out cannot be used; a wrong passage can mislead.
 
 This chapter uses the simplest method that works at all. Drop common words such as "the" and "what" from the question; the words left are its **topic words**. Each passage scores one point for every topic word it contains, and the highest-scoring passages are kept.
 
@@ -387,7 +387,7 @@ Without Ollama running, the example prints the matches and then a line saying th
 
 ## 2.8 How often matching finds the right passages
 
-Every definition question in the question bank (`data/question_bank/questions.jsonl`) lists its **gold passages**: the passages a correct answer should rest on. Running `find_matching_passages` on all 32 definition questions, at least one gold passage is among the top three for 25 of them.
+Every definition question in the question bank (`data/question_bank/questions.jsonl`) lists its **gold passages**: the passages that state what a correct answer says. Running `find_matching_passages` on all 32 definition questions, at least one gold passage is among the top three for 25 of them.
 
 Three of the seven misses show the method's limits:
 
@@ -423,7 +423,7 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 
 | Term | Meaning |
 | --- | --- |
-| RAG (retrieval-augmented generation) | Finding passages that bear on a question and giving them to a language model with the question, so its answer rests on them |
+| RAG (retrieval-augmented generation) | Finding passages that bear on a question and giving them to a language model with the question, so the model answers from them |
 | Language model | A program that writes text by predicting one word or part of a word at a time |
 | Topic words | The words of a question left after common words are dropped |
 | Default value | The value an argument takes when none is given |
@@ -437,7 +437,7 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 | Parameter (of a model) | One of the numbers set when the model was trained; Qwen3 4B Instruct has about 4 billion |
 | Temperature | A setting for how strongly the model favours its most likely next word; 0 always takes it |
 | Token | A word or part of a word, the unit a model reads and writes |
-| Gold passages | The passages a correct answer should rest on, listed for each question in the question bank |
+| Gold passages | The passages that state what a correct answer says, listed for each question in the question bank |
 | Top-k, top-p | Settings that limit the draw to the k most likely next words, or to the most likely words whose probabilities add up to p |
 | Seed | A number that fixes the random draws, so the same prompt gives the same reply |
 | Context window | The most tokens a model can hold at once, prompt and reply together |

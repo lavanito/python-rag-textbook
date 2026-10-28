@@ -292,8 +292,8 @@ def load_questions(file_path=QUESTION_FILE, question_class="Q2"):
     """
     Read the questions of one class from the question bank.
 
-    Class Q2 holds the definition questions, each with its gold passages:
-    the passages a correct answer should rest on.
+    Class Q2 is the definition questions, each with its gold passages:
+    the passages that state what a correct answer says.
 
     Example:
         len(load_questions()) returns 32
