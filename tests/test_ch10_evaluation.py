@@ -21,7 +21,7 @@ from ragbook.ch03_keyword_search import load_questions
 from ragbook.ch05_hybrid_search import hits_at
 from ragbook.ch10_evaluation import (
     ADDED_26_OCTOBER, EMBEDDING_FILE_26_OCTOBER, SCORE_FILE_26_OCTOBER, average_precision,
-    build_searches, compare_by_question, earlier_gold_lists, f1, gold_lists_of_26_october,
+    build_searches, compare_by_question, corpus_of_26_october, earlier_gold_lists, f1, gold_lists_of_26_october,
     gold_only, measure_question, measure_search, precision_at, recall_at, reciprocal_rank,
     sign_test,
 )
@@ -198,8 +198,8 @@ def test_results_on_gold_only(searches):
 
 @pytest.fixture(scope="module")
 def searches_26_october():
-    return build_searches(questions=QUESTIONS_26_OCTOBER, embedding_file=EMBEDDING_FILE_26_OCTOBER,
-                          score_file=SCORE_FILE_26_OCTOBER)[0]
+    return build_searches(questions=QUESTIONS_26_OCTOBER, passages=corpus_of_26_october(),
+                          embedding_file=EMBEDDING_FILE_26_OCTOBER, score_file=SCORE_FILE_26_OCTOBER)[0]
 
 
 def test_results_on_gold_lists_of_26_october(searches_26_october):

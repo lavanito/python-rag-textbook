@@ -197,20 +197,21 @@ def measure_search(rank_function, questions, places=TOP, depth=DEPTH):
     return means, by_question
 
 
-def build_searches(use_mode="non-commercial", questions=None,
+def build_searches(use_mode="non-commercial", questions=None, passages=None,
                    embedding_file=EMBEDDING_FILE, score_file=SCORE_FILE):
     """
     Every search from Chapters 3 to 9, as rank functions that return the
     first DEPTH passages. Query expansion appears twice: on BM25 alone, and
-    inside hybrid search. Pass earlier questions and saved files to rebuild
-    earlier figures.
+    inside hybrid search. Pass earlier questions, corpus and saved files to
+    rebuild earlier figures.
 
     Example:
         searches, questions = build_searches()
         searches["BM25"]("What is GDI?")
         returns ten passages
     """
-    passages = load_corpus()
+    if passages is None:
+        passages = load_corpus()
     if questions is None:
         questions = load_questions()
     saved = load_embeddings(embedding_file)
@@ -254,13 +255,15 @@ ADDED_26_OCTOBER = {
 
 
 # The changes of 27 October 2026, after Lavan Mahadeva judged every passage
-# against every definition question with the same rule. Most changes remove
-# passages: the earlier lists had counted passages on neighbouring topics.
+# against every definition question with the same rule, with four amendments
+# of 28 October (q2-03, q2-12, q2-17, q2-22). Most changes remove passages:
+# the earlier lists had counted passages on neighbouring topics.
 # Five passages that carry part of an expected answer but do not answer the
 # question by themselves stay in the gold lists as supporting passages; each
 # question's supporting_passages names them.
 ADDED_27_OCTOBER = {
     "q2-01": ["sna25-A4.59"],
+    "q2-03": ["sna25-11.238"],
     "q2-27": ["una14-ch2-ppp"],
 }
 REMOVED_27_OCTOBER = {
@@ -270,19 +273,23 @@ REMOVED_27_OCTOBER = {
     "q2-06": ["esa10-10.47"],
     "q2-07": ["sna08-15.187"],
     "q2-08": ["ppp23-1.13"],
-    "q2-12": ["ppp23-8.2", "ppp23-8.4"],
-    "q2-17": ["bea-ch1-revisions"],
+    "q2-12": ["ppp23-8.4"],
     "q2-21": ["esa10-2.10"],
-    "q2-22": ["cso-gnistar-2", "cso-gnistar-6"],
+    "q2-22": ["cso-gnistar-2"],
     "q2-23": ["cso-gnistar-4"],
     "q2-30": ["esa10-10.22", "wb13-mccarthy-ipd"],
 }
 # q2-03 was replaced the same day: the corpus did not answer the old question.
+# On 28 October one passage was added to the corpus for it, and q2-12's check
+# lost a clause no passage supports.
 REPLACED_27_OCTOBER = {
     "q2-03": {
         "question": "Is depletion of natural resources a cost of production?",
         "expected": "Not in the 2008 SNA (other changes in volume of assets); yes in the 2025 SNA.",
         "check": "Edition pair: an answer giving only one edition fails.",
+    },
+    "q2-12": {
+        "check": "Scope: must say this is Eurostat-OECD practice; other ICP regions adjust for productivity.",
     },
 }
 
@@ -313,6 +320,14 @@ def earlier_gold_lists(questions, added=ADDED_26_OCTOBER, removed=None, replaced
         copy["gold_passages"] = gold
         earlier.append(copy)
     return earlier
+
+
+PASSAGES_ADDED_28_OCTOBER = ["sna25-11.238"]
+
+
+def corpus_of_26_october():
+    """The corpus as it was on 26 October 2026: today's, less the passages added since."""
+    return [p for p in load_corpus() if p["id"] not in PASSAGES_ADDED_28_OCTOBER]
 
 
 def gold_lists_of_26_october(questions):
@@ -418,6 +433,7 @@ def main():
 
     questions_26 = gold_lists_of_26_october(questions)
     searches_26, questions_26 = build_searches(questions=questions_26,
+                                               passages=corpus_of_26_october(),
                                                embedding_file=EMBEDDING_FILE_26_OCTOBER,
                                                score_file=SCORE_FILE_26_OCTOBER)
     print("\n      On the gold lists of 26 October 2026")

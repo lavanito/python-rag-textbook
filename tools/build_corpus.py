@@ -135,6 +135,12 @@ add("sna25-A4.10", "SNA25", "para. A4.10 (first part)", "Net measures and growth
     partial=True)
 add("sna25-A4.59", "SNA25", "Annex 4, para. A4.59", "Depletion of natural resources", ["C1a"],
     "A4.59 Depletion of non-produced natural resources is recorded as a cost of production in the 2025 SNA, instead of the 2008 SNA treatment as other changes in the volume of assets. Consequently, net domestic product is not only affected by depreciation (known as “consumption of fixed capital” in the 2008 SNA; see table A4.2 below), but also by the amount of depletion (see also section C.1 above).")
+# --- Depletion in the 2025 SNA (Lavan, 28 Oct) -----------------------------
+# Gives q2-03 a gold passage the edition filter keeps (Chapter 8) and says what
+# depletion covers beyond subsoil assets. Cut to fit the SNA cap of 500 words.
+add("sna25-11.238", "SNA25", "para. 11.238 (parts)", "Depletion of natural resources", ["C1a"],
+    "11.238 Bare land and renewable energy resources are not subject to depletion. […] For non-cultivated biological resources yielding once-only products, a decline in the regenerative potential of the underlying asset (e.g., the case where the extraction of fish is larger than its natural growth) is to be recorded as depletion.",
+    partial=True)
 add("sna25-23.68", "SNA25", "para. 23.68 (first part)", "Globalisation and indicators other than GDP", ["C1a", "quality"],
     "23.68 Traditionally, analysis of economic activity within an economy focused on GDP as a broadly defined, internationally consistent measure of productive activity. Considering various economic developments, including increased globalization, the integrated framework of the SNA has given increased prominence to other key indicators, such as net domestic product (NDP), gross/net national income (GNI/NNI), gross/net national disposable income (GNDI/NNDI), and household (adjusted) disposable income. These indicators are generally less affected by globalization and less sensitive to the impact of MNE activities than GDP.",
     partial=True)

@@ -30,9 +30,9 @@ q("q2-02", "Q2", R4, "How do you get from GNI to net national income?",
   "Deduct consumption of fixed capital (2008 SNA); deduct depreciation and depletion (2025 SNA).",
   "Edition-sensitive: must state that the 2025 SNA also deducts depletion.")
 q("q2-03", "Q2", R4, "What does the depletion of natural resources in the national accounts include?",
-  ["sna08-12.26"],
-  "The fall in the value of subsoil deposits as they are physically removed and used up (2008 SNA).",
-  "Names subsoil deposits and their physical removal.")
+  ["sna08-12.26", "sna25-11.238"],
+  "Depletion covers the fall in the value of subsoil deposits as they are physically removed and used up (2008 SNA). In the 2025 SNA it also covers non-cultivated biological resources, such as wild fish, when extraction exceeds natural growth. Bare land and renewable energy resources are not depleted.",
+  "Names subsoil deposits and non-cultivated biological resources; does not say the 2008 SNA excludes biological resources.")
 q("q2-04", "Q2", R4, "What is the difference between GDP and GNI?",
   ["esa10-8.94", "bea-ch2-gnp"],
   "GNI adds income receivable from abroad and deducts income payable abroad; GDP is production, GNI income.",
@@ -62,9 +62,9 @@ q("q2-11", "Q2", R4, "How precise are PPPs?",
   ["ppp23-1.31"],
   "Statistical estimates with error margins, not precise measures.")
 q("q2-12", "Q2", R4, "How are PPPs for government services such as health and education calculated?",
-  ["ppp23-4.16"],
+  ["ppp23-4.16", "ppp23-8.2"],
   "From input prices, mainly pay, which assumes equal productivity; Eurostat and the OECD now use output methods for health and education.",
-  "Scope: must say this is Eurostat-OECD practice; other ICP regions adjust for productivity.")
+  "Scope: must say this is Eurostat-OECD practice.")
 q("q2-13", "Q2", R4, "What is double deflation?",
   ["esa10-10.32"],
   "Real value added = output in volume minus intermediate consumption in volume, each deflated by its own prices.")
@@ -82,7 +82,7 @@ q("q2-16", "Q2", R4, "What is the GDP deflator?",
   "The price index that separates GDP growth at current prices from GDP growth in volume; nominal divided by real.",
   "Should not equate it with a producer price index.")
 q("q2-17", "Q2", R4, "Why are GDP estimates revised?",
-  ["qna17-12.1", "qna17-12.2", "qna17-10.48"],
+  ["qna17-12.1", "qna17-12.2", "qna17-10.48", "bea-ch1-revisions"],
   "Early estimates use incomplete data; later data and new methods replace them.",
   "Scope: the BEA schedule is an example of national practice.")
 q("q2-18", "Q2", R4, "What problems can revisions cause, and how should they be handled?",
@@ -100,7 +100,8 @@ q("q2-21", "Q2", R4, "Are remittances part of national income?",
 q("q2-22", "Q2", R4, "What is modified GNI and why does Ireland publish it?",
   ["cso-gnistar-1", "cso-gnistar-3", "cso-gnistar-4"],
   "An Irish measure removing depreciation of foreign-owned IP and leased aircraft and the income of redomiciled PLCs.",
-  "Scope: Irish national practice, not an international standard.")
+  "Scope: Irish national practice, not an international standard.",
+  supporting=["cso-gnistar-6"])
 q("q2-23", "Q2", R4, "Why can GDP mislead for economies with large multinational companies?",
   ["sna25-23.68", "cso-gnistar-2"],
   "MNE profits and IP moves inflate GDP; GNI, NNI and household income are less affected.")
@@ -212,13 +213,11 @@ q("out-04", "OUT", "escalate", "What is the best restaurant in Dublin?", [], "De
 
 # Distractors: passages that answer no question. They test whether a search
 # avoids related but wrong passages. Lavan Mahadeva removed them from the gold
-# lists on 27 October 2026 as passages on neighbouring topics.
+# lists on 27 October 2026 as passages on neighbouring topics. On 28 October
+# bea-ch1-revisions, cso-gnistar-6 and ppp23-8.2 went back into gold lists.
 DISTRACTORS = {
-    "bea-ch1-revisions": "Why BEA revises its estimates. Removed from q2-17's gold list.",
-    "cso-gnistar-6": "Modified GNI excludes the income of redomiciled PLCs. Removed from q2-22's.",
     "esa10-2.10": "Residence of households. Removed from q2-21's.",
     "ppp23-1.13": "International comparisons with exchange rates before PPPs. Removed from q2-08's.",
-    "ppp23-8.2": "PPPs for government services from pay. Removed from q2-12's.",
     "ppp23-8.4": "Education as a comparison-resistant service. Removed from q2-12's.",
 }
 
