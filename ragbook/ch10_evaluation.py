@@ -387,7 +387,8 @@ def compare_by_question(by_question_a, by_question_b, measure="ap"):
 def sign_test(better, worse):
     """
     The chance of a split at least this uneven if each search were equally
-    likely to win each question that is not a tie (two-sided sign test).
+    likely to score higher on each question that is not a tie (two-sided
+    sign test).
 
     Example:
         sign_test(8, 1)
@@ -395,14 +396,14 @@ def sign_test(better, worse):
         sign_test(3, 2)
         returns 1.0
     """
-    games = better + worse
-    if games == 0:
+    differ = better + worse
+    if differ == 0:
         return 1.0
     fewer = min(better, worse)
     one_side = 0
-    for wins in range(fewer + 1):
-        one_side = one_side + math.comb(games, wins)
-    return min(1.0, 2 * one_side / 2 ** games)
+    for higher in range(fewer + 1):
+        one_side = one_side + math.comb(differ, higher)
+    return min(1.0, 2 * one_side / 2 ** differ)
 
 
 # ---------------------------------------------------------------------------
