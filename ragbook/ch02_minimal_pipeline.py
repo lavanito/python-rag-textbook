@@ -176,8 +176,9 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
                        how the next word is drawn; the values Qwen recommends
                        for this model (see 2.5.3)
         seed 42        fixes the random draws, so the same prompt gives the
-                       same reply each time (a repeatable reply, not
-                       necessarily a correct one)
+                       same reply, except that the first request after the
+                       model loads can differ (see 2.5.3); a repeatable
+                       reply, not necessarily a correct one
         num_ctx 4096   the context window: prompt plus reply, in tokens
         num_predict    the longest reply allowed, in tokens (pieces of words)
 

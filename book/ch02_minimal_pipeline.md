@@ -214,7 +214,7 @@ def build_prompt(question, passages):
 
 The code sends the messages as **JSON** (Chapter 1) to Ollama's chat address and reads the reply from the JSON that comes back. Settings for the model go inside `options`.
 
-A model writes one token at a time. For each, it gives every possible next token a probability, and the settings decide how one is drawn from them. This chapter uses the values Qwen recommends and fixes the random draws so that results repeat; Chapter 11 compares the settings.
+A model writes one token at a time. For each, it gives every possible next token a probability, and the settings decide how one is drawn from them. This chapter uses the values Qwen recommends and fixes the random draws so that results repeat, with one exception (2.5.3); Chapter 11 compares the settings.
 
 ### 2.5.2 Code
 
@@ -230,8 +230,9 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
                        how the next word is drawn; the values Qwen recommends
                        for this model (see 2.5.3)
         seed 42        fixes the random draws, so the same prompt gives the
-                       same reply each time (a repeatable reply, not
-                       necessarily a correct one)
+                       same reply, except that the first request after the
+                       model loads can differ (see 2.5.3); a repeatable
+                       reply, not necessarily a correct one
         num_ctx 4096   the context window: prompt plus reply, in tokens
         num_predict    the longest reply allowed, in tokens (pieces of words)
 
@@ -266,7 +267,8 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
 
 - `top_k` 20 keeps only the 20 most likely tokens. `top_p` 0.8 keeps, from those, the most likely tokens whose probabilities add up to 0.8. `min_p` 0 makes no further cut.
 - `temperature` sets how strongly the draw favours the most likely token: 0 always takes it; higher values spread the choice. 0.7, with the three settings above, is what [Qwen's model card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) suggests for this model.
-- `seed` fixes the random draws. Ollama gives the same output for the same prompt and seed, so results repeat without temperature 0. The number 42 has no meaning. A repeatable answer is not thereby a correct one.
+- `seed` fixes the random draws, so results repeat without temperature 0. In Chapter 11's trials the same prompt and seed gave the same reply every time except on the first request after the model loaded (11.4.4), so a rerun of 2.7 can give a different first answer from the one printed there.
+- The number 42 has no meaning. A repeatable answer is not thereby a correct one.
 - `num_ctx` is the **context window**: the most tokens the model can hold at once, prompt and reply together. Ollama's default depends on the version and the computer's memory (its documentation gives 2,048 in one place and 4,096 in another), so the code sets it. This chapter's prompt is about 225 words, well inside 4,096 tokens; later chapters send more passages.
 - `num_predict` caps the reply at 400 **tokens**. A token is a word or part of a word; 400 tokens is roughly 300 English words.
 - `"stream": False` asks for the whole reply at once rather than word by word.
@@ -439,7 +441,7 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 | Token | A word or part of a word, the unit a model reads and writes |
 | Gold passages | The passages that state what a correct answer says, listed for each question in the question bank |
 | Top-k, top-p | Settings that limit the draw to the k most likely next words, or to the most likely words whose probabilities add up to p |
-| Seed | A number that fixes the random draws, so the same prompt gives the same reply |
+| Seed | A number that fixes the random draws, so the same prompt gives the same reply, except possibly on the first request after the model loads |
 | Context window | The most tokens a model can hold at once, prompt and reply together |
 
 **Links**
