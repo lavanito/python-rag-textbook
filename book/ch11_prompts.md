@@ -586,13 +586,14 @@ Lavan ran the 64 answers on 30 October 2026; they took 53 minutes. The prompts a
 - **Nearly half the analyst's sentences have no citation: 119 of 252.** Many link or restate cited sentences. Some add claims no passage makes, such as q2-01's "This definition is consistent with the 2008 SNA"; Chapter 14 checks which.
 - **The executive length rule held.** No executive answer has more than two sentences: 10 have one and 22 have two. They took 30.2 seconds on average, against 69.3 for the analyst's.
 - **Six analyst answers were cut off at 400 tokens:** q2-08, q2-12, q2-16, q2-18, q2-24 and q2-25. A higher `num_predict` would let them finish, at the cost of time.
+- **At 800 tokens all six finish.** Lavan reran the 32 analyst answers with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
 - **The scope rule failed four times.** q2-12 cites the Eurostat-OECD passages ppp23-8.2 and ppp23-4.16 without naming Eurostat or the OECD, in both roles; its check in the question bank asks for exactly that. q2-20 (analyst) and q2-23 (executive) cite cso-gnistar-2 without naming Ireland or the CSO.
 
 ## 11.6 Tests, glossary and links
 
 ### 11.6.1 Tests
 
-The file `tests/test_ch11_prompts.py` has 19 tests. None needs the model; two read the saved replies from the laptop run. Run them with `python -m pytest tests/test_ch11_prompts.py -v`.
+The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three read the saved replies from the laptop runs. Run them with `python -m pytest tests/test_ch11_prompts.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -615,6 +616,7 @@ The file `tests/test_ch11_prompts.py` has 19 tests. None needs the model; two re
 | Save and load | Answers round-trip through the file, with model and date added |
 | Saved trials | The 20 trials in order; run 1 differs from run 2; run 2 and the stop trial are the same; 1, 5 and 5 different replies at temperatures 0, 0.7 and 1.5; the 40-token and repeat-penalty replies are cut off |
 | Saved answers | 64 answers; the counts in 11.5.4 for each role; the analyst answer to q2-01 is the same as settings run 2 |
+| Saved answers at 800 tokens | 32 analyst answers; the counts at 800 tokens; only q2-01 and the six cut-off answers differ from the 400 run; the six finish in 449 to 529 tokens |
 
 The bank test uses a stand-in model that cites the first passage label it sees, so it checks the pipeline, not the model.
 

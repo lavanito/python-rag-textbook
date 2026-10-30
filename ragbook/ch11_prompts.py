@@ -57,6 +57,8 @@ from ragbook.ch08_filters import FilteredSearch
 ANSWER_FOLDER = Path(__file__).parent.parent / "data" / "answers"
 SETTINGS_FILE = ANSWER_FOLDER / "ch11_settings.jsonl"
 ANSWERS_FILE = ANSWER_FOLDER / "ch11_answers.jsonl"
+# The 32 analyst answers again with num_predict 800 (Lavan, 30 October 2026).
+ANSWERS_800_FILE = ANSWER_FOLDER / "ch11_answers_800.jsonl"
 
 
 # ---------------------------------------------------------------------------

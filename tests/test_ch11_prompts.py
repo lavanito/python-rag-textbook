@@ -23,7 +23,7 @@ import pytest
 
 from ragbook import ch11_prompts
 from ragbook.ch11_prompts import (
-    ANSWERS_FILE, INSTRUCTIONS, ROLE_LENGTH, SETTINGS, SETTINGS_FILE, answer_bank,
+    ANSWERS_800_FILE, ANSWERS_FILE, INSTRUCTIONS, ROLE_LENGTH, SETTINGS, SETTINGS_FILE, answer_bank,
     ask_model_with_details, assemble_context, build_messages, build_search, check_citations,
     cited_ids, distinct_replies, format_evidence, load_answers, run_trials, save_answers,
     scope_named, sentences, setting_trials, summarise, word_count,
@@ -247,3 +247,25 @@ def test_saved_answers():
     # The same prompt and settings as the second settings trial give the same reply.
     if SETTINGS_FILE.exists():
         assert records[0]["answer"] == load_answers(SETTINGS_FILE)[1]["answer"]
+
+
+@pytest.mark.skipif(not (ANSWERS_FILE.exists() and ANSWERS_800_FILE.exists()),
+                    reason="no saved 800-token answers yet")
+def test_saved_answers_at_800_tokens():
+    records = load_answers(ANSWERS_800_FILE)
+    at_400 = load_answers(ANSWERS_FILE)[:32]
+    assert len(records) == 32
+    assert [r["role"] for r in records] == ["analyst"] * 32
+    assert [r["id"] for r in records] == [r["id"] for r in at_400]
+    assert summarise(records, BY_ID) == {"answers": 32, "no_citation": 0, "not_given": 1,
+                                         "uncited_sentences": 29, "scope_unnamed": 2,
+                                         "over_two_sentences": 32, "cut_off": 0,
+                                         "mean_seconds": 75.0, "mean_reply_tokens": 320}
+    # The six answers cut off at 400 tokens finish; q2-01, the first request
+    # after the model loads, also differs; the other 25 are the same.
+    changed = [new["id"] for new, old in zip(records, at_400) if new["answer"] != old["answer"]]
+    assert changed == ["q2-01", "q2-08", "q2-12", "q2-16", "q2-18", "q2-24", "q2-25"]
+    finished = [r for r in records if r["id"] in changed[1:]]
+    assert all(r["done_reason"] == "stop" for r in finished)
+    assert min(r["reply_tokens"] for r in finished) == 449
+    assert max(r["reply_tokens"] for r in finished) == 529
