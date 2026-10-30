@@ -246,7 +246,7 @@ def run_trials(messages, ask=ask_model_with_details, trials=None):
     """
     Ask the model once for each trial and return one record per reply.
 
-    Each record holds the label, the full settings used and the reply with
+    Each record has the label, the full settings used and the reply with
     its counts. The function that asks the model is an argument, so the
     tests can pass a stand-in.
 
