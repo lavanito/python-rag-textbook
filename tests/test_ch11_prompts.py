@@ -154,6 +154,8 @@ def test_cited_ids():
 def test_sentences():
     assert sentences("GDP is output [a-1]. GNI adds income [b-2].  ") == \
         ["GDP is output [a-1].", "GNI adds income [b-2]."]
+    assert sentences("GDP is output. [a-1] GNI adds income. [b-2][c-3] Done.") == \
+        ["GDP is output. [a-1]", "GNI adds income. [b-2][c-3]", "Done."]
 
 
 def test_check_citations():
@@ -169,6 +171,8 @@ def test_scope_named():
     assert scope_named("In Irish practice (CSO), modified GNI ... [cso-gnistar-1].", irish) == []
     assert scope_named("Used in practice [bea-ch2-gnp].", [BY_ID["bea-ch2-gnp"]]) == ["bea-ch2-gnp"]
     assert scope_named("Any wording [esa10-8.94].", [BY_ID["esa10-8.94"]]) == []
+    assert scope_named("Any wording [ppp23-1.13].", [BY_ID["ppp23-1.13"]]) == []
+    assert scope_named("Any wording [ppp23-4.16].", [BY_ID["ppp23-4.16"]]) == ["ppp23-4.16"]
 
 
 def test_answer_bank_with_a_stand_in():
@@ -213,6 +217,18 @@ def test_save_and_load(tmp_path):
 def test_saved_settings_trials():
     records = load_answers(SETTINGS_FILE)
     assert [r["label"] for r in records] == [label for label, changes in setting_trials()]
+    by_label = {r["label"]: r for r in records}
+    # The first reply differs; later replies with the same prompt and settings repeat.
+    assert by_label["seed 42, run 1"]["answer"] != by_label["seed 42, run 2"]["answer"]
+    assert by_label["seed 42, run 2"]["answer"] == by_label["stop at a blank line"]["answer"]
+    for temperature, different in ((0, 1), (0.7, 5), (1.5, 5)):
+        group = [r for r in records if r["label"].startswith(f"temperature {temperature},")]
+        assert distinct_replies(group) == different
+    limited = by_label["reply limit 40 tokens"]
+    assert limited["reply_tokens"] == 40 and limited["done_reason"] == "length"
+    assert cited_ids(limited["answer"]) == []
+    penalised = by_label["repeat penalty 1.5"]
+    assert penalised["reply_tokens"] == 400 and penalised["done_reason"] == "length"
 
 
 @pytest.mark.skipif(not ANSWERS_FILE.exists(), reason="no saved answers yet")
@@ -220,3 +236,14 @@ def test_saved_answers():
     records = load_answers(ANSWERS_FILE)
     assert len(records) == 64
     assert [r["role"] for r in records] == ["analyst"] * 32 + ["executive"] * 32
+    analyst = summarise(records[:32], BY_ID)
+    executive = summarise(records[32:], BY_ID)
+    assert analyst == {"answers": 32, "no_citation": 0, "not_given": 1, "uncited_sentences": 29,
+                       "scope_unnamed": 2, "over_two_sentences": 32, "cut_off": 6,
+                       "mean_seconds": 69.3, "mean_reply_tokens": 307}
+    assert executive == {"answers": 32, "no_citation": 0, "not_given": 0, "uncited_sentences": 5,
+                         "scope_unnamed": 2, "over_two_sentences": 0, "cut_off": 0,
+                         "mean_seconds": 30.2, "mean_reply_tokens": 80}
+    # The same prompt and settings as the second settings trial give the same reply.
+    if SETTINGS_FILE.exists():
+        assert records[0]["answer"] == load_answers(SETTINGS_FILE)[1]["answer"]

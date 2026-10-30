@@ -320,6 +320,7 @@ def answer_bank(questions, search, use_mode="non-commercial", role="analyst",
 BRACKETS = re.compile(r"\[([^\[\]]+)\]")
 PASSAGE_ID = re.compile(r"^[a-z0-9]+-[A-Za-z0-9.\-]+$")
 SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
+LEADING_BRACKETS = re.compile(r"^(\[[^\[\]]+\]\s*)+")
 
 
 def cited_ids(text):
@@ -345,17 +346,23 @@ def cited_ids(text):
 def sentences(text):
     """
     Split a text into sentences at a full stop, question mark or
-    exclamation mark followed by a space. A rough rule, but the same for
-    every answer.
+    exclamation mark followed by a space. Ids in brackets at the start of a
+    piece belong to the sentence before it, because the model often writes
+    the id after the full stop. A rough rule, but the same for every answer.
 
     Example:
-        sentences("GDP is output [a-1]. GNI adds income [b-2].")
-        returns ["GDP is output [a-1].", "GNI adds income [b-2]."]
+        sentences("GDP is output. [a-1] GNI adds income [b-2].")
+        returns ["GDP is output. [a-1]", "GNI adds income [b-2]."]
     """
     pieces = []
     for piece in SENTENCE_END.split(text.strip()):
-        if piece.strip() != "":
-            pieces.append(piece.strip())
+        piece = piece.strip()
+        leading = LEADING_BRACKETS.match(piece)
+        if leading and pieces != []:
+            pieces[-1] = pieces[-1] + " " + leading.group(0).strip()
+            piece = piece[leading.end():].strip()
+        if piece != "":
+            pieces.append(piece)
     return pieces
 
 
@@ -392,9 +399,10 @@ def scope_named(answer, cited_passages):
     """
     The cited passages whose body the answer does not name.
 
-    Only passages whose scope is one country's practice or the
-    Eurostat-OECD guidance are checked; their scope lists the words that
-    count as naming the body.
+    Only passages with a scope note whose scope is one country's practice
+    or international guidance are checked (in this corpus, the guidance
+    with a note is the Eurostat-OECD PPP manual). SCOPE_NAMES lists the
+    words that count as naming the body.
 
     Example:
         scope_named("Modified GNI removes ... [cso-gnistar-1].", [cso_gnistar_1])
@@ -403,7 +411,7 @@ def scope_named(answer, cited_passages):
     unnamed = []
     for passage in cited_passages:
         names = SCOPE_NAMES.get(passage["scope"])
-        if names is None:
+        if names is None or passage["scope_note"] == "":
             continue
         if not any(re.search(r"\b" + re.escape(name) + r"\b", answer) for name in names):
             unnamed.append(passage["id"])
