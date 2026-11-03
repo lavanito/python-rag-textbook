@@ -26,7 +26,8 @@ DISTRACTORS = load_passages(DATA_FOLDER / "question_bank" / "distractors.jsonl")
 
 # AMB: too vague to answer as asked; the system must offer sharper questions first.
 ALLOWED_CLASSES = {"Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "AMB", "OUT"}
-ALLOWED_ROUTES = {"R2", "R4", "R4+R2", "R5>R2", "R6", "clarify", "escalate"}
+# R1 added on 3 November 2026.
+ALLOWED_ROUTES = {"R1", "R2", "R4", "R4+R2", "R5>R2", "R6", "clarify", "escalate"}
 # Classes answered from the manuals: each question must name its passages.
 RETRIEVAL_CLASSES = {"Q2", "Q6"}
 
@@ -79,3 +80,16 @@ def test_supporting_passages_are_in_the_gold_list_and_leave_a_passage_that_answe
 def test_every_class_has_a_question():
     classes = {question["class"] for question in QUESTIONS}
     assert classes == ALLOWED_CLASSES
+
+
+def test_r1_questions_name_a_series_in_the_titles_file():
+    import csv
+    path = Path(__file__).resolve().parent.parent / "data" / "series" / "wdi_titles.csv"
+    titles = {row["code"]: row["title"] for row in csv.DictReader(path.open(encoding="utf-8"))}
+    assert len(titles) == 17
+    r1 = [question for question in QUESTIONS if question["route"] == "R1"]
+    assert [question["id"] for question in r1] == ["q1-03"]
+    for question in r1:
+        assert question["class"] == "Q1"
+        code = question["question"].rstrip("?").split()[-1]
+        assert titles[code] in question["expected"]

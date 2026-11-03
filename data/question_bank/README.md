@@ -7,7 +7,7 @@
 | `id` | Class and number, for example `q2-05` |
 | `question` | The question as a user would ask it |
 | `class` | Question class: Q1 lookup, Q2 definition, Q3 compute, Q4 vintage, Q5 multi-country, Q6 mixed, Q7 scenario, Q8 multi-step, AMB too vague to answer until refined, OUT out of scope |
-| `route` | Route tier: R2 model class, R4 retrieval, R5 small model, R6 agent loop, clarify (offer sharper questions), or escalate to a person |
+| `route` | Route tier: R1 no AI (a series title copied from `data/series/wdi_titles.csv`; added 3 November 2026), R2 model class, R4 retrieval, R5 small model, R6 agent loop, clarify (offer sharper questions), or escalate to a person |
 | `gold_passages` | Corpus passages that should be retrieved to answer it |
 | `expected` | A short statement of the right answer |
 | `check` | What an answer must do to pass, beyond being correct (name both editions, state the scope, avoid false certainty) |

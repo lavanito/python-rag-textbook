@@ -1,0 +1,18 @@
+code,title
+NE.CON.PRVT.CN,Households and NPISHs Final consumption expenditure (current LCU)
+NE.CON.PRVT.KD,Households and NPISHs Final consumption expenditure (constant 2015 US$)
+NY.ADJ.NNTY.CD,Adjusted net national income (current US$)
+NY.ADJ.NNTY.PC.CD,Adjusted net national income per capita (current US$)
+NY.GDP.DEFL.ZS,GDP deflator (base year varies by country)
+NY.GDP.MKTP.CD,GDP (current US$)
+NY.GDP.MKTP.CN,GDP (current LCU)
+NY.GDP.MKTP.KN,GDP (constant LCU)
+NY.GDP.MKTP.PP.KD,"GDP, PPP (constant 2021 international $)"
+NY.GDP.PCAP.KN,GDP per capita (constant LCU)
+NY.GNP.MKTP.CD,GNI (current US$)
+NY.GNP.MKTP.CN,GNI (current LCU)
+NY.GNP.PCAP.PP.CD,"GNI per capita, PPP (current international $)"
+PA.NUS.FCRF,"Official exchange rate (LCU per US$, period average)"
+PA.NUS.PPP,"PPP conversion factor, GDP (LCU per international $)"
+PA.NUS.PRVT.PP,"PPP conversion factor, households and NPISHs Final consumption expenditure (LCU per international $)"
+SP.POP.TOTL,"Population, total"
