@@ -114,7 +114,8 @@ def test_matching_finds_a_gold_passage_for_25_of_32_definition_questions():
     total = 0
     for line in question_file.read_text(encoding="utf-8").splitlines():
         question = json.loads(line)
-        if question["class"] != "Q2":
+        # Measured on q2-01 to q2-32 only (3 November 2026; see Chapter 3).
+        if question["class"] != "Q2" or not question["id"].startswith("q2-"):
             continue
         total = total + 1
         found = [passage["id"] for passage in find_matching_passages(PASSAGES, question["question"])]

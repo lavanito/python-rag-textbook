@@ -423,15 +423,22 @@ def load_questions(file_path=QUESTION_FILE, question_class="Q2"):
     Read the questions of one class from the question bank.
 
     Class Q2 is the definition questions, each with its gold passages:
-    the passages that state what a correct answer says.
+    the passages that state what a correct answer says. Retrieval is
+    measured on the 32 numbered q2-01 to q2-32. A question relabelled Q2
+    later keeps its own id and is routed as Q2 but not measured, so the
+    figures in Chapters 3 to 11 stay comparable (Lavan Mahadeva,
+    3 November 2026; q5-04 is the first).
 
     Example:
         len(load_questions()) returns 32
     """
     chosen = []
     for question in load_passages(file_path):
-        if question["class"] == question_class:
-            chosen.append(question)
+        if question["class"] != question_class:
+            continue
+        if question_class == "Q2" and not question["id"].startswith("q2-"):
+            continue
+        chosen.append(question)
     return chosen
 ```
 

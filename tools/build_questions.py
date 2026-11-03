@@ -198,7 +198,11 @@ q("q4-02", "Q4", "R4+R2", "Why did China's and India's GDP per head at PPP fall 
   ["wb13-deaton-revision", "wb13-deaton-benchmark", "wb13-deaton-updating"],
   "Earlier PPPs for many poorer countries were extrapolated from old benchmarks or guessed; the 2005 ICP measured their prices directly. China's PPP rose by a factor of 1.65 and India's by 1.55, so their GDP per head in international dollars fell, although their economies did not change. Rich countries that compute PPPs every year saw little revision.",
   "Says the change is relative to the United States, not a fall in output, and names the benchmark year.")
-q("q5-04", "Q5", "R4+R2", "Why does a country's growth measured at PPP differ from its official real growth?",
+# Relabelled from Q5, R4+R2 by Lavan Mahadeva on 3 November 2026: it asks
+# why the two measures differ in general, for no named economy. It keeps its
+# id, so retrieval is still measured on q2-01 to q2-32 only (Chapter 3).
+RELABELLED_3_NOVEMBER = {"q5-04": ("Q5", "R4+R2")}
+q("q5-04", "Q2", "R4", "Why does a country's growth measured at PPP differ from its official real growth?",
   ["wb13-mccarthy-space-time", "wb13-mccarthy-ipd"],
   "Between benchmark years, PPPs are extrapolated with each country's GDP deflator relative to the United States. PPPs compare countries at one time; national accounts compare one country over time. Both cannot be kept consistent at once, and the gap grows when economic structures differ or change fast, as for the United States and China.",
   "Names extrapolation from the benchmark year and the conflict between comparisons across space and across time.")
