@@ -122,3 +122,24 @@ def test_model_router_with_a_stand_in():
     records = route_with_model(QUESTIONS[:3], [], TITLES, stand_in, "bank")
     assert [r["found_class"] for r in records] == ["Q2", "Q2", "Q2"]
     assert all(r["class_right"] for r in records)
+
+
+def test_saved_model_router_replies():
+    # Lavan's laptop run of 5 November 2026: 77 replies in 3.3 minutes.
+    import pytest
+    if not ROUTER_FILE.exists():
+        pytest.skip("no saved router replies yet")
+    from ragbook.ch11_prompts import load_answers
+    records = load_answers(ROUTER_FILE)
+    bank = [r for r in records if r["test_set"] == "bank"]
+    test = [r for r in records if r["test_set"] == "test"]
+    assert (len(bank), len(test)) == (45, 32)
+    assert not {r["id"] for r in bank} & set(EXAMPLE_IDS)
+    assert all(r["found_class"] != "none" for r in records)
+    assert count_right(bank) == {"questions": 45, "class": 39, "route": 39, "both": 37}
+    assert count_right(test) == {"questions": 32, "class": 17, "route": 17, "both": 15}
+    # On the test set the rules and the model miss mostly different questions.
+    rules = {r["id"]: r for r in route_bank(load_passages(TEST_FILE), WORDS, TITLES)}
+    right = lambda r: r["class_right"] and r["route_right"]
+    both_wrong = [r["id"] for r in test if not right(r) and not right(rules[r["id"]])]
+    assert both_wrong == ["t-02", "t-03", "t-21", "t-26", "t-28", "t-31", "t-32"]
