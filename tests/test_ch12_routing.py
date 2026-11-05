@@ -8,7 +8,7 @@ from ragbook.ch01_python_basics import load_passages
 from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import QUESTION_FILE
 from ragbook.ch12_routing import (
-    CLASSES, EXAMPLE_IDS, FALL_BACK_RULES, combine, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
+    CLASSES, EXAMPLE_IDS, FALL_BACK_RULES, combine, route_bank_revised, route_question_revised, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
     corpus_words, economies_named, load_titles, read_router_reply, route_bank, route_question,
     route_with_model, router_messages,
 )
@@ -157,3 +157,26 @@ def test_combined_router_on_the_test_set():
     combined = combine(route_bank(load_passages(TEST_FILE), WORDS, TITLES), model)
     assert sum(r["decided_by"] == "model" for r in combined) == 21
     assert count_right(combined) == {"questions": 32, "class": 18, "route": 17, "both": 16}
+
+
+def test_revised_rules():
+    def revised(question):
+        return route_question_revised(question, WORDS, TITLES)
+    assert revised("https://data.worldbank.org/indicator/SP.POP.TOTL") == ("Q1", "R1", "series code")
+    assert revised("What does the code XX.NOT.REAL mean?")[:2] == ("OUT", "escalate")
+    assert revised("How does the UK compare with Norway?")[2] == "economy not in the data"
+    assert revised("What was GDP in Japan in 2027?")[2] == "beyond the data"
+    assert revised("What was Irish GNI in 2010?")[:2] == ("Q1", "R2")
+    # The first-round rules still decide everything else.
+    assert revised("What is double deflation?") == ("Q2", "R4", "definition (default)")
+
+
+def test_revised_rules_scores():
+    # Second round (5 November 2026). The bank is unchanged at 56 of 56; the
+    # test-set score is a training score, since the rules were revised after
+    # reading its misses.
+    assert count_right(route_bank_revised(QUESTIONS, WORDS, TITLES))["both"] == 56
+    records = route_bank_revised(load_passages(TEST_FILE), WORDS, TITLES)
+    assert count_right(records) == {"questions": 32, "class": 26, "route": 26, "both": 26}
+    wrong = [r["id"] for r in records if not (r["class_right"] and r["route_right"])]
+    assert wrong == ["t-05", "t-08", "t-17", "t-19", "t-28", "t-31"]

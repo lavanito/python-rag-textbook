@@ -217,6 +217,78 @@ def count_right(records):
 
 
 # ---------------------------------------------------------------------------
+# 12.5.4  Second round: rules revised after reading the test-set misses
+# ---------------------------------------------------------------------------
+
+# Added on 5 November 2026 after the first score on the test set, so scores
+# with these rules on that set are training scores.
+LAST_YEAR = 2025
+OTHER_ECONOMIES = [
+    "switzerland", "singapore", "australia", "canada", "norway", "sweden",
+    "denmark", "korea", "brazil", "mexico", "russia", "indonesia", "turkey",
+    "saudi arabia", "argentina", "south africa", "us states", "50 states",
+]
+EURO_MEMBER_NAMES = ["ireland", "irish"]
+CONDITIONAL = re.compile(r"\bif\b.*\bhad\b")
+ANY_CODE = re.compile(r"[A-Z]{2}\.[A-Z0-9.]*[A-Z0-9]")
+
+
+def route_question_revised(question, known_words, titles):
+    """
+    The keyword rules with six checks added in front of them.
+
+    A series code anywhere in the question, a link included, decides first:
+    R1 if the code is one of the 17, out of scope if not. Then an economy
+    not in the data, a conditional "if ... had", a year after the data end,
+    a euro area member with a year, and "components" with an economy.
+    Anything else goes to route_question.
+
+    Example:
+        route_question_revised("https://data.worldbank.org/indicator/SP.POP.TOTL", words, titles)
+        returns ("Q1", "R1", "series code")
+    """
+    text = question.lower()
+    words_in_text = " " + " ".join(split_into_words(question)) + " "
+    code = ANY_CODE.search(question)
+    if code:
+        if code.group() in titles:
+            return "Q1", "R1", "series code"
+        return "OUT", "escalate", "series not in the data"
+    if any(" " + name + " " in words_in_text for name in OTHER_ECONOMIES):
+        return "OUT", "escalate", "economy not in the data"
+    if CONDITIONAL.search(text):
+        return "Q7", "R5>R2", "scenario (if ... had)"
+    years = [int(year) for year in re.findall(r"\b(?:19|20)[0-9]{2}\b", question)]
+    if years and max(years) > LAST_YEAR:
+        return "OUT", "escalate", "beyond the data"
+    if any(" " + name + " " in words_in_text for name in EURO_MEMBER_NAMES) and years:
+        return "Q1", "R2", "value lookup (euro area member)"
+    if "components" in text and economies_named(question):
+        return "Q3", "R2", "compute (components)"
+    return route_question(question, known_words, titles)
+
+
+def route_bank_revised(questions, known_words, titles):
+    """
+    route_bank with the revised rules.
+
+    Example:
+        count_right(route_bank_revised(questions, words, titles))
+    """
+    records = []
+    for question in questions:
+        found_class, found_route, rule = route_question_revised(question["question"], known_words, titles)
+        records.append({
+            "id": question["id"], "question": question["question"],
+            "class": question["class"], "route": question["route"],
+            "found_class": found_class, "found_route": found_route, "rule": rule,
+            "class_right": found_class == question["class"],
+            "route_right": found_route == question["route"],
+        })
+    return records
+
+
+# ---------------------------------------------------------------------------
 # 12.4  A small model as router
 # ---------------------------------------------------------------------------
 
@@ -412,6 +484,9 @@ def main():
         report("12.5  Rules first, then the model, on the test set", combined)
         by_model = sum(r["decided_by"] == "model" for r in combined)
         print(f"      the model decided {by_model} of {len(combined)}")
+    report("12.5.4  Revised rules on the bank", route_bank_revised(bank, words, titles))
+    report("12.5.4  Revised rules on the test set (a training score)",
+           route_bank_revised(test, words, titles))
 
 
 if __name__ == "__main__":
