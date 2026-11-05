@@ -59,3 +59,12 @@ def test_bank_score():
     # Every question is routed as labelled. q5-04 was relabelled Q2, R4 on
     # 3 November 2026; as Q5 it was the one miss, since it names no economy.
     assert count_right(records) == {"questions": 56, "class": 56, "route": 56, "both": 56}
+
+
+def test_held_out_score_before_any_rule_change():
+    # Lavan's 32 questions of 5 November 2026, scored with the rules as they
+    # stood (commit a83ba07). This records the first score; later rule changes
+    # are scored separately and do not change this test's file or rules.
+    held_out = load_passages(QUESTION_FILE.parent / "routing_test_5_november.jsonl")
+    assert len(held_out) == 32
+    assert sum(question["class"] == "OUT" for question in held_out) == 5
