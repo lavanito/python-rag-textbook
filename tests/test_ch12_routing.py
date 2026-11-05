@@ -8,7 +8,9 @@ from ragbook.ch01_python_basics import load_passages
 from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import QUESTION_FILE
 from ragbook.ch12_routing import (
-    count_right, corpus_words, economies_named, load_titles, route_bank, route_question,
+    CLASSES, EXAMPLE_IDS, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
+    corpus_words, economies_named, load_titles, read_router_reply, route_bank, route_question,
+    route_with_model, router_messages,
 )
 
 QUESTIONS = load_passages(QUESTION_FILE)
@@ -68,3 +70,55 @@ def test_held_out_score_before_any_rule_change():
     held_out = load_passages(QUESTION_FILE.parent / "routing_test_5_november.jsonl")
     assert len(held_out) == 32
     assert sum(question["class"] == "OUT" for question in held_out) == 5
+
+
+def test_held_out_rules_score():
+    # The first score on the test set, rules unchanged (5 November 2026).
+    held_out = load_passages(TEST_FILE)
+    assert count_right(route_bank(held_out, WORDS, TITLES)) == {
+        "questions": 32, "class": 19, "route": 20, "both": 19}
+
+
+def test_labels_use_the_agreed_codes():
+    for question in QUESTIONS + load_passages(TEST_FILE):
+        assert question["class"] in CLASSES, question["id"]
+        assert question["route"] in ROUTES, question["id"]
+
+
+def test_examples_cover_every_class_and_are_not_in_the_test_set():
+    examples = [question for question in QUESTIONS if question["id"] in EXAMPLE_IDS]
+    assert len(examples) == len(EXAMPLE_IDS)
+    assert {question["class"] for question in examples} == set(CLASSES)
+    test_texts = {question["question"] for question in load_passages(TEST_FILE)}
+    assert not test_texts & {question["question"] for question in examples}
+
+
+def test_router_messages():
+    examples = [{"question": "What is GDI?", "class": "Q2", "route": "R4"}]
+    messages = router_messages("What is NDP?", examples, TITLES)
+    assert [m["role"] for m in messages] == ["system", "user", "assistant", "user"]
+    assert "SP.POP.TOTL" in messages[0]["content"]
+    assert messages[2]["content"] == "Q2 R4"
+    assert messages[-1]["content"] == "What is NDP?"
+
+
+def test_read_router_reply():
+    assert read_router_reply("Q6 R4+R2") == ("Q6", "R4+R2")
+    assert read_router_reply("Class: Q7 R5>R2.") == ("Q7", "R5>R2")
+    assert read_router_reply("AMB clarify") == ("AMB", "clarify")
+    assert read_router_reply("I think this is a definition") == ("none", "none")
+
+
+def test_router_settings():
+    assert ROUTER_SETTINGS["temperature"] == 0
+    assert ROUTER_SETTINGS["num_predict"] == 20
+    assert ROUTER_SETTINGS["seed"] == 42
+
+
+def test_model_router_with_a_stand_in():
+    def stand_in(messages, options):
+        return {"answer": "Q2 R4", "prompt_tokens": 900, "reply_tokens": 4,
+                "seconds": 1.5, "done_reason": "stop"}
+    records = route_with_model(QUESTIONS[:3], [], TITLES, stand_in, "bank")
+    assert [r["found_class"] for r in records] == ["Q2", "Q2", "Q2"]
+    assert all(r["class_right"] for r in records)

@@ -23,22 +23,36 @@ Used by
 
 Uses
     Chapter 1 (load_passages); Chapter 2 (load_corpus, topic_words);
-    Chapter 3 (QUESTION_FILE). Python's csv, re and pathlib modules.
+    Chapter 3 (QUESTION_FILE); Chapter 11 (SETTINGS,
+    ask_model_with_details, save_answers, load_answers). Python's csv,
+    re, sys, urllib and pathlib modules. For 12.4, Ollama running locally
+    with qwen3:4b-instruct.
 
 Run the worked example
+    python -m ragbook.ch12_routing --model
+        Asks the model to route the 56 bank questions and the 32 test
+        questions, and saves the replies to
+        data/answers/ch12_router_replies.jsonl. Needs Ollama running.
     python -m ragbook.ch12_routing
-        Routes the bank and prints the questions the rules route wrongly.
-        Needs no model.
+        Scores the keyword rules, and the saved model replies if there are
+        any, on the bank and on the test set. Needs no model.
 """
 import csv
 import re
+import sys
+import urllib.error
 from pathlib import Path
 
 from ragbook.ch01_python_basics import load_passages, split_into_words
 from ragbook.ch02_minimal_pipeline import load_corpus, topic_words
 from ragbook.ch03_keyword_search import QUESTION_FILE
+from ragbook.ch11_prompts import (
+    ANSWER_FOLDER, SETTINGS, ask_model_with_details, load_answers, save_answers,
+)
 
 TITLE_FILE = Path(__file__).parent.parent / "data" / "series" / "wdi_titles.csv"
+TEST_FILE = QUESTION_FILE.parent / "routing_test_5_november.jsonl"
+ROUTER_FILE = ANSWER_FOLDER / "ch12_router_replies.jsonl"
 
 # The six economies, by every name the bank uses.
 ECONOMIES = {
@@ -202,17 +216,165 @@ def count_right(records):
     }
 
 
-def main():
-    questions = load_passages(QUESTION_FILE)
-    records = route_bank(questions, corpus_words(load_corpus()), load_titles())
+# ---------------------------------------------------------------------------
+# 12.4  A small model as router
+# ---------------------------------------------------------------------------
+
+CLASSES = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "AMB", "OUT"]
+ROUTES = ["R1", "R2", "R4", "R4+R2", "R5>R2", "R6", "clarify", "escalate"]
+
+# One bank question for each class, shown to the model as an example. None
+# is in the test set.
+EXAMPLE_IDS = ["q1-02", "q1-03", "q2-13", "q3-01", "q4-01", "q5-01", "q6-01",
+               "q7-01", "q8-01", "amb-03", "out-03"]
+
+ROUTER_INSTRUCTIONS = """You route questions about national accounts statistics.
+Give each question one class and one route.
+
+Classes:
+Q1 lookup: one value for one economy and year, or the exact name of a data series
+Q2 definition: what a term means or how it is measured
+Q3 compute: a calculation from the data, such as what drove growth
+Q4 vintage: how an estimate changed between data releases
+Q5 multi-country: two or more economies compared
+Q6 mixed: a definition and a figure
+Q7 scenario: what if one input had been different
+Q8 multi-step: several steps, each depending on the last
+AMB too vague: no measure or year, so sharper questions must be offered first
+OUT out of scope: a judgement, policy advice, a forecast, or outside the data
+
+Routes:
+R1 no AI: copy the published title of one of these series: {codes}
+R2 code computes the answer from the data
+R4 retrieval: quoted passages from the manuals
+R4+R2 retrieval and code
+R5>R2 a small model extracts the inputs, then code computes
+R6 agent loop
+clarify: offer sharper questions
+escalate: refuse with the reason
+
+The data cover the United States, the euro area and its 21 members, the
+United Kingdom, China, India and Japan, for 2000 to 2025. Exports, imports
+and spending components other than household consumption are not in the data.
+
+Reply with the class and the route only, separated by a space, for example: Q2 R4"""
+
+# The router needs a short reply and the same reply every time.
+ROUTER_SETTINGS = dict(SETTINGS, temperature=0, num_predict=20)
+
+ROUTER_REPLY = re.compile(r"\b(Q[1-8]|AMB|OUT)\b\s+(R4\+R2|R5>R2|R[1-6]|clarify|escalate)\b")
+
+
+def router_messages(question, examples, titles):
+    """
+    Build the messages that ask the model to route one question.
+
+    The instructions name the classes, the routes and the limits of the
+    data; the examples are pairs of a bank question and its labels, given
+    as earlier turns of the conversation.
+
+    Example:
+        router_messages("What is GDI?", [], titles)[-1]
+        returns {"role": "user", "content": "What is GDI?"}
+    """
+    codes = ", ".join(titles)
+    messages = [{"role": "system", "content": ROUTER_INSTRUCTIONS.format(codes=codes)}]
+    for example in examples:
+        messages.append({"role": "user", "content": example["question"]})
+        messages.append({"role": "assistant", "content": f"{example['class']} {example['route']}"})
+    messages.append({"role": "user", "content": question})
+    return messages
+
+
+def read_router_reply(reply):
+    """
+    Read the class and route from the model's reply.
+
+    A reply with no recognisable class and route gives ("none", "none"),
+    which counts as wrong.
+
+    Example:
+        read_router_reply("Q6 R4+R2") returns ("Q6", "R4+R2")
+    """
+    found = ROUTER_REPLY.search(reply)
+    if found is None:
+        return "none", "none"
+    return found.group(1), found.group(2)
+
+
+def route_with_model(questions, examples, titles, ask=ask_model_with_details, test_set=""):
+    """
+    Ask the model to route each question; keep the reply, tokens and seconds.
+
+    Example:
+        route_with_model(questions, examples, titles)[0]["found_class"]
+        returns "Q2"
+    """
+    records = []
+    for question in questions:
+        messages = router_messages(question["question"], examples, titles)
+        reply = ask(messages, options=ROUTER_SETTINGS)
+        found_class, found_route = read_router_reply(reply["answer"])
+        records.append({
+            "test_set": test_set, "id": question["id"], "question": question["question"],
+            "class": question["class"], "route": question["route"],
+            "reply": reply["answer"], "found_class": found_class, "found_route": found_route,
+            "class_right": found_class == question["class"],
+            "route_right": found_route == question["route"],
+            "prompt_tokens": reply["prompt_tokens"], "reply_tokens": reply["reply_tokens"],
+            "seconds": reply["seconds"],
+        })
+    return records
+
+
+def run_model_router(bank, test, titles, ask=ask_model_with_details):
+    """
+    Route the bank and the test set with the model and save the replies.
+
+    The example questions are left out of the bank's count, since the model
+    is shown their labels.
+
+    Example:
+        run_model_router(bank, test, titles)
+    """
+    examples = [question for question in bank if question["id"] in EXAMPLE_IDS]
+    rest = [question for question in bank if question["id"] not in EXAMPLE_IDS]
+    records = route_with_model(rest, examples, titles, ask, "bank")
+    records += route_with_model(test, examples, titles, ask, "test")
+    save_answers(ROUTER_FILE, records)
+    return records
+
+
+def report(label, records):
     counts = count_right(records)
-    print(f"12.3  {counts['questions']} questions: class right {counts['class']}, "
+    print(f"{label}: {counts['questions']} questions, class right {counts['class']}, "
           f"route right {counts['route']}, both {counts['both']}")
     for record in records:
         if not (record["class_right"] and record["route_right"]):
-            print(f"  {record['id']}: labelled {record['class']} {record['route']}, "
-                  f"rules gave {record['found_class']} {record['found_route']} "
-                  f"({record['rule']})")
+            print(f"      {record['id']}: labelled {record['class']} {record['route']}, "
+                  f"gave {record['found_class']} {record['found_route']}")
+
+
+def main():
+    bank = load_passages(QUESTION_FILE)
+    test = load_passages(TEST_FILE)
+    titles = load_titles()
+    words = corpus_words(load_corpus())
+    report("12.3  Rules on the bank", route_bank(bank, words, titles))
+    report("12.3  Rules on the test set", route_bank(test, words, titles))
+    if "--model" in sys.argv:
+        try:
+            run_model_router(bank, test, titles)
+        except urllib.error.URLError as error:
+            print(f"Could not reach Ollama ({error.reason}). Start Ollama and run again.")
+            return
+    if ROUTER_FILE.exists():
+        records = load_answers(ROUTER_FILE)
+        report("12.4  Model on the bank (examples left out)",
+               [r for r in records if r["test_set"] == "bank"])
+        report("12.4  Model on the test set", [r for r in records if r["test_set"] == "test"])
+        seconds = sum(r["seconds"] for r in records)
+        print(f"      {len(records)} replies in {seconds / 60:.1f} minutes")
 
 
 if __name__ == "__main__":
