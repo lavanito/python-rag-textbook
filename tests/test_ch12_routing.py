@@ -8,7 +8,7 @@ from ragbook.ch01_python_basics import load_passages
 from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import QUESTION_FILE
 from ragbook.ch12_routing import (
-    CLASSES, EXAMPLE_IDS, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
+    CLASSES, EXAMPLE_IDS, FALL_BACK_RULES, combine, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
     corpus_words, economies_named, load_titles, read_router_reply, route_bank, route_question,
     route_with_model, router_messages,
 )
@@ -143,3 +143,17 @@ def test_saved_model_router_replies():
     right = lambda r: r["class_right"] and r["route_right"]
     both_wrong = [r["id"] for r in test if not right(r) and not right(rules[r["id"]])]
     assert both_wrong == ["t-02", "t-03", "t-21", "t-26", "t-28", "t-31", "t-32"]
+
+
+def test_combined_router_on_the_test_set():
+    # Rules first; the model decides only where a fall-back rule decided.
+    # Rule fixed on 5 November 2026 before the score was computed.
+    import pytest
+    if not ROUTER_FILE.exists():
+        pytest.skip("no saved router replies yet")
+    from ragbook.ch11_prompts import load_answers
+    assert FALL_BACK_RULES == ["definition (default)", "outside the corpus"]
+    model = [r for r in load_answers(ROUTER_FILE) if r["test_set"] == "test"]
+    combined = combine(route_bank(load_passages(TEST_FILE), WORDS, TITLES), model)
+    assert sum(r["decided_by"] == "model" for r in combined) == 21
+    assert count_right(combined) == {"questions": 32, "class": 18, "route": 17, "both": 16}

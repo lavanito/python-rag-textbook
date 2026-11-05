@@ -345,6 +345,38 @@ def run_model_router(bank, test, titles, ask=ask_model_with_details):
     return records
 
 
+# ---------------------------------------------------------------------------
+# 12.5  Rules first, the model for the rest
+# ---------------------------------------------------------------------------
+
+# The rules that decide only because nothing else matched. A question that
+# reaches one of these goes to the model instead (decided 5 November 2026,
+# before the combined score was computed).
+FALL_BACK_RULES = ["definition (default)", "outside the corpus"]
+
+
+def combine(rule_records, model_records):
+    """
+    Take the rules' answer when a specific rule matched, else the model's.
+
+    Both lists are routings of the same questions. Each combined record
+    says which router decided.
+
+    Example:
+        combine(rule_records, model_records)[0]["decided_by"]
+        returns "rules"
+    """
+    model_by_id = {record["id"]: record for record in model_records}
+    combined = []
+    for record in rule_records:
+        if record["rule"] in FALL_BACK_RULES:
+            chosen = dict(model_by_id[record["id"]], decided_by="model")
+        else:
+            chosen = dict(record, decided_by="rules")
+        combined.append(chosen)
+    return combined
+
+
 def report(label, records):
     counts = count_right(records)
     print(f"{label}: {counts['questions']} questions, class right {counts['class']}, "
@@ -375,6 +407,11 @@ def main():
         report("12.4  Model on the test set", [r for r in records if r["test_set"] == "test"])
         seconds = sum(r["seconds"] for r in records)
         print(f"      {len(records)} replies in {seconds / 60:.1f} minutes")
+        combined = combine(route_bank(test, words, titles),
+                           [r for r in records if r["test_set"] == "test"])
+        report("12.5  Rules first, then the model, on the test set", combined)
+        by_model = sum(r["decided_by"] == "model" for r in combined)
+        print(f"      the model decided {by_model} of {len(combined)}")
 
 
 if __name__ == "__main__":
