@@ -33,6 +33,10 @@ Run the worked example
         Asks the model to route the 56 bank questions and the 32 test
         questions, and saves the replies to
         data/answers/ch12_router_replies.jsonl. Needs Ollama running.
+    python -m ragbook.ch12_routing --model-second
+        Asks the model to route the 16 questions of the second test set only,
+        with the same examples and settings, and saves the replies to
+        data/answers/ch12_router_replies_second.jsonl. Needs Ollama running.
     python -m ragbook.ch12_routing
         Scores the keyword rules, and the saved model replies if there are
         any, on the bank and on the test set. Needs no model.
@@ -53,6 +57,8 @@ from ragbook.ch11_prompts import (
 TITLE_FILE = Path(__file__).parent.parent / "data" / "series" / "wdi_titles.csv"
 TEST_FILE = QUESTION_FILE.parent / "routing_test_5_november.jsonl"
 ROUTER_FILE = ANSWER_FOLDER / "ch12_router_replies.jsonl"
+SECOND_TEST_FILE = QUESTION_FILE.parent / "routing_test_6_november.jsonl"
+SECOND_ROUTER_FILE = ANSWER_FOLDER / "ch12_router_replies_second.jsonl"
 
 # The six economies, by every name the bank uses.
 ECONOMIES = {
@@ -663,6 +669,16 @@ def main():
         except urllib.error.URLError as error:
             print(f"Could not reach Ollama ({error.reason}). Start Ollama and run again.")
             return
+    if "--model-second" in sys.argv:
+        examples = [question for question in bank if question["id"] in EXAMPLE_IDS]
+        try:
+            second = load_passages(SECOND_TEST_FILE)
+            save_answers(SECOND_ROUTER_FILE, route_with_model(second, examples, titles, test_set="second"))
+        except urllib.error.URLError as error:
+            print(f"Could not reach Ollama ({error.reason}). Start Ollama and run again.")
+            return
+    if SECOND_ROUTER_FILE.exists():
+        report("12.4  Model on the second test set", load_answers(SECOND_ROUTER_FILE))
     if ROUTER_FILE.exists():
         records = load_answers(ROUTER_FILE)
         report("12.4  Model on the bank (examples left out)",

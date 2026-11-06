@@ -238,3 +238,15 @@ def test_ragged_edge_scores():
     second = route_bank_ragged(load_passages(QUESTION_FILE.parent / "routing_test_6_november.jsonl"),
                                WORDS, TITLES, LAST_YEARS)
     assert count_right(second)["both"] == 9
+
+
+def test_saved_model_replies_on_the_second_set():
+    # Lavan's laptop run on the 16 questions of 6 November 2026.
+    import pytest
+    from ragbook.ch12_routing import SECOND_ROUTER_FILE
+    if not SECOND_ROUTER_FILE.exists():
+        pytest.skip("no saved replies for the second test set yet")
+    from ragbook.ch11_prompts import load_answers
+    records = load_answers(SECOND_ROUTER_FILE)
+    assert len(records) == 16
+    assert all(r["found_class"] != "none" for r in records)
