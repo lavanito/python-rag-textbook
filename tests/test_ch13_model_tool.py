@@ -77,3 +77,9 @@ def test_the_tool_description_lists_every_measure_and_economy():
     assert parameters["properties"]["measure"]["enum"] == list(MEASURES)
     assert set(ECONOMY_CODES) <= set(parameters["properties"]["economy"]["enum"])
     assert set(parameters["required"]) == {"economy", "year", "measure"}
+
+
+def test_the_euro_area_has_gni_per_head_at_ppp():
+    # Built by the model from its 21 members (agreed by Lavan, 6 November 2026).
+    reply = call_model("euro area", 2024, "gni_per_head_ppp")
+    assert reply.value is not None and reply.dqr_band
