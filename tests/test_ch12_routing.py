@@ -8,7 +8,7 @@ from ragbook.ch01_python_basics import load_passages
 from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import QUESTION_FILE
 from ragbook.ch12_routing import (
-    CLASSES, EXAMPLE_IDS, FALL_BACK_RULES, combine, route_bank_revised, route_question_revised, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
+    CLASSES, ESCALATION_REASONS, EXAMPLE_IDS, FALL_BACK_RULES, combine, escalation_message, route_bank_revised, route_question_revised, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
     corpus_words, economies_named, load_titles, read_router_reply, route_bank, route_question,
     route_with_model, router_messages,
 )
@@ -180,3 +180,15 @@ def test_revised_rules_scores():
     assert count_right(records) == {"questions": 32, "class": 26, "route": 26, "both": 26}
     wrong = [r["id"] for r in records if not (r["class_right"] and r["route_right"])]
     assert wrong == ["t-05", "t-08", "t-17", "t-19", "t-28", "t-31"]
+
+
+def test_escalation_messages():
+    # Every rule that escalates has a reason and a message (6 November 2026).
+    escalating = {r["rule"] for r in route_bank_revised(QUESTIONS + load_passages(TEST_FILE), WORDS, TITLES)
+                  if r["found_route"] == "escalate"}
+    assert escalating <= set(ESCALATION_REASONS)
+    reason, message = escalation_message("beyond the data", TITLES)
+    assert reason == "beyond the data" and "end in 2025" in message
+    reason, message = escalation_message("economy not in the data", TITLES)
+    assert reason == "economy not held" and "India and Japan" in message
+    assert "17 series" in escalation_message("series not in the data", TITLES)[1]

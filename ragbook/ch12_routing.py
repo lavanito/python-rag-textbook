@@ -288,6 +288,51 @@ def route_bank_revised(questions, known_words, titles):
     return records
 
 
+# The reason a user is given for each rule that escalates. "Beyond the data"
+# and "economy not held" were added by Lavan Mahadeva on 6 November 2026:
+# both are gaps in this data set (completeness), not questions the system
+# refuses on principle, so the message says what is missing and what is held.
+ESCALATION_REASONS = {
+    "forecast": "forecast",
+    "policy advice": "policy advice",
+    "judgement": "judgement",
+    "outside the corpus": "outside the corpus",
+    "beyond the data": "beyond the data",
+    "economy not in the data": "economy not held",
+    "series not in the data": "series not held",
+}
+
+ESCALATION_MESSAGES = {
+    "forecast": "This asks for a forecast. Only published figures are reported here.",
+    "policy advice": "This asks for policy advice, which is not given here.",
+    "judgement": "This asks for a judgement, which is left to a person.",
+    "outside the corpus": "The manuals and data used here do not cover this question.",
+    "beyond the data": ("The data here end in {last_year}, so later years are not "
+                        "available. The latest year held is {last_year}."),
+    "economy not held": "This economy is not in the data used here. The data cover {economies}.",
+    "series not held": ("This series is not in the data used here. The {count} series "
+                        "held are listed in data/series/wdi_titles.csv."),
+}
+
+ECONOMIES_HELD = ("the United States, the euro area and its 21 members, the United "
+                  "Kingdom, China, India and Japan")
+
+
+def escalation_message(rule, titles):
+    """
+    Return the reason and the message for a question a rule escalated.
+
+    Example:
+        escalation_message("beyond the data", titles)
+        returns ("beyond the data", "The data here end in 2025, so later years
+        are not available. The latest year held is 2025.")
+    """
+    reason = ESCALATION_REASONS[rule]
+    message = ESCALATION_MESSAGES[reason].format(
+        last_year=LAST_YEAR, economies=ECONOMIES_HELD, count=len(titles))
+    return reason, message
+
+
 # ---------------------------------------------------------------------------
 # 12.4  A small model as router
 # ---------------------------------------------------------------------------
