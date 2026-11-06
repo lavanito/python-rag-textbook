@@ -8,7 +8,8 @@ from ragbook.ch01_python_basics import load_passages
 from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import QUESTION_FILE
 from ragbook.ch12_routing import (
-    CLASSES, ESCALATION_REASONS, EXAMPLE_IDS, FALL_BACK_RULES, combine, escalation_message, route_bank_revised, route_question_revised, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
+    CLASSES, ESCALATION_REASONS, beyond_the_edge, beyond_the_edge_message, load_last_years,
+    route_bank_ragged, EXAMPLE_IDS, FALL_BACK_RULES, combine, escalation_message, route_bank_revised, route_question_revised, ROUTER_FILE, ROUTER_SETTINGS, ROUTES, TEST_FILE, count_right,
     corpus_words, economies_named, load_titles, read_router_reply, route_bank, route_question,
     route_with_model, router_messages,
 )
@@ -204,3 +205,36 @@ def test_second_test_set_scored_once():
     assert count_right(route_bank(second, WORDS, TITLES))["both"] == 6
     records = route_bank_revised(second, WORDS, TITLES)
     assert count_right(records) == {"questions": 16, "class": 6, "route": 7, "both": 6}
+
+
+LAST_YEARS = load_last_years()
+
+
+def test_last_years_come_from_the_model():
+    # Written by tools/build_last_year.py from nni-model 3124bfa (6 November 2026).
+    assert LAST_YEARS[("JPN", "latest")] == 2024
+    assert LAST_YEARS[("GBR", "latest")] == 2025
+    assert LAST_YEARS[("USA", "archive")] == 2022
+    assert LAST_YEARS[("IRL", "archive")] is None
+
+
+def test_ragged_edge():
+    edge = beyond_the_edge("How has Japan grown from 2010 to 2025?", LAST_YEARS)
+    assert edge == ("JPN", "latest", 2024)
+    assert beyond_the_edge_message(edge) == ("The data here for Japan end in 2024, "
+                                             "so later years are not available.")
+    assert beyond_the_edge("How has the UK grown from 2010 to 2025?", LAST_YEARS) is None
+    edge = beyond_the_edge("How was Ireland's GDP for 2015 revised?", LAST_YEARS)
+    assert edge == ("IRL", "archive", None)
+    assert beyond_the_edge("What is GDP?", LAST_YEARS) is None
+
+
+def test_ragged_edge_scores():
+    # Third round (6 November 2026): written after both test sets were seen,
+    # so both scores are training scores.
+    assert count_right(route_bank_ragged(QUESTIONS, WORDS, TITLES, LAST_YEARS))["both"] == 56
+    first = route_bank_ragged(load_passages(TEST_FILE), WORDS, TITLES, LAST_YEARS)
+    assert count_right(first)["both"] == 25
+    second = route_bank_ragged(load_passages(QUESTION_FILE.parent / "routing_test_6_november.jsonl"),
+                               WORDS, TITLES, LAST_YEARS)
+    assert count_right(second)["both"] == 8

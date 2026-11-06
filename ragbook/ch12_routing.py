@@ -334,6 +334,152 @@ def escalation_message(rule, titles):
 
 
 # ---------------------------------------------------------------------------
+# 12.5.6  Third round: the ragged edge
+# ---------------------------------------------------------------------------
+
+# The last year of real NNI per head differs by economy and by WDI edition
+# (Lavan Mahadeva, 6 November 2026). Written by tools/build_last_year.py from
+# the nni-model code; a blank last year means the economy is not in that edition.
+LAST_YEAR_FILE = Path(__file__).parent.parent / "data" / "series" / "last_year.csv"
+
+# Names for the economies in last_year.csv. Used by the ragged-edge check only.
+ECONOMY_NAMES = {
+    "USA": ["united states", "us", "usa"],
+    "EA21": ["euro area", "euroarea", "eurozone"],
+    "GBR": ["united kingdom", "uk", "britain", "british"],
+    "CHN": ["china", "chinese"],
+    "IND": ["india", "indian"],
+    "JPN": ["japan", "japanese"],
+    "IRL": ["ireland", "irish"],
+}
+DISPLAY_NAMES = {"USA": "the United States", "EA21": "the euro area", "GBR": "the United Kingdom",
+                 "CHN": "China", "IND": "India", "JPN": "Japan", "IRL": "Ireland"}
+REVISION_WORDS = ["revision", "revised", "vintage", "changed between", "icp"]
+
+
+def load_last_years(file_path=LAST_YEAR_FILE):
+    """
+    Read the last year of the data for each economy and edition.
+
+    Example:
+        load_last_years()[("JPN", "latest")] returns 2024
+        load_last_years()[("IRL", "archive")] returns None
+    """
+    last_years = {}
+    with open(file_path, encoding="utf-8") as file:
+        for row in csv.DictReader(file):
+            year = int(row["last_year"]) if row["last_year"] else None
+            last_years[(row["economy"], row["edition"])] = year
+    return last_years
+
+
+def beyond_the_edge(question, last_years):
+    """
+    Find the first economy whose data end before a year the question names.
+
+    A question about revisions is checked against both editions. A question
+    that names no economy is checked against the latest year of any economy.
+    Returns (economy, edition, last year), or None if every year is covered.
+
+    Example:
+        beyond_the_edge("Japan's growth from 2010 to 2025?", last_years)
+        returns ("JPN", "latest", 2024)
+    """
+    words_in_text = " " + " ".join(split_into_words(question)) + " "
+    years = [int(year) for year in re.findall(r"\b(?:19|20)[0-9]{2}\b", question)]
+    if not years:
+        return None
+    named = [economy for economy, names in ECONOMY_NAMES.items()
+             if any(" " + name + " " in words_in_text for name in names)]
+    editions = ["latest"]
+    if contains_any(question, REVISION_WORDS):
+        editions.append("archive")
+    if not named:
+        latest = max(year for (economy, edition), year in last_years.items()
+                     if edition == "latest" and year is not None)
+        return ("", "latest", latest) if max(years) > latest else None
+    for economy in named:
+        for edition in editions:
+            last = last_years[(economy, edition)]
+            if last is None or max(years) > last:
+                return economy, edition, last
+    return None
+
+
+def beyond_the_edge_message(edge):
+    """
+    Say which data end where, for a question escalated as beyond the data.
+
+    Example:
+        beyond_the_edge_message(("JPN", "latest", 2024))
+        returns "The data here for Japan end in 2024, so later years are not available."
+    """
+    economy, edition, last = edge
+    if last is None:
+        return (f"The {edition} edition used here has no data for {DISPLAY_NAMES[economy]}, "
+                f"so its figures cannot be compared across editions.")
+    name = DISPLAY_NAMES.get(economy, "any economy")
+    if edition == "archive":
+        return (f"The archive edition used here ends in {last} for {name}, "
+                f"so revisions after {last} cannot be compared.")
+    return f"The data here for {name} end in {last}, so later years are not available."
+
+
+def route_question_ragged(question, known_words, titles, last_years):
+    """
+    The revised rules with the year check replaced by the ragged edge.
+
+    Everything else is as in route_question_revised: a series code, an
+    economy not in the data and "if ... had" are checked first; then a year
+    after the last year for the economy and edition the question asks about.
+
+    Example:
+        route_question_ragged("Japan's growth from 2010 to 2025?", words, titles, last_years)
+        returns ("OUT", "escalate", "beyond the data")
+    """
+    text = question.lower()
+    words_in_text = " " + " ".join(split_into_words(question)) + " "
+    code = ANY_CODE.search(question)
+    if code:
+        if code.group() in titles:
+            return "Q1", "R1", "series code"
+        return "OUT", "escalate", "series not in the data"
+    if any(" " + name + " " in words_in_text for name in OTHER_ECONOMIES):
+        return "OUT", "escalate", "economy not in the data"
+    if CONDITIONAL.search(text):
+        return "Q7", "R5>R2", "scenario (if ... had)"
+    if beyond_the_edge(question, last_years):
+        return "OUT", "escalate", "beyond the data"
+    years = re.findall(r"\b(?:19|20)[0-9]{2}\b", question)
+    if any(" " + name + " " in words_in_text for name in EURO_MEMBER_NAMES) and years:
+        return "Q1", "R2", "value lookup (euro area member)"
+    if "components" in text and economies_named(question):
+        return "Q3", "R2", "compute (components)"
+    return route_question(question, known_words, titles)
+
+
+def route_bank_ragged(questions, known_words, titles, last_years):
+    """
+    route_bank with the third-round rules.
+
+    Example:
+        count_right(route_bank_ragged(questions, words, titles, last_years))
+    """
+    records = []
+    for question in questions:
+        found_class, found_route, rule = route_question_ragged(
+            question["question"], known_words, titles, last_years)
+        records.append({
+            "id": question["id"], "question": question["question"],
+            "class": question["class"], "route": question["route"],
+            "found_class": found_class, "found_route": found_route, "rule": rule,
+            "class_right": found_class == question["class"],
+            "route_right": found_route == question["route"],
+        })
+    return records
+
+
+# ---------------------------------------------------------------------------
 # 12.4  A small model as router
 # ---------------------------------------------------------------------------
 
