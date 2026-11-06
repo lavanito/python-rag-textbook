@@ -3,31 +3,31 @@ Write data/series/last_year.csv: the last year of real NNI per head for each
 economy in each WDI edition, the "ragged edge" of the data.
 
 Inputs
-    A local clone of github.com/lavanito/nni-model, given as the first
-    argument. Its own loader and decomposition class decide which years have
-    every input, so nothing is retyped here.
+    The nni-model package, installed from requirements.txt. Its own loader
+    and decomposition class decide which years have every input, so nothing
+    is retyped here.
 
 Outputs
     data/series/last_year.csv with columns economy, edition, last_year. A
     blank last_year means the economy is not in that edition.
 
 Run
-    python tools/build_last_year.py /path/to/nni-model
+    python tools/build_last_year.py
 """
 import csv
 import glob
-import sys
 from pathlib import Path
 
-MODEL = Path(sys.argv[1]).resolve()
-sys.path.insert(0, str(MODEL))
-from nni_model.data import Snapshot, build_euro_area, load_csv  # noqa: E402
-from nni_model.decomposition import NNIDecomposition  # noqa: E402
+import nni_model
+from nni_model.data import Snapshot, build_euro_area, load_csv
+from nni_model.decomposition import NNIDecomposition
+
+MODEL_DATA = Path(nni_model.__file__).parent / "data"
 
 ECONOMIES = ["USA", "EA21", "GBR", "CHN", "IND", "JPN", "IRL"]
 EDITIONS = {
-    "latest": sorted(glob.glob(str(MODEL / "data" / "wdi" / "wdi_latest_*.csv"))),
-    "archive": [str(MODEL / "data" / "wdi" / "wdi_archive_202403.csv")],
+    "latest": sorted(glob.glob(str(MODEL_DATA / "wdi" / "wdi_latest_*.csv"))),
+    "archive": [str(MODEL_DATA / "wdi" / "wdi_archive_202403.csv")],
 }
 OUT = Path(__file__).resolve().parent.parent / "data" / "series" / "last_year.csv"
 

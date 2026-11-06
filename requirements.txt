@@ -8,3 +8,4 @@ numpy==2.3.5         # cosine similarity for every passage at once (Chapter 4)
 sentence-transformers==6.1.0   # embedding models (Chapter 4); installs torch
 pypdf==5.9.0         # reads text from PDF files (Chapter 6)
 chromadb==1.5.9      # vector database, runs inside Python (Chapter 7)
+nni-model @ git+https://github.com/lavanito/nni-model@06a18b7068f2c70ea5bab8eda5b40dc0be150f02  # the NNI model, called as a tool (Chapter 13)
