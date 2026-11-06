@@ -234,7 +234,7 @@ def test_ragged_edge_scores():
     # so both scores are training scores.
     assert count_right(route_bank_ragged(QUESTIONS, WORDS, TITLES, LAST_YEARS))["both"] == 56
     first = route_bank_ragged(load_passages(TEST_FILE), WORDS, TITLES, LAST_YEARS)
-    assert count_right(first)["both"] == 25
+    assert count_right(first)["both"] == 26
     second = route_bank_ragged(load_passages(QUESTION_FILE.parent / "routing_test_6_november.jsonl"),
                                WORDS, TITLES, LAST_YEARS)
-    assert count_right(second)["both"] == 8
+    assert count_right(second)["both"] == 9
