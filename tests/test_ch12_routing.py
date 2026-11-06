@@ -243,10 +243,14 @@ def test_ragged_edge_scores():
 def test_saved_model_replies_on_the_second_set():
     # Lavan's laptop run on the 16 questions of 6 November 2026.
     import pytest
-    from ragbook.ch12_routing import SECOND_ROUTER_FILE
+    from ragbook.ch12_routing import SECOND_ROUTER_FILE, SECOND_TEST_FILE
     if not SECOND_ROUTER_FILE.exists():
         pytest.skip("no saved replies for the second test set yet")
     from ragbook.ch11_prompts import load_answers
     records = load_answers(SECOND_ROUTER_FILE)
     assert len(records) == 16
     assert all(r["found_class"] != "none" for r in records)
+    assert count_right(records) == {"questions": 16, "class": 7, "route": 7, "both": 6}
+    # The first-round rules also score 6; combined as in 12.5, still 6.
+    second = load_passages(SECOND_TEST_FILE)
+    assert count_right(combine(route_bank(second, WORDS, TITLES), records))["both"] == 6
