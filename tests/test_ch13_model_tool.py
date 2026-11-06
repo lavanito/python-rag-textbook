@@ -1,0 +1,79 @@
+"""
+Tests for Chapter 13 (calling the NNI model as a tool).
+
+They check properties, never wording: the parts add up to the total, values
+match the model's own data, ratings match the model's own rule, and flags
+and messages appear where they should.
+"""
+from nni_model import dqr
+
+from ragbook.ch12_routing import ECONOMIES
+from ragbook.ch13_model_tool import (ECONOMY_CODES, MEASURES, SERIES, TOOL, call_model,
+                                     load_edition)
+
+
+def test_the_six_economies_match_the_router():
+    assert set(ECONOMY_CODES) == set(ECONOMIES)
+
+
+def test_a_value_lookup_returns_the_models_own_value():
+    reply = call_model("United Kingdom", 2024, "gni_per_head_ppp")
+    expected = load_edition("latest").get("GBR", SERIES["gni_per_head_ppp"], 2024)
+    assert reply.value == expected
+    assert reply.unit and reply.source and reply.edition
+    assert reply.message is None
+
+
+def test_the_rating_follows_the_models_rule():
+    reply = call_model("India", 2022, "population")
+    expected = dqr.rate("P2", "IND", inputs=["population"])
+    assert (reply.dqr_band, reply.dqr_reason) == (expected.name, expected.reason)
+    assert reply.shown == dqr.show(reply.value, expected.band)
+
+
+def test_the_parts_add_up_to_the_total():
+    for economy in ECONOMY_CODES:
+        reply = call_model(economy, 2015, "nni_growth")
+        parts = reply.parts["C1a"] + reply.parts["C2"] + reply.parts["C4"]
+        assert abs(parts - reply.value) < 1e-9, economy
+
+
+def test_years_after_2021_are_flagged_estimated_and_at_most_medium():
+    reply = call_model("Japan", 2024, "nni_growth")
+    assert any(flag.startswith("estimated") for flag in reply.flags)
+    assert reply.dqr_band in ("Medium", "Low")
+
+
+def test_a_break_is_flagged_and_rated_low():
+    reply = call_model("India", 2022, "nni_growth")
+    assert any(flag.startswith("break") for flag in reply.flags)
+    assert reply.dqr_band == "Low"
+
+
+def test_a_euro_area_member_has_a_value_but_no_rating():
+    reply = call_model("IRL", 2024, "population")
+    assert reply.value is not None
+    assert reply.dqr_band is None and reply.dqr_reason
+
+
+def test_the_two_editions_give_different_values_for_the_same_year():
+    latest = call_model("India", 2016, "gni_per_head_ppp", "latest")
+    archive = call_model("India", 2016, "gni_per_head_ppp", "archive")
+    assert latest.edition != archive.edition
+    assert latest.value != archive.value
+
+
+def test_missing_values_give_a_message_not_a_number():
+    for args in [("Switzerland", 2024, "population"),      # economy not in the data
+                 ("Japan", 2030, "nni_growth"),             # beyond the data
+                 ("India", 2024, "exports")]:               # measure not in the model
+        reply = call_model(*args)
+        assert reply.value is None and reply.shown is None
+        assert reply.message, args
+
+
+def test_the_tool_description_lists_every_measure_and_economy():
+    parameters = TOOL["function"]["parameters"]
+    assert parameters["properties"]["measure"]["enum"] == list(MEASURES)
+    assert set(ECONOMY_CODES) <= set(parameters["properties"]["economy"]["enum"])
+    assert set(parameters["required"]) == {"economy", "year", "measure"}
