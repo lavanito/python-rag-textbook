@@ -133,13 +133,21 @@ def economy_code(economy):
     return None
 
 
+# S3 rates only the six economies. A euro area member is given the euro area's
+# rating: the members' statistical offices follow one standard, ESA 2010.
+# Assumption agreed by Lavan, 6 November 2026.
+MEMBER_ASSUMPTION = ("Assumption: rated as the euro area, because its members "
+                     "follow one standard (ESA 2010)")
+
+
 def rating(measure, code, flags=(), chk=None):
-    """The DQR band and reason, or (None, reason) for an economy S3 does not rate."""
-    if code not in dqr.ECONOMIES:
-        return None, "S3 rates only the six economies; no DQR for a single euro area member"
+    """The DQR band and the reason that set it."""
+    rated_as = "EA21" if code in EURO_MEMBERS else code
     words = [flag.split(":")[0] for flag in flags]
-    result = dqr.rate(MEASURES[measure]["purpose"], code, flags=words, chk=chk,
+    result = dqr.rate(MEASURES[measure]["purpose"], rated_as, flags=words, chk=chk,
                       inputs=MEASURES[measure]["inputs"])
+    if rated_as != code:
+        return result.name, f"{MEMBER_ASSUMPTION}; {result.reason}"
     return result.name, result.reason
 
 
@@ -182,11 +190,8 @@ def call_model(economy, year, measure, edition="latest"):
                          f"in the {reply.edition} edition.")
         return reply
     reply.dqr_band, reply.dqr_reason = rating(measure, code, reply.flags, chk)
-    if reply.dqr_band is None:
-        reply.shown = f"{reply.value:.0f}"     # no band, so no digits rule; whole numbers
-    else:
-        band = {"High": dqr.HIGH, "Medium": dqr.MEDIUM, "Low": dqr.LOW}[reply.dqr_band]
-        reply.shown = dqr.show(reply.value, band)
+    band = {"High": dqr.HIGH, "Medium": dqr.MEDIUM, "Low": dqr.LOW}[reply.dqr_band]
+    reply.shown = dqr.show(reply.value, band)
     return reply
 
 

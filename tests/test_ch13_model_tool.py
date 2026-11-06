@@ -50,10 +50,14 @@ def test_a_break_is_flagged_and_rated_low():
     assert reply.dqr_band == "Low"
 
 
-def test_a_euro_area_member_has_a_value_but_no_rating():
-    reply = call_model("IRL", 2024, "population")
-    assert reply.value is not None
-    assert reply.dqr_band is None and reply.dqr_reason
+def test_a_euro_area_member_is_rated_as_the_euro_area():
+    # Assumption agreed by Lavan, 6 November 2026: members follow one standard.
+    for measure in ["population", "gni_per_head_ppp"]:
+        member = call_model("IRL", 2024, measure)
+        euro_area = call_model("euro area", 2024, measure)
+        assert member.value is not None
+        assert member.dqr_band == euro_area.dqr_band
+        assert member.dqr_reason.endswith(euro_area.dqr_reason)
 
 
 def test_the_two_editions_give_different_values_for_the_same_year():
