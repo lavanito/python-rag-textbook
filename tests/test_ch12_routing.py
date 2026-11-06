@@ -190,5 +190,5 @@ def test_escalation_messages():
     reason, message = escalation_message("beyond the data", TITLES)
     assert reason == "beyond the data" and "end in 2025" in message
     reason, message = escalation_message("economy not in the data", TITLES)
-    assert reason == "economy not held" and "India and Japan" in message
+    assert reason == "economy not in the data" and "India and Japan" in message
     assert "17 series" in escalation_message("series not in the data", TITLES)[1]
