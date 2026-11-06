@@ -199,6 +199,8 @@ def test_second_test_set_scored_once():
     # and scored once with them, unchanged: the fair score for the second round.
     second = load_passages(QUESTION_FILE.parent / "routing_test_6_november.jsonl")
     assert len(second) == 16
-    assert count_right(route_bank(second, WORDS, TITLES))["both"] == 7
+    # Labels confirmed by Lavan on 6 November 2026 (u-03 and u-13 escalated
+    # as beyond the data; u-05 R4+R2; u-10 R6).
+    assert count_right(route_bank(second, WORDS, TITLES))["both"] == 6
     records = route_bank_revised(second, WORDS, TITLES)
-    assert count_right(records) == {"questions": 16, "class": 7, "route": 9, "both": 7}
+    assert count_right(records) == {"questions": 16, "class": 6, "route": 7, "both": 6}
