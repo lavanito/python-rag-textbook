@@ -192,3 +192,13 @@ def test_escalation_messages():
     reason, message = escalation_message("economy not in the data", TITLES)
     assert reason == "economy not in the data" and "India and Japan" in message
     assert "17 series" in escalation_message("series not in the data", TITLES)[1]
+
+
+def test_second_test_set_scored_once():
+    # Lavan's 16 questions of 6 November 2026, written after the revised rules
+    # and scored once with them, unchanged: the fair score for the second round.
+    second = load_passages(QUESTION_FILE.parent / "routing_test_6_november.jsonl")
+    assert len(second) == 16
+    assert count_right(route_bank(second, WORDS, TITLES))["both"] == 7
+    records = route_bank_revised(second, WORDS, TITLES)
+    assert count_right(records) == {"questions": 16, "class": 7, "route": 9, "both": 7}
