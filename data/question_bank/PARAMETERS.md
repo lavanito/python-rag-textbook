@@ -48,3 +48,7 @@ t-25 keeps Lavan's choice (the real-GDP-per-head part of NNI growth); the gap ta
 ## Round 2 (7 November 2026)
 
 Lavan agreed a second round of the model's instructions after the first run (12 of 28). The measure trend_gap_2007 was renamed trend_gap, because the model picked it for a question that named 2007 (q5-02); t-02's row changed with it. No other row changed. t-25 stays as a hard test of whether a reader confuses growth with levels (Lavan).
+
+## New questions for a fair test (7 November 2026)
+
+`parameters_test.jsonl`: 20 questions Lavan wrote after round 2 was fixed (commit `7b756d3`), not seen by Claude before then. Claude proposed the labels (13 judgement calls noted in each row); Lavan agreed them all the same day. The keyword rules and both versions of the model's instructions were written before these questions, so scores on them are fair scores. Eight questions repeat one wording with a different economy (n-01 to n-04, n-09 to n-12).

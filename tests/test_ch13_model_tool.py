@@ -278,3 +278,14 @@ def test_round_two_names_every_measure_with_a_hint():
     assert all(f"- {name}:" in system for name in SECOND_HINTS)
     assert "deflator mix" in system and "level" in system
     assert parameter_messages("What is GDI?")[0]["content"] != system   # round 1 kept as it was
+
+
+def test_the_new_questions_use_known_labels():
+    from ragbook.ch13_model_tool import NEW_QUESTION_FILE
+    rows = load_passages(NEW_QUESTION_FILE)
+    assert len(rows) == 20
+    for row in rows:
+        assert set(row["measures"]) <= set(MEASURES) | set(GAPS) | {"other"}, row["id"]
+        assert all(economy_ok in ECONOMY_CODES.values() or len(economy_ok) == 3
+                   for economy_ok in row["economies"]), row["id"]
+        assert set(row["editions"]) <= {"latest", "archive"} and row["editions"], row["id"]
