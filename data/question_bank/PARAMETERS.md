@@ -24,3 +24,23 @@ Lavan reviewed all 28 in a spreadsheet (`answer_key_check.xlsx`): eight judgemen
 | u-09 | The hours-per-worker part of NNI growth | measures: other to nni_growth |
 
 The same day Lavan decided that a span of years fetches every year to the end of the data, for every measure (from q5-02).
+
+## Gap table (7 November 2026)
+
+Lavan approved all 12 rows of the gap table (`gap_table.xlsx`): figures the questions ask for that the first four measures did not give. The tool gained nine measures (six exact, three stand-ins flagged "proxy" and rated at most Low) and three figures that are not in the data (the reply names the best data and passes the question to an analyst). Approving the u-02 row approved the method: real NNI per head converted at the 2021 household-consumption PPP. The rows that had "other" now name the measure:
+
+| Question | Measures |
+| --- | --- |
+| q5-03 | real_gdp_growth, public_service_measurement |
+| q4-02 | gdp_per_head_ppp |
+| t-02 | trend_gap_2007 (proxy) |
+| t-21 | gni |
+| t-24 | net_trade (not in the data) |
+| t-26 | spending_components (proxy) |
+| t-30 | terms_of_trade (not in the data) |
+| u-02 | real_nni_per_head_ppp |
+| u-06 | employment_rate (proxy) |
+| u-07 | real_nni_per_hour |
+| u-09 | average_hours (the gap table lists u-09 for this row; it replaces Lavan's earlier choice of the hours-per-worker part, which was made when the level was not available) |
+
+t-25 keeps Lavan's choice (the real-GDP-per-head part of NNI growth); the gap table did not list it.

@@ -6,16 +6,20 @@ match the model's own data, ratings match the model's own rule, and flags
 and messages appear where they should.
 """
 import json
+import math
 
 from nni_model import dqr
+from nni_model.data import EURO_MEMBERS, Snapshot
+from nni_model.decomposition import NNIDecomposition
 
 from ragbook.ch01_python_basics import load_passages
 from ragbook.ch12_routing import ECONOMIES, load_last_years
-from ragbook.ch13_model_tool import (ECONOMY_CODES, MEASURES, PARAMETER_EXAMPLES,
+from ragbook.ch13_model_tool import (ECONOMY_CODES, GAPS, MEASURES, PARAMETER_EXAMPLES,
                                      PARAMETER_FILE, PARAMETER_SCHEMA, SERIES, TOOL, call_model,
                                      fields_right, load_edition, model_questions, plan_calls,
                                      read_model_reply, read_parameters_with_model,
-                                     read_with_rules, resolve_year, score_parameters, show)
+                                     read_with_rules, resolve_year, score_parameters, show,
+                                     escalate, household_ppp, trend_gap_2007)
 
 
 def test_the_six_economies_match_the_router():
@@ -122,7 +126,7 @@ def test_the_examples_are_not_scored_questions():
 
 def test_the_reply_shape_offers_every_measure():
     choices = PARAMETER_SCHEMA["properties"]["measures"]["items"]["enum"]
-    assert choices == list(MEASURES) + ["other"]
+    assert choices == list(MEASURES) + list(GAPS) + ["other"]
 
 
 def test_the_rules_read_a_relative_year():
@@ -183,3 +187,75 @@ def test_a_span_fetches_every_year_of_a_level():
     calls, _ = plan_calls(EXPECTED["q5-02"], LAST_YEARS)
     last = min(LAST_YEARS[("GBR", "latest")], LAST_YEARS[("USA", "latest")])
     assert len(calls) == 2 * (last - 2007 + 1)
+
+
+
+# Measures added from the gap table (Lavan, 7 November 2026).
+
+def test_real_gdp_growth_is_growth_per_head_plus_population_growth():
+    s = load_edition("latest")
+    for economy in ECONOMY_CODES:
+        code = ECONOMY_CODES[economy]
+        growth = call_model(economy, 2015, "real_gdp_growth").value
+        per_head = NNIDecomposition(s, code).year(2015).c4
+        population = 100 * math.log(s.get(code, "SP.POP.TOTL", 2015) / s.get(code, "SP.POP.TOTL", 2014))
+        assert abs(growth - (per_head + population)) < 1e-9, economy
+
+
+def test_real_nni_per_head_level_grows_as_the_decomposition_says():
+    for economy in ECONOMY_CODES:
+        old = call_model(economy, 2014, "real_nni_per_head_ppp").value
+        new = call_model(economy, 2015, "real_nni_per_head_ppp").value
+        growth = call_model(economy, 2015, "nni_growth").value
+        assert abs(100 * math.log(new / old) - growth) < 1e-9, economy
+
+
+def test_real_nni_per_head_in_2021_is_nni_over_household_ppp_over_population():
+    s = load_edition("latest")
+    level = NNIDecomposition(s, "USA").levels(2021)
+    expected = (level.nni_to_gdp * s.get("USA", "NY.GDP.MKTP.CN", 2021)
+                / s.get("USA", "PA.NUS.PRVT.PP", 2021) / level.population)
+    assert abs(call_model("USA", 2021, "real_nni_per_head_ppp").value / expected - 1) < 1e-12
+
+
+def test_the_euro_area_household_ppp_weights_members_by_consumption():
+    s = load_edition("latest")
+    euros = sum(s.get(m, "NE.CON.PRVT.CN", 2021) for m in EURO_MEMBERS)
+    dollars = sum(s.get(m, "NE.CON.PRVT.CN", 2021) / s.get(m, "PA.NUS.PRVT.PP", 2021)
+                  for m in EURO_MEMBERS)
+    assert household_ppp(s, "EA21", 2021) == euros / dollars
+
+
+def test_gdp_per_head_at_ppp_differs_between_editions_for_china():
+    latest = call_model("China", 2016, "gdp_per_head_ppp", "latest")
+    archive = call_model("China", 2016, "gdp_per_head_ppp", "archive")
+    assert latest.value and archive.value and latest.value != archive.value
+
+
+def test_a_steady_trend_gives_no_gap():
+    s = Snapshot("steady")
+    for year in range(2000, 2021):
+        s.set("XXX", "NY.GDP.MKTP.KN", year, 100 * 1.02 ** (year - 2000))
+        s.set("XXX", "SP.POP.TOTL", year, 1.0)
+    gap, _ = trend_gap_2007(s, "XXX", 2020)
+    assert abs(gap) < 1e-9
+
+
+def test_a_proxy_is_flagged_and_rated_low():
+    for economy, year, measure in [("United Kingdom", 2023, "employment_rate"),
+                                   ("United States", 2024, "spending_components"),
+                                   ("United Kingdom", 2025, "trend_gap_2007")]:
+        reply = call_model(economy, year, measure)
+        assert reply.value is not None, measure
+        assert reply.dqr_band == "Low" and any(f.startswith("proxy") for f in reply.flags)
+
+
+def test_a_figure_not_in_the_data_names_the_best_data_and_escalates():
+    for question in ["t-24", "t-30"]:
+        calls, problems = plan_calls(EXPECTED[question], LAST_YEARS)
+        assert calls == [] and problems and escalate(calls, problems)
+
+
+def test_an_exact_figure_is_not_escalated():
+    calls, problems = plan_calls(EXPECTED["q1-01"], LAST_YEARS)
+    assert calls and not escalate(calls, problems)

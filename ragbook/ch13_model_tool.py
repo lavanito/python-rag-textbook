@@ -39,6 +39,7 @@ Run the worked example
         the 28 questions routed to code, saves the replies and scores them.
 """
 import json
+import math
 import re
 import sys
 import urllib.error
@@ -104,8 +105,109 @@ MEASURES = {
         "purpose": "P4",
         "inputs": dqr.INPUTS["P4"],
     },
+    # Added from the gap table, approved by Lavan on 7 November 2026. A
+    # "proxy" entry is a stand-in for the figure asked: it is flagged, says
+    # how it differs and where the best data are, and is rated at most Low.
+    "real_gdp_growth": {
+        "description": "Growth in real GDP (total, not per head) from the year before",
+        "unit": "log points",
+        "source": "World Bank WDI, series NY.GDP.MKTP.KN",
+        "purpose": "P1",
+        "inputs": ["real_gdp"],
+    },
+    "gdp_per_head_ppp": {
+        "description": "GDP per head at purchasing power parities",
+        "unit": "current international dollars",
+        "source": "World Bank WDI: GDP (NY.GDP.MKTP.CN) / PPP factor (PA.NUS.PPP) / population",
+        "purpose": "P2",
+        "inputs": ["ppp", "population"],
+    },
+    "gni": {
+        "description": "GNI, total",
+        "unit": "current US dollars",
+        "source": "World Bank WDI, series NY.GNP.MKTP.CD",
+        "purpose": "P2",
+        "inputs": ["gni_nni"],
+        "count": True,
+    },
+    "average_hours": {
+        "description": "Average annual hours worked per person engaged",
+        "unit": "hours a year",
+        "source": "Penn World Table 11.0 (avh)",
+        "purpose": "P3",
+        "inputs": ["hours"],
+    },
+    "real_nni_per_head_ppp": {
+        "description": "Real NNI per head, at constant 2021 household-consumption PPPs",
+        "unit": "constant 2021 international dollars",
+        "source": "NNI model: real NNI per head, converted at the 2021 household PPP (PA.NUS.PRVT.PP)",
+        "purpose": "P4",
+        "inputs": dqr.INPUTS["P4"],
+    },
+    "real_nni_per_hour": {
+        "description": "Real NNI per hour worked, at constant 2021 household-consumption PPPs",
+        "unit": "constant 2021 international dollars per hour",
+        "source": "NNI model real NNI per head; Penn World Table 11.0 hours and persons engaged",
+        "purpose": "P4",
+        "inputs": dqr.INPUTS["P4"],
+        "also": [("P3", ["employment", "hours"])],
+    },
+    "employment_rate": {
+        "description": "Employment rate",
+        "unit": "per cent of total population",
+        "source": "Penn World Table 11.0 persons engaged / World Bank WDI population",
+        "purpose": "P3",
+        "inputs": ["employment"],
+        "proxy": {"differs": "persons engaged divided by total population; the usual rate divides "
+                             "by the population aged 15 to 64",
+                  "best_data": "ILOSTAT employment-to-population ratio; OECD employment rate, 15 to 64"},
+    },
+    "spending_components": {
+        "description": "GDP by spending component",
+        "unit": "per cent of GDP",
+        "source": "World Bank WDI: household consumption (NE.CON.PRVT.CN) / GDP (NY.GDP.MKTP.CN)",
+        "purpose": "P1",
+        "inputs": ["real_gdp"],
+        "proxy": {"differs": "household consumption only; government consumption, investment "
+                             "and net trade are not in the data",
+                  "best_data": "BEA NIPA Table 1.1.5 (Gross Domestic Product); World Bank WDI "
+                               "NE.CON.GOVT.CN, NE.GDI.TOTL.CN, NE.EXP.GNFS.CN, NE.IMP.GNFS.CN"},
+    },
+    "trend_gap_2007": {
+        "description": "Real GDP per head compared with its 2000 to 2007 trend",
+        "unit": "per cent above (+) or below (-) the trend",
+        "source": "World Bank WDI: GDP (NY.GDP.MKTP.KN) / population, constant local currency",
+        "purpose": "P1",
+        "inputs": ["real_gdp"],
+        "proxy": {"differs": "the trend is growth from 2000 to 2007 only, because the data start "
+                             "in 2000; a study may use a longer period and another method",
+                  "best_data": "the study the question cites"},
+    },
 }
-SERIES = {"gni_per_head_ppp": "NY.GNP.PCAP.PP.CD", "population": "SP.POP.TOTL"}
+SERIES = {"gni_per_head_ppp": "NY.GNP.PCAP.PP.CD", "population": "SP.POP.TOTL",
+          "gni": "NY.GNP.MKTP.CD", "average_hours": "PWT.AVH"}
+
+# Figures not in the data at all: the reply names the best data and passes
+# the question to an analyst (gap table, Lavan, 7 November 2026).
+GAPS = {
+    "terms_of_trade": {
+        "description": "The terms of trade effect",
+        "best_data": "export and import deflators: World Bank WDI exports and imports of goods and "
+                     "services in current and constant local currency (NE.EXP.GNFS.CN and .KN, "
+                     "NE.IMP.GNFS.CN and .KN), or national accounts",
+    },
+    "net_trade": {
+        "description": "Net trade as a share of GDP",
+        "best_data": "World Bank WDI NE.RSB.GNFS.ZS (external balance on goods and services, "
+                     "% of GDP), or national accounts",
+    },
+    "public_service_measurement": {
+        "description": "A comparison of how public services are measured",
+        "best_data": "a comparable study of how each statistical office measures the volume of "
+                     "public services, and a common method",
+    },
+}
+ESCALATION_NOTE = "Passed to an analyst."
 
 ARCHIVE_FILE = Path(nni_model.__file__).parent / "data" / "wdi" / "wdi_archive_202403.csv"
 
@@ -160,14 +262,23 @@ MEMBER_ASSUMPTION = ("Assumption: rated as the euro area, because its members "
 
 
 def rating(measure, code, flags=(), chk=None):
-    """The DQR band and the reason that set it."""
+    """The DQR band and the reason that set it.
+
+    A measure with more than one purpose takes the weakest rating. A proxy
+    is rated at most Low (Lavan, 7 November 2026).
+    """
     rated_as = "EA21" if code in EURO_MEMBERS else code
     words = [flag.split(":")[0] for flag in flags]
-    result = dqr.rate(MEASURES[measure]["purpose"], rated_as, flags=words, chk=chk,
-                      inputs=MEASURES[measure]["inputs"])
+    m = MEASURES[measure]
+    results = [dqr.rate(purpose, rated_as, flags=words, chk=chk, inputs=inputs)
+               for purpose, inputs in [(m["purpose"], m["inputs"])] + m.get("also", [])]
+    result = min(results, key=lambda r: r.band)          # weakest; first listed wins ties
+    band, reason = result.band, result.reason
+    if "proxy" in m:
+        band, reason = dqr.LOW, f"proxy, rated at most Low; also {reason}"
     if rated_as != code:
-        return result.name, f"{MEMBER_ASSUMPTION}; {result.reason}"
-    return result.name, result.reason
+        reason = f"{MEMBER_ASSUMPTION}; {reason}"
+    return dqr.NAMES[band], reason
 
 
 def show(value, band, count=False):
@@ -178,6 +289,105 @@ def show(value, band, count=False):
         return dqr.show(value, band)
     whole = f"{value:.0f}"
     return f"about {whole}" if band == dqr.LOW else whole
+
+
+def log_change(old, new):
+    """The change from old to new in log points."""
+    return (math.log(new) - math.log(old)) * 100
+
+
+def euro_area_sum(snapshot, code, value):
+    """For the euro area, the sum of value(member) over its 21 members; otherwise value(code).
+    None if any part is missing."""
+    parts = [value(m) for m in EURO_MEMBERS] if code == "EA21" else [value(code)]
+    return None if None in parts else sum(parts)
+
+
+def gdp_per_head_ppp(s, code, y):
+    """GDP in local currency / PPP factor / population; the euro area sums its members."""
+    def at_ppp(e):
+        gdp, ppp = s.get(e, "NY.GDP.MKTP.CN", y), s.get(e, "PA.NUS.PPP", y)
+        return None if None in (gdp, ppp) else gdp / ppp
+    total, population = euro_area_sum(s, code, at_ppp), s.get(code, "SP.POP.TOTL", y)
+    return (None if None in (total, population) else total / population), []
+
+
+def real_gdp_growth(s, code, y):
+    old, new = s.get(code, "NY.GDP.MKTP.KN", y - 1), s.get(code, "NY.GDP.MKTP.KN", y)
+    return (None if None in (old, new) else log_change(old, new)), []
+
+
+def household_ppp(s, code, y):
+    """The household-consumption PPP factor; for the euro area, members' household
+    consumption in euros over the same in international dollars."""
+    if code != "EA21":
+        return s.get(code, "PA.NUS.PRVT.PP", y)
+    euros = euro_area_sum(s, code, lambda e: s.get(e, "NE.CON.PRVT.CN", y))
+    def dollars(e):
+        cons, ppp = s.get(e, "NE.CON.PRVT.CN", y), s.get(e, "PA.NUS.PRVT.PP", y)
+        return None if None in (cons, ppp) else cons / ppp
+    international = euro_area_sum(s, code, dollars)
+    return None if None in (euros, international) else euros / international
+
+
+def real_nni_per_head_ppp(s, code, y, base=2021):
+    """Real NNI per head in constant 2021 international dollars.
+
+    In 2021: NNI in local currency / the 2021 household PPP / population.
+    Other years: the 2021 level moved by the model's own real NNI per head,
+    so growth matches the decomposition exactly (method approved by Lavan,
+    7 November 2026).
+    """
+    model = NNIDecomposition(s, code)
+    at_base, now = model.levels(base), model.levels(y)
+    ppp, gdp = household_ppp(s, code, base), s.get(code, "NY.GDP.MKTP.CN", base)
+    if None in (at_base, now, ppp, gdp):
+        return None, []
+    base_level = at_base.nni_to_gdp * gdp / ppp / at_base.population
+    return base_level * now.real_nni_per_head / at_base.real_nni_per_head, list(now.flags)
+
+
+def real_nni_per_hour(s, code, y):
+    """Real NNI per head divided by hours worked per person in the population."""
+    per_head, flags = real_nni_per_head_ppp(s, code, y)
+    emp, avh, population = (s.get(code, c, y) for c in ("PWT.EMP", "PWT.AVH", "SP.POP.TOTL"))
+    if None in (per_head, emp, avh, population):
+        return None, []
+    return per_head / (emp * avh / population), flags
+
+
+def employment_rate(s, code, y):
+    emp, population = s.get(code, "PWT.EMP", y), s.get(code, "SP.POP.TOTL", y)
+    return (None if None in (emp, population) else emp / population * 100), []
+
+
+def spending_components(s, code, y):
+    cons, gdp = s.get(code, "NE.CON.PRVT.CN", y), s.get(code, "NY.GDP.MKTP.CN", y)
+    return (None if None in (cons, gdp) else cons / gdp * 100), []
+
+
+def trend_gap_2007(s, code, y):
+    """Real GDP per head in year y against growth from 2000 to 2007 continued."""
+    def per_head(t):
+        gdp, population = s.get(code, "NY.GDP.MKTP.KN", t), s.get(code, "SP.POP.TOTL", t)
+        return None if None in (gdp, population) else gdp / population
+    first, last, now = per_head(2000), per_head(2007), per_head(y)
+    if None in (first, last, now) or y <= 2007:
+        return None, []
+    trend = last * math.exp(math.log(last / first) / 7 * (y - 2007))
+    return (now / trend - 1) * 100, []
+
+
+# The measures worked out from the data by the functions above.
+COMPUTE = {
+    "real_gdp_growth": real_gdp_growth,
+    "gdp_per_head_ppp": gdp_per_head_ppp,
+    "real_nni_per_head_ppp": real_nni_per_head_ppp,
+    "real_nni_per_hour": real_nni_per_hour,
+    "employment_rate": employment_rate,
+    "spending_components": spending_components,
+    "trend_gap_2007": trend_gap_2007,
+}
 
 
 def call_model(economy, year, measure, edition="latest"):
@@ -213,6 +423,11 @@ def call_model(economy, year, measure, edition="latest"):
             reply.parts = {"C1a": result.c1a, "C2": result.c2, "C4": result.c4,
                            "C4a": result.c4a, "C4b": result.c4b, "C4c": result.c4c,
                            "CHK": result.chk}
+    elif measure in COMPUTE:
+        reply.value, reply.flags = COMPUTE[measure](snapshot, code, year)
+    if "proxy" in MEASURES[measure]:
+        proxy = MEASURES[measure]["proxy"]
+        reply.flags.append(f"proxy: {proxy['differs']}. Best data: {proxy['best_data']}")
 
     if reply.value is None:
         reply.message = (f"No value for {measure} in {economy} in {year} "
@@ -264,8 +479,20 @@ MEASURE_PHRASES = {
     "population": ["population"],
     "gdp_per_hour": ["gdp per hour", "output per hour", "productivity"],
     "nni_growth": ["growth in real nni", "nni growth", "drove growth", "deflator mix",
-                   "between gdp and national income", "prices rather than volumes",
-                   "terms of trade"],
+                   "between gdp and national income", "prices rather than volumes"],
+    # Phrases for the measures added from the gap table (7 November 2026).
+    "real_gdp_growth": ["real gdp growth"],
+    "gdp_per_head_ppp": ["gdp per head at ppp"],
+    "gni": ["gni in"],
+    "average_hours": ["average hours worked"],
+    "real_nni_per_head_ppp": ["net national income per head"],
+    "real_nni_per_hour": ["nni per hour"],
+    "employment_rate": ["employment rate"],
+    "spending_components": ["expenditure components", "spending components"],
+    "trend_gap_2007": ["trends had continued", "trend had continued"],
+    "terms_of_trade": ["terms of trade"],
+    "net_trade": ["net trade"],
+    "public_service_measurement": ["public services are measured"],
 }
 SCENARIO_PHRASES = ["what if", "had been", "had grown", "had changed", "had continued"]
 NUMBER_WORDS = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
@@ -318,7 +545,7 @@ PARAMETER_SCHEMA = {
             "type": "string", "enum": list(ECONOMY_CODES) + EURO_MEMBERS + ["other"]}},
         "years": {"type": "array", "items": {"type": "string"}},
         "measures": {"type": "array", "items": {
-            "type": "string", "enum": list(MEASURES) + ["other"]}},
+            "type": "string", "enum": list(MEASURES) + list(GAPS) + ["other"]}},
         "editions": {"type": "array", "items": {"type": "string", "enum": ["latest", "archive"]}},
         "change": {"type": "boolean"},
     },
@@ -365,7 +592,8 @@ def parameter_messages(question):
         parameter_messages("What is GDI?")[-1]
         returns {"role": "user", "content": "What is GDI?"}
     """
-    measures = "\n".join(f"- {name}: {m['description']}" for name, m in MEASURES.items())
+    measures = "\n".join(f"- {name}: {m['description']}"
+                         for name, m in list(MEASURES.items()) + list(GAPS.items()))
     messages = [{"role": "system", "content": PARAMETER_INSTRUCTIONS.format(measures=measures)}]
     for example, reply in PARAMETER_EXAMPLES:
         messages.append({"role": "user", "content": example})
@@ -496,9 +724,14 @@ def plan_calls(parameters, last_years):
         else:
             codes.append(code)
     for measure in parameters["measures"]:
-        if measure not in MEASURES:
+        if measure in GAPS:
+            gap = GAPS[measure]
+            problems.append(f"{gap['description']} is not in the data used here. "
+                            f"Best data: {gap['best_data']}. {ESCALATION_NOTE}")
+        elif measure not in MEASURES:
             problems.append(f"That measure is not one the model gives. It gives: "
-                            f"{', '.join(m['description'] for m in MEASURES.values())}.")
+                            f"{', '.join(m['description'] for m in MEASURES.values())}. "
+                            f"{ESCALATION_NOTE}")
     measures = [m for m in parameters["measures"] if m in MEASURES]
     if not codes or not measures:
         return calls, problems
@@ -532,6 +765,17 @@ def plan_calls(parameters, last_years):
             span = range(start, years[-1] + 1) if len(years) > 1 else years
             calls += [(code, year, measure, edition) for code in codes for year in span]
     return calls, problems
+
+
+def escalate(calls, problems):
+    """
+    Say whether a question is passed to an analyst: when any figure asked
+    for is missing, or is given only as a stand-in (proxy).
+
+    Example:
+        escalate([("GBR", 2023, "employment_rate", "latest")], []) returns True
+    """
+    return bool(problems) or any("proxy" in MEASURES[call[2]] for call in calls)
 
 
 def model_questions():
