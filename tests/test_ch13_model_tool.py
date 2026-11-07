@@ -306,3 +306,66 @@ def test_round_two_scores_as_reported():
         loose = sum(same_calls(found[i], key[i], LAST_YEARS) for i in found)
         scores[(version, len(questions))] = (strict, loose)
     assert scores == {("second", 28): (15, 17), ("first", 20): (2, 6), ("second", 20): (6, 9)}
+
+
+# 13.5 and 13.6: facts, replies and checks. Stand-in tests: no language model is run.
+
+def test_rates_get_one_more_decimal_than_levels():
+    # Lavan, 7 November 2026.
+    assert show(1.234, dqr.MEDIUM, rate=True) == "1.2"
+    assert show(1.234, dqr.HIGH, rate=True) == "1.23"
+    assert show(1.234, dqr.LOW, rate=True) == "about 1.2"
+    assert show(1234.5, dqr.MEDIUM) == "1234"     # (Python rounds a half to even)
+
+
+def test_the_parts_in_a_figure_line_add_up_to_the_total_shown():
+    from ragbook.ch13_model_tool import facts_for
+    line = facts_for(EXPECTED["q6-01"], LAST_YEARS)["figures"][0]
+    total = float(line.split("parts: ")[1].split(" log points")[0])
+    made_up = line.split("made up of ")[1].split(". Source")[0].split(" (of which")[0]
+    parts = [float(p.split()[-1]) for p in made_up.split(", ")]
+    assert abs(sum(parts) - total) <= 0.15       # each shown to one decimal place
+
+
+def test_a_revision_question_with_no_year_compares_one_year_in_both_editions():
+    from ragbook.ch13_model_tool import facts_for
+    lines = facts_for(EXPECTED["q4-02"], LAST_YEARS)["figures"]
+    assert len(lines) == 4 and all(" in 2022." in line for line in lines)
+
+
+def test_a_question_with_no_year_steps_back_to_the_last_year_with_data():
+    from ragbook.ch13_model_tool import facts_for
+    facts = facts_for(EXPECTED["q5-01"], LAST_YEARS)
+    assert not facts["missing"] and any("per hour in 2023" in line for line in facts["figures"])
+
+
+def test_a_year_beyond_the_data_gives_the_latest_figure():
+    from ragbook.ch13_model_tool import facts_for
+    parameters = dict(EXPECTED["q1-01"], economies=["JPN"], years=["2026"])
+    facts = facts_for(parameters, LAST_YEARS)
+    assert facts["missing"] and any("2026 is beyond the data. Latest:" in line
+                                    for line in facts["figures"])
+
+
+def test_the_check_finds_an_invented_number_and_a_missing_escalation():
+    from ragbook.ch13_model_tool import check_reply, facts_for
+    question = "What was GNI per head at PPP in the United Kingdom in 2024?"
+    facts = facts_for(EXPECTED["q1-01"], LAST_YEARS)
+    copied = "It was 62220 current international dollars in 2024 (DQR Medium)."
+    assert check_reply(question, facts, copied) == {"invented": [], "escalation_right": True}
+    made_up = "It was 62,500 dollars in 2024. Passed to an analyst."
+    assert check_reply(question, facts, made_up) == {"invented": ["62500"], "escalation_right": False}
+
+
+def test_a_stand_in_model_that_copies_the_figures_invents_nothing():
+    from ragbook.ch13_model_tool import bank_model_questions, check_reply, write_replies
+    def stand_in(messages, options):
+        figures = messages[-1]["content"].split("FIGURES:\n")[1].split("\n\nMISSING")[0]
+        escalate = messages[-1]["content"].endswith("ESCALATE: yes")
+        return {"answer": figures + (" Passed to an analyst." if escalate else ""),
+                "prompt_tokens": 0, "reply_tokens": 0, "seconds": 0}
+    questions = bank_model_questions()
+    asked = {q["id"]: q["question"] for q in questions}
+    for record in write_replies(questions, EXPECTED, ask=stand_in):
+        check = check_reply(asked[record["id"]], record["facts"], record["reply"])
+        assert check == {"invented": [], "escalation_right": True}, record["id"]

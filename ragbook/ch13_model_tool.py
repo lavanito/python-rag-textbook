@@ -37,6 +37,10 @@ Run the worked example
     python -m ragbook.ch13_model_tool --model
         Also asks the local language model (Ollama) for the parameters of
         the 28 questions routed to code, saves the replies and scores them.
+    python -m ragbook.ch13_model_tool --replies
+        13.6: code works out the figures for the bank's 14 questions routed
+        to code; the language model writes each reply from them; code
+        checks every number in the reply.
     python -m ragbook.ch13_model_tool --model-second
         Round 2: the second instructions on the 28, and both instructions on
         the new questions in data/question_bank/parameters_test.jsonl.
@@ -60,8 +64,10 @@ from nni_model.decomposition import NNIDecomposition
 from ragbook.ch01_python_basics import load_passages, split_into_words
 from ragbook.ch02_minimal_pipeline import MODEL, OLLAMA_URL
 from ragbook.ch03_keyword_search import QUESTION_FILE
-from ragbook.ch11_prompts import ANSWER_FOLDER, SETTINGS, load_answers, save_answers
-from ragbook.ch12_routing import (ECONOMIES, ECONOMY_NAMES, REVISION_WORDS, SECOND_TEST_FILE,
+from ragbook.ch11_prompts import (ANSWER_FOLDER, SETTINGS, ask_model_with_details, load_answers,
+                                  save_answers)
+from ragbook.ch12_routing import (DISPLAY_NAMES, ECONOMIES, ECONOMY_NAMES, REVISION_WORDS,
+                                  SECOND_TEST_FILE,
                                   TEST_FILE, beyond_the_edge_message, contains_any,
                                   load_last_years)
 
@@ -284,14 +290,32 @@ def rating(measure, code, flags=(), chk=None):
     return dqr.NAMES[band], reason
 
 
-def show(value, band, count=False):
+# Rates (log points, per cent) get one more decimal place than levels:
+# High 2, Medium 1, Low "about" and 1 (Lavan, 7 November 2026).
+RATE_DECIMALS = {dqr.HIGH: 2, dqr.MEDIUM: 1, dqr.LOW: 1}
+
+
+def is_rate(unit):
+    """A growth rate or a share: its unit is log points or per cent."""
+    return "log points" in unit or unit.startswith("per cent")
+
+
+def show(value, band, count=False, rate=False):
     """The value as the page shows it. Counts, such as population, have no
-    decimal places (Lavan, 7 November 2026); other values follow the digits
-    rule by band, and a Low band still says "about"."""
-    if not count:
+    decimal places (Lavan, 7 November 2026); rates have one more decimal
+    place than levels; other values follow the digits rule by band. A Low
+    band always says "about".
+
+    Example:
+        show(1.234, dqr.MEDIUM, rate=True) returns "1.2"
+    """
+    if rate:
+        text = f"{value:.{RATE_DECIMALS[band]}f}"
+    elif count:
+        text = f"{value:.0f}"
+    else:
         return dqr.show(value, band)
-    whole = f"{value:.0f}"
-    return f"about {whole}" if band == dqr.LOW else whole
+    return f"about {text}" if band == dqr.LOW else text
 
 
 def log_change(old, new):
@@ -438,7 +462,8 @@ def call_model(economy, year, measure, edition="latest"):
         return reply
     reply.dqr_band, reply.dqr_reason = rating(measure, code, reply.flags, chk)
     band = {"High": dqr.HIGH, "Medium": dqr.MEDIUM, "Low": dqr.LOW}[reply.dqr_band]
-    reply.shown = show(reply.value, band, MEASURES[measure].get("count", False))
+    reply.shown = show(reply.value, band, MEASURES[measure].get("count", False),
+                       is_rate(MEASURES[measure]["unit"]))
     return reply
 
 
@@ -851,6 +876,189 @@ def escalate(calls, problems):
     return bool(problems) or any("proxy" in MEASURES[call[2]] for call in calls)
 
 
+# ---------------------------------------------------------------------------
+# 13.5  The fuller "beyond the data" message
+# 13.6  From question to reply
+# ---------------------------------------------------------------------------
+
+REPLIES_FILE = ANSWER_FOLDER / "ch13_replies.jsonl"
+BANDS = {"High": dqr.HIGH, "Medium": dqr.MEDIUM, "Low": dqr.LOW}
+PART_NAMES = {"C1a": "income gap", "C2": "deflator mix", "C4": "real GDP per head",
+              "C4a": "output per hour worked", "C4b": "hours per worker",
+              "C4c": "workers per person"}
+
+
+def beyond_the_data(parameters, last_years):
+    """
+    The latest figure for each economy and measure whose question asks for
+    a year after the data end: the year asked for, and a ToolResult for the
+    last year with data, with its source, edition and DQR.
+
+    Example:
+        beyond_the_data({"economies": ["JPN"], "years": ["2026"],
+                         "measures": ["gni_per_head_ppp"], ...}, load_last_years())
+        returns [(2026, ToolResult for Japan in 2024)]
+    """
+    found = []
+    for economy in parameters["economies"]:
+        code = economy_code(economy)
+        if code is None:
+            continue
+        for edition in parameters["editions"]:
+            row = code if (code, edition) in last_years else "EA21"
+            last = last_years.get((row, edition))
+            if last is None:
+                continue
+            asked = [resolve_year(text, last) for text in parameters["years"]]
+            beyond = [year for year in asked if year is not None and year > last]
+            for measure in [m for m in parameters["measures"] if m in MEASURES]:
+                for year in beyond:
+                    found.append((year, call_model(code, last, measure, edition)))
+    return found
+
+
+def parts_text(parts, band):
+    """The parts of NNI growth in words: three that add to the total, and the
+    split of real GDP per head when every year has hours data."""
+    text = ", ".join(f"{PART_NAMES[name]} {show(parts[name], band, rate=True)}"
+                     for name in ("C1a", "C2", "C4"))
+    if all(parts.get(name) is not None for name in ("C4a", "C4b", "C4c")):
+        text += " (of which " + ", ".join(f"{PART_NAMES[name]} {show(parts[name], band, rate=True)}"
+                                         for name in ("C4a", "C4b", "C4c")) + ")"
+    return text
+
+
+def figure_line(results):
+    """
+    One line of figures for one economy, measure and edition. A single year
+    gives its value; a span of a level gives the first and last years; a
+    span of nni_growth gives the growth over the span and its parts, added
+    up year by year. The DQR band is the weakest of the years.
+    """
+    first, last = results[0], results[-1]
+    band = min(BANDS[r.dqr_band] for r in results)
+    weakest = min(results, key=lambda r: BANDS[r.dqr_band])
+    flags = sorted({flag for r in results for flag in r.flags})
+    if first.measure == "nni_growth":
+        parts = {name: (None if any(r.parts.get(name) is None for r in results)
+                        else sum(r.parts[name] for r in results)) for name in PART_NAMES}
+        total = sum(r.value for r in results)
+        value = (f"{show(total, band, rate=True)} log points from {first.year - 1} to "
+                 f"{last.year}; made up of {parts_text(parts, band)}")
+    elif len(results) > 1:
+        value = f"{first.shown} in {first.year} and {last.shown} in {last.year} ({first.unit})"
+    else:
+        value = f"{first.shown} {first.unit} in {first.year}"
+    return (f"- {DISPLAY_NAMES.get(first.economy, first.economy)}, "
+            f"{MEASURES[first.measure]['description']}: {value}. Source: {first.source}; "
+            f"edition {first.edition}. DQR {dqr.NAMES[band]}: {weakest.dqr_reason}."
+            + (f" Flags: {'; '.join(flags)}." if flags else ""))
+
+
+def facts_for(parameters, last_years):
+    """
+    Everything the reply may use, worked out by code: a line per figure,
+    the problems (missing figures, with the best data), the latest figure
+    where the question asks beyond the data, and whether to escalate.
+    """
+    parameters = dict(parameters)
+    if not parameters["years"] and len(parameters["editions"]) > 1:
+        # A revision question with no year compares one year in every edition:
+        # the last year that all the editions and economies have.
+        lasts = [last_years.get((code if (code, edition) in last_years else "EA21", edition))
+                 for code in map(economy_code, parameters["economies"]) if code
+                 for edition in parameters["editions"]]
+        if lasts and None not in lasts:
+            parameters["years"] = [str(min(lasts))]
+    calls, problems = plan_calls(parameters, last_years)
+    groups = {}
+    for code, year, measure, edition in calls:
+        result = call_model(code, year, measure, edition)
+        if result.value is None and not parameters["years"]:
+            # No year asked for: step back to the last year with this measure,
+            # such as 2023 for hours worked.
+            for back in (1, 2, 3):
+                result = call_model(code, year - back, measure, edition)
+                if result.value is not None:
+                    break
+        if result.value is None:
+            problems.append(result.message)
+        else:
+            groups.setdefault((code, measure, edition), []).append(result)
+    lines = [figure_line(results) for results in groups.values()]
+    for year, latest in beyond_the_data(parameters, last_years):
+        if latest.value is not None:
+            lines.append(f"- {year} is beyond the data. Latest: "
+                         + figure_line([latest])[2:])
+    return {"figures": lines, "missing": problems, "escalate": escalate(calls, problems)}
+
+
+REPLY_INSTRUCTIONS = """You answer questions about national accounts statistics. Use only the figures you are given.
+
+- Copy every number exactly as it is written in FIGURES, with its unit and year. Do not work out new numbers.
+- Give each figure's DQR band (High, Medium or Low).
+- If a figure is flagged "estimated" or "proxy", say so in plain words.
+- If MISSING lists anything, say what is missing and where the best data are.
+- If ESCALATE is yes, end with the sentence: Passed to an analyst.
+- At most 150 words. No headings."""
+
+REPLY_SETTINGS = dict(SETTINGS, temperature=0, num_predict=400)
+
+
+def reply_messages(question, facts):
+    """
+    Build the messages that ask the model to report the figures.
+
+    Example:
+        reply_messages("What was India's population in 2022?", facts)[-1]["content"]
+        starts "Question: What was India's population in 2022?"
+    """
+    content = (f"Question: {question}\n\nFIGURES:\n" + ("\n".join(facts["figures"]) or "none")
+               + "\n\nMISSING:\n" + ("\n".join(facts["missing"]) or "nothing")
+               + f"\n\nESCALATE: {'yes' if facts['escalate'] else 'no'}")
+    return [{"role": "system", "content": REPLY_INSTRUCTIONS},
+            {"role": "user", "content": content}]
+
+
+NUMBER = re.compile(r"-?\d[\d,]*\.?\d*")
+
+
+def numbers_in(text):
+    """The numbers in a text, without thousands commas: "1,234.5 and 7" gives {"1234.5", "7"}."""
+    return {n.replace(",", "").rstrip(".") for n in NUMBER.findall(text)}
+
+
+def check_reply(question, facts, reply):
+    """
+    Check a reply against its facts. Returns the numbers in the reply that
+    are not in the question or the facts (invented numbers), and whether
+    the reply escalates exactly when it should.
+    """
+    allowed = numbers_in(question + " " + " ".join(facts["figures"] + facts["missing"]))
+    invented = sorted(numbers_in(reply) - allowed)
+    escalated = "Passed to an analyst" in reply
+    return {"invented": invented, "escalation_right": escalated == facts["escalate"]}
+
+
+def bank_model_questions():
+    """The bank's 14 questions routed to code."""
+    return [q for q in load_passages(QUESTION_FILE) if "R2" in q["route"]]
+
+
+def write_replies(questions, expected, ask=ask_model_with_details):
+    """For each question: facts from code (using the expected parameters), then
+    the model's reply. Keeps the facts, reply, tokens and seconds."""
+    last_years = load_last_years()
+    records = []
+    for question in questions:
+        facts = facts_for(expected[question["id"]], last_years)
+        reply = ask(reply_messages(question["question"], facts), REPLY_SETTINGS)
+        records.append({"id": question["id"], "facts": facts, "reply": reply["answer"],
+                        "prompt_tokens": reply["prompt_tokens"],
+                        "reply_tokens": reply["reply_tokens"], "seconds": reply["seconds"]})
+    return records
+
+
 def model_questions():
     """The 28 questions routed to code: route R2, R4+R2 or R5>R2, bank and test sets."""
     questions = []
@@ -893,6 +1101,21 @@ def main():
             questions, expected, lambda q: read_model_reply(replies[q["id"]]["reply"])), expected)
         seconds = sum(r["seconds"] for r in replies.values())
         print(f"      {len(replies)} replies in {seconds / 60:.1f} minutes")
+    if "--replies" in sys.argv:
+        try:
+            save_answers(REPLIES_FILE, write_replies(bank_model_questions(), expected))
+        except urllib.error.URLError as error:
+            print(f"Could not reach Ollama ({error.reason}). Start Ollama and run again.")
+            return
+    if REPLIES_FILE.exists():
+        replies = load_answers(REPLIES_FILE)
+        asked = {q["id"]: q["question"] for q in bank_model_questions()}
+        checks = [check_reply(asked[r["id"]], r["facts"], r["reply"]) for r in replies]
+        invented = sum(bool(c["invented"]) for c in checks)
+        escalation = sum(c["escalation_right"] for c in checks)
+        seconds = sum(r["seconds"] for r in replies)
+        print(f"13.6  Replies: {len(replies)} in {seconds / 60:.1f} minutes; with an invented "
+              f"number {invented}; escalation right {escalation}")
     new_questions = load_passages(NEW_QUESTION_FILE) if NEW_QUESTION_FILE.exists() else []
     new_expected = {row["id"]: row for row in new_questions}
     if new_questions:
