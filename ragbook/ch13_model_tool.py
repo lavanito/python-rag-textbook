@@ -731,11 +731,31 @@ def score_parameters(questions, expected, read):
     return records
 
 
-def report_parameters(label, records):
+def same_calls(found, expected, last_years):
+    """
+    Say whether found parameters would fetch the same figures as the
+    expected ones: the same calls, a problem message in both or neither,
+    and the same answer on "what if". A second, looser score: no year and
+    "latest" fetch the same figures, so they count as the same here.
+    """
+    if found is None:
+        return False
+    calls, problems = plan_calls(found, last_years)
+    expected_calls, expected_problems = plan_calls(expected, last_years)
+    return (set(calls) == set(expected_calls) and bool(problems) == bool(expected_problems)
+            and found["change"] == expected["change"])
+
+
+def report_parameters(label, records, expected=None):
     counts = {name: sum(r["right"][name] for r in records) for name in FIELDS}
     whole = sum(r["all_right"] for r in records)
-    print(f"{label}: all five right {whole} of {len(records)}; "
-          + ", ".join(f"{name} {count}" for name, count in counts.items()))
+    line = (f"{label}: all five right {whole} of {len(records)}; "
+            + ", ".join(f"{name} {count}" for name, count in counts.items()))
+    if expected is not None:
+        last_years = load_last_years()
+        same = sum(same_calls(r["found"], expected[r["id"]], last_years) for r in records)
+        line += f"; same figures fetched {same}"
+    print(line)
 
 
 def resolve_year(text, last):
@@ -860,7 +880,7 @@ def main():
     questions = model_questions()
     expected = {row["id"]: row for row in load_passages(PARAMETER_FILE)}
     report_parameters("13.4  Rules", score_parameters(
-        questions, expected, lambda q: read_with_rules(q["question"])))
+        questions, expected, lambda q: read_with_rules(q["question"])), expected)
     if "--model" in sys.argv:
         try:
             save_answers(PARAMETER_REPLIES, read_parameters_with_model(questions))
@@ -870,14 +890,14 @@ def main():
     if PARAMETER_REPLIES.exists():
         replies = {r["id"]: r for r in load_answers(PARAMETER_REPLIES)}
         report_parameters("13.4  Model", score_parameters(
-            questions, expected, lambda q: read_model_reply(replies[q["id"]]["reply"])))
+            questions, expected, lambda q: read_model_reply(replies[q["id"]]["reply"])), expected)
         seconds = sum(r["seconds"] for r in replies.values())
         print(f"      {len(replies)} replies in {seconds / 60:.1f} minutes")
     new_questions = load_passages(NEW_QUESTION_FILE) if NEW_QUESTION_FILE.exists() else []
     new_expected = {row["id"]: row for row in new_questions}
     if new_questions:
         report_parameters("13.4  Rules on the new questions (fair)", score_parameters(
-            new_questions, new_expected, lambda q: read_with_rules(q["question"])))
+            new_questions, new_expected, lambda q: read_with_rules(q["question"])), new_expected)
     if "--model-second" in sys.argv:
         try:
             records = read_parameters_with_model(questions, version="second")
@@ -897,7 +917,7 @@ def main():
             chosen = [q for q in asked if q["id"] in replies]
             if chosen:
                 report_parameters(label, score_parameters(
-                    chosen, key, lambda q: read_model_reply(replies[q["id"]]["reply"])))
+                    chosen, key, lambda q: read_model_reply(replies[q["id"]]["reply"])), key)
 
 
 if __name__ == "__main__":

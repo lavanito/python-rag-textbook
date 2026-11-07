@@ -289,3 +289,20 @@ def test_the_new_questions_use_known_labels():
         assert all(economy_ok in ECONOMY_CODES.values() or len(economy_ok) == 3
                    for economy_ok in row["economies"]), row["id"]
         assert set(row["editions"]) <= {"latest", "archive"} and row["editions"], row["id"]
+
+
+def test_round_two_scores_as_reported():
+    # Lavan's run of 7 November 2026: 68 replies in 13.9 minutes.
+    from ragbook.ch13_model_tool import NEW_QUESTION_FILE, SECOND_REPLIES, same_calls
+    records = load_answers(SECOND_REPLIES)
+    new = load_passages(NEW_QUESTION_FILE)
+    new_key = {row["id"]: row for row in new}
+    scores = {}
+    for version, questions, key in [("second", model_questions(), EXPECTED),
+                                    ("first", new, new_key), ("second", new, new_key)]:
+        replies = {r["id"]: r for r in records if r["version"] == version}
+        found = {q["id"]: read_model_reply(replies[q["id"]]["reply"]) for q in questions}
+        strict = sum(all(fields_right(found[i], key[i]).values()) for i in found)
+        loose = sum(same_calls(found[i], key[i], LAST_YEARS) for i in found)
+        scores[(version, len(questions))] = (strict, loose)
+    assert scores == {("second", 28): (15, 17), ("first", 20): (2, 6), ("second", 20): (6, 9)}
