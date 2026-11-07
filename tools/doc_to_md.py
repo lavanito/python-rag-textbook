@@ -94,7 +94,9 @@ def block(element, depth=0):
 
 
 def main(saved, output):
-    data = json.loads(json.load(open(saved))[1]["text"])["data"]
+    # The read may end with a note after the JSON; keep only the JSON.
+    text = json.load(open(saved))[1]["text"]
+    data = json.JSONDecoder().raw_decode(text)[0]["data"]
     root = ET.fromstring(data["xml"])
     blocks = [block(child) for child in root]
     # drop the status line (second block)
