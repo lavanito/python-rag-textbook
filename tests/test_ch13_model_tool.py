@@ -8,7 +8,7 @@ and messages appear where they should.
 from nni_model import dqr
 
 from ragbook.ch12_routing import ECONOMIES
-from ragbook.ch13_model_tool import (ECONOMY_CODES, MEASURES, SERIES, TOOL, call_model,
+from ragbook.ch13_model_tool import (ECONOMY_CODES, MEASURES, SERIES, TOOL, call_model, show,
                                      load_edition)
 
 
@@ -28,7 +28,7 @@ def test_the_rating_follows_the_models_rule():
     reply = call_model("India", 2022, "population")
     expected = dqr.rate("P2", "IND", inputs=["population"])
     assert (reply.dqr_band, reply.dqr_reason) == (expected.name, expected.reason)
-    assert reply.shown == dqr.show(reply.value, expected.band)
+    assert reply.shown == f"{reply.value:.0f}"     # a count: no decimal places
 
 
 def test_the_parts_add_up_to_the_total():
@@ -87,3 +87,11 @@ def test_the_euro_area_has_gni_per_head_at_ppp():
     # Built by the model from its 21 members (agreed by Lavan, 6 November 2026).
     reply = call_model("euro area", 2024, "gni_per_head_ppp")
     assert reply.value is not None and reply.dqr_band
+
+
+def test_counts_have_no_decimal_places_at_any_band():
+    # Lavan, 7 November 2026: population is shown as a whole number.
+    high = call_model("IRL", 2024, "population")
+    assert high.dqr_band == "High" and "." not in high.shown
+    assert show(1234.6, dqr.LOW, count=True) == "about 1235"
+    assert show(2.4567, dqr.HIGH) == "2.5"            # other values keep the rule

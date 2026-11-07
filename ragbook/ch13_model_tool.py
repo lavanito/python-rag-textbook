@@ -70,6 +70,7 @@ MEASURES = {
         "source": "World Bank WDI, series SP.POP.TOTL",
         "purpose": "P2",
         "inputs": ["population"],
+        "count": True,           # shown as a whole number whatever the band
     },
     "gdp_per_hour": {
         "description": "Real GDP per hour worked, at constant 2021 PPPs",
@@ -151,6 +152,16 @@ def rating(measure, code, flags=(), chk=None):
     return result.name, result.reason
 
 
+def show(value, band, count=False):
+    """The value as the page shows it. Counts, such as population, have no
+    decimal places (Lavan, 7 November 2026); other values follow the digits
+    rule by band, and a Low band still says "about"."""
+    if not count:
+        return dqr.show(value, band)
+    whole = f"{value:.0f}"
+    return f"about {whole}" if band == dqr.LOW else whole
+
+
 def call_model(economy, year, measure, edition="latest"):
     """Ask the NNI model for one value. Returns a ToolResult."""
     code = economy_code(economy)
@@ -191,7 +202,7 @@ def call_model(economy, year, measure, edition="latest"):
         return reply
     reply.dqr_band, reply.dqr_reason = rating(measure, code, reply.flags, chk)
     band = {"High": dqr.HIGH, "Medium": dqr.MEDIUM, "Low": dqr.LOW}[reply.dqr_band]
-    reply.shown = dqr.show(reply.value, band)
+    reply.shown = show(reply.value, band, MEASURES[measure].get("count", False))
     return reply
 
 
