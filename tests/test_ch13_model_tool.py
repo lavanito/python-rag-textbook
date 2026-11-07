@@ -176,3 +176,10 @@ def test_a_member_without_its_own_last_year_uses_the_euro_areas():
     calls, problems = plan_calls(parameters, LAST_YEARS)
     assert [c for c in calls if c[3] == "archive"] == [] and problems
     assert [c for c in calls if c[3] == "latest"] == [("DEU", 2016, "gni_per_head_ppp", "latest")]
+
+
+def test_a_span_fetches_every_year_of_a_level():
+    # q5-02 (Lavan, 7 November 2026): GNI per head at PPP every year from 2007.
+    calls, _ = plan_calls(EXPECTED["q5-02"], LAST_YEARS)
+    last = min(LAST_YEARS[("GBR", "latest")], LAST_YEARS[("USA", "latest")])
+    assert len(calls) == 2 * (last - 2007 + 1)

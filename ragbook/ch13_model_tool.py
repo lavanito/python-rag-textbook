@@ -478,9 +478,8 @@ def plan_calls(parameters, last_years):
     Years are resolved from the ragged edge: "latest" is the last year with
     data for every economy named. A year outside the data, an economy or a
     measure not in the model, gives a problem message instead of a call.
-    For nni_growth over a span, every year's growth in the span is called,
-    so the parts can be added up; other measures are called at the years
-    named.
+    A span of years calls every year in it; for nni_growth, every year's
+    growth, so the parts can be added up.
 
     Example:
         plan_calls({"economies": ["JPN"], "years": ["latest"], "measures": ["nni_growth"],
@@ -523,11 +522,14 @@ def plan_calls(parameters, last_years):
             elif year < FIRST_YEAR:
                 problems.append(f"The data here start in {FIRST_YEAR}.")
         years = sorted({year for year in years if FIRST_YEAR <= year <= last})
+        if not years:
+            continue
         for measure in measures:
-            # Growth in a year is growth from the year before, so a span from
-            # 2004 to 2024 is the growth of 2005 to 2024: 20 years.
-            span = (range(years[0] + 1, years[-1] + 1) if measure == "nni_growth" and len(years) > 1
-                    else years)
+            # A span fetches every year in it (Lavan, 7 November 2026). Growth in
+            # a year is growth from the year before, so for nni_growth a span
+            # from 2004 to 2024 is the growth of 2005 to 2024: 20 years.
+            start = years[0] + 1 if measure == "nni_growth" else years[0]
+            span = range(start, years[-1] + 1) if len(years) > 1 else years
             calls += [(code, year, measure, edition) for code in codes for year in span]
     return calls, problems
 
