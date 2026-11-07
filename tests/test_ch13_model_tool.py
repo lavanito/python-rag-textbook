@@ -13,8 +13,9 @@ from nni_model.data import EURO_MEMBERS, Snapshot
 from nni_model.decomposition import NNIDecomposition
 
 from ragbook.ch01_python_basics import load_passages
+from ragbook.ch11_prompts import load_answers
 from ragbook.ch12_routing import ECONOMIES, load_last_years
-from ragbook.ch13_model_tool import (ECONOMY_CODES, GAPS, MEASURES, PARAMETER_EXAMPLES,
+from ragbook.ch13_model_tool import (ECONOMY_CODES, GAPS, MEASURES, PARAMETER_REPLIES, PARAMETER_EXAMPLES,
                                      PARAMETER_FILE, PARAMETER_SCHEMA, SERIES, TOOL, call_model,
                                      fields_right, load_edition, model_questions, plan_calls,
                                      read_model_reply, read_parameters_with_model,
@@ -259,3 +260,13 @@ def test_a_figure_not_in_the_data_names_the_best_data_and_escalates():
 def test_an_exact_figure_is_not_escalated():
     calls, problems = plan_calls(EXPECTED["q1-01"], LAST_YEARS)
     assert calls and not escalate(calls, problems)
+
+
+def test_the_saved_model_replies_score_as_reported():
+    # Lavan ran qwen3:4b-instruct on 7 November 2026: 28 replies in 5.6 minutes.
+    replies = {r["id"]: r for r in load_answers(PARAMETER_REPLIES)}
+    assert set(replies) == set(EXPECTED)
+    assert all(read_model_reply(r["reply"]) is not None for r in replies.values())
+    records = score_parameters(model_questions(), EXPECTED,
+                               lambda q: read_model_reply(replies[q["id"]]["reply"]))
+    assert sum(r["all_right"] for r in records) == 12
