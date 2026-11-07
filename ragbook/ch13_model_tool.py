@@ -504,11 +504,12 @@ def plan_calls(parameters, last_years):
     if not codes or not measures:
         return calls, problems
     for edition in parameters["editions"]:
-        lasts = {code: last_years.get((code, edition), last_years.get(("EA21", edition)))
-                 for code in codes}
+        # A euro area member without its own row in last_year.csv uses the euro area's.
+        rows = {code: code if (code, edition) in last_years else "EA21" for code in codes}
+        lasts = {code: last_years[(rows[code], edition)] for code in codes}
         if None in lasts.values():
             missing = [code for code, last in lasts.items() if last is None]
-            problems.append(beyond_the_edge_message((missing[0], edition, None)))
+            problems.append(beyond_the_edge_message((rows[missing[0]], edition, None)))
             continue
         last = min(lasts.values())
         years = [resolve_year(text, last) for text in parameters["years"]] or [last]
@@ -518,7 +519,7 @@ def plan_calls(parameters, last_years):
         for year in years:
             if year > last:
                 code = min(lasts, key=lasts.get)
-                problems.append(beyond_the_edge_message((code, edition, lasts[code])))
+                problems.append(beyond_the_edge_message((rows[code], edition, lasts[code])))
             elif year < FIRST_YEAR:
                 problems.append(f"The data here start in {FIRST_YEAR}.")
         years = sorted({year for year in years if FIRST_YEAR <= year <= last})

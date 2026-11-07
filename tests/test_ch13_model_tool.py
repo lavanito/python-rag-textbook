@@ -168,3 +168,11 @@ def test_a_year_beyond_the_data_gives_a_problem_not_a_call():
 def test_a_measure_not_in_the_model_gives_a_problem():
     calls, problems = plan_calls(EXPECTED["t-24"], LAST_YEARS)
     assert calls == [] and problems
+
+
+def test_a_member_without_its_own_last_year_uses_the_euro_areas():
+    # The archive edition has no euro area, so Germany's 2016 revision cannot be compared.
+    parameters = dict(EXPECTED["q4-01"], economies=["DEU"])
+    calls, problems = plan_calls(parameters, LAST_YEARS)
+    assert [c for c in calls if c[3] == "archive"] == [] and problems
+    assert [c for c in calls if c[3] == "latest"] == [("DEU", 2016, "gni_per_head_ppp", "latest")]
