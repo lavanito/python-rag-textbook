@@ -369,3 +369,13 @@ def test_a_stand_in_model_that_copies_the_figures_invents_nothing():
     for record in write_replies(questions, EXPECTED, ask=stand_in):
         check = check_reply(asked[record["id"]], record["facts"], record["reply"])
         assert check == {"invented": [], "escalation_right": True}, record["id"]
+
+
+def test_the_saved_replies_check_as_reported():
+    # Lavan's run of 7 November 2026: 14 replies in 5.1 minutes.
+    from ragbook.ch13_model_tool import REPLIES_FILE, bank_model_questions, check_reply
+    asked = {q["id"]: q["question"] for q in bank_model_questions()}
+    checks = {r["id"]: check_reply(asked[r["id"]], r["facts"], r["reply"])
+              for r in load_answers(REPLIES_FILE)}
+    assert [i for i, c in checks.items() if c["invented"]] == ["q4-01"]      # "increased by 140"
+    assert sum(c["escalation_right"] for c in checks.values()) == 7
