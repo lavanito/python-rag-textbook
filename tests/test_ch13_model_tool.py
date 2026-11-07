@@ -20,7 +20,7 @@ from ragbook.ch13_model_tool import (ECONOMY_CODES, GAPS, MEASURES, PARAMETER_RE
                                      fields_right, load_edition, model_questions, plan_calls,
                                      read_model_reply, read_parameters_with_model,
                                      read_with_rules, resolve_year, score_parameters, show,
-                                     escalate, household_ppp, trend_gap_2007)
+                                     escalate, household_ppp, trend_gap)
 
 
 def test_the_six_economies_match_the_router():
@@ -238,14 +238,14 @@ def test_a_steady_trend_gives_no_gap():
     for year in range(2000, 2021):
         s.set("XXX", "NY.GDP.MKTP.KN", year, 100 * 1.02 ** (year - 2000))
         s.set("XXX", "SP.POP.TOTL", year, 1.0)
-    gap, _ = trend_gap_2007(s, "XXX", 2020)
+    gap, _ = trend_gap(s, "XXX", 2020)
     assert abs(gap) < 1e-9
 
 
 def test_a_proxy_is_flagged_and_rated_low():
     for economy, year, measure in [("United Kingdom", 2023, "employment_rate"),
                                    ("United States", 2024, "spending_components"),
-                                   ("United Kingdom", 2025, "trend_gap_2007")]:
+                                   ("United Kingdom", 2025, "trend_gap")]:
         reply = call_model(economy, year, measure)
         assert reply.value is not None, measure
         assert reply.dqr_band == "Low" and any(f.startswith("proxy") for f in reply.flags)
@@ -270,3 +270,11 @@ def test_the_saved_model_replies_score_as_reported():
     records = score_parameters(model_questions(), EXPECTED,
                                lambda q: read_model_reply(replies[q["id"]]["reply"]))
     assert sum(r["all_right"] for r in records) == 12
+
+
+def test_round_two_names_every_measure_with_a_hint():
+    from ragbook.ch13_model_tool import SECOND_HINTS, parameter_messages
+    system = parameter_messages("What is GDI?", version="second")[0]["content"]
+    assert all(f"- {name}:" in system for name in SECOND_HINTS)
+    assert "deflator mix" in system and "level" in system
+    assert parameter_messages("What is GDI?")[0]["content"] != system   # round 1 kept as it was

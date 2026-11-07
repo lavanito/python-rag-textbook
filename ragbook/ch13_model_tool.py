@@ -37,6 +37,9 @@ Run the worked example
     python -m ragbook.ch13_model_tool --model
         Also asks the local language model (Ollama) for the parameters of
         the 28 questions routed to code, saves the replies and scores them.
+    python -m ragbook.ch13_model_tool --model-second
+        Round 2: the second instructions on the 28, and both instructions on
+        the new questions in data/question_bank/parameters_test.jsonl.
 """
 import json
 import math
@@ -173,7 +176,7 @@ MEASURES = {
                   "best_data": "BEA NIPA Table 1.1.5 (Gross Domestic Product); World Bank WDI "
                                "NE.CON.GOVT.CN, NE.GDI.TOTL.CN, NE.EXP.GNFS.CN, NE.IMP.GNFS.CN"},
     },
-    "trend_gap_2007": {
+    "trend_gap": {
         "description": "Real GDP per head compared with its 2000 to 2007 trend",
         "unit": "per cent above (+) or below (-) the trend",
         "source": "World Bank WDI: GDP (NY.GDP.MKTP.KN) / population, constant local currency",
@@ -366,7 +369,7 @@ def spending_components(s, code, y):
     return (None if None in (cons, gdp) else cons / gdp * 100), []
 
 
-def trend_gap_2007(s, code, y):
+def trend_gap(s, code, y):
     """Real GDP per head in year y against growth from 2000 to 2007 continued."""
     def per_head(t):
         gdp, population = s.get(code, "NY.GDP.MKTP.KN", t), s.get(code, "SP.POP.TOTL", t)
@@ -386,7 +389,7 @@ COMPUTE = {
     "real_nni_per_hour": real_nni_per_hour,
     "employment_rate": employment_rate,
     "spending_components": spending_components,
-    "trend_gap_2007": trend_gap_2007,
+    "trend_gap": trend_gap,
 }
 
 
@@ -471,6 +474,10 @@ TOOL = {
 
 PARAMETER_FILE = QUESTION_FILE.parent / "parameters_7_november.jsonl"
 PARAMETER_REPLIES = ANSWER_FOLDER / "ch13_parameter_replies.jsonl"
+SECOND_REPLIES = ANSWER_FOLDER / "ch13_parameter_replies_second.jsonl"
+# Questions Lavan writes and labels after round 2 is fixed, unseen by Claude:
+# the fair test of whether round 2 reads new questions better than round 1.
+NEW_QUESTION_FILE = QUESTION_FILE.parent / "parameters_test.jsonl"
 FIRST_YEAR = 2000
 
 # Phrases for the keyword rules, written out so a reader can argue with them.
@@ -489,7 +496,7 @@ MEASURE_PHRASES = {
     "real_nni_per_hour": ["nni per hour"],
     "employment_rate": ["employment rate"],
     "spending_components": ["expenditure components", "spending components"],
-    "trend_gap_2007": ["trends had continued", "trend had continued"],
+    "trend_gap": ["trends had continued", "trend had continued"],
     "terms_of_trade": ["terms of trade"],
     "net_trade": ["net trade"],
     "public_service_measurement": ["public services are measured"],
@@ -583,18 +590,64 @@ PARAMETER_EXAMPLES = [
 
 PARAMETER_SETTINGS = dict(SETTINGS, temperature=0, num_predict=150)
 
+# Round 2 (Lavan, 7 November 2026), written after the first run missed 16 of
+# 28, mostly on the measure. Three changes: spans give two years; a level is
+# told apart from growth; revision words mean both editions. Each measure
+# also says whether it is a level or growth, and nni_growth names its parts.
+SECOND_INSTRUCTIONS = """You read questions about national accounts statistics and reply with JSON only.
 
-def parameter_messages(question):
+economies: the economies the question names. Use "United States", "euro area", "United Kingdom", "China", "India" or "Japan"; a single euro area member by its three-letter code (Ireland IRL, Germany DEU, France FRA); "other" for any other economy.
+years: the years the question names, as four digits; "latest" for the last year in the data (last year, today, now). A span gives its first and last year only: "since 2007" is "2007", "latest"; "from 2021 to 2022" is "2021", "2022"; "the last five years" is "latest-5", "latest"; "the last two decades" is "latest-20", "latest". An empty list if no year is named.
+measures: the measures the question asks for, from the list below. First decide whether the question asks for a level (how much, how high, the value, a comparison of sizes) or for growth (how fast, how much it changed, what drove it, the sources of growth); then pick a level measure for a level and a growth measure for growth.
+{measures}
+Use "other" for any other measure. An empty list if the question asks for no figure.
+editions: ["latest", "archive"] if the question asks about revisions, vintages, new ICP results, or how an estimate changed; otherwise ["latest"].
+change: true if the question asks what would happen if something had been different."""
+
+SECOND_HINTS = {
+    "gni_per_head_ppp": "a level",
+    "population": "a level",
+    "gdp_per_hour": "a level; productivity",
+    "nni_growth": ("growth. Its parts: the income gap (the gap between GDP and national income: "
+                   "depreciation, net income from abroad), the deflator mix (output prices against "
+                   "household prices: prices rather than volumes), real GDP per head, output per "
+                   "hour worked, hours per worker, and workers per person"),
+    "real_gdp_growth": "growth of total GDP",
+    "gdp_per_head_ppp": "a level",
+    "gni": "a level, the total",
+    "average_hours": "a level",
+    "real_nni_per_head_ppp": "a level",
+    "real_nni_per_hour": "a level",
+    "employment_rate": "a level",
+    "spending_components": "a level: shares of GDP",
+    "trend_gap": "a level against a trend: what if past growth had continued",
+    "terms_of_trade": "export prices against import prices; not the deflator mix",
+    "net_trade": "a level",
+    "public_service_measurement": "not a figure: methods",
+}
+assert set(SECOND_HINTS) == set(MEASURES) | set(GAPS)
+
+
+def parameter_messages(question, version="first"):
     """
     Build the messages that ask the model to read one question's parameters.
+
+    version: "first" (the first run) or "second" (round 2: longer
+    instructions and a hint for each measure).
 
     Example:
         parameter_messages("What is GDI?")[-1]
         returns {"role": "user", "content": "What is GDI?"}
     """
-    measures = "\n".join(f"- {name}: {m['description']}"
-                         for name, m in list(MEASURES.items()) + list(GAPS.items()))
-    messages = [{"role": "system", "content": PARAMETER_INSTRUCTIONS.format(measures=measures)}]
+    entries = list(MEASURES.items()) + list(GAPS.items())
+    if version == "second":
+        measures = "\n".join(f"- {name}: {m['description']} ({SECOND_HINTS[name]})"
+                             for name, m in entries)
+        instructions = SECOND_INSTRUCTIONS
+    else:
+        measures = "\n".join(f"- {name}: {m['description']}" for name, m in entries)
+        instructions = PARAMETER_INSTRUCTIONS
+    messages = [{"role": "system", "content": instructions.format(measures=measures)}]
     for example, reply in PARAMETER_EXAMPLES:
         messages.append({"role": "user", "content": example})
         messages.append({"role": "assistant", "content": json.dumps(reply)})
@@ -786,12 +839,12 @@ def model_questions():
     return questions
 
 
-def read_parameters_with_model(questions, ask=ask_model_for_json):
+def read_parameters_with_model(questions, ask=ask_model_for_json, version="first"):
     """Ask the model for each question's parameters; keep the reply, tokens and seconds."""
     records = []
     for question in questions:
-        reply = ask(parameter_messages(question["question"]), PARAMETER_SCHEMA)
-        records.append({"id": question["id"], "reply": reply["answer"],
+        reply = ask(parameter_messages(question["question"], version), PARAMETER_SCHEMA)
+        records.append({"id": question["id"], "version": version, "reply": reply["answer"],
                         "prompt_tokens": reply["prompt_tokens"],
                         "reply_tokens": reply["reply_tokens"], "seconds": reply["seconds"]})
     return records
@@ -820,6 +873,31 @@ def main():
             questions, expected, lambda q: read_model_reply(replies[q["id"]]["reply"])))
         seconds = sum(r["seconds"] for r in replies.values())
         print(f"      {len(replies)} replies in {seconds / 60:.1f} minutes")
+    new_questions = load_passages(NEW_QUESTION_FILE) if NEW_QUESTION_FILE.exists() else []
+    new_expected = {row["id"]: row for row in new_questions}
+    if new_questions:
+        report_parameters("13.4  Rules on the new questions (fair)", score_parameters(
+            new_questions, new_expected, lambda q: read_with_rules(q["question"])))
+    if "--model-second" in sys.argv:
+        try:
+            records = read_parameters_with_model(questions, version="second")
+            for version in ["first", "second"]:
+                records += read_parameters_with_model(new_questions, version=version)
+            save_answers(SECOND_REPLIES, records)
+        except urllib.error.URLError as error:
+            print(f"Could not reach Ollama ({error.reason}). Start Ollama and run again.")
+            return
+    if SECOND_REPLIES.exists():
+        records = load_answers(SECOND_REPLIES)
+        for label, version, asked, key in [
+                ("13.4  Model, round 2, on the 28 (training)", "second", questions, expected),
+                ("13.4  Model, round 1, on the new questions (fair)", "first", new_questions, new_expected),
+                ("13.4  Model, round 2, on the new questions (fair)", "second", new_questions, new_expected)]:
+            replies = {r["id"]: r for r in records if r["version"] == version}
+            chosen = [q for q in asked if q["id"] in replies]
+            if chosen:
+                report_parameters(label, score_parameters(
+                    chosen, key, lambda q: read_model_reply(replies[q["id"]]["reply"])))
 
 
 if __name__ == "__main__":

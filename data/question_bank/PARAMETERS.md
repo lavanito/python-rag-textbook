@@ -44,3 +44,7 @@ Lavan approved all 12 rows of the gap table (`gap_table.xlsx`): figures the ques
 | u-09 | average_hours (the gap table lists u-09 for this row; it replaces Lavan's earlier choice of the hours-per-worker part, which was made when the level was not available) |
 
 t-25 keeps Lavan's choice (the real-GDP-per-head part of NNI growth); the gap table did not list it.
+
+## Round 2 (7 November 2026)
+
+Lavan agreed a second round of the model's instructions after the first run (12 of 28). The measure trend_gap_2007 was renamed trend_gap, because the model picked it for a question that named 2007 (q5-02); t-02's row changed with it. No other row changed. t-25 stays as a hard test of whether a reader confuses growth with levels (Lavan).
