@@ -5,11 +5,17 @@ They check properties, never wording: the parts add up to the total, values
 match the model's own data, ratings match the model's own rule, and flags
 and messages appear where they should.
 """
+import json
+
 from nni_model import dqr
 
-from ragbook.ch12_routing import ECONOMIES
-from ragbook.ch13_model_tool import (ECONOMY_CODES, MEASURES, SERIES, TOOL, call_model, show,
-                                     load_edition)
+from ragbook.ch01_python_basics import load_passages
+from ragbook.ch12_routing import ECONOMIES, load_last_years
+from ragbook.ch13_model_tool import (ECONOMY_CODES, MEASURES, PARAMETER_EXAMPLES,
+                                     PARAMETER_FILE, PARAMETER_SCHEMA, SERIES, TOOL, call_model,
+                                     fields_right, load_edition, model_questions, plan_calls,
+                                     read_model_reply, read_parameters_with_model,
+                                     read_with_rules, resolve_year, score_parameters, show)
 
 
 def test_the_six_economies_match_the_router():
@@ -95,3 +101,70 @@ def test_counts_have_no_decimal_places_at_any_band():
     assert high.dqr_band == "High" and "." not in high.shown
     assert show(1234.6, dqr.LOW, count=True) == "about 1235"
     assert show(2.4567, dqr.HIGH) == "2.5"            # other values keep the rule
+
+
+# 13.4  Reading the parameters. Stand-in tests: no language model is run.
+
+EXPECTED = {row["id"]: row for row in load_passages(PARAMETER_FILE)}
+LAST_YEARS = load_last_years()
+
+
+def test_every_question_routed_to_code_has_expected_parameters():
+    ids = [question["id"] for question in model_questions()]
+    assert len(ids) == 28
+    assert set(ids) == set(EXPECTED)
+
+
+def test_the_examples_are_not_scored_questions():
+    asked = {question["question"] for question in model_questions()}
+    assert not asked & {example for example, _ in PARAMETER_EXAMPLES}
+
+
+def test_the_reply_shape_offers_every_measure():
+    choices = PARAMETER_SCHEMA["properties"]["measures"]["items"]["enum"]
+    assert choices == list(MEASURES) + ["other"]
+
+
+def test_the_rules_read_a_relative_year():
+    found = read_with_rules("What drove growth in real NNI per head in Japan last year?")
+    assert found["economies"] == ["JPN"] and found["years"] == ["latest"]
+
+
+def test_a_reply_that_is_not_json_counts_as_wrong():
+    assert read_model_reply("Japan, 2024") is None
+    assert not any(fields_right(None, EXPECTED["q1-01"]).values())
+
+
+def test_a_stand_in_model_that_copies_the_expected_answers_scores_28():
+    def stand_in(messages, schema):
+        question = messages[-1]["content"]
+        row = next(EXPECTED[q["id"]] for q in model_questions() if q["question"] == question)
+        reply = {name: row[name] for name in ["economies", "years", "measures", "editions", "change"]}
+        return {"answer": json.dumps(reply), "prompt_tokens": 0, "reply_tokens": 0, "seconds": 0}
+
+    questions = model_questions()
+    replies = {r["id"]: r for r in read_parameters_with_model(questions, ask=stand_in)}
+    records = score_parameters(questions, EXPECTED, lambda q: read_model_reply(replies[q["id"]]["reply"]))
+    assert sum(r["all_right"] for r in records) == 28
+
+
+def test_latest_comes_from_the_ragged_edge():
+    assert resolve_year("latest-5", 2024) == 2019
+    calls, problems = plan_calls(EXPECTED["q3-01"], LAST_YEARS)
+    assert calls == [("JPN", LAST_YEARS[("JPN", "latest")], "nni_growth", "latest")] and not problems
+
+
+def test_a_span_of_twenty_years_gives_twenty_years_of_growth_each():
+    calls, _ = plan_calls(EXPECTED["t-22"], LAST_YEARS)
+    assert len(calls) == 2 * 20
+
+
+def test_a_year_beyond_the_data_gives_a_problem_not_a_call():
+    parameters = dict(EXPECTED["q1-01"], economies=["JPN"], years=["2025"])
+    calls, problems = plan_calls(parameters, LAST_YEARS)
+    assert calls == [] and problems
+
+
+def test_a_measure_not_in_the_model_gives_a_problem():
+    calls, problems = plan_calls(EXPECTED["t-24"], LAST_YEARS)
+    assert calls == [] and problems
