@@ -79,7 +79,7 @@ FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 
 # Below these changes, in log points, the locked block says "about the same". One
 # threshold per DQR band (the domain expert, 13 November 2026; numbers proposed by
-# The agent builder, to confirm when he reads 14.4).
+# the agent builder, to confirm when the domain expert reads 14.4).
 THRESHOLDS = {dqr.HIGH: 0.5, dqr.MEDIUM: 2.0, dqr.LOW: 5.0}
 
 EXPLANATION_HEADING = "Explanation (written by a language model and checked against the figures above)"
