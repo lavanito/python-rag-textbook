@@ -69,8 +69,11 @@ rather than matched to a whole banked question.
   `real_nni_per_hour`.
 - `real_gdp` was renamed `real_gdp_growth`, and `real_gdp_per_hour_ppp` was
   renamed `gdp_per_hour`, to match the NNI model.
-- `defined_in` and `discussed_in` now allow an `Indicator` as subject. Each
-  measure's first passage in `data/definitions.csv` is its `defined_in`
-  passage; the others are `discussed_in`.
+- `defined_in` and `discussed_in` now allow an `Indicator` as subject. A
+  measure is `defined_in` a passage only when the passage defines the whole
+  measure: GNI total, population and average hours. The other measures are
+  built from parts, so every passage in their definition line
+  (`data/definitions.csv`) is `discussed_in`: their definition line is
+  assembled from passages (the domain expert, 16 November 2026).
 - `requires` links each question type to the measures that answer it;
   `affected_by` links measures to known measurement problems.

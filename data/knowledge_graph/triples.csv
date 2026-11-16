@@ -90,34 +90,34 @@ ppp_extrapolation,related_to,ppp,wb13-mccarthy-space-time,Extrapolated PPPs are 
 gni_per_head_ppp,affected_by,benchmark_year,wb13-deaton-revision,A new benchmark can revise levels at PPP by large factors; P4 revisions
 gni_per_head_ppp,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,Growth at PPP between benchmarks differs from growth in the national accounts
 gdp_per_hour,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,
-gni_per_head_ppp,defined_in,esa10-8.94,esa10-8.94,"definition line approved by the domain expert, 13 November 2026"
-gni_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
-gni_per_head_ppp,discussed_in,esa10-11.05,esa10-11.05,"definition line approved by the domain expert, 13 November 2026"
-gni_per_head_ppp,discussed_in,ppp23-4.16,ppp23-4.16,"definition line approved by the domain expert, 13 November 2026"
-population_total,defined_in,esa10-11.05,esa10-11.05,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_hour,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_hour,discussed_in,esa10-11.27,esa10-11.27,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_hour,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_hour,discussed_in,ons-psp-1,ons-psp-1,"definition line approved by the domain expert, 13 November 2026"
-nni_growth,defined_in,sna08-2.144,sna08-2.144,"definition line approved by the domain expert, 13 November 2026"
-nni_growth,discussed_in,sna25-3.145,sna25-3.145,"definition line approved by the domain expert, 13 November 2026"
-real_gdp_growth,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
-real_gdp_growth,discussed_in,esa10-10.20,esa10-10.20,"definition line approved by the domain expert, 13 November 2026"
-real_gdp_growth,discussed_in,ons-psp-1,ons-psp-1,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_head_ppp,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_head_ppp,discussed_in,esa10-11.05,esa10-11.05,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_head_ppp,discussed_in,cso-gnistar-1,cso-gnistar-1,"definition line approved by the domain expert, 13 November 2026"
-gdp_per_head_ppp,discussed_in,ppp23-4.16,ppp23-4.16,"definition line approved by the domain expert, 13 November 2026"
-gni_total,defined_in,esa10-8.94,esa10-8.94,"definition line approved by the domain expert, 13 November 2026"
-average_hours,defined_in,esa10-11.27,esa10-11.27,"definition line approved by the domain expert, 13 November 2026"
-real_nni_per_head_ppp,defined_in,sna08-2.144,sna08-2.144,"definition line approved by the domain expert, 13 November 2026"
-real_nni_per_head_ppp,discussed_in,sna25-3.145,sna25-3.145,"definition line approved by the domain expert, 13 November 2026"
-real_nni_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
-real_nni_per_head_ppp,discussed_in,ppp23-1.31,ppp23-1.31,"definition line approved by the domain expert, 13 November 2026"
-real_nni_per_hour,defined_in,sna08-2.144,sna08-2.144,"definition line approved by the domain expert, 13 November 2026"
-real_nni_per_hour,discussed_in,esa10-11.27,esa10-11.27,"definition line approved by the domain expert, 13 November 2026"
-spending_components,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
+gni_per_head_ppp,discussed_in,esa10-8.94,esa10-8.94,passage defines or explains a part of the measure; the definition line is assembled from passages
+gni_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,passage defines or explains a part of the measure; the definition line is assembled from passages
+gni_per_head_ppp,discussed_in,esa10-11.05,esa10-11.05,passage defines or explains a part of the measure; the definition line is assembled from passages
+gni_per_head_ppp,discussed_in,ppp23-4.16,ppp23-4.16,passage defines or explains a part of the measure; the definition line is assembled from passages
+population_total,defined_in,esa10-11.05,esa10-11.05,passage defines the whole measure
+gdp_per_hour,discussed_in,esa10-8.89,esa10-8.89,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_hour,discussed_in,esa10-11.27,esa10-11.27,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_hour,discussed_in,ppp23-1.13,ppp23-1.13,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_hour,discussed_in,ons-psp-1,ons-psp-1,passage defines or explains a part of the measure; the definition line is assembled from passages
+nni_growth,discussed_in,sna08-2.144,sna08-2.144,passage defines or explains a part of the measure; the definition line is assembled from passages
+nni_growth,discussed_in,sna25-3.145,sna25-3.145,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_gdp_growth,discussed_in,esa10-8.89,esa10-8.89,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_gdp_growth,discussed_in,esa10-10.20,esa10-10.20,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_gdp_growth,discussed_in,ons-psp-1,ons-psp-1,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_head_ppp,discussed_in,esa10-8.89,esa10-8.89,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_head_ppp,discussed_in,esa10-11.05,esa10-11.05,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_head_ppp,discussed_in,cso-gnistar-1,cso-gnistar-1,passage defines or explains a part of the measure; the definition line is assembled from passages
+gdp_per_head_ppp,discussed_in,ppp23-4.16,ppp23-4.16,passage defines or explains a part of the measure; the definition line is assembled from passages
+gni_total,defined_in,esa10-8.94,esa10-8.94,passage defines the whole measure
+average_hours,defined_in,esa10-11.27,esa10-11.27,passage defines the whole measure
+real_nni_per_head_ppp,discussed_in,sna08-2.144,sna08-2.144,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_nni_per_head_ppp,discussed_in,sna25-3.145,sna25-3.145,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_nni_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_nni_per_head_ppp,discussed_in,ppp23-1.31,ppp23-1.31,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_nni_per_hour,discussed_in,sna08-2.144,sna08-2.144,passage defines or explains a part of the measure; the definition line is assembled from passages
+real_nni_per_hour,discussed_in,esa10-11.27,esa10-11.27,passage defines or explains a part of the measure; the definition line is assembled from passages
+spending_components,discussed_in,esa10-8.89,esa10-8.89,passage defines or explains a part of the measure; the definition line is assembled from passages
 living_standards,requires,real_nni_per_head_ppp,author,"the domain expert's framing, 16 November 2026"
 growth,requires,nni_growth,author,"the domain expert's framing, 16 November 2026"
 productivity,requires,average_hours,author,"the domain expert's framing, 16 November 2026"

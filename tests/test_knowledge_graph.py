@@ -80,3 +80,12 @@ def test_every_measure_in_the_nni_model_is_an_indicator():
     renamed = {"population": "population_total", "gni": "gni_total"}
     for measure in MEASURES:
         assert KIND.get(renamed.get(measure, measure)) == "Indicator", measure
+
+
+def test_only_whole_measure_definitions_are_defined_in():
+    # A measure is defined_in a passage only when the passage defines the whole
+    # measure (the domain expert, 16 November 2026).
+    defined = {(t["subject"], t["object"]) for t in TRIPLES
+               if t["relation"] == "defined_in" and KIND.get(t["subject"]) == "Indicator"}
+    assert defined == {("gni_total", "esa10-8.94"), ("population_total", "esa10-11.05"),
+                       ("average_hours", "esa10-11.27")}
