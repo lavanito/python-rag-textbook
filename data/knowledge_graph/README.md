@@ -54,3 +54,23 @@ extract many of them from documents with a language model and have people
 check the doubtful ones, and search them with a search engine such as
 Elasticsearch or OpenSearch. The ideas are the same: kinds of thing, typed
 relations, evidence for each fact. Appendix D loads this graph into Neo4j.
+
+## Measures (indicators), added 16 November 2026
+
+The domain expert decided on 16 November 2026 that the graph holds the
+catalogue of measures, so a question can be read against things and triplets
+rather than matched to a whole banked question.
+
+- Every measure of the NNI model (`ragbook/ch13_model_tool.py`, `MEASURES`)
+  is an `Indicator`, with other names a reader might type. Two ids differ from
+  the measure's name because a concept already uses that id:
+  `population_total` (measure `population`) and `gni_total` (measure `gni`).
+- `gni_per_hour_ppp` is a measure the NNI model does not have; the nearest is
+  `real_nni_per_hour`.
+- `real_gdp` was renamed `real_gdp_growth`, and `real_gdp_per_hour_ppp` was
+  renamed `gdp_per_hour`, to match the NNI model.
+- `defined_in` and `discussed_in` now allow an `Indicator` as subject. Each
+  measure's first passage in `data/definitions.csv` is its `defined_in`
+  passage; the others are `discussed_in`.
+- `requires` links each question type to the measures that answer it;
+  `affected_by` links measures to known measurement problems.

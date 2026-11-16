@@ -61,23 +61,23 @@ united_states,compiled_under,BEA,bea-ch2-gnp,
 euro_area,compiled_under,ESA10,esa10-8.94,
 living_standards,requires,gni_per_head_ppp,author,the domain expert's framing of 13 October 2026
 living_standards,requires,gni_per_hour_ppp,author,the domain expert's framing of 13 October 2026
-growth,requires,real_gdp,author,the domain expert's framing of 13 October 2026
-productivity,requires,real_gdp_per_hour_ppp,author,the domain expert's framing of 13 October 2026
+growth,requires,real_gdp_growth,author,the domain expert's framing of 13 October 2026
+productivity,requires,gdp_per_hour,author,the domain expert's framing of 13 October 2026
 gni_per_head_ppp,affected_by,ppp,ppp23-1.31,PPPs are statistical estimates with error margins
 gni_per_head_ppp,affected_by,comparison_resistant_services,ppp23-8.2,
 gni_per_head_ppp,affected_by,globalisation,sna25-23.68,Multinational profits; Ireland inside the euro area
-real_gdp,affected_by,double_deflation,esa10-10.33,
-real_gdp,affected_by,chain_linking,esa10-10.22,
-real_gdp,affected_by,hedonic_adjustment,bea-ch4-quality,Price indexes that hold quality constant show lower inflation for fast-improving products; methods differ between countries
-real_gdp,affected_by,terms_of_trade,esa10-10.47,Volume growth and purchasing power can diverge
-real_gdp_per_hour_ppp,affected_by,hours_worked,esa10-11.27,
-real_gdp_per_hour_ppp,affected_by,labour_quality,sna25-16.95,
-real_gdp_per_hour_ppp,affected_by,ppp,ppp23-1.31,
+real_gdp_growth,affected_by,double_deflation,esa10-10.33,
+real_gdp_growth,affected_by,chain_linking,esa10-10.22,
+real_gdp_growth,affected_by,hedonic_adjustment,bea-ch4-quality,Price indexes that hold quality constant show lower inflation for fast-improving products; methods differ between countries
+real_gdp_growth,affected_by,terms_of_trade,esa10-10.47,Volume growth and purchasing power can diverge
+gdp_per_hour,affected_by,hours_worked,esa10-11.27,
+gdp_per_hour,affected_by,labour_quality,sna25-16.95,
+gdp_per_hour,affected_by,ppp,ppp23-1.31,
 hard_to_measure_services,discussed_in,ons-psp-1,ons-psp-1,UK practice: public sector about a fifth of the economy
 hard_to_measure_services,discussed_in,ons-psp-2,ons-psp-2,Collectively provided services measured by what they cost to deliver
 hard_to_measure_services,related_to,comparison_resistant_services,author,Same services: this concept concerns output volumes (growth); that one concerns PPPs (levels)
-real_gdp,affected_by,hard_to_measure_services,ons-psp-2,Output measured by its cost shows no productivity growth; growth answers carry a caveat
-real_gdp_per_hour_ppp,affected_by,hard_to_measure_services,ons-psp-1,
+real_gdp_growth,affected_by,hard_to_measure_services,ons-psp-2,Output measured by its cost shows no productivity growth; growth answers carry a caveat
+gdp_per_hour,affected_by,hard_to_measure_services,ons-psp-1,
 hedonic_adjustment,discussed_in,bea-ch4-quality,bea-ch4-quality,US practice: BLS and Census Bureau price indexes
 benchmark_year,discussed_in,wb13-deaton-benchmark,wb13-deaton-benchmark,Countries never benchmarked had PPPs that were little more than guesses
 benchmark_year,discussed_in,wb13-deaton-revision,wb13-deaton-revision,The 2005 benchmark raised China's PPP by a factor of 1.65 and India's by 1.55
@@ -89,4 +89,43 @@ ppp_extrapolation,related_to,gdp_deflator,wb13-mccarthy-ipd,Extrapolation uses e
 ppp_extrapolation,related_to,ppp,wb13-mccarthy-space-time,Extrapolated PPPs are estimates between measured benchmarks
 gni_per_head_ppp,affected_by,benchmark_year,wb13-deaton-revision,A new benchmark can revise levels at PPP by large factors; P4 revisions
 gni_per_head_ppp,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,Growth at PPP between benchmarks differs from growth in the national accounts
-real_gdp_per_hour_ppp,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,
+gdp_per_hour,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,
+gni_per_head_ppp,defined_in,esa10-8.94,esa10-8.94,"definition line approved by the domain expert, 13 November 2026"
+gni_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
+gni_per_head_ppp,discussed_in,esa10-11.05,esa10-11.05,"definition line approved by the domain expert, 13 November 2026"
+gni_per_head_ppp,discussed_in,ppp23-4.16,ppp23-4.16,"definition line approved by the domain expert, 13 November 2026"
+population_total,defined_in,esa10-11.05,esa10-11.05,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_hour,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_hour,discussed_in,esa10-11.27,esa10-11.27,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_hour,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_hour,discussed_in,ons-psp-1,ons-psp-1,"definition line approved by the domain expert, 13 November 2026"
+nni_growth,defined_in,sna08-2.144,sna08-2.144,"definition line approved by the domain expert, 13 November 2026"
+nni_growth,discussed_in,sna25-3.145,sna25-3.145,"definition line approved by the domain expert, 13 November 2026"
+real_gdp_growth,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
+real_gdp_growth,discussed_in,esa10-10.20,esa10-10.20,"definition line approved by the domain expert, 13 November 2026"
+real_gdp_growth,discussed_in,ons-psp-1,ons-psp-1,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_head_ppp,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_head_ppp,discussed_in,esa10-11.05,esa10-11.05,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_head_ppp,discussed_in,cso-gnistar-1,cso-gnistar-1,"definition line approved by the domain expert, 13 November 2026"
+gdp_per_head_ppp,discussed_in,ppp23-4.16,ppp23-4.16,"definition line approved by the domain expert, 13 November 2026"
+gni_total,defined_in,esa10-8.94,esa10-8.94,"definition line approved by the domain expert, 13 November 2026"
+average_hours,defined_in,esa10-11.27,esa10-11.27,"definition line approved by the domain expert, 13 November 2026"
+real_nni_per_head_ppp,defined_in,sna08-2.144,sna08-2.144,"definition line approved by the domain expert, 13 November 2026"
+real_nni_per_head_ppp,discussed_in,sna25-3.145,sna25-3.145,"definition line approved by the domain expert, 13 November 2026"
+real_nni_per_head_ppp,discussed_in,ppp23-1.13,ppp23-1.13,"definition line approved by the domain expert, 13 November 2026"
+real_nni_per_head_ppp,discussed_in,ppp23-1.31,ppp23-1.31,"definition line approved by the domain expert, 13 November 2026"
+real_nni_per_hour,defined_in,sna08-2.144,sna08-2.144,"definition line approved by the domain expert, 13 November 2026"
+real_nni_per_hour,discussed_in,esa10-11.27,esa10-11.27,"definition line approved by the domain expert, 13 November 2026"
+spending_components,defined_in,esa10-8.89,esa10-8.89,"definition line approved by the domain expert, 13 November 2026"
+living_standards,requires,real_nni_per_head_ppp,author,"the domain expert's framing, 16 November 2026"
+growth,requires,nni_growth,author,"the domain expert's framing, 16 November 2026"
+productivity,requires,average_hours,author,"the domain expert's framing, 16 November 2026"
+gdp_per_head_ppp,affected_by,ppp,ppp23-1.31,PPPs are statistical estimates with error margins
+gdp_per_head_ppp,affected_by,globalisation,sna25-23.68,Multinational profits inflate GDP in Ireland
+gdp_per_head_ppp,affected_by,benchmark_year,wb13-deaton-revision,A new benchmark can revise levels at PPP by large factors
+gdp_per_head_ppp,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,
+real_nni_per_head_ppp,affected_by,ppp,ppp23-1.31,
+real_nni_per_head_ppp,affected_by,ppp_extrapolation,wb13-mccarthy-space-time,
+real_nni_per_hour,affected_by,hours_worked,esa10-11.27,
+average_hours,affected_by,hours_worked,esa10-11.27,
