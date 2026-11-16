@@ -38,6 +38,9 @@ Run the worked example
         rechecks Chapter 11's analyst answers, scores the support check
         against the domain expert's 20 judgements, and checks Chapter 13's replies as if
         they were explanations. Needs no language model.
+    python -m ragbook.ch14_answer_checks --explain --review
+        The same, after the domain expert's review of 16 November 2026, saved
+        to data/answers/ch14_explanations_review.jsonl.
     python -m ragbook.ch14_answer_checks --explain
         Also asks the local language model (Ollama) for an explanation of
         each question routed to code (the bank's 14 and the fair test),
@@ -56,7 +59,7 @@ from ragbook.ch01_python_basics import load_passages
 from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import QUESTION_FILE, bm25s_rank, search_words
 from ragbook.ch08_filters import licence_filter
-from ragbook.ch11_prompts import (ANSWER_FOLDER, ANSWERS_800_FILE, BRACKETS, SETTINGS,
+from ragbook.ch11_prompts import (ANSWER_FOLDER, ANSWERS_800_FILE, BRACKETS, SENTENCE_END, SETTINGS,
                                   ask_model_with_details, cited_ids, format_evidence,
                                   load_answers, save_answers, sentences)
 from ragbook.ch12_routing import DISPLAY_NAMES, load_last_years
@@ -70,6 +73,8 @@ DEFINITIONS_FILE = DATA_FOLDER / "definitions.csv"
 GRAPH_FOLDER = DATA_FOLDER / "knowledge_graph"
 JUDGEMENTS_FILE = ANSWER_FOLDER / "ch14_support_judgements.csv"
 EXPLANATIONS_FILE = ANSWER_FOLDER / "ch14_explanations.jsonl"
+# The rerun after the domain expert's review (16 November 2026): size bands, id protocol.
+REVIEW_FILE = ANSWER_FOLDER / "ch14_explanations_review.jsonl"
 FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 
 
@@ -77,10 +82,30 @@ FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 # 14.2  The locked block
 # ---------------------------------------------------------------------------
 
-# Below these changes, in log points, the locked block says "about the same". One
-# threshold per DQR band (the domain expert, 13 November 2026; numbers proposed by
-# the agent builder, to confirm when the domain expert reads 14.4).
-THRESHOLDS = {dqr.HIGH: 0.5, dqr.MEDIUM: 2.0, dqr.LOW: 5.0}
+# The size of a change (the domain expert, 16 November 2026): every non-zero
+# revision between the two editions, pooled in one unit (log points for levels,
+# percentage points for rates and shares) and cut into three roughly equal
+# parts. The same bands judge changes over time and gaps between economies.
+# tools/build_revision_bands.py writes the cuts.
+BANDS_FILE = DATA_FOLDER / "series" / "revision_bands.csv"
+ZERO = 0.005        # a smaller change shows as 0.00, so it counts as no change
+SIZE_NOTE = "which happens about one third of the time"
+SIZE_NOTE_OTHER = "about one third of revisions are this large"
+
+
+def load_size_cuts(file_path=BANDS_FILE):
+    """
+    The four cuts, in order: the 16.5th, 33rd, 67th and 83.5th percentiles of
+    the non-zero revisions.
+
+    Example:
+        load_size_cuts() returns [-0.24, -0.01, 0.68, 1.72] (rounded here)
+    """
+    with open(file_path, encoding="utf-8") as file:
+        return [float(row["value"]) for row in csv.DictReader(file)]
+
+
+SIZE_CUTS = load_size_cuts()
 
 EXPLANATION_HEADING = "Explanation (written by a language model and checked against the figures above)"
 WITHHELD = ("The written explanation came from a language model and did not pass our quality "
@@ -130,17 +155,58 @@ def name_of(code):
     return name[0].upper() + name[1:]
 
 
-def direction(change, band):
+def direction(change):
     """
-    "up", "down" or "same": a change smaller than the band's threshold is
-    "same".
+    "up", "down" or "none": a change smaller than ZERO is none.
 
     Example:
-        direction(-0.3, dqr.MEDIUM) returns "same"
+        direction(-0.3) returns "down"
     """
-    if abs(change) < THRESHOLDS[band]:
-        return "same"
+    if abs(change) < ZERO:
+        return "none"
     return "up" if change > 0 else "down"
+
+
+def size(change, cuts=None):
+    """
+    "large", "medium" or "small": where a change falls among the revisions.
+    Large below the 16.5th percentile or above the 83.5th; small from the
+    33rd to the 67th, inclusive; medium in between.
+
+    Example:
+        size(-2.48) returns "large"
+    """
+    low_large, low_small, high_small, high_large = cuts or SIZE_CUTS
+    if change < low_large or change > high_large:
+        return "large"
+    if low_small <= change <= high_small:
+        return "small"
+    return "medium"
+
+
+def size_note(change, noun):
+    """
+    The size of a change over time or a gap, for the end of its brackets.
+
+    Example:
+        size_note(-31.2, "gap") returns "a large gap: about one third of revisions are this large"
+    """
+    return f"a {size(change)} {noun}: {SIZE_NOTE_OTHER}"
+
+
+def sized(word, change, noun):
+    """
+    A direction word with the size of the change in brackets. For a revision
+    the note gives how often a revision is that size; for a change over time
+    or a gap, the size is still measured against revisions.
+
+    Example:
+        sized("revised down", -2.48, "revision")
+        returns "revised down (a large revision, which happens about one third of the time)"
+    """
+    note = SIZE_NOTE if noun == "revision" else SIZE_NOTE_OTHER
+    joiner = ", " if noun == "revision" else ": "
+    return f"{word} (a {size(change)} {noun}{joiner}{note})"
 
 
 def change_unit(unit):
@@ -171,20 +237,22 @@ def over_time(results):
     description = MEASURES[first.measure]["description"]
     if first.measure == "nni_growth":
         total = sum(r.value for r in results)
-        way = direction(total, band)
-        words = {"up": "grew", "down": "shrank", "same": "was about unchanged"}[way]
+        way = direction(total)
+        words = {"up": "grew", "down": "shrank", "none": "was unchanged"}[way]
+        note = "" if way == "none" else f"; {size_note(total, 'change')}"
         return {"kind": "growth", "direction": way,
                 "text": f"- {name}, real NNI per head: {words} from {first.year - 1} to {last.year} "
-                        f"({show(total, band, rate=True)} log points)."}
+                        f"({show(total, band, rate=True)} log points{note})."}
     if len(results) == 1:
         return None
     change = difference(first.value, last.value, first.unit)
-    way = direction(change, band)
-    words = {"up": "rose", "down": "fell", "same": "about the same"}[way]
+    way = direction(change)
+    words = {"up": "rose", "down": "fell", "none": "unchanged"}[way]
+    note = "" if way == "none" else f"; {size_note(change, 'change')}"
     return {"kind": "time", "direction": way,
             "text": f"- {name}, {description}: {words} from {first.shown} in {first.year} to "
                     f"{last.shown} in {last.year} ({show(change, band, rate=True)} "
-                    f"{change_unit(first.unit)})."}
+                    f"{change_unit(first.unit)}{note})."}
 
 
 def revision(old, new):
@@ -197,8 +265,9 @@ def revision(old, new):
     """
     band = min(BANDS[old.dqr_band], BANDS[new.dqr_band])
     change = difference(old.value, new.value, old.unit)
-    way = direction(change, band)
-    words = {"up": "revised up", "down": "revised down", "same": "about the same"}[way]
+    way = direction(change)
+    words = "unchanged" if way == "none" else sized(
+        {"up": "revised up", "down": "revised down"}[way], change, "revision")
     gap = "" if is_rate(old.unit) else f"a change of {show(new.value - old.value, band)}, "
     return {"kind": "revision", "direction": way,
             "text": f"- {name_of(old.economy)}, "
@@ -232,25 +301,28 @@ def between(a_results, b_results):
         return difference(b[year].value, a[year].value, unit)
 
     def place(year):
-        way = direction(gap_in(year), band)
+        gap = gap_in(year)
+        way = direction(gap)
         if rate:
-            word = {"up": "higher than", "down": "lower than", "same": "about the same as"}[way]
+            word = {"up": "higher than", "down": "lower than", "none": "the same as"}[way]
         else:
-            word = {"up": "ahead of", "down": "behind", "same": "about level with"}[way]
+            word = {"up": "ahead of", "down": "behind", "none": "level with"}[way]
+        note = "" if way == "none" else f"; {size_note(gap, 'gap')}"
         share = "" if rate else f", {a[year].value / b[year].value * 100:.1f}% of its level"
         return (f"in {year} {name_a} was {word} {name_b} "
-                f"({show(gap_in(year), band, rate=True)} {change_unit(unit)}{share})")
+                f"({show(gap, band, rate=True)} {change_unit(unit)}{share}{note})")
 
     text = f"- {name_of(a_results[0].economy)} against {name_b}, {MEASURES[a_results[0].measure]['description']}: {place(years[0])}"
-    way = direction(gap_in(years[0]), band)
+    way = direction(gap_in(years[0]))
     kind = "level"
     if len(years) > 1:
         moved = gap_in(years[-1]) - gap_in(years[0])
-        way = direction(moved, band)
+        way = direction(moved)
         kind = "gap"
         words = {"up": f"{name_a} gained ground", "down": f"{name_a} lost ground",
-                 "same": "the gap was about the same"}[way]
-        text += f"; {place(years[-1])}: {words} ({show(moved, band, rate=True)} {change_unit(unit)})"
+                 "none": "the gap was unchanged"}[way]
+        note = "" if way == "none" else f"; {size_note(moved, 'change')}"
+        text += f"; {place(years[-1])}: {words} ({show(moved, band, rate=True)} {change_unit(unit)}{note})"
     return {"kind": kind, "direction": way, "text": text + "."}
 
 
@@ -397,9 +469,9 @@ def locked_block(question, parameters, last_years, definitions):
     parts = []
     if premise:
         parts.append(premise)
-    parts.append("Figures (written by code)\n" + ("\n".join(figures) or "- none"))
+    parts.append("Figures (calculated from the data)\n" + ("\n".join(figures) or "- none"))
     if found:
-        parts.append("Comparisons (worked out by code)\n" + "\n".join(item["text"] for item in found))
+        parts.append("Comparisons (calculated from the figures)\n" + "\n".join(item["text"] for item in found))
     if problems:
         parts.append("Missing\n" + "\n".join(f"- {p}" for p in problems))
     if definition_lines:
@@ -491,6 +563,29 @@ def overlap(sentence, passage):
     return len(words & set(search_words(passage["text"]))) / len(words)
 
 
+# Abbreviations whose full stops do not end a sentence (the domain expert, 16 November 2026).
+ABBREVIATIONS = re.compile(r"\b(i\.e\.|e\.g\.)")
+
+
+def explanation_sentences(text):
+    """
+    Split an explanation into sentences, with the id protocol agreed by the
+    domain expert on 16 November 2026: ids go after their sentence, but a
+    reply that starts with an id is read as putting every id before its
+    sentence. "i.e." and "e.g." do not end a sentence.
+
+    Example:
+        explanation_sentences("[a-1] GDP is output. [b-2] GNI is income.")
+        returns ["[a-1] GDP is output.", "[b-2] GNI is income."]
+    """
+    kept = ABBREVIATIONS.sub(lambda match: match.group(1).replace(".", "\x00"), text.strip())
+    if kept.startswith("["):
+        pieces = [piece.strip() for piece in SENTENCE_END.split(kept) if piece.strip()]
+    else:
+        pieces = sentences(kept)
+    return [piece.replace("\x00", ".") for piece in pieces]
+
+
 def check_sentences(text, evidence, must_cite_first=()):
     """
     Check each sentence's citations against the passages given (evidence):
@@ -504,9 +599,10 @@ def check_sentences(text, evidence, must_cite_first=()):
         returns ["Sentence 1 has no passage id: 'GDI is income.'"]
     """
     by_id = {p["id"]: p for p in evidence}
+    same_letters = {i.lower(): i for i in by_id}      # ids compared without capitals
     problems = []
-    for number, sentence in enumerate(sentences(text), 1):
-        ids = cited_ids(sentence)
+    for number, sentence in enumerate(explanation_sentences(text), 1):
+        ids = [same_letters.get(i.lower(), i) for i in cited_ids(sentence)]
         if not ids:
             problems.append(f"Sentence {number} has no passage id: '{sentence}'")
             continue
@@ -666,12 +762,12 @@ def evidence_for(question, locked, route, question_class, corpus, graph, definit
     return evidence, must_cite_first, [names[c] for c in undefined]
 
 
-EXPLAIN_INSTRUCTIONS = """You explain answers about national accounts statistics. Code has already written the figures, the comparisons between them, what each measure means, and the data quality: they are under LOCKED BLOCK. Explain why, using only the passages under PASSAGES.
+EXPLAIN_INSTRUCTIONS = """You explain answers about national accounts statistics. The figures, the comparisons between them, what each measure means, and the data quality are already given under LOCKED BLOCK. Explain why, using only the passages under PASSAGES.
 
-- After each sentence, give the id of the passage it comes from in square brackets, for example [esa10-8.94]. Every sentence needs one.
+- Put the id of the passage each sentence comes from in square brackets at the end of the sentence, before the full stop. Every sentence needs one. Example, with a made-up id: Gross national income is the total primary income received by residents [example-1.1]. Use only the ids under PASSAGES.
 - Do not repeat figures or work out numbers.
 - Do not use words for direction or comparison, such as rose, fell, grew, higher, lower, increase, decrease, ahead, behind, faster, slower, narrowed or widened. The locked block states every direction.
-- Do not write about data quality, flags, estimates or proxies, and do not pass the question to an analyst. Code does that.
+- Do not write about data quality, flags, estimates or proxies, and do not pass the question to an analyst. The locked block does that.
 - Do not comment on the passages themselves. If they do not explain the point, write only: No explanation is available from the passages.
 - At most 120 words. No headings."""
 
@@ -868,15 +964,16 @@ def main():
     bank = bank_model_questions()
     fair = fair_questions()
     fair_expected = {row["id"]: row for row in fair}
+    run_file = REVIEW_FILE if "--review" in sys.argv else EXPLANATIONS_FILE
     if "--explain" in sys.argv:
         try:
             records = run_explanations(bank, expected) + run_explanations(fair, fair_expected)
         except urllib.error.URLError as error:
             print(f"Could not reach Ollama ({error.reason}). Start Ollama and run again.")
             return
-        save_answers(EXPLANATIONS_FILE, records)
-    if EXPLANATIONS_FILE.exists():
-        records = load_answers(EXPLANATIONS_FILE)
+        save_answers(run_file, records)
+    if run_file.exists():
+        records = load_answers(run_file)
         bank_ids = {q["id"] for q in bank}
         report_explanations("14.7  Bank questions (training)", [r for r in records if r["id"] in bank_ids])
         fair_records = [r for r in records if r["id"] not in bank_ids]

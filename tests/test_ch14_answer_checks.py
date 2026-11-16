@@ -11,6 +11,7 @@ What this checks
 Chapter: 14. Decisions: the domain expert, 13 November 2026.
 """
 import csv
+from pathlib import Path
 
 import pytest
 from nni_model import dqr
@@ -22,11 +23,14 @@ from ragbook.ch12_routing import load_last_years
 from ragbook.ch13_model_tool import MEASURES, PARAMETER_FILE, ToolResult, bank_model_questions
 from ragbook.ch14_answer_checks import (
     CODE_WORDS, DEMONSTRATOR_WITHHELD, DIRECTION_WORDS, EXPLANATION_HEADING, NO_EXPLANATION,
-    THRESHOLDS, WITHHELD, between, check_explanation, check_sentences, comparisons,
+    SIZE_CUTS, WITHHELD, between, check_explanation, check_sentences, comparisons,
     concepts_named, defining_passages, definition_line, direction, evidence_for, explain,
     invented_numbers, load_definitions, load_graph, load_judgements, locked_block, overlap,
     passed, premise_line, problems_in_words, recheck_passage_answers, reply_page, revision,
-    support_agreement, words_found)
+    support_agreement, words_found, explanation_sentences, size, size_note, sized)
+
+
+REPO = Path(__file__).resolve().parent.parent
 
 
 @pytest.fixture(scope="module")
@@ -94,25 +98,41 @@ def test_definition_line_gives_meaning_what_is_left_out_and_passages(definitions
     assert line.endswith("See esa10-8.94.")
 
 
-def test_direction_uses_the_threshold_for_the_band():
-    assert direction(-0.3, dqr.MEDIUM) == "same"
-    assert direction(0.6, dqr.HIGH) == "up"
-    assert direction(-4.9, dqr.LOW) == "same"
-    assert direction(-5.0, dqr.LOW) == "down"
-    assert THRESHOLDS[dqr.HIGH] < THRESHOLDS[dqr.MEDIUM] < THRESHOLDS[dqr.LOW]
+def test_direction_counts_any_visible_change():
+    assert direction(-0.3) == "down"
+    assert direction(0.6) == "up"
+    assert direction(0.004) == "none"           # shows as 0.00
+
+
+def test_size_bands_are_equal_thirds_of_the_revisions():
+    # The cuts are the 16.5th, 33rd, 67th and 83.5th percentiles of the
+    # non-zero revisions in data/series/revisions.csv (the domain expert, 16 November 2026).
+    rows = list(csv.DictReader(open(REPO / "data" / "series" / "revisions.csv", encoding="utf-8")))
+    non_zero = sorted(float(r["revision"]) for r in rows if abs(float(r["revision"])) >= 0.005)
+    counts = {"small": 0, "medium": 0, "large": 0}
+    for value in non_zero:
+        counts[size(value)] += 1
+    for count in counts.values():
+        assert abs(count / len(non_zero) - 1 / 3) < 0.02
+    assert SIZE_CUTS == sorted(SIZE_CUTS)
+    assert size(-2.48) == "large" and size(0.3) == "small"
+
+
+def test_sized_wording_names_how_often():
+    assert sized("revised down", -2.48, "revision") == \
+        "revised down (a large revision, which happens about one third of the time)"
+    assert size_note(-31.2, "gap") == "a large gap: about one third of revisions are this large"
 
 
 def test_revision_states_the_direction_and_size():
-    # q4-01: India 2016, 5710 to 5570, -2.5 log points. Rated Low, that is
-    # within the threshold (5), so "about the same"; rated Medium, "revised down".
-    low = revision(result("IND", 2016, 5710, edition="WDI 2024-03", band="Low"),
-                   result("IND", 2016, 5570, band="Low"))
-    assert low["direction"] == "same"
-    assert "about -140" in low["text"]
-    medium = revision(result("IND", 2016, 5710, edition="WDI 2024-03"),
-                      result("IND", 2016, 5570))
-    assert medium["direction"] == "down"
-    assert "revised down" in medium["text"]
+    # q4-01: India 2016, 5710 to 5570, -2.5 log points: a large downward revision.
+    item = revision(result("IND", 2016, 5710, edition="WDI 2024-03", band="Low"),
+                    result("IND", 2016, 5570, band="Low"))
+    assert item["direction"] == "down"
+    assert "revised down (a large revision" in item["text"]
+    assert "about -140" in item["text"]
+    same = revision(result("IND", 2016, 5710, edition="WDI 2024-03"), result("IND", 2016, 5710))
+    assert same["direction"] == "none" and "unchanged" in same["text"]
 
 
 def test_gap_by_ratio_in_log_points_over_a_span():
@@ -120,9 +140,10 @@ def test_gap_by_ratio_in_log_points_over_a_span():
     us = [result("USA", 2007, 48330), result("USA", 2024, 85270)]
     item = between(uk, us)
     assert item["kind"] == "gap"
-    assert item["direction"] == "same"           # 0.3 log points, below Medium's 2
+    assert item["direction"] == "down"           # -0.3 log points: below the 16.5th percentile
     assert "73.2% of its level" in item["text"] and "73.0% of its level" in item["text"]
-    assert "the gap was about the same" in item["text"]
+    assert "73.2% of its level; a large gap" in item["text"]
+    assert "lost ground (-0.3 log points; a large change" in item["text"]
 
 
 def test_comparisons_skip_economies_in_the_older_edition():
@@ -143,7 +164,7 @@ def test_premise_line_names_a_false_premise_f16():
 
 
 def test_fallen_behind_is_a_comparison_not_a_fall():
-    found = [{"kind": "time", "direction": "up"}, {"kind": "gap", "direction": "same"}]
+    found = [{"kind": "time", "direction": "up"}, {"kind": "gap", "direction": "none"}]
     assert premise_line("Has the United Kingdom fallen behind the United States?", found) is None
     gained = [{"kind": "gap", "direction": "up"}]
     assert "fell behind" in premise_line("Has the UK fallen behind the US?", gained)
@@ -156,10 +177,32 @@ def test_locked_block_for_q4_02_corrects_the_premise(bank, expected, definitions
     assert "What it leaves out" in locked["text"]
 
 
-def test_locked_block_for_q5_02_says_about_the_same(bank, expected, definitions):
+def test_locked_block_for_q5_02_gives_the_size(bank, expected, definitions):
     locked = locked_block(bank["q5-02"]["question"], expected["q5-02"], load_last_years(), definitions)
     assert locked["premise"] is None
-    assert any("the gap was about the same" in line for line in locked["comparisons"])
+    assert any("United Kingdom lost ground (-0.3 log points; a large change" in line for line in locked["comparisons"])
+    assert "Figures (calculated from the data)" in locked["text"]
+
+
+def test_ids_before_sentences_belong_to_the_sentence_after():
+    # f-08 retry: every id before its sentence, and "i.e." inside a sentence.
+    text = ("[sna08-2.144] By deducting the consumption of fixed capital from GNI, NNI is obtained. "
+            "[esa10-8.94] National income is an income concept, more significant in net terms, "
+            "i.e. after deduction of the consumption of fixed capital.")
+    found = explanation_sentences(text)
+    assert len(found) == 2
+    assert found[1].startswith("[esa10-8.94] National income") and found[1].endswith("fixed capital.")
+
+
+def test_ids_after_sentences_still_work():
+    assert explanation_sentences("GDP is output [a-1]. GNI is income. [b-2]") == \
+        ["GDP is output [a-1].", "GNI is income. [b-2]"]
+
+
+def test_ids_are_compared_without_capitals(by_id):
+    sentence = "Depreciation is the decline in the value of fixed assets [sna25-a4.59]."
+    problems = check_sentences(sentence, [by_id["sna25-A4.59"]])
+    assert not any("not given" in p for p in problems)
 
 
 # 14.3  Numbers ----------------------------------------------------------------
@@ -282,7 +325,7 @@ def test_one_retry_names_the_problems_then_passes(by_id):
 
 
 def test_two_failures_drop_the_explanation(by_id):
-    locked = {"text": "Figures (written by code)"}
+    locked = {"text": "Figures (calculated from the data)"}
     ask = stand_in("It fell.", "It fell again.")
     outcome = explain("q", "Q3", locked, [by_id["ppp23-1.31"]], [], ask)
     assert outcome["status"] == "dropped"
