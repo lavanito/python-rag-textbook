@@ -22,3 +22,14 @@ Lavan's judgements of 20 sentences from Chapter 11's analyst answers (run of 30 
 | 13 Nov 2026 | Second round with two judgements: `support` (Supported 19, Partly 1) and `answers_question` (Yes 14, Partly 3, No 3). Scope notes are our notes, not evidence. A miscited sentence with true content counts as a failure. | Lavan |
 
 The support check's thresholds (`SUPPORT_MIN`, `MISCITED_BY` in `ragbook/ch14_answer_checks.py`) were chosen by looking at these 20, so agreement with them is a training score.
+
+## `question_bank/ch14_fair_test.jsonl`
+
+Lavan's 10 new questions for Chapter 14's fair test, written after the checks were frozen at `9b1e82e` (14 November 2026) and opened by Claude only after that commit was pushed. Labels (class, route, economies, years, measures, editions) proposed by Claude on 14 November and agreed by Lavan on 16 November.
+
+| Date | Label | Decided by |
+|---|---|---|
+| 16 Nov 2026 | f-03 "real GDP per head" → GDP per head at PPP (the model has no real GDP per head level). | Lavan |
+| 16 Nov 2026 | f-04, f-06 "real GDP" revisions → revisions to real GDP growth (no GDP level in the model); the answer must be in those terms. | Lavan |
+| 16 Nov 2026 | f-06 "revised in 2023": no 2023 edition; the March 2024 and October 2026 editions are compared. | Lavan |
+| 16 Nov 2026 | Principle for later: when the measure asked for is not in the data but a near one is, answer with the near one and say so openly; matching by meaning, not only by words. Not in the frozen code. | Lavan |
