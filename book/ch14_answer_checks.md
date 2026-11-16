@@ -40,13 +40,17 @@ The locked block comes first on the page, always, and the language model never c
 
 **Edition, not "last updated".** The edition date is the release we used. It is not the date the figure was last revised.
 
-**Directions and thresholds.** A change smaller than a threshold is "about the same". The threshold depends on the DQR band, because a weaker figure needs a larger change before the change means anything. The numbers are provisional, proposed by the agent builder and agreed on 13 November until the domain expert sees them at work.
+**Directions and sizes.** The locked block gives every change a direction and a size. The sizes come from the revisions between the two editions (the domain expert, 16 November 2026): every figure in both editions, the latest minus the older, in log points for levels and percentage points for rates and shares. The 778 revisions of 0.005 or more are cut into three roughly equal parts, and the same cuts judge changes over time and gaps between economies. A change below 0.005 shows as 0.00, so it reads "unchanged".
 
-| DQR band | Threshold (log points) |
-| --- | --- |
-| High | 0.5 |
-| Medium | 2 |
-| Low | 5 |
+| Size | Percentiles of the revisions | Change (log points or percentage points) |
+| --- | --- | --- |
+| Large | below the 16.5th or above the 83.5th | below −0.24 or above 1.72 |
+| Medium | in between | −0.24 to −0.01, and 0.68 to 1.72 |
+| Small | 33rd to 67th, inclusive | −0.01 to 0.68 |
+
+Most revisions are upward, so the cuts are not symmetric around zero: a fall of 0.3 is large, a rise of 0.3 small. A revision reads "revised down (a large revision, which happens about one third of the time)". A change over time or a gap puts its size in the brackets after the number, measured against revisions: "(56.5 log points; a large change: about one third of revisions are this large)". Most changes over many years, and most gaps between economies, are large.
+
+The first rule, agreed on 13 November, was a threshold by DQR band (High 0.5, Medium 2, Low 5 log points), below which a change was "about the same". Under it, India's 2016 revision of −2.5 log points, rated Low, was "about the same".
 
 **Ahead and behind.** Two economies are compared by the ratio of their figures, in log points, the unit used for growth. The gap in dollars grows with prices and growth even when the ratio does not move.
 
@@ -55,24 +59,85 @@ The locked block comes first on the page, always, and the language model never c
 ### 14.2.2 Code
 
 ```python
-# Below these changes, in log points, the locked block says "about the same". One
-# threshold per DQR band (the domain expert, 13 November 2026; numbers proposed by
-# the agent builder, to confirm when the domain expert reads 14.4).
-THRESHOLDS = {dqr.HIGH: 0.5, dqr.MEDIUM: 2.0, dqr.LOW: 5.0}
+# The size of a change (the domain expert, 16 November 2026): every non-zero
+# revision between the two editions, pooled in one unit (log points for levels,
+# percentage points for rates and shares) and cut into three roughly equal
+# parts. The same bands judge changes over time and gaps between economies.
+# tools/build_revision_bands.py writes the cuts.
+BANDS_FILE = DATA_FOLDER / "series" / "revision_bands.csv"
+ZERO = 0.005        # a smaller change shows as 0.00, so it counts as no change
+SIZE_NOTE = "which happens about one third of the time"
+SIZE_NOTE_OTHER = "about one third of revisions are this large"
+
+
+def load_size_cuts(file_path=BANDS_FILE):
+    """
+    The four cuts, in order: the 16.5th, 33rd, 67th and 83.5th percentiles of
+    the non-zero revisions.
+
+    Example:
+        load_size_cuts() returns [-0.24, -0.01, 0.68, 1.72] (rounded here)
+    """
+    with open(file_path, encoding="utf-8") as file:
+        return [float(row["value"]) for row in csv.DictReader(file)]
+
+
+SIZE_CUTS = load_size_cuts()
 ```
 
 ```python
-def direction(change, band):
+def direction(change):
     """
-    "up", "down" or "same": a change smaller than the band's threshold is
-    "same".
+    "up", "down" or "none": a change smaller than ZERO is none.
 
     Example:
-        direction(-0.3, dqr.MEDIUM) returns "same"
+        direction(-0.3) returns "down"
     """
-    if abs(change) < THRESHOLDS[band]:
-        return "same"
+    if abs(change) < ZERO:
+        return "none"
     return "up" if change > 0 else "down"
+
+
+def size(change, cuts=None):
+    """
+    "large", "medium" or "small": where a change falls among the revisions.
+    Large below the 16.5th percentile or above the 83.5th; small from the
+    33rd to the 67th, inclusive; medium in between.
+
+    Example:
+        size(-2.48) returns "large"
+    """
+    low_large, low_small, high_small, high_large = cuts or SIZE_CUTS
+    if change < low_large or change > high_large:
+        return "large"
+    if low_small <= change <= high_small:
+        return "small"
+    return "medium"
+
+
+def size_note(change, noun):
+    """
+    The size of a change over time or a gap, for the end of its brackets.
+
+    Example:
+        size_note(-31.2, "gap") returns "a large gap: about one third of revisions are this large"
+    """
+    return f"a {size(change)} {noun}: {SIZE_NOTE_OTHER}"
+
+
+def sized(word, change, noun):
+    """
+    A direction word with the size of the change in brackets. For a revision
+    the note gives how often a revision is that size; for a change over time
+    or a gap, the size is still measured against revisions.
+
+    Example:
+        sized("revised down", -2.48, "revision")
+        returns "revised down (a large revision, which happens about one third of the time)"
+    """
+    note = SIZE_NOTE if noun == "revision" else SIZE_NOTE_OTHER
+    joiner = ", " if noun == "revision" else ": "
+    return f"{word} (a {size(change)} {noun}{joiner}{note})"
 ```
 
 ```python
@@ -107,7 +172,8 @@ def premise_line(question, found):
 
 ### 14.2.3 Annotations
 
-- `direction` compares the size of a change with the band's threshold before it looks at the sign. A change of −0.3 log points rated Medium is "same", not "down".
+- `direction` gives a direction to any change of 0.005 or more, and `size` places it among the revisions. A change of −0.3 log points is "down" and large; a rise of 0.3 is small.
+- `load_size_cuts` reads the four cuts from `data/series/revision_bands.csv`, which `tools/build_revision_bands.py` writes from every revision in the NNI model (`data/series/revisions.csv`). A test checks that each size holds about a third of the revisions.
 - `premise_line` removes comparison phrases from the question before it looks for change words. Without that step, "Has the United Kingdom fallen behind?" reads as a fall in the United Kingdom's figure, and both figures rose.
 - The comparisons skip economies in the older edition when a question compares editions: a revision question is about editions, not about one economy against another.
 
@@ -118,18 +184,18 @@ q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP res
 ```text
 The question assumes a fall; the figures show a rise.
 
-Comparisons (worked out by code)
-- China, GDP per head at purchasing power parities, 2022: revised up, from about 21483 (edition WDI 2024-03) to about 23028 (edition WDI 2026-10-08; PWT 11.0); a change of about 1546, about 6.9 log points.
-- India, GDP per head at purchasing power parities, 2022: revised up, from about 8400 (edition WDI 2024-03) to about 8941 (edition WDI 2026-10-08; PWT 11.0); a change of about 541, about 6.2 log points.
+Comparisons (calculated from the figures)
+- China, GDP per head at purchasing power parities, 2022: revised up (a large revision, which happens about one third of the time), from about 21483 (edition WDI 2024-03) to about 23028 (edition WDI 2026-10-08; PWT 11.0); a change of about 1546, about 6.9 log points.
+- India, GDP per head at purchasing power parities, 2022: revised up (a large revision, which happens about one third of the time), from about 8400 (edition WDI 2024-03) to about 8941 (edition WDI 2026-10-08; PWT 11.0); a change of about 541, about 6.2 log points.
 ```
 
-q5-02 asks whether the United Kingdom has fallen behind the United States since 2007. The calculated comparison says "about the same": the ratio moved by 0.3 log points, below the threshold for figures rated Medium.
+q5-02 asks whether the United Kingdom has fallen behind the United States since 2007. The calculated comparison says the United Kingdom lost ground: the ratio moved by −0.3 log points, a large change by the size bands. Under the first rule (a threshold by DQR band) it was "about the same".
 
 ```text
-- The United Kingdom against the United States, GNI per head at purchasing power parities: in 2007 the United Kingdom was behind the United States (-31.2 log points, 73.2% of its level); in 2024 the United Kingdom was behind the United States (-31.5 log points, 73.0% of its level): the gap was about the same (-0.3 log points).
+- The United Kingdom against the United States, GNI per head at purchasing power parities: in 2007 the United Kingdom was behind the United States (-31.2 log points, 73.2% of its level; a large gap: about one third of revisions are this large); in 2024 the United Kingdom was behind the United States (-31.5 log points, 73.0% of its level; a large gap: about one third of revisions are this large): the United Kingdom lost ground (-0.3 log points; a large change: about one third of revisions are this large).
 ```
 
-The thresholds change one earlier answer. India's GNI per head for 2016 was revised from 5710 to 5570, −2.5 log points. Rated Low, that is under the threshold of 5, so the locked block says "about the same" where Chapter 13's model wrote "increased by 140". The domain expert to confirm the thresholds with this example in view.
+The size bands also change an earlier answer. India's GNI per head for 2016 was revised from 5710 to 5570, −2.5 log points: "revised down (a large revision, which happens about one third of the time)". Chapter 13's model wrote "increased by 140"; the first rule said "about the same".
 
 ## 14.3 Numbers
 
@@ -176,7 +242,7 @@ The rule (the domain expert, 13 November 2026): **the explanation may not use di
 | 4 | Growth against level | "Growth fell" while the level still rose (failing F3). |
 | 5 | Sign against meaning | A deficit that fell is an improvement; an income gap can become "less negative". |
 | 6 | Basis | The ratio, log points and dollars give different answers (q5-02, 14.2). |
-| 7 | Size | When does a change count as a change? (the thresholds, 14.2) |
+| 7 | Size | When does a change count as a change? (the size bands, 14.2) |
 | 8 | Time against edition | "Revised down" compares editions; "fell" compares years. q4-02 swapped the editions (F16). |
 | 9 | The question's premise | q4-02 asked why figures fell when they rose. |
 | 10 | Hedges and quantifiers | "broadly flat", "slightly", "most economies" |
@@ -216,11 +282,11 @@ NO_EXPLANATION = "No explanation is available from the passages."
 
 In the laptop run (14.7), direction words were found in four first attempts, all in questions the checks were built from:
 
-- **True catch:** q5-02 wrote "The United Kingdom has not fallen behind the United States since 2007", the same claim as in Chapter 13. The locked block says "about the same".
-- **True catch:** q4-01 wrote "has decreased". The locked block, with the figure rated Low, says "about the same".
+- **True catch:** q5-02 wrote "The United Kingdom has not fallen behind the United States since 2007", the same claim as in Chapter 13. The locked block, under the size bands, says the United Kingdom lost ground (a large change).
+- **True catch:** q4-01 wrote "has decreased". The locked block states the direction itself: "revised down (a large revision, which happens about one third of the time)".
 - **False alarm:** q4-02 wrote "the figures show a rise, not a fall", which agrees with the premise line in the locked block. The ban rejected it anyway. Its next sentence ("The ICP revises PPPs upward, which reduces the estimated GDP per head") contradicts the figures and had no citation, so it would have failed in any case.
 
-*Demonstrator note: this demonstrator bans direction words from the explanation because it cannot check them reliably. A product would need a measured error rate for its direction check, a review of the explanations it drops, and someone who owns the thresholds. It will never be right every time.*
+*Demonstrator note: this demonstrator bans direction words from the explanation because it cannot check them reliably. A product would need a measured error rate for its direction check, a review of the explanations it drops, and someone responsible for the size bands. It will never be right every time.*
 
 ## 14.5 Citations, support and miscitation
 
@@ -276,6 +342,30 @@ def overlap(sentence, passage):
 ```
 
 ```python
+# Abbreviations whose full stops do not end a sentence (the domain expert, 16 November 2026).
+ABBREVIATIONS = re.compile(r"\b(i\.e\.|e\.g\.)")
+
+
+def explanation_sentences(text):
+    """
+    Split an explanation into sentences, with the id protocol agreed by the
+    domain expert on 16 November 2026: ids go after their sentence, but a
+    reply that starts with an id is read as putting every id before its
+    sentence. "i.e." and "e.g." do not end a sentence.
+
+    Example:
+        explanation_sentences("[a-1] GDP is output. [b-2] GNI is income.")
+        returns ["[a-1] GDP is output.", "[b-2] GNI is income."]
+    """
+    kept = ABBREVIATIONS.sub(lambda match: match.group(1).replace(".", "\x00"), text.strip())
+    if kept.startswith("["):
+        pieces = [piece.strip() for piece in SENTENCE_END.split(kept) if piece.strip()]
+    else:
+        pieces = sentences(kept)
+    return [piece.replace("\x00", ".") for piece in pieces]
+```
+
+```python
 def check_sentences(text, evidence, must_cite_first=()):
     """
     Check each sentence's citations against the passages given (evidence):
@@ -289,9 +379,10 @@ def check_sentences(text, evidence, must_cite_first=()):
         returns ["Sentence 1 has no passage id: 'GDI is income.'"]
     """
     by_id = {p["id"]: p for p in evidence}
+    same_letters = {i.lower(): i for i in by_id}      # ids compared without capitals
     problems = []
-    for number, sentence in enumerate(sentences(text), 1):
-        ids = cited_ids(sentence)
+    for number, sentence in enumerate(explanation_sentences(text), 1):
+        ids = [same_letters.get(i.lower(), i) for i in cited_ids(sentence)]
         if not ids:
             problems.append(f"Sentence {number} has no passage id: '{sentence}'")
             continue
@@ -361,12 +452,12 @@ We did not delete only the failing sentences: the sentences left often depend on
 ### 14.6.2 Code
 
 ```python
-EXPLAIN_INSTRUCTIONS = """You explain answers about national accounts statistics. Code has already written the figures, the comparisons between them, what each measure means, and the data quality: they are under LOCKED BLOCK. Explain why, using only the passages under PASSAGES.
+EXPLAIN_INSTRUCTIONS = """You explain answers about national accounts statistics. The figures, the comparisons between them, what each measure means, and the data quality are already given under LOCKED BLOCK. Explain why, using only the passages under PASSAGES.
 
-- After each sentence, give the id of the passage it comes from in square brackets, for example [esa10-8.94]. Every sentence needs one.
+- Put the id of the passage each sentence comes from in square brackets at the end of the sentence, before the full stop. Every sentence needs one. Example, with a made-up id: Gross national income is the total primary income received by residents [example-1.1]. Use only the ids under PASSAGES.
 - Do not repeat figures or work out numbers.
 - Do not use words for direction or comparison, such as rose, fell, grew, higher, lower, increase, decrease, ahead, behind, faster, slower, narrowed or widened. The locked block states every direction.
-- Do not write about data quality, flags, estimates or proxies, and do not pass the question to an analyst. Code does that.
+- Do not write about data quality, flags, estimates or proxies, and do not pass the question to an analyst. The locked block does that.
 - Do not comment on the passages themselves. If they do not explain the point, write only: No explanation is available from the passages.
 - At most 120 words. No headings."""
 ```
@@ -447,12 +538,12 @@ Three fair-test explanations came close. f-07 failed on one misspelt id and an i
 
 ### 14.7.3 What this shows
 
-- **The locked block works.** It corrected q4-02's premise, gave q5-02 "about the same", and named a missing year (f-02, hours end 2023) and the escalation.
+- **The locked block works.** It corrected q4-02's premise, gave q5-02 "about the same" under the first rule, and named a missing year (f-02, hours end 2023) and the escalation.
 - **The model mostly restates rather than explains.** Given the figures and up to five passages, it repeated the figures or declined. Where it gave reasons, it rarely cited each sentence.
 - **The checks have false alarms of their own:** ids placed before a sentence, "i.e." read as a sentence end, ids in lower case, and a direction word used to agree with the locked block. A product would need to count these separately from real failures.
 - **The fair score and the training score tell the same story:** zero explanations with content in both.
 
-Possible changes, for the domain expert to decide: show the model an example of where ids go; accept an id at the start of a sentence; treat "i.e." and "e.g." as part of a sentence; compare ids without regard to capitals; reject restated figures outright. Each would be tested on questions already seen, so its score would be a training score until a new fair set is written.
+Possible changes: show the model an example of where ids go; accept an id at the start of a sentence; treat "i.e." and "e.g." as part of a sentence; compare ids without regard to capitals; reject restated figures outright. The domain expert chose four of them on 16 November 2026; 14.8 reports the rerun.
 
 ### 14.7.4 Findings for later chapters
 
@@ -466,12 +557,49 @@ Running the frozen code on the new questions, before any model run, showed these
 
 *Demonstrator note: in this demonstrator a small model on a laptop writes the explanations, and strict checks drop every one that cannot be traced to a passage. A product would use a larger model, measure the checks' false alarms, and have analysts read the explanations it drops.*
 
+## 14.8 After the review: the rerun
+
+### 14.8.1 What changed
+
+The domain expert reviewed the run on 16 November 2026. He judged two replies the fixes would let through: f-08's retry good (each sentence close to its passage), f-09's retry a fault (cited correctly, but it does not answer the question). With those labels, the saved replies were checked again in Python, with no model run:
+
+| Checks | Good replies dropped (of 1) | Faulty replies shown (of 28) |
+| --- | --- | --- |
+| As frozen | 1 (f-08) | 0 |
+| Ids at the start, "i.e.", capitals | 0 | 0 |
+| The same, and a trailing fixed sentence removed | 0 | 1 (f-09) |
+
+He chose the second row and an instruction with an example:
+
+- **An id protocol.** The id goes at the end of its sentence, before the full stop. A reply that starts with an id is read as putting every id before its sentence.
+- **"i.e." and "e.g."** do not end a sentence.
+- **Ids are compared without regard to capitals:** sna25-a4.59 is sna25-A4.59.
+- **Not chosen:** removing a fixed sentence added after other sentences (it would have shown f-09), and rejecting restated figures (no verdict changed).
+- **Headings in literal words:** "Figures (calculated from the data)" and "Comparisons (calculated from the figures)", not "written by code".
+- **Size bands** for every change (14.2), in place of the thresholds by DQR band.
+
+### 14.8.2 Results
+
+One laptop run on 16 November 2026 answered the same 24 questions in 32.4 minutes. Every score here is a training score: the fixes were chosen with f-08 and f-09 in view.
+
+| Set | Questions | Lookup | Passed | Passed on retry | Dropped | Shown with content |
+| --- | --- | --- | --- | --- | --- | --- |
+| Training (bank) | 14 | 2 | 3 | 2 | 7 | 0 |
+| The domain expert's 10 | 10 | 1 | 5 | 2 | 2 | 2 |
+
+- **Two explanations with content passed:** f-07 (depletion), three sentences, each citing its passage at the end; and f-08 (modified NNI), four sentences close to their passages, saying nothing about Ireland.
+- **The other passes are the fixed sentence.** Why, compare and revision questions still get no explanation with content.
+- **The example id was copied.** The instruction's example cited esa10-8.94, and the model cited it when it was not given (q3-01, q6-02). The example now uses a made-up id, [example-1.1]; that change has not been run.
+
+Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `data/answers/ch14_explanations_review.jsonl`.
+
 ## Tests
 
-`tests/test_ch14_answer_checks.py`, 28 tests; with the earlier chapters, 305 pass. A stand-in replaces the language model, so no Ollama is needed. They check:
+`tests/test_ch14_answer_checks.py`, 33 tests; with the earlier chapters, 310 pass. A stand-in replaces the language model, so no Ollama is needed. They check:
 
 - every measure has an approved definition whose passages exist, and the unpaid-work clause appears in the 10 measures the domain expert agreed;
-- directions and thresholds (q4-01's revision is "about the same" rated Low and "revised down" rated Medium);
+- directions and size bands (q4-01's revision is "revised down (a large revision…)"; each size holds about a third of the revisions);
+- the id protocol: ids before sentences, "i.e." inside a sentence, ids compared without capitals;
 - the premise line for q4-02, and that "fallen behind" is read as a comparison (q5-02);
 - the number check ignores passage ids;
 - the word lists, including one known miss and one known false alarm;
@@ -487,7 +615,8 @@ Running the frozen code on the new questions, before any model run, showed these
 - **Closed-world check:** a check that treats anything it cannot trace to the locked block or a passage as false.
 - **Definition line:** what a measure means and what it leaves out, approved by the domain expert, citing passage ids.
 - **Direction word:** a word that states a change or a comparison (rose, fell, higher, lower, ahead, behind).
-- **Threshold:** the smallest change, by DQR band, that the locked block reports as a change rather than "about the same".
+- **Size band:** large, medium or small: where a change falls among the revisions between the two editions; each band holds about a third of them.
+- **Id protocol:** where a passage id goes: at the end of its sentence, or before every sentence when the reply starts with an id.
 - **Premise line:** the line that opens the locked block when the question assumes a direction the figures contradict.
 - **Support:** the cited passage says what the sentence says; here measured by word overlap.
 - **Word overlap:** the share of a sentence's search words found in a passage's text.
@@ -506,8 +635,9 @@ Running the frozen code on the new questions, before any model run, showed these
 - Code: `ragbook/ch14_answer_checks.py`; tests: `tests/test_ch14_answer_checks.py`
 - Definitions and their record: `data/definitions.csv`, `data/DEFINITIONS.md`
 - The domain expert's 20 judgements: `data/answers/ch14_support_judgements.csv`
-- Fair-test questions: `data/question_bank/ch14_fair_test.jsonl`; saved run: `data/answers/ch14_explanations.jsonl`
+- Fair-test questions: `data/question_bank/ch14_fair_test.jsonl`; saved runs: `data/answers/ch14_explanations.jsonl`, `data/answers/ch14_explanations_review.jsonl`
+- Revisions and size bands: `data/series/revisions.csv`, `data/series/revision_bands.csv`, `tools/build_revision_bands.py`
 - Chapter 11 analyst answers: `data/answers/ch11_answers_800.jsonl`; Chapter 13 replies: `data/answers/ch13_replies.jsonl`
-- Repository: [github.com/lavanito/python-rag-textbook](https://github.com/lavanito/python-rag-textbook), branch `chapter-14`
+- Repository: [github.com/lavanito/python-rag-textbook](https://github.com/lavanito/python-rag-textbook), branch `ch14-review`
 - [ILO, *Care work and care jobs for the future of decent work* (2018), news release](https://www.ilo.org/resource/news/ilo-calls-urgent-action-prevent-looming-global-care-crisis)
 - [World Bank metadata, population (SP.POP.TOTL)](https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SP.POP.TOTL)
