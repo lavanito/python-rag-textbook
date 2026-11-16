@@ -362,7 +362,7 @@ A reranker pays off when a crude first stage leaves the right passage low in a p
 
 A reranker would be worth measuring again with a model trained on statistical text, or with a larger collection searched by a cruder first stage.
 
-**Decision (Lavan, 26 October 2026):** the demonstrator app shows the first-stage ranking. The reranker stays in the book as a measured step that did not pay off on this corpus.
+**Decision (the domain expert, 26 October 2026):** the demonstrator app shows the first-stage ranking. The reranker stays in the book as a measured step that did not pay off on this corpus.
 
 ## 9.7 What it costs
 

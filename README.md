@@ -58,4 +58,4 @@ Chapter 1 signed off. Chapters are drafted in a shared document; each moves into
 
 ## Author
 
-Lavan Mahadeva. Copyright (c) 2026 Lavan Mahadeva Ltd.
+Lavan Mahadeva. Copyright (c) 2026 Lavan Mahadeva Limited.

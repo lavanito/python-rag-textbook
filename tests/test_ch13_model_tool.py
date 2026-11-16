@@ -62,7 +62,7 @@ def test_a_break_is_flagged_and_rated_low():
 
 
 def test_a_euro_area_member_is_rated_as_the_euro_area():
-    # Assumption agreed by Lavan, 6 November 2026: members follow one standard.
+    # Assumption agreed by the domain expert, 6 November 2026: members follow one standard.
     for measure in ["population", "gni_per_head_ppp"]:
         member = call_model("IRL", 2024, measure)
         euro_area = call_model("euro area", 2024, measure)
@@ -95,13 +95,13 @@ def test_the_tool_description_lists_every_measure_and_economy():
 
 
 def test_the_euro_area_has_gni_per_head_at_ppp():
-    # Built by the model from its 21 members (agreed by Lavan, 6 November 2026).
+    # Built by the model from its 21 members (agreed by the domain expert, 6 November 2026).
     reply = call_model("euro area", 2024, "gni_per_head_ppp")
     assert reply.value is not None and reply.dqr_band
 
 
 def test_counts_have_no_decimal_places_at_any_band():
-    # Lavan, 7 November 2026: population is shown as a whole number.
+    # The domain expert, 7 November 2026: population is shown as a whole number.
     high = call_model("IRL", 2024, "population")
     assert high.dqr_band == "High" and "." not in high.shown
     assert show(1234.6, dqr.LOW, count=True) == "about 1235"
@@ -184,14 +184,14 @@ def test_a_member_without_its_own_last_year_uses_the_euro_areas():
 
 
 def test_a_span_fetches_every_year_of_a_level():
-    # q5-02 (Lavan, 7 November 2026): GNI per head at PPP every year from 2007.
+    # q5-02 (the domain expert, 7 November 2026): GNI per head at PPP every year from 2007.
     calls, _ = plan_calls(EXPECTED["q5-02"], LAST_YEARS)
     last = min(LAST_YEARS[("GBR", "latest")], LAST_YEARS[("USA", "latest")])
     assert len(calls) == 2 * (last - 2007 + 1)
 
 
 
-# Measures added from the gap table (Lavan, 7 November 2026).
+# Measures added from the gap table (the domain expert, 7 November 2026).
 
 def test_real_gdp_growth_is_growth_per_head_plus_population_growth():
     s = load_edition("latest")
@@ -263,7 +263,7 @@ def test_an_exact_figure_is_not_escalated():
 
 
 def test_the_saved_model_replies_score_as_reported():
-    # Lavan ran qwen3:4b-instruct on 7 November 2026: 28 replies in 5.6 minutes.
+    # The domain expert ran qwen3:4b-instruct on 7 November 2026: 28 replies in 5.6 minutes.
     replies = {r["id"]: r for r in load_answers(PARAMETER_REPLIES)}
     assert set(replies) == set(EXPECTED)
     assert all(read_model_reply(r["reply"]) is not None for r in replies.values())
@@ -292,7 +292,7 @@ def test_the_new_questions_use_known_labels():
 
 
 def test_round_two_scores_as_reported():
-    # Lavan's run of 7 November 2026: 68 replies in 13.9 minutes.
+    # The domain expert's run of 7 November 2026: 68 replies in 13.9 minutes.
     from ragbook.ch13_model_tool import NEW_QUESTION_FILE, SECOND_REPLIES, same_calls
     records = load_answers(SECOND_REPLIES)
     new = load_passages(NEW_QUESTION_FILE)
@@ -311,7 +311,7 @@ def test_round_two_scores_as_reported():
 # 13.5 and 13.6: facts, replies and checks. Stand-in tests: no language model is run.
 
 def test_rates_get_one_more_decimal_than_levels():
-    # Lavan, 7 November 2026.
+    # The domain expert, 7 November 2026.
     assert show(1.234, dqr.MEDIUM, rate=True) == "1.2"
     assert show(1.234, dqr.HIGH, rate=True) == "1.23"
     assert show(1.234, dqr.LOW, rate=True) == "about 1.2"
@@ -372,7 +372,7 @@ def test_a_stand_in_model_that_copies_the_figures_invents_nothing():
 
 
 def test_the_saved_replies_check_as_reported():
-    # Lavan's run of 7 November 2026: 14 replies in 5.1 minutes.
+    # The domain expert's run of 7 November 2026: 14 replies in 5.1 minutes.
     from ragbook.ch13_model_tool import REPLIES_FILE, bank_model_questions, check_reply
     asked = {q["id"]: q["question"] for q in bank_model_questions()}
     checks = {r["id"]: check_reply(asked[r["id"]], r["facts"], r["reply"])

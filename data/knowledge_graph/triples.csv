@@ -59,10 +59,10 @@ SNA25,next_edition_of,SNA08,sna25-A4.10,
 ESA10,based_on,SNA08,esa10-8.94,ESA 2010 is the EU's legally binding version of the SNA (scope note)
 united_states,compiled_under,BEA,bea-ch2-gnp,
 euro_area,compiled_under,ESA10,esa10-8.94,
-living_standards,requires,gni_per_head_ppp,author,Lavan's framing of 13 October 2026
-living_standards,requires,gni_per_hour_ppp,author,Lavan's framing of 13 October 2026
-growth,requires,real_gdp,author,Lavan's framing of 13 October 2026
-productivity,requires,real_gdp_per_hour_ppp,author,Lavan's framing of 13 October 2026
+living_standards,requires,gni_per_head_ppp,author,the domain expert's framing of 13 October 2026
+living_standards,requires,gni_per_hour_ppp,author,the domain expert's framing of 13 October 2026
+growth,requires,real_gdp,author,the domain expert's framing of 13 October 2026
+productivity,requires,real_gdp_per_hour_ppp,author,the domain expert's framing of 13 October 2026
 gni_per_head_ppp,affected_by,ppp,ppp23-1.31,PPPs are statistical estimates with error margins
 gni_per_head_ppp,affected_by,comparison_resistant_services,ppp23-8.2,
 gni_per_head_ppp,affected_by,globalisation,sna25-23.68,Multinational profits; Ireland inside the euro area
