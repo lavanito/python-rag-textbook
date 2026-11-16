@@ -77,7 +77,7 @@ FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 # 14.2  The locked block
 # ---------------------------------------------------------------------------
 
-# Below these changes, in log points, code writes "about the same". One
+# Below these changes, in log points, the locked block says "about the same". One
 # threshold per DQR band (Lavan, 13 November 2026; numbers proposed by
 # Claude, to confirm when he reads 14.4).
 THRESHOLDS = {dqr.HIGH: 0.5, dqr.MEDIUM: 2.0, dqr.LOW: 5.0}
@@ -315,7 +315,7 @@ def premise_line(question, found):
     """
     The line that opens the locked block when the question assumes a
     direction that the figures contradict (fixes failing F16). A comparison
-    between economies ("fallen behind") is checked against code's
+    between economies ("fallen behind") is checked against the calculated
     comparisons between economies; a change ("fell") against changes over
     time and between editions.
 
@@ -444,7 +444,7 @@ DIRECTION_WORDS = re.compile(
     r"wors\w*|shr[iau]nk\w*|surg\w*|jump\w*|plung\w*|soar\w*|"
     r"caught up|catch up|catching up|lost ground|gained ground|revised up|revised down)\b")
 
-# Words for things code decides: flags, data quality and escalation (fixes
+# Words for flags, data quality and escalation, which only the locked block may state (fixes
 # failings F17 and F18).
 CODE_WORDS = re.compile(r"\b(passed to an analyst|dqr|data quality|proxy|stand-in|estimated|flagg?\w*)\b")
 
