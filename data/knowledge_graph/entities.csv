@@ -48,10 +48,20 @@ united_kingdom,Economy,United Kingdom,UK; Britain
 china,Economy,China,
 india,Economy,India,
 japan,Economy,Japan,
-gni_per_head_ppp,Indicator,GNI per head at PPP,
-gni_per_hour_ppp,Indicator,GNI per hour worked at PPP,
-real_gdp,Indicator,real GDP at base-year prices,GDP in volume
-real_gdp_per_hour_ppp,Indicator,real GDP per hour worked at PPP,labour productivity
+gni_per_head_ppp,Indicator,GNI per head at purchasing power parities,GNI per capita at PPP; income per head; national income per person; average income
+gni_per_hour_ppp,Indicator,GNI per hour worked at PPP,GNI per hour; national income per hour worked
+real_gdp_growth,Indicator,growth in real GDP,GDP growth; economic growth; real growth; how fast the economy grew; GDP in volume
+gdp_per_hour,Indicator,real GDP per hour worked at constant 2021 PPPs,labour productivity; output per hour; productivity per hour; GDP per hour worked
 living_standards,QuestionType,living standards,better off; richer; income
 growth,QuestionType,growth,growing faster; expansion
 productivity,QuestionType,productivity,output per hour; efficiency
+population_total,Indicator,"population, total",number of people; inhabitants
+nni_growth,Indicator,"growth in real NNI per head, split into parts",what drove income growth; contributions to income growth; decomposition of income growth
+gdp_per_head_ppp,Indicator,GDP per head at purchasing power parities,GDP per capita at PPP; output per person; GDP per person
+gni_total,Indicator,"GNI, total",total national income
+average_hours,Indicator,average annual hours worked per person in work,hours per worker; working hours; annual hours
+real_nni_per_head_ppp,Indicator,real NNI per head at constant 2021 household-consumption PPPs,real national income per person; real net national income per head
+real_nni_per_hour,Indicator,real NNI per hour worked,net national income per hour; income per hour worked
+employment_rate,Indicator,employment rate (stand-in: persons in work over total population),share of people in work; persons in work per head
+spending_components,Indicator,GDP by spending component (stand-in: household consumption share),household consumption share; GDP by expenditure; spending shares
+trend_gap,Indicator,real GDP per head against its 2000 to 2007 trend (stand-in),gap to trend; shortfall from the pre-2008 trend; lost output since 2008

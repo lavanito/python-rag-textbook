@@ -43,11 +43,16 @@ def test_every_triple_uses_a_declared_relation():
         assert triple["relation"] in SCHEMA["relations"], triple
 
 
+def allowed(kinds):
+    """A relation names one kind, or a list of kinds, for its subject and its object."""
+    return kinds if isinstance(kinds, list) else [kinds]
+
+
 def test_subject_and_object_have_the_kinds_the_relation_allows():
     for triple in TRIPLES:
         rule = SCHEMA["relations"][triple["relation"]]
-        assert KIND.get(triple["subject"]) == rule["subject"], triple
-        assert KIND.get(triple["object"]) == rule["object"], triple
+        assert KIND.get(triple["subject"]) in allowed(rule["subject"]), triple
+        assert KIND.get(triple["object"]) in allowed(rule["object"]), triple
 
 
 def test_every_triple_has_evidence_that_exists():
@@ -64,3 +69,14 @@ def test_every_passage_comes_from_a_declared_manual():
 def test_no_triple_is_repeated():
     keys = [(t["subject"], t["relation"], t["object"]) for t in TRIPLES]
     assert len(keys) == len(set(keys))
+
+
+def test_every_measure_in_the_nni_model_is_an_indicator():
+    # The catalogue of measures (the domain expert, 16 November 2026): each of the
+    # NNI model's measures is a thing in the graph, so a question can be read
+    # against it. Two ids differ from the measure's name, because a concept
+    # already has that id.
+    from ragbook.ch13_model_tool import MEASURES
+    renamed = {"population": "population_total", "gni": "gni_total"}
+    for measure in MEASURES:
+        assert KIND.get(renamed.get(measure, measure)) == "Indicator", measure
