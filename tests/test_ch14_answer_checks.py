@@ -8,7 +8,7 @@ What this checks
     miscitation), the evidence code chooses, and the retry and fall-back.
     A stand-in replaces the language model, so no Ollama is needed.
 
-Chapter: 14. Decisions: Lavan, 13 November 2026.
+Chapter: 14. Decisions: the domain expert, 13 November 2026.
 """
 import csv
 
@@ -81,7 +81,7 @@ def test_every_measure_with_figures_has_an_approved_definition(definitions, by_i
         assert all(passage_id in by_id for passage_id in row["passages"])
 
 
-def test_unpaid_work_is_named_wherever_lavan_agreed(definitions):
+def test_unpaid_work_is_named_wherever_the_domain_expert_agreed(definitions):
     clause = "unpaid work at home, such as caring, cooking and cleaning, most of it done by women"
     named = {m for m, row in definitions.items() if clause in row["leaves_out"]}
     assert named == set(MEASURES) - {"population", "spending_components", "trend_gap"}
@@ -205,7 +205,7 @@ def test_support_is_word_overlap_with_the_passage_text_only(by_id):
         overlap("real gross domestic income", {"text": by_id["bea-ch2-ndp-gni"]["scope_note"]})
 
 
-def test_miscitation_is_found_lavan_row_7(by_id):
+def test_miscitation_is_found_domain_expert_row_7(by_id):
     sentence = ("The theory of purchasing power parity assumes that all goods are internationally "
                 "tradable and that currency demand is driven solely by trade, but in reality, these "
                 "assumptions do not hold. [ppp23-1.17]")
@@ -236,7 +236,7 @@ def test_chapter_11_answers_rechecked_without_a_model(corpus):
     assert found["q2-10"] == []                  # every sentence cited and supported
 
 
-def test_lavans_judgements_are_kept_and_scored(corpus):
+def test_domain_experts_judgements_are_kept_and_scored(corpus):
     judgements = load_judgements()
     assert len(judgements) == 20
     assert sum(row["support"] == "Supported" for row in judgements) == 19

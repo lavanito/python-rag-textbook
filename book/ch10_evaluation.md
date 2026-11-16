@@ -22,7 +22,7 @@ Chapters 3 to 9 counted **hits**: the questions with at least one gold passage i
 
 Every measure in this chapter compares what a search returns with a **gold list**: the passages a person judged to answer the question. The measures are only as good as the lists.
 
-The rule, set on 26 October 2026: **a passage is gold if it states what the expected answer says.** On 27 October Lavan Mahadeva read each of the 56 passages once and judged it against all 32 definition questions with that rule. On 28 October he revised four judgements, and one passage, sna25-11.238, was added to the corpus. Each judgement is yes or no; a passage cannot be half gold.
+The rule, set on 26 October 2026: **a passage is gold if it states what the expected answer says.** On 27 October the domain expert read each of the 56 passages once and judged it against all 32 definition questions with that rule. On 28 October he revised four judgements, and one passage, sna25-11.238, was added to the corpus. Each judgement is yes or no; a passage cannot be half gold.
 
 Some passages carry part of an expected answer without answering the question by themselves. They are kept as **supporting passages**: they stay in the gold list, and each question names them, so the figures can be shown with and without them (10.7). There are six, on five questions. Three passages answer no question; they are **distractors**, which test whether a search avoids related but wrong passages.
 
