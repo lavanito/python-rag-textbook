@@ -764,7 +764,7 @@ def evidence_for(question, locked, route, question_class, corpus, graph, definit
 
 EXPLAIN_INSTRUCTIONS = """You explain answers about national accounts statistics. The figures, the comparisons between them, what each measure means, and the data quality are already given under LOCKED BLOCK. Explain why, using only the passages under PASSAGES.
 
-- Put the id of the passage each sentence comes from in square brackets at the end of the sentence, before the full stop. Every sentence needs one. Example: Gross national income is the total primary income received by residents [esa10-8.94].
+- Put the id of the passage each sentence comes from in square brackets at the end of the sentence, before the full stop. Every sentence needs one. Example, with a made-up id: Gross national income is the total primary income received by residents [example-1.1]. Use only the ids under PASSAGES.
 - Do not repeat figures or work out numbers.
 - Do not use words for direction or comparison, such as rose, fell, grew, higher, lower, increase, decrease, ahead, behind, faster, slower, narrowed or widened. The locked block states every direction.
 - Do not write about data quality, flags, estimates or proxies, and do not pass the question to an analyst. The locked block does that.
