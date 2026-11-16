@@ -135,8 +135,8 @@ The trials of earlier chapters, per call:
 | Chapter 13: reading the question by model (rounds 1 and 2) | 68 | 1,031 | 46 | 12.2 |
 | Chapter 13: whole reply written by the model | 14 | 347 | 88 | 21.7 |
 
-- R2 sends the most tokens. The prompt holds the instructions, the locked block and up to five passages, and a locked block over a span lists every year: f-05 sent 4,087 tokens and took 185 seconds.
-- Tokens out drive the seconds. On the R4 answers, the executive's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30, with almost the same tokens in.
+- R2 sends the most tokens. The prompt holds the instructions, the locked block and up to five passages, and a locked block over a span lists every year (f-04, f-05).
+- Tokens in and tokens out both add seconds. With almost the same tokens in, the executive's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
 - The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5.
 - Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: the model wrote fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
 
