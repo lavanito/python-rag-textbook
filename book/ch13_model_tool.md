@@ -231,7 +231,7 @@ Before code can call the model, someone must read the question: which economies,
 
 The reading gives five parameters.
 
-| Parameter | What it holds |
+| Parameter | What it contains |
 | --- | --- |
 | economies | Codes: USA, EA21, GBR, CHN, IND, JPN, or a euro area member such as IRL |
 | years | Four digits; "latest" for the last year in the data; "latest-5" for five years before it |
@@ -437,7 +437,7 @@ def same_calls(found, expected, last_years):
 
 ### 13.5.1 Principles
 
-Every figure carries flags, and three of them lower its DQR band.
+Every figure has flags, and three of them lower its DQR band.
 
 | Flag | When | Band at most |
 | --- | --- | --- |
@@ -624,7 +624,7 @@ The domain expert ran the model on 7 November 2026: 14 replies in 5.1 minutes, w
 - **One reply worked out a number, and got its sign wrong.** For q4-01 the model wrote that India's 2016 GNI per head "increased by 140" between editions. It fell, from 5710 in the March 2024 edition to 5570 in the latest. The number check caught it.
 - **One reply followed a wrong premise, and the check missed it.** q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP results. In the data both rose: China from 21483 to 23028 in 2022. The model copied the numbers correctly but swapped the editions, so it reported a fall. No number was invented.
 - **The model escalated whenever it could.** Seven replies end "Passed to an analyst." when code had decided not to escalate.
-- **It added flags.** Seven replies call a figure "estimated" or "proxy" when the figures carry no such flag.
+- **It added flags.** Seven replies call a figure "estimated" or "proxy" when the figures have no such flag.
 - **What follows:** anything code can decide, code should write. The escalation sentence and the flags can be added by code after the reply. Only the wording is left to the model, and Chapter 14 checks it further.
 
 ## Tests

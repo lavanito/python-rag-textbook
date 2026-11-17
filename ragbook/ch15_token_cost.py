@@ -70,7 +70,7 @@ def model_calls(records):
     """
     Every call to the language model in a saved run, as a list of dicts
     with the question id, tokens in, tokens out and seconds. A Chapter 14
-    record holds one call per attempt; other chapters' records are one call
+    record has one call per attempt; other chapters' records are one call
     each.
 
     Example:
@@ -360,7 +360,7 @@ def review_list(saved_records):
     """
     Every problem the domain expert should see, one row each: each failed
     check of each attempt (with the problem in words), each dropped
-    explanation and each escalation. Rows for an attempt carry its tokens
+    explanation and each escalation. Rows for an attempt give its tokens
     and seconds, so a retry shows what it cost.
     """
     rows = []

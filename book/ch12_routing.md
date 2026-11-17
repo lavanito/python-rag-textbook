@@ -487,7 +487,7 @@ def escalation_message(rule, titles):
     return reason, message
 ```
 
-- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could carry the 2025 value with its source, vintage and DQR; that needs the model class, so it waits for the app build.
+- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could give the 2025 value with its source, vintage and DQR; that needs the model class, so it waits for the app build.
 
 ### 12.5.6 Third round: the ragged edge
 
@@ -618,7 +618,7 @@ The cause was four lists of economy names:
 | `EURO_MEMBER_NAMES` (12.5.4) | "ireland", "irish" | the member rule |
 | Economy things in the knowledge graph (Chapter 5) | the label and aliases of each economy | nothing in routing |
 
-The fourth round keeps the names in one place: the knowledge graph. Each economy's label and aliases in `data/knowledge_graph/entities.csv` are its names. Ireland is an economy with one triplet, `ireland member_of euro_area`, which replaces the list of member names; `member_of` is a new relation in the schema. `DATA_CODES` links each economy in the graph to its code in the data, and holds no names.
+The fourth round keeps the names in one place: the knowledge graph. Each economy's label and aliases in `data/knowledge_graph/entities.csv` are its names. Ireland is an economy with one triplet, `ireland member_of euro_area`, which replaces the list of member names; `member_of` is a new relation in the schema. `DATA_CODES` links each economy in the graph to its code in the data, and contains no names.
 
 Five more changes, each for one question that showed a gap:
 

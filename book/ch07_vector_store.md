@@ -271,7 +271,7 @@ def measure_graph_search(graph, vectors, queries, candidate_lengths=(10, 20, 50,
 
 - The test embeddings have length 1, so `vectors @ vectors[row]` gives every row's cosine similarity with one row in a single step.
 - `similarities[row] = -np.inf` sets a row's similarity with itself to minus infinity, so it is never its own neighbour.
-- In `navigable_graph`, `vectors[:row]` holds only the rows added before this one; that is what makes the early links long.
+- In `navigable_graph`, `vectors[:row]` contains only the rows added before this one; that is what makes the early links long.
 - `graph_search` keeps pairs (similarity, row). `max` and `min` compare pairs by their first number, so `max(to_explore)` is the closest unexplored row and `min(best)` the worst row on the list.
 - `visited` is a **set**: a collection that answers "is this row in it?" at once. It stops the search comparing a row twice.
 - `set(found) & set(true)` keeps the rows in both sets.
@@ -296,7 +296,7 @@ A first version of this test drew its questions from different groups than the s
 **HNSW** (hierarchical navigable small world) is the method behind most vector databases, Chroma included. Malkov and Yashunin published it in 2016 (7.8.3). It builds the graph of 7.3 as points arrive, and adds **layers**:
 
 - Every point is in the bottom layer, layer 0. Each new point is also given a random top layer: with 16 links per point, about one point in 16 reaches layer 1, one in 256 layer 2, and so on.
-- An upper layer holds few points, so its links are long. A search starts at a fixed entry point in the top layer and moves towards the question there, then drops to the same point one layer down and moves again. In layer 0 it runs the search of 7.3, with a list of length ef.
+- An upper layer has few points, so its links are long. A search starts at a fixed entry point in the top layer and moves towards the question there, then drops to the same point one layer down and moves again. In layer 0 it runs the search of 7.3, with a list of length ef.
 
 ![HNSW search · three layers, one path](images/41391190-198c.png)
 
@@ -423,7 +423,7 @@ def search_store(collection, question_vector, how_many=3):
 
 ### 7.5.3 Annotations
 
-- `import chromadb` sits inside `open_store`, so the rest of the file runs on a computer without Chroma; only storing needs it.
+- `import chromadb` is inside `open_store`, so the rest of the file runs on a computer without Chroma; only storing needs it.
 - `PersistentClient` keeps the database in a folder, so it is still there when the program next runs. Chroma also has `EphemeralClient`, which keeps everything in memory and loses it at the end.
 - `configuration={"hnsw": {"space": "cosine"}}` chooses cosine similarity; the other HNSW settings keep their defaults (7.4).
 - `{field: passage[field] for field in METADATA_FIELDS}` builds a dictionary of the chosen fields in one line. Each is a single piece of text; fields Chapter 8 does not filter on, such as the passage's list of components, are left out.
@@ -431,7 +431,7 @@ def search_store(collection, question_vector, how_many=3):
 - `collection.query` can take several questions at once, so every part of its answer is a list with one entry per question; `[0]` takes the entry for the one question asked.
 - `result.update(metadata)` adds the metadata's fields to the result's dictionary.
 
-On the corpus, the collection holds 57 passages. For "What is consumption of fixed capital?":
+On the corpus, the collection contains 57 passages. For "What is consumption of fixed capital?":
 
 | Similarity | Passage |
 | --- | --- |
@@ -495,10 +495,10 @@ def build_corpus_store(client):
 ### 7.6.3 Annotations
 
 - `semantic_index.embed_question` is Chapter 5's `saved_question_embedder`: it returns a bank question's saved embedding, so both searches get exactly the same numbers.
-- `chroma_ids == exact_ids` compares two lists: equal only if they hold the same ids in the same order.
+- `chroma_ids == exact_ids` compares two lists: equal only if they contain the same ids in the same order.
 - `build_corpus_store` builds both from one copy of the saved embeddings, so any difference comes from the search, not the data.
 
-On the 32 definition questions, Chroma's top three equal Chapter 4's in all 32, in the same order. So Chapter 4's result carries over: 32 of 32 questions have a correct passage in the top three. A test keeps the check.
+On the 32 definition questions, Chroma's top three equal Chapter 4's in all 32, in the same order. So Chapter 4's result applies here too: 32 of 32 questions have a correct passage in the top three. A test keeps the check.
 
 ## 7.7 Chapter 6's chunks in Chroma
 
@@ -558,7 +558,7 @@ CHUNK_QUESTIONS = [
 - `chunk.split("\n\n", 1)[0]` cuts the chunk at its first empty line and keeps the part before it: the heading, which recursive chunking puts first (6.7).
 - The chunks go in their own collection, so the corpus that Chapters 3–6 measure stays unchanged. Chapter 8's licence filter works on each passage's metadata, whichever collection it is in.
 
-On the author's laptop, the collection holds 278 chunks. The three closest chunks for each question, with the section each comes from:
+On the author's laptop, the collection contains 278 chunks. The three closest chunks for each question, with the section each comes from:
 
 | Question | Similarity | Chunk | Section |
 | --- | --- | --- | --- |
@@ -574,13 +574,13 @@ On the author's laptop, the collection holds 278 chunks. The three closest chunk
 
 Every top chunk comes from the section that answers the question. The ninth result is from the chapter's opening, which introduces the Penn World Table in one sentence.
 
-The question words match the headings closely here ("rolling benchmark", "Penn World Table"), which helps: the headings repeated on each chunk (6.7) carry those words. Chapter 10 measures retrieval on questions written without the source's words in mind.
+The question words match the headings closely here ("rolling benchmark", "Penn World Table"), which helps: the headings repeated on each chunk (6.7) contain those words. Chapter 10 measures retrieval on questions written without the source's words in mind.
 
 ## 7.8 Tests, glossary and links
 
 ### 7.8.1 Tests
 
-The file `tests/test_ch07_vector_store.py` holds 12 tests. The Chroma tests build their database in a temporary folder, so they never touch `chroma_db/`. None needs the embedding model. Run them with `python -m pytest tests/test_ch07_vector_store.py -v`.
+The file `tests/test_ch07_vector_store.py` has 12 tests. The Chroma tests build their database in a temporary folder, so they never touch `chroma_db/`. None needs the embedding model. Run them with `python -m pytest tests/test_ch07_vector_store.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -595,7 +595,7 @@ The file `tests/test_ch07_vector_store.py` holds 12 tests. The Chroma tests buil
 | Corpus in Chroma | 57 passages, each with its metadata |
 | Search example | "What is consumption of fixed capital?" gives the three passages in 7.5, the first at 0.816 |
 | Agreement with exact search | Same top three on all 32 definition questions |
-| Kept on disk | A database reopened from its folder still holds 57 passages |
+| Kept on disk | A database reopened from its folder still contains 57 passages |
 
 ### 7.8.2 Glossary additions
 

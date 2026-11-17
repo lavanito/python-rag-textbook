@@ -81,13 +81,13 @@ def licence_filter(passages, use_mode):
 
 ### 8.3.1 Principles
 
-The corpus holds two editions of the SNA: the 2008 SNA (3 passages) and the 2025 SNA (6). They differ. The 2025 SNA calls consumption of fixed capital "depreciation", and deducts depletion of natural resources as well when moving from GNI to net national income (q2-02). An answer that mixes the two editions without saying so is wrong for one of them.
+The corpus contains two editions of the SNA: the 2008 SNA (3 passages) and the 2025 SNA (6). They differ. The 2025 SNA calls consumption of fixed capital "depreciation", and deducts depletion of natural resources as well when moving from GNI to net national income (q2-02). An answer that mixes the two editions without saying so is wrong for one of them.
 
 The rule:
 
 1. If the question names an edition, only that edition's SNA passages are kept.
 2. If it names none, the latest edition is used. A passage from an older edition is withheld only when the newer edition has a passage on the same topic (the field `topic`).
-3. Passages from other sources are never touched. ESA 2010 follows the 2008 SNA closely, but it is a separate standard and its passages carry their own scope note.
+3. Passages from other sources are never touched. ESA 2010 follows the 2008 SNA closely, but it is a separate standard and its passages have their own scope note.
 
 Rule 2 applied to the three 2008 SNA passages:
 
@@ -325,7 +325,7 @@ Hybrid search with query expansion, on the 32 definition questions:
 "Passages kept" is for a question that names no edition.
 
 - **Non-commercial** differs from Chapter 5 only through the edition filter. q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings.
-- **Commercial** finds a gold passage within ten places for every reachable question. The eight it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus holds no passage it may use.
+- **Commercial** finds a gold passage within ten places for every reachable question. The eight it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus contains no passage it may use.
 
 ## 8.6 The same filters inside Chroma
 
@@ -333,7 +333,7 @@ Hybrid search with query expansion, on the 32 definition questions:
 
 A vector database filters on metadata: it checks a condition on each passage's metadata and ranks only the passages that meet it (Chapter 7, 7.5). Chapter 7 stored source, reference, edition, scope and licence. This chapter adds `licence_class` and `passage_id`; Chroma merges new fields into the metadata already stored.
 
-The licence condition reads `licence_class`, so it works on any collection whose items carry that field, such as Chapter 6's chunks once each is given its source's licence class. The edition condition lists the passages the edition filter withheld.
+The licence condition reads `licence_class`, so it works on any collection whose items have that field, such as Chapter 6's chunks once each is given its source's licence class. The edition condition lists the passages the edition filter withheld.
 
 ### 8.6.2 Code
 
@@ -363,7 +363,7 @@ def chroma_filter(use_mode, withheld):
     "where" condition.
 
     The licence condition reads licence_class, so it works on any collection
-    whose items carry that field. The edition condition lists the passages
+    whose items have that field. The edition condition lists the passages
     to leave out.
 
     Example:
@@ -431,7 +431,7 @@ Result: Chroma's filtered top three equal exact search on 32 of 32 questions, in
 
 ### 8.7.1 Tests
 
-The file `tests/test_ch08_filters.py` holds 12 tests. The Chroma tests build their database in a temporary folder. None needs the embedding model. Run them with `python -m pytest tests/test_ch08_filters.py -v`.
+The file `tests/test_ch08_filters.py` has 12 tests. The Chroma tests build their database in a temporary folder. None needs the embedding model. Run them with `python -m pytest tests/test_ch08_filters.py -v`.
 
 | Test | What it proves |
 | --- | --- |

@@ -381,7 +381,7 @@ def bm25s_rank(passages, question, how_many=3):
 
 ### 3.7.3 Annotations
 
-- `import bm25s` sits inside the function, so the rest of the chapter runs even where bm25s is not installed.
+- `import bm25s` is inside the function, so the rest of the chapter runs even where bm25s is not installed.
 - `retriever.index(word_lists)` builds bm25s's own index from this chapter's word lists, so both methods see exactly the same words.
 - bm25s cannot score a word it has never seen, so the question keeps only words found somewhere in the corpus. If none are left, no passage matches.
 - `retriever.retrieve` returns two lists: the positions of the best passages and their scores. `zip` walks through both together.
@@ -515,7 +515,7 @@ For the GDP deflator question, word counts put the right passage first, but fill
 
 ### 3.10.1 Tests
 
-The file `tests/test_ch03_keyword_search.py` holds 13 tests. Retrieval is tested exactly: if a change to the code or the corpus moves a ranking or a count reported in this chapter, a test fails. Run them with `python -m pytest tests/test_ch03_keyword_search.py -v`.
+The file `tests/test_ch03_keyword_search.py` has 13 tests. Retrieval is tested exactly: if a change to the code or the corpus moves a ranking or a count reported in this chapter, a test fails. Run them with `python -m pytest tests/test_ch03_keyword_search.py -v`.
 
 | Test | What it proves |
 | --- | --- |

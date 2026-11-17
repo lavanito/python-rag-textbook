@@ -72,7 +72,7 @@ def test_dot_leaders_hyphen_rows_and_font_codes_removed():
     assert text == "Computer software 12\n\nTable ends\n\nY = C + I\n\nwell-known"
     assert counts["dot leader: four or more dots, as in a table of contents"] == 1
     assert counts["row of four or more hyphens, as in a line drawn under an equation"] == 1
-    assert counts["word holding font codes instead of letters, such as /g38, /i0 or #23"] == 2
+    assert counts["word made of font codes instead of letters, such as /g38, /i0 or #23"] == 2
 
 
 def test_numbered_paragraph_starts_a_paragraph():

@@ -329,8 +329,8 @@ def cited_ids(text):
     """
     The passage ids written in square brackets in a text, in order, each once.
 
-    A bracket may hold several ids separated by commas or semicolons.
-    Brackets holding anything that does not look like an id are ignored.
+    A bracket may contain several ids separated by commas or semicolons.
+    Brackets containing anything that does not look like an id are ignored.
 
     Example:
         cited_ids("GNI is income [esa10-8.94]. NNI deducts CFC [sna08-2.144; esa10-8.94].")

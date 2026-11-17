@@ -173,7 +173,7 @@ def premise_line(question, found):
 ### 14.2.3 Annotations
 
 - `direction` gives a direction to any change of 0.005 or more, and `size` places it among the revisions. A change of −0.3 log points is "down" and large; a rise of 0.3 is small.
-- `load_size_cuts` reads the four cuts from `data/series/revision_bands.csv`, which `tools/build_revision_bands.py` writes from every revision in the NNI model (`data/series/revisions.csv`). A test checks that each size holds about a third of the revisions.
+- `load_size_cuts` reads the four cuts from `data/series/revision_bands.csv`, which `tools/build_revision_bands.py` writes from every revision in the NNI model (`data/series/revisions.csv`). A test checks that each size has about a third of the revisions.
 - `premise_line` removes comparison phrases from the question before it looks for change words. Without that step, "Has the United Kingdom fallen behind?" reads as a fall in the United Kingdom's figure, and both figures rose.
 - The comparisons skip economies in the older edition when a question compares editions: a revision question is about editions, not about one economy against another.
 
@@ -598,7 +598,7 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 `tests/test_ch14_answer_checks.py`, 33 tests; with the earlier chapters, 310 pass. A stand-in replaces the language model, so no Ollama is needed. They check:
 
 - every measure has an approved definition whose passages exist, and the unpaid-work clause appears in the 10 measures the domain expert agreed;
-- directions and size bands (q4-01's revision is "revised down (a large revision…)"; each size holds about a third of the revisions);
+- directions and size bands (q4-01's revision is "revised down (a large revision…)"; each size has about a third of the revisions);
 - the id protocol: ids before sentences, "i.e." inside a sentence, ids compared without capitals;
 - the premise line for q4-02, and that "fallen behind" is read as a comparison (q5-02);
 - the number check ignores passage ids;
@@ -615,7 +615,7 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 - **Closed-world check:** a check that treats anything it cannot trace to the locked block or a passage as false.
 - **Definition line:** what a measure means and what it leaves out, approved by the domain expert, citing passage ids.
 - **Direction word:** a word that states a change or a comparison (rose, fell, higher, lower, ahead, behind).
-- **Size band:** large, medium or small: where a change falls among the revisions between the two editions; each band holds about a third of them.
+- **Size band:** large, medium or small: where a change falls among the revisions between the two editions; each band has about a third of them.
 - **Id protocol:** where a passage id goes: at the end of its sentence, or before every sentence when the reply starts with an id.
 - **Premise line:** the line that opens the locked block when the question assumes a direction the figures contradict.
 - **Support:** the cited passage says what the sentence says; here measured by word overlap.

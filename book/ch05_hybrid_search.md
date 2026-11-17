@@ -93,7 +93,7 @@ The **knowledge graph** is a small, hand-built record of the ideas in the corpus
 It has two parts: an **ontology**, the rules that say which kinds of thing exist and which relations may link them, and the facts that follow those rules. The glossary (5.8.2) defines both terms strictly and says how a knowledge graph differs from a concept map.
 
 - `entities.csv` lists 67 things: concepts, manuals, economies, indicators and question types. Each has an id, a kind, a label and other names (**aliases**). For example, the concept `gni` has the label "gross national income" and the aliases "GNI" and "national income".
-- `triples.csv` holds 91 facts, each in three parts: subject, relation, object. These are **triplets**. For example, `nni, defined_in, sna08-2.144` says that paragraph 2.144 of the 2008 SNA defines net national income. Every triplet records its evidence: a passage, or `author` for the author's own framing.
+- `triples.csv` contains 131 facts, each in three parts: subject, relation, object. These are **triplets**. For example, `nni, defined_in, sna08-2.144` says that paragraph 2.144 of the 2008 SNA defines net national income. Every triplet records its evidence: a passage, or `author` for the author's own framing.
 - `schema.json` lists the six kinds of thing and the twelve relations allowed between them: the ontology.
 
 To use the knowledge graph, the code must first find which concepts a question names. It cleans each name exactly as Chapter 3 cleans questions (`search_words`), then looks for it word by word in the question.
@@ -589,7 +589,7 @@ The chapter reads only saved files, so every computer gives the same output.
 
 ### 5.8.1 Tests
 
-The file `tests/test_ch05_hybrid_search.py` holds 17 tests. The first fourteen use small examples or the knowledge graph; the last three read the saved embeddings and fix the results reported in this chapter. Run them with `python -m pytest tests/test_ch05_hybrid_search.py -v`.
+The file `tests/test_ch05_hybrid_search.py` has 17 tests. The first fourteen use small examples or the knowledge graph; the last three read the saved embeddings and fix the results reported in this chapter. Run them with `python -m pytest tests/test_ch05_hybrid_search.py -v`.
 
 | Test | What it proves |
 | --- | --- |

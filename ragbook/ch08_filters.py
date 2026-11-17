@@ -268,7 +268,7 @@ def chroma_filter(use_mode, withheld):
     "where" condition.
 
     The licence condition reads licence_class, so it works on any collection
-    whose items carry that field. The edition condition lists the passages
+    whose items have that field. The edition condition lists the passages
     to leave out.
 
     Example:

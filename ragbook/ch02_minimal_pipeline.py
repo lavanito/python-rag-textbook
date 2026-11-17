@@ -51,7 +51,7 @@ def load_corpus(file_path=CORPUS_FILE):
     """
     Read the quoted corpus into a list of passage records.
 
-    Each record holds the passage text and the facts about it: id, source,
+    Each record has the passage text and the facts about it: id, source,
     reference, edition, licence and scope.
 
     Example:
@@ -147,7 +147,7 @@ def build_prompt(question, passages):
     Put the instructions, the question and the passages into messages for the model.
 
     A chat model reads a list of messages. The "system" message sets the
-    rules; the "user" message holds the question and the evidence.
+    rules; the "user" message contains the question and the evidence.
 
     Example:
         build_prompt("What is GNI?", [passage])
