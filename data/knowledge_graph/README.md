@@ -18,7 +18,7 @@ question types and indicators to split a vague question.
 
 | File | What it holds |
 | --- | --- |
-| `schema.json` | The ontology: six kinds of thing and eleven relations, each with the kind of its subject and object |
+| `schema.json` | The ontology: six kinds of thing and twelve relations, each with the kind of its subject and object |
 | `entities.csv` | Every thing in the graph: id, kind, label, and other names (aliases) separated by semicolons |
 | `triples.csv` | Triplets as subject, relation, object, with the evidence for each: a passage id, or `author` for the author's own framing |
 
