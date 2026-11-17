@@ -28,7 +28,7 @@ Cost is shown in tokens and laptop seconds only, with no hosted price (the domai
 
 ### 15.2.1 Principles
 
-Each saved run holds, for every model call, `prompt_tokens` (tokens in), `reply_tokens` (tokens out) and `seconds`. A Chapter 14 record holds one call per attempt: one, or two with a retry.
+Each saved run records, for every model call, `prompt_tokens` (tokens in), `reply_tokens` (tokens out) and `seconds`. A Chapter 14 record has one call per attempt: one, or two with a retry.
 
 The cost of a route is the sum over its questions, divided by the number of questions. A question that makes no call counts with zero, so a route of lookups costs nothing per question.
 
@@ -39,7 +39,7 @@ def model_calls(records):
     """
     Every call to the language model in a saved run, as a list of dicts
     with the question id, tokens in, tokens out and seconds. A Chapter 14
-    record holds one call per attempt; other chapters' records are one call
+    record has one call per attempt; other chapters' records are one call
     each.
 
     Example:
@@ -135,7 +135,7 @@ The trials of earlier chapters, per call:
 | Chapter 13: reading the question by model (rounds 1 and 2) | 68 | 1,031 | 46 | 12.2 |
 | Chapter 13: whole reply written by the model | 14 | 347 | 88 | 21.7 |
 
-- R2 sends the most tokens. The prompt holds the instructions, the locked block and up to five passages, and a locked block over a span lists every year (f-04, f-05).
+- R2 sends the most tokens. The prompt contains the instructions, the locked block and up to five passages, and a locked block over a span lists every year (f-04, f-05).
 - Tokens in and tokens out both add seconds. With almost the same tokens in, the executive's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
 - The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5.
 - Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: the model wrote fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
@@ -280,7 +280,7 @@ def user_settings(use_mode="non-commercial", role="analyst"):
 
 ### 15.5.1 Principles
 
-The domain expert needs every problem in one plain list: each failed check of each attempt, with the problem in words; each dropped explanation; each escalation. Each attempt's row carries its tokens and seconds, so the list shows what each retry cost. The counts per check say which check fails most.
+The domain expert needs every problem in one plain list: each failed check of each attempt, with the problem in words; each dropped explanation; each escalation. Each attempt's row gives its tokens and seconds, so the list shows what each retry cost. The counts per check say which check fails most.
 
 ### 15.5.2 Code
 
@@ -289,7 +289,7 @@ def review_list(saved_records):
     """
     Every problem the domain expert should see, one row each: each failed
     check of each attempt (with the problem in words), each dropped
-    explanation and each escalation. Rows for an attempt carry its tokens
+    explanation and each escalation. Rows for an attempt give its tokens
     and seconds, so a retry shows what it cost.
     """
     rows = []
@@ -410,7 +410,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 - unknown settings stop with an error;
 - the trace has one line per step, the steps with no model reproduce the saved locked blocks and evidence, and only the model uses tokens;
 - commercial use changes the evidence;
-- the review list counts dropped explanations, and every attempt row carries its tokens;
+- the review list counts dropped explanations, and every attempt row gives its tokens;
 - every score is labelled training or fair.
 
 ## Glossary additions
