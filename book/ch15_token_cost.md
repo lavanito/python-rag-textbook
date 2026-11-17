@@ -384,11 +384,11 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 8. The licence filter in the vector database kept the same passages as the hand-written filter on all 32 questions.
 9. Every score is labelled training or fair; fair tests were frozen in a commit before the questions were opened.
 10. After the review, two explanations with content passed (f-07, f-08), training scores.
-11. Only the explanation step uses tokens. Lookups, series titles, clarifying and escalation are answered by code at no cost in tokens, and the steps in Python took under a tenth of a second for 24 questions.
+11. Only the steps that call the language model use tokens: the explanation and, for definition questions, the answer extracted from passages. Lookups, series titles, clarifying and escalation are answered by code at no cost in tokens, and the steps in Python took under a tenth of a second for 24 questions.
 
 ### What a production version needs
 
-1. A better reader for typed questions. Keyword rules found the right figures for 2 of 20 new questions, the small model for 9 of 20, and the routing rules sent 6 of the domain expert's 10 questions to the wrong route. The demonstrator reads questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
+1. A better reader for typed questions. Keyword rules found the right figures for 2 of 20 new questions, the small model for 9 of 20, and the routing rules sent 6 of the domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator reads questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
 2. A larger model asked for sentence and id as separate fields.
 3. Counts of both kinds of check error: good replies dropped and bad replies shown.
 4. A check that a reply answers the question (f-09).
@@ -396,7 +396,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 6. New questions from real users, scored before any rule changes.
 7. More data and passages (a passage defining PPP; the production boundary for unpaid work at home).
 8. Review in a form the expert can read quickly.
-9. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,100 tokens in and 108 seconds; a retry added about 1,800 tokens and 29 seconds, and gave content once in 13.
+9. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,100 tokens in and 108 seconds; a retry added about 1,800 tokens and 29 seconds, and gave real content only once out of 13 retries.
 
 ## Tests
 
