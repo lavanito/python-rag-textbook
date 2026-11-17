@@ -25,7 +25,7 @@ This chapter builds eight small functions for handling text. Every later chapter
 
 In Python, a piece of text is a **string**: a sequence of characters between quotation marks. Single and double quotation marks mean the same thing; this book uses double.
 
-Text copied out of a PDF is untidy. A line break may fall in the middle of a sentence, and a gap may hold several spaces. Two passages that say the same thing can then look different to a computer. Cleaning puts every piece of text into one standard shape before it is used: one line, one space between words, nothing at the start or end.
+Text copied out of a PDF is untidy. A line break may fall in the middle of a sentence, and a gap may have several spaces. Two passages that say the same thing can then look different to a computer. Cleaning puts every piece of text into one standard shape before it is used: one line, one space between words, nothing at the start or end.
 
 ### 1.2.2 Code
 
@@ -105,7 +105,7 @@ def split_into_words(text):
 ### 1.3.3 Annotations
 
 - `text.lower()` returns a copy of the text in lower case. The original is unchanged.
-- `string.punctuation` comes from Python's `string` module, loaded by the line `import string` at the top of the file. It holds every common punctuation mark: `!"#$%&'()*+,-./:;<=>?@[\]^_{|}~` and the backtick.
+- `string.punctuation` comes from Python's `string` module, loaded by the line `import string` at the top of the file. It contains every common punctuation mark: `!"#$%&'()*+,-./:;<=>?@[\]^_{|}~` and the backtick.
 - `for character in lower_text:` is a **loop**. It runs the indented lines once for each character in the text, in order.
 - `if … else …` is a **condition**. A punctuation mark is replaced by a space; any other character is kept.
 - Replacing punctuation with a space, not with nothing, keeps words apart: "non-financial" becomes two words, "non" and "financial". Chapter 3 returns to whether that is what we want.
@@ -119,7 +119,7 @@ A **dictionary** stores values under names, called **keys**. It is written betwe
 
 In this book every passage is a dictionary with the same four keys:
 
-| Key | Holds | Example |
+| Key | Value | Example |
 | --- | --- | --- |
 | `id` | A short label, unique in the corpus | `ex-001` |
 | `source` | The publication the passage comes from | `Example written for this book` |
@@ -365,7 +365,7 @@ Only ex-002 contains the word "income". Ex-003 does not, although purchasing pow
 
 ## 1.9 Tests for this chapter
 
-The file `tests/test_ch01_python_basics.py` holds ten tests. Each checks one function against a worked example. They run on every change to the repository; run them yourself with `python -m pytest tests/test_ch01_python_basics.py -v`.
+The file `tests/test_ch01_python_basics.py` has ten tests. Each checks one function against a worked example. They run on every change to the repository; run them yourself with `python -m pytest tests/test_ch01_python_basics.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -398,7 +398,7 @@ The repository also runs the rule from the front matter on every change: a chapt
 | Condition | An `if` test that decides which lines run |
 | f-string | A string with `f` in front, in which values in curly brackets are filled in |
 | JSON | A standard text format for dictionaries and lists |
-| JSON Lines | A text file holding one JSON record per line |
+| JSON Lines | A text file with one JSON record per line |
 | Passage | One short piece of text, stored with its id, source and reference |
 | Corpus | The full set of passages a system searches |
 

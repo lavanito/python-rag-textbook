@@ -419,8 +419,8 @@ def cited_ids(text):
     """
     The passage ids written in square brackets in a text, in order, each once.
 
-    A bracket may hold several ids separated by commas or semicolons.
-    Brackets holding anything that does not look like an id are ignored.
+    A bracket may contain several ids separated by commas or semicolons.
+    Brackets containing anything that does not look like an id are ignored.
 
     Example:
         cited_ids("GNI is income [esa10-8.94]. NNI deducts CFC [sna08-2.144; esa10-8.94].")
@@ -607,7 +607,7 @@ The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three 
 | Trials | 20 trials with different labels; each changes only what it names; `SETTINGS` is unchanged |
 | Different replies | Repeated reply texts are counted once |
 | Ollama reply | Tokens, seconds and `done_reason` are read from Ollama's reply, with nanoseconds turned into seconds |
-| Cited ids | Several ids in one bracket are found, each once; brackets that do not hold an id are ignored |
+| Cited ids | Several ids in one bracket are found, each once; brackets that do not contain an id are ignored |
 | Sentences | A text is split at sentence ends; ids after a full stop count for the sentence before |
 | Citations | Ids not given and uncited sentences are counted |
 | Scope | Irish, US and Eurostat-OECD passages cited without naming the body are found; passages with no scope note, and ESA passages, are not checked |

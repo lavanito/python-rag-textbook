@@ -487,7 +487,7 @@ def escalation_message(rule, titles):
     return reason, message
 ```
 
-- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could carry the 2025 value with its source, vintage and DQR; that needs the model class, so it waits for the app build.
+- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could give the 2025 value with its source, vintage and DQR; that needs the model class, so it waits for the app build.
 
 ### 12.5.6 Third round: the ragged edge
 

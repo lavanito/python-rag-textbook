@@ -23,7 +23,7 @@ The example is Paul McCarthy, "Extrapolating PPPs and Comparing ICP Benchmark Re
 - **Subject.** The chapter explains why a country's growth measured by its own national accounts differs from the change implied by two sets of purchasing power parities (PPPs). The app answers the same kind of question (Chapter 12).
 - **Layout.** It has the faults most PDFs have: a page number and running header on every page, a footer on the first page, tables, equations and notes printed away from the sentences they explain. Section 6.2 shows each one.
 
-The same code can cut the manuals on the reader's own computer, from copies the reader holds. Section 6.8 reports the counts for the manuals, not their text.
+The same code can cut the manuals on the reader's own computer, from copies the reader has. Section 6.8 reports the counts for the manuals, not their text.
 
 **Code file:** `ragbook/ch06_chunking.py`
 
@@ -89,10 +89,10 @@ def read_pdf_pages(pdf_path):
 
 ### 6.2.3 Annotations
 
-- `PdfReader(pdf_path)` opens the file. `reader.pages` holds its pages in order.
+- `PdfReader(pdf_path)` opens the file. `reader.pages` contains its pages in order.
 - `page.extract_text()` rebuilds the lines of one page. It can return nothing for a page with no text; the function turns that into an empty string, so every page gives a string.
-- One string per page, not one for the whole file: the running header sits at the top of each page, so section 6.3 removes it page by page.
-- A scanned page holds a picture of text, not characters, so it gives "". Reading a scan needs optical character recognition, which this book does not cover.
+- One string per page, not one for the whole file: the running header is at the top of each page, so section 6.3 removes it page by page.
+- A scanned page contains a picture of text, not characters, so it gives "". Reading a scan needs optical character recognition, which this book does not cover.
 
 On the example PDF:
 
@@ -206,7 +206,7 @@ REPAIRS = [
     ("narrow no-break space", NARROW_NO_BREAK_SPACE, " "),
     ("dot leader: four or more dots, as in a table of contents", r"\.{4,}", " "),
     ("row of four or more hyphens, as in a line drawn under an equation", r"-{4,}", " "),
-    ("word holding font codes instead of letters, such as /g38, /i0 or #23", r"\S*(?:/[gi]\d+|#\d\d)\S*", ""),
+    ("word made of font codes instead of letters, such as /g38, /i0 or #23", r"\S*(?:/[gi]\d+|#\d\d)\S*", ""),
     ("two or more spaces", r" {2,}", " "),
     ("space at the start or end of a line", r" +\n *|\n +", "\n"),
     ("two or more empty lines in a row", r"\n{3,}", "\n\n"),
@@ -295,7 +295,7 @@ On the example PDF the page step removes 313 words of page numbers, running head
 | Narrow no-break space | 177 |
 | Dot leader: four or more dots, as in a table of contents | 0 |
 | Row of four or more hyphens, as in a line drawn under an equation | 0 |
-| Word holding font codes instead of letters, such as /g38, /i0 or #23 | 0 |
+| Word made of font codes instead of letters, such as /g38, /i0 or #23 | 0 |
 | Two or more spaces | 593 |
 | Space at the start or end of a line | 1,153 |
 | Two or more empty lines in a row | 58 |
@@ -310,7 +310,7 @@ The text falls from 17,384 words to 16,634, in 425 paragraphs.
 
 **Fixed-size chunking** gives every chunk the same number of words. A chunk ends where the count runs out, even in the middle of a sentence.
 
-The method needs nothing from the document but its words, so it works on any text. Its fault is the cut: a sentence split between two chunks is whole in neither, and one chunk can hold the end of one subject and the start of the next.
+The method needs nothing from the document but its words, so it works on any text. Its fault is the cut: a sentence split between two chunks is whole in neither, and one chunk can contain the end of one subject and the start of the next.
 
 **Overlap** reduces the damage. Each chunk starts some words before the previous one ended, so the words around every cut appear in two chunks. The cost is more chunks, and the same words stored and embedded twice.
 
@@ -370,7 +370,7 @@ def fixed_size_chunks(text, size=CHUNK_WORDS, overlap=0):
 
 - `step` is how far each chunk starts after the one before: 90 words without overlap (chunks start at words 0, 90, 180…), 72 with an overlap of 18 (0, 72, 144…).
 - `range(0, len(words), step)` gives those starting positions. `words[start:start + size]` takes up to `size` words; at the end of the text it takes what is left.
-- `break` stops once a chunk reaches the end of the text. Without it, overlap would add a last chunk holding only words already in the one before.
+- `break` stops once a chunk reaches the end of the text. Without it, overlap would add a last chunk containing only words already in the one before.
 - An overlap as large as the chunk would never move forward, so the function refuses it (`raise ValueError`).
 
 On the cleaned example (16,634 words), fixed-size chunking gives 185 chunks; with overlap, 231. Only the last chunk is shorter than 90 words (74 words in both).
@@ -381,7 +381,7 @@ The first cut falls inside a sentence: chunk 1 ends "…the annual (or quarterly
 
 ### 6.5.1 Principles
 
-An author typically puts one point in a paragraph. **Paragraph chunking** cuts where the author did, so no chunk splits a sentence and most chunks hold one point.
+An author typically puts one point in a paragraph. **Paragraph chunking** cuts where the author did, so no chunk splits a sentence and most chunks contain one point.
 
 Paragraphs vary in length. A heading, a table cell or a short paragraph is too small to retrieve on its own, so short paragraphs that follow each other are **packed** into one chunk, up to 90 words. A paragraph longer than 90 words stays whole as a chunk of its own, over the limit; section 6.7 deals with it.
 
@@ -475,7 +475,7 @@ The example has 425 paragraphs. Packed, they give 158 chunks, from 1 word to 279
 
 ### 6.6.1 Principles
 
-A heading names what its section is about. **Header chunking** makes each section one chunk, from its heading to the next, so every chunk carries the name of its subject.
+A heading names what its section is about. **Header chunking** makes each section one chunk, from its heading to the next, so every chunk includes the name of its subject.
 
 The extracted text does not say which lines are headings (6.2). The PDF does record the size each piece of text is printed in, and headings are printed larger than the body. In the example:
 
@@ -618,7 +618,7 @@ def header_chunks(text, heading_lines):
 ### 6.6.3 Annotations
 
 - `page.extract_text(visitor_text=note_piece)` reads the page as before, and also calls `note_piece` for every piece of text, with its font and size. `note_piece` is defined inside `find_heading_lines`, so it can add to that function's `heading_lines`.
-- pypdf passes five things to `note_piece`; only the text, the text's matrix and the font size are used. The matrix holds where and how large the text is drawn; its first number is the scale.
+- pypdf passes five things to `note_piece`; only the text, the text's matrix and the font size are used. The matrix gives where and how large the text is drawn; its first number is the scale.
 - `round(…, 1)` keeps one decimal place, so a size of 14.9999 counts as 15. font_sizes adds up the characters at each size and sorts the sizes, largest count first; the minus sign in the sort key reverses the order.
 - `set(heading_lines)` makes looking up a line fast. A paragraph counts as a heading only if all its lines are heading lines, so a body sentence that happens to contain a heading's words is not one.
 - `split_sections` collects heading paragraphs in `heading_parts` and body paragraphs in `body`. A heading that arrives after some body text closes the section before it.
@@ -745,7 +745,7 @@ def recursive_chunks(text, heading_lines, size=CHUNK_WORDS):
 - `pack` returns chunks that fit, and chunks of a single piece that does not; `cut_to_fit` returns the first kind unchanged and cuts the second kind further.
 - `recursive_chunks` cuts the body to fit `size` minus the heading's words, then puts the heading in front of each piece. A heading of more than 30 words (a third of 90) is not repeated; without this rule a 90-word heading would leave no room for text, and the 2025 SNA, whose heading size is also used on its contents pages, has such headings.
 
-On the example, recursive chunking gives 278 chunks, from 8 words to 90; the median is 71. One piece of text is cut by the last step: a run of Annex B's equations, 103 words with no full stop, which the sentence rule reads as one sentence. A test checks that the chunks, without their headings, hold every word of the text in its order.
+On the example, recursive chunking gives 278 chunks, from 8 words to 90; the median is 71. One piece of text is cut by the last step: a run of Annex B's equations, 103 words with no full stop, which the sentence rule reads as one sentence. A test checks that the chunks, without their headings, contain every word of the text in its order.
 
 Repeating the headings adds 1,562 words: 18,196 words in all, against 16,634 in the text. Three chunks have fewer than 15 words, one of them "deflator." from the false paragraph end (6.5).
 
@@ -756,7 +756,7 @@ Repeating the headings adds 1,562 words: 18,196 words in all, against 16,634 in 
 The five methods are run on the same cleaned text with the same limit, 90 words. Three questions decide between them:
 
 1. Does every chunk fit the embedding model? A chunk longer than 256 word pieces is cut off without warning (Chapter 4), so its end is never searched.
-2. Does a chunk hold one subject? A chunk cut mid-sentence, or one that runs across two sections, is harder to match to a question.
+2. Is a chunk about one subject? A chunk cut mid-sentence, or one that runs across two sections, is harder to match to a question.
 3. How much text is stored? Overlap and repeated headings add words to embed and store.
 
 Word pieces are counted with the model's own **tokenizer**, the part of the model that cuts text into word pieces. This needs the model, so it runs only where the model is installed.
@@ -841,7 +841,7 @@ On the example (16,634 words). Word pieces were counted on the author's laptop w
 - Overlap keeps the words around each cut together, at the cost of 25% more words to embed.
 - Paragraph chunks never cut a sentence, but 65 are over the word limit and 17 over the model's.
 - Header chunks keep whole subjects, but 23 of 24 are over the limit; the longest is 29 times it.
-- Recursive chunks fit the limit, cut inside a sentence only once, and carry their heading, for 9% more words.
+- Recursive chunks fit the limit, cut inside a sentence only once, and include their heading, for 9% more words.
 
 ### 6.8.5 Choosing the limit
 
@@ -880,7 +880,7 @@ At 150 words, the five recursive chunks over 256 word pieces were three tables a
 | Conclusion (Annex D) | Reference list | 146 | 269 |
 | Conclusion (Annex D) | Reference list | 148 | 296 |
 
-The tokenizer holds common English words whole, but cuts numbers ("51.6"), abbreviations ("HFCE"), names and web addresses into several pieces each. Tables and reference lists are full of them; prose has few. The reference list sits in Annex D's "Conclusion" because "REFERENCES" is printed too small to be found as a heading (6.6).
+The tokenizer keeps common English words whole, but cuts numbers ("51.6"), abbreviations ("HFCE"), names and web addresses into several pieces each. Tables and reference lists are full of them; prose has few. The reference list is in Annex D's "Conclusion" because "REFERENCES" is printed too small to be found as a heading (6.6).
 
 So a word limit that suits prose can fail on tables. For a new document, count word pieces, not only words.
 
@@ -905,7 +905,7 @@ Recursive chunking at the 90-word limit, with word pieces counted by all-MiniLM-
 
 - **Recursive chunking fits almost everything.** 36,047 of 36,160 chunks (99.7%) are within the model's limit.
 - **Cleaning made the largest difference.** Before the rules for dot leaders, hyphen rows and font codes (6.3), 226 of SNA08's recursive chunks were over the limit, the largest at 10,302 word pieces. After them, one is: part of a reference list with long web addresses. BEA's two chunks over the limit, both rows of hyphens, are gone.
-- **PPP23 holds 91 of the 113.** Its worked examples of price-index formulas, such as "[(FB/A/FA/A)(FB/B/FA/B)(FB/C/FA/C)(FB/D/FA/D)]1/4", count as one word but split into dozens of word pieces: one chunk of 88 words has 649. No cleaning rule should remove them, because they are the text. This is the strongest case for 6.8.6: in a document full of formulas, limit word pieces, not words.
+- **PPP23 has 91 of the 113.** Its worked examples of price-index formulas, such as "[(FB/A/FA/A)(FB/B/FA/B)(FB/C/FA/C)(FB/D/FA/D)]1/4", count as one word but split into dozens of word pieces: one chunk of 88 words has 649. No cleaning rule should remove them, because they are the text. This is the strongest case for 6.8.6: in a document full of formulas, limit word pieces, not words.
 - **Header chunking fails on every manual,** from 3 of 3 chunks over the limit (BEA) to 535 of 1,342 (ESA10). BEA prints its headings at the size of its body text, so a range of sizes finds only 18 heading lines and 3 sections. Finding BEA's headings would need the font's name as well as its size.
 - **SNA25's paragraph ends needed their own rule.** pypdf ends the last line of each SNA25 paragraph with a space, like every other line, so the paragraph rule of 6.3 missed them: 1,301 of 3,797 paragraph chunks were over the limit, with a median of 133 words. The rule for paragraph numbers (6.3) brings this to 425 of 7,384, with a median of 88, and helps QNA17 too (158 to 65). The rest are long paragraphs, which paragraph chunking never cuts, and lettered items ("c. Control of…"), which have no number and still run together.
 
@@ -913,7 +913,7 @@ Recursive chunking at the 90-word limit, with word pieces counted by all-MiniLM-
 
 ### 6.9.1 Tests
 
-The file `tests/test_ch06_chunking.py` holds 33 tests. Small examples test each function; tests on the example PDF fix the figures reported in this chapter. None needs the embedding model. Run them with `python -m pytest tests/test_ch06_chunking.py -v`.
+The file `tests/test_ch06_chunking.py` has 33 tests. Small examples test each function; tests on the example PDF fix the figures reported in this chapter. None needs the embedding model. Run them with `python -m pytest tests/test_ch06_chunking.py -v`.
 
 | Test | What it proves |
 | --- | --- |

@@ -36,7 +36,7 @@ This chapter answers a question about national accounts from quoted passages, in
 
 The **corpus** is the set of passages the system may draw on. Here it is one file in the JSON Lines format from Chapter 1, one passage per line.
 
-Each passage carries more than its text. The `id` lets an answer cite it; `source` and `reference` let a reader find it in the original; `scope` says whether it states an international standard or one country's practice.
+Each passage has more than its text. The `id` lets an answer cite it; `source` and `reference` let a reader find it in the original; `scope` says whether it states an international standard or one country's practice.
 
 ### 2.2.2 Code
 
@@ -47,7 +47,7 @@ def load_corpus(file_path=CORPUS_FILE):
     """
     Read the quoted corpus into a list of passage records.
 
-    Each record holds the passage text and the facts about it: id, source,
+    Each record has the passage text and the facts about it: id, source,
     reference, edition, licence and scope.
 
     Example:
@@ -156,7 +156,7 @@ def find_matching_passages(passages, question, how_many=3):
 
 ### 2.4.1 Principles
 
-A chat model reads a list of **messages**, each with a role. The **system** message sets the rules for the whole exchange; the **user** message holds the request.
+A chat model reads a list of **messages**, each with a role. The **system** message sets the rules for the whole exchange; the **user** message contains the request.
 
 The rules here do three things. They limit the model to the passages given, they ask for the passage id after each sentence, and they tell the model to say so when the passages do not answer the question.
 
@@ -182,7 +182,7 @@ def build_prompt(question, passages):
     Put the instructions, the question and the passages into messages for the model.
 
     A chat model reads a list of messages. The "system" message sets the
-    rules; the "user" message holds the question and the evidence.
+    rules; the "user" message contains the question and the evidence.
 
     Example:
         build_prompt("What is GNI?", [passage])
@@ -202,7 +202,7 @@ def build_prompt(question, passages):
 
 - `INSTRUCTIONS` is one string written across several lines. Strings placed side by side inside round brackets are joined into one.
 - `format_passages` (Chapter 1) puts each passage's id, source and reference on a line above its text. The model can then cite `[esa10-8.94]` because it has seen that label.
-- The question appears once, in the user message. The system message holds only the rules.
+- The question appears once, in the user message. The system message contains only the rules.
 
 ## 2.5 Step 4: ask the model
 
@@ -269,7 +269,7 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
 - `temperature` sets how strongly the draw favours the most likely token: 0 always takes it; higher values spread the choice. 0.7, with the three settings above, is what [Qwen's model card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) suggests for this model.
 - `seed` fixes the random draws, so results repeat without temperature 0. In Chapter 11's trials the same prompt and seed gave the same reply every time except on the first request after the model loaded (11.4.4), so a rerun of 2.7 can give a different first answer from the one printed there.
 - The number 42 has no meaning. A repeatable answer is not thereby a correct one.
-- `num_ctx` is the **context window**: the most tokens the model can hold at once, prompt and reply together. Ollama's default depends on the version and the computer's memory (its documentation gives 2,048 in one place and 4,096 in another), so the code sets it. This chapter's prompt is about 225 words, well inside 4,096 tokens; later chapters send more passages.
+- `num_ctx` is the **context window**: the most tokens the model can process at once, prompt and reply together. Ollama's default depends on the version and the computer's memory (its documentation gives 2,048 in one place and 4,096 in another), so the code sets it. This chapter's prompt is about 225 words, well inside 4,096 tokens; later chapters send more passages.
 - `num_predict` caps the reply at 400 **tokens**. A token is a word or part of a word; 400 tokens is roughly 300 English words.
 - `"stream": False` asks for the whole reply at once rather than word by word.
 - Ollama has other settings, such as `repeat_penalty` and `stop`. They stay at Ollama's defaults here; Chapter 11 covers them.
@@ -395,7 +395,7 @@ Three of the seven misses show the method's limits:
 
 | Question | What went wrong |
 | --- | --- |
-| What is the GDP deflator? (q2-16) | The passage writes “GDP deflator” inside curly quotation marks. `split_into_words` (Chapter 1) removes only straight punctuation, so the passage holds the word deflator” with the mark attached, not deflator. |
+| What is the GDP deflator? (q2-16) | The passage writes “GDP deflator” inside curly quotation marks. `split_into_words` (Chapter 1) removes only straight punctuation, so the passage contains the word deflator” with the mark attached, not deflator. |
 | What is consumption of fixed capital? (q2-01) | Four passages contain all three words. Equal scores keep corpus order, and the definition (esa10-3.139) comes fourth. |
 | Are remittances part of national income? (q2-21) | Passages with "national" and "income" score two points; the two passages on remittances score one. Every word counts the same, however rare. |
 
@@ -405,7 +405,7 @@ Chapter 3 replaces this step with keyword scoring that weights rare words more, 
 
 ## 2.9 Tests for this chapter
 
-The file `tests/test_ch02_minimal_pipeline.py` holds nine tests. Retrieval is tested exactly. The model is replaced by a stand-in, so no test depends on Ollama or on the model's wording. Run them with `python -m pytest tests/test_ch02_minimal_pipeline.py -v`.
+The file `tests/test_ch02_minimal_pipeline.py` has nine tests. Retrieval is tested exactly. The model is replaced by a stand-in, so no test depends on Ollama or on the model's wording. Run them with `python -m pytest tests/test_ch02_minimal_pipeline.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -442,7 +442,7 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 | Gold passages | The passages that state what a correct answer says, listed for each question in the question bank |
 | Top-k, top-p | Settings that limit the draw to the k most likely next words, or to the most likely words whose probabilities add up to p |
 | Seed | A number that fixes the random draws, so the same prompt gives the same reply, except possibly on the first request after the model loads |
-| Context window | The most tokens a model can hold at once, prompt and reply together |
+| Context window | The most tokens a model can process at once, prompt and reply together |
 
 **Links**
 

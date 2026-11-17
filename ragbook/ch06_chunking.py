@@ -147,7 +147,7 @@ REPAIRS = [
     ("narrow no-break space", NARROW_NO_BREAK_SPACE, " "),
     ("dot leader: four or more dots, as in a table of contents", r"\.{4,}", " "),
     ("row of four or more hyphens, as in a line drawn under an equation", r"-{4,}", " "),
-    ("word holding font codes instead of letters, such as /g38, /i0 or #23", r"\S*(?:/[gi]\d+|#\d\d)\S*", ""),
+    ("word made of font codes instead of letters, such as /g38, /i0 or #23", r"\S*(?:/[gi]\d+|#\d\d)\S*", ""),
     ("two or more spaces", r" {2,}", " "),
     ("space at the start or end of a line", r" +\n *|\n +", "\n"),
     ("two or more empty lines in a row", r"\n{3,}", "\n\n"),

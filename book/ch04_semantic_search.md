@@ -30,7 +30,7 @@ An **embedding** is a fixed-length list of numbers that stands for a piece of te
 
 The numbers are not chosen by hand. The model was trained on many pairs of texts that mean the same thing, such as a question and its answer. Training adjusted it until the two texts of a pair got similar lists, and unrelated texts got different ones.
 
-So each list can be read as an arrow in a space with 384 directions. Texts with similar meanings point roughly the same way. No single number means anything on its own: meaning sits in the direction of the whole list.
+So each list can be read as an arrow in a space with 384 directions. Texts with similar meanings point roughly the same way. No single number means anything on its own: meaning is in the direction of the whole list.
 
 This is why semantic search can match words that differ. A question about "GNI" and a passage about "gross national income" share no words, but if the model learned that the two are used alike, their arrows point close together. Keyword search (Chapter 3) cannot do this.
 
@@ -198,7 +198,7 @@ def embed_texts(model, texts):
 
 ### 4.4.3 Annotations
 
-- The import sits inside `load_model`, as bm25s did in Chapter 3 (3.7.3), so the rest of the chapter and its tests run without sentence-transformers.
+- The import is inside `load_model`, as bm25s did in Chapter 3 (3.7.3), so the rest of the chapter and its tests run without sentence-transformers.
 - `device="cpu"` keeps the model on the main processor, so the code behaves the same on every laptop.
 - `model.encode` embeds a whole list at once, which is faster than one text at a time.
 - `convert_to_numpy=True` returns a numpy array rather than torch's own type, so 4.3's functions can use it directly.
@@ -342,7 +342,7 @@ Semantic search finds a gold passage in the top three for every question, includ
 
 **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** Semantic search ranks wb13-mccarthy-space-time first (0.648): McCarthy explains that PPPs compare countries at one time and national accounts compare one country over time, and that both cannot be kept consistent. That is half the answer. The passages on the terms of trade, the other half, come 12th and 43rd.
 
-**Three questions are found only through supporting passages.** A supporting passage carries part of the expected answer but does not answer the question by itself; the gold lists count it (Chapter 10, 10.7). For "What is the best measure of labour input for comparing productivity?" (q2-31), the top three include sna25-16.95, on the quality of hours worked; the definition, esa10-11.27, comes fifth. For "Is net domestic product a better measure than GDP?" (q2-24), they include bea-ch2-ndp-gni, the BEA definition of NDP; the passage that gives the judgement, sna25-A4.10 ("the conceptually preferred measure of economic growth"), comes eighth (0.561). For "What is GDI?" (q2-05), they include the same BEA passage; the ESA passage on real gross domestic income comes 40th. All three count as hits, but the passage that answers most directly is outside the top three. Close in meaning to the question is not the same as answering it.
+**Three questions are found only through supporting passages.** A supporting passage states part of the expected answer but does not answer the question by itself; the gold lists count it (Chapter 10, 10.7). For "What is the best measure of labour input for comparing productivity?" (q2-31), the top three include sna25-16.95, on the quality of hours worked; the definition, esa10-11.27, comes fifth. For "Is net domestic product a better measure than GDP?" (q2-24), they include bea-ch2-ndp-gni, the BEA definition of NDP; the passage that gives the judgement, sna25-A4.10 ("the conceptually preferred measure of economic growth"), comes eighth (0.561). For "What is GDI?" (q2-05), they include the same BEA passage; the ESA passage on real gross domestic income comes 40th. All three count as hits, but the passage that answers most directly is outside the top three. Close in meaning to the question is not the same as answering it.
 
 The pattern is general: keyword search is exact on terms the question names; semantic search finds passages written in other words, but can drift to the topic. Chapter 5 combines the two rankings.
 
@@ -393,7 +393,7 @@ The output from the test laptop (Windows, Python 3.14, CPU only), 21 October 202
 
 The first five of the 384 numbers show that no single number means anything to a reader; only comparisons between embeddings do.
 
-For the GDP deflator question, BM25 put una14-ch1-deflator first, because it uses the word "deflator". Semantic search puts it third, behind two passages about GDP and how it is measured. All three scores sit between 0.58 and 0.63: close in meaning, with no sharp winner. The gold passage is still in the top three, so the question counts as a hit.
+For the GDP deflator question, BM25 put una14-ch1-deflator first, because it uses the word "deflator". Semantic search puts it third, behind two passages about GDP and how it is measured. All three scores are between 0.58 and 0.63: close in meaning, with no sharp winner. The gold passage is still in the top three, so the question counts as a hit.
 
 The first run also prints warnings on Windows: that the download cache cannot use shortcuts (it keeps full copies instead), and that no Hugging Face token is set (downloads are slower). Neither affects the results.
 
@@ -403,7 +403,7 @@ Other computers may give slightly different numbers in the last decimal places; 
 
 ### 4.9.1 Tests
 
-The file `tests/test_ch04_semantic_search.py` holds 12 tests. The first eight use small hand-made vectors, so they run without the model. The last four read the saved embeddings and fix the results reported in this chapter. Run them with `python -m pytest tests/test_ch04_semantic_search.py -v`.
+The file `tests/test_ch04_semantic_search.py` has 12 tests. The first eight use small hand-made vectors, so they run without the model. The last four read the saved embeddings and fix the results reported in this chapter. Run them with `python -m pytest tests/test_ch04_semantic_search.py -v`.
 
 | Test | What it proves |
 | --- | --- |
