@@ -4,7 +4,7 @@
     "Concept": "An idea the manuals define or discuss, such as the terms of trade",
     "Passage": "One quoted passage in data/corpus/passages.jsonl",
     "Manual": "One edition of a manual or handbook, such as the 2008 SNA",
-    "Economy": "One of the six economies the book compares",
+    "Economy": "One of the six economies the book compares, or a member of one (Ireland, in the euro area)",
     "Indicator": "A measure used to compare economies; one of the NNI model's measures, or one it does not have",
     "QuestionType": "One of the three questions a vague comparison is split into"
   },
@@ -59,6 +59,11 @@
       "subject": "Economy",
       "object": "Manual",
       "meaning": "the economy's national accounts follow this manual"
+    },
+    "member_of": {
+      "subject": "Economy",
+      "object": "Economy",
+      "meaning": "the subject is a member of the object, a currency union whose figures include it"
     },
     "requires": {
       "subject": "QuestionType",

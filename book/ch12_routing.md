@@ -605,11 +605,181 @@ def beyond_the_edge_message(edge):
 
 What would a test set twice the size show: the same order of routers, or a different one?
 
+### 12.5.7 Fourth round: economy names from the knowledge graph
+
+On 17 November 2026 the domain expert reopened the rules. Chapter 15 found that the third-round rules gave 6 of the 10 Chapter 14 fair questions a route other than the labelled one. Five named an economy in a form the rules did not know ("USA", "Euroarea", "Chinese", "Japanese"), so no economy was found and the default rule sent them to R4. One, f-06, asked how Japanese GDP "in 2020" was "revised by in 2023": the rules read 2023 as a year of data, past the archive edition's last year (2022), and escalated it.
+
+The cause was four lists of economy names:
+
+| List | Names | Used by |
+| --- | --- | --- |
+| `ECONOMIES` (12.3) | the six names, with "us" and "uk" | the routing rules |
+| `ECONOMY_NAMES` (12.5.6) | the same, with "usa", "euroarea", "chinese", "japanese" and others | the ragged-edge check only |
+| `EURO_MEMBER_NAMES` (12.5.4) | "ireland", "irish" | the member rule |
+| Economy things in the knowledge graph (Chapter 5) | the label and aliases of each economy | nothing in routing |
+
+The fourth round keeps the names in one place: the knowledge graph. Each economy's label and aliases in `data/knowledge_graph/entities.csv` are its names. Ireland is an economy with one triplet, `ireland member_of euro_area`, which replaces the list of member names; `member_of` is a new relation in the schema. `DATA_CODES` links each economy in the graph to its code in the data, and holds no names.
+
+Five more changes, each for one question that showed a gap:
+
+- "states of the usa" is an economy not in the data, so t-01 is escalated;
+- "better economy" is a vague phrase, so u-16 gets sharper questions (clarify);
+- "revision" is a vintage word, so f-04 goes to the code (R2);
+- a question that names economies and uses a measurement phrase ("affected by", "unmeasured") goes to passages (R4) before the two-economies rule (u-15);
+- a year after "revised ... in" is the date of a revision, not a year of data (f-06).
+
+The earlier rounds keep their own lists, so their scores, fair ones included, can still be reproduced.
+
+`ragbook/ch12_routing.py`, the names, `load_economies`, `economies_in`, `data_years` and `route_question_graph`. `beyond_the_edge_graph` is `beyond_the_edge` with the names from the graph and the years from `data_years`.
+
+```python
+# The data's code for each Economy in the graph. Names are kept in the graph
+# only; this table links each one to the rows of the data.
+DATA_CODES = {"united_states": "USA", "euro_area": "EA21", "united_kingdom": "GBR",
+              "china": "CHN", "india": "IND", "japan": "JPN", "ireland": "IRL"}
+
+# Word lists added in the fourth round, each for one question that showed
+# the gap (in brackets).
+NOT_IN_DATA_FOURTH = OTHER_ECONOMIES + ["states of the usa", "states of the us"]   # t-01
+VAGUE_FOURTH = VAGUE + ["better economy"]                                         # u-16
+VINTAGE_FOURTH = VINTAGE + ["revision"]                                           # f-04
+MEASUREMENT = ["affected by", "unmeasured"]                                       # u-15
+REVISION_DATE = re.compile(r"\brevised\b[^?.]*?\bin ((?:19|20)[0-9]{2})\b")       # f-06
+```
+
+```python
+def load_economies(folder=GRAPH_FOLDER):
+    """
+    Read each economy's names and the euro area members from the graph.
+
+    Returns a dictionary: "names" maps each data code to its names in lower
+    case (label first, then aliases); "members" maps a member's code to the
+    code of the economy it belongs to.
+
+    Example:
+        load_economies()["names"]["JPN"] returns ["japan", "japanese"]
+        load_economies()["members"] returns {"IRL": "EA21"}
+    """
+    graph = KnowledgeGraph([], folder)
+    names = {}
+    for entity_id, entity in graph.entities.items():
+        if entity["type"] == "Economy":
+            names[DATA_CODES[entity_id]] = [name.lower() for name in graph.names(entity_id)]
+    members = {}
+    for triple in graph.triples:
+        if triple["relation"] == "member_of":
+            members[DATA_CODES[triple["subject"]]] = DATA_CODES[triple["object"]]
+    return {"names": names, "members": members}
+```
+
+```python
+def economies_in(question, names):
+    """
+    The codes of the economies a question names, matched as whole words.
+
+    Example:
+        economies_in("Is the USA richer than the euroarea?", load_economies()["names"])
+        returns ["USA", "EA21"]
+    """
+    text = " " + " ".join(split_into_words(question)) + " "
+    return [code for code, economy_names in names.items()
+            if any(" " + name + " " in text for name in economy_names)]
+```
+
+```python
+def data_years(question):
+    """
+    The years a question asks data for. A year after "revised ... in" is the
+    date of a revision, not a year of data, so it is left out.
+
+    Example:
+        data_years("How much was Japanese GDP in 2020 revised by in 2023?")
+        returns [2020]
+    """
+    years = [int(year) for year in re.findall(r"\b(?:19|20)[0-9]{2}\b", question)]
+    for date in REVISION_DATE.findall(question):
+        years.remove(int(date))
+    return years
+```
+
+```python
+def route_question_graph(question, known_words, titles, last_years, economies):
+    """
+    The fourth-round rules: the third round's order, with the economies read
+    from the graph and the word lists above. Members of the euro area count
+    for the member rule only, as in the earlier rounds.
+
+    Example:
+        route_question_graph("Is the USA a better economy than China?", words, titles,
+                             last_years, load_economies())
+        returns ("AMB", "clarify", "too vague")
+    """
+    text = question.lower()
+    words_in_text = " " + " ".join(split_into_words(question)) + " "
+    named = economies_in(question, economies["names"])
+    members = [code for code in named if code in economies["members"]]
+    main = [code for code in named if code not in economies["members"]]
+    code = ANY_CODE.search(question)
+    if code:
+        if code.group() in titles:
+            return "Q1", "R1", "series code"
+        return "OUT", "escalate", "series not in the data"
+    if any(" " + name + " " in words_in_text for name in NOT_IN_DATA_FOURTH):
+        return "OUT", "escalate", "economy not in the data"
+    if CONDITIONAL.search(text):
+        return "Q7", "R5>R2", "scenario (if ... had)"
+    if beyond_the_edge_graph(question, last_years, economies):
+        return "OUT", "escalate", "beyond the data"
+    if members and data_years(question):
+        return "Q1", "R2", "value lookup (euro area member)"
+    if "components" in text and main:
+        return "Q3", "R2", "compute (components)"
+    if FORECAST.search(text):
+        return "OUT", "escalate", "forecast"
+    if ADVICE.search(text):
+        return "OUT", "escalate", "policy advice"
+    if contains_any(question, JUDGEMENT):
+        return "OUT", "escalate", "judgement"
+    if contains_any(question, SCENARIO):
+        return "Q7", "R5>R2", "scenario"
+    if contains_any(question, VAGUE_FOURTH) and not YEAR.search(question):
+        return "AMB", "clarify", "too vague"
+    if " now " in f" {text} " and " ago" in text:
+        return "Q8", "R6", "two dates and an explanation"
+    if contains_any(question, VINTAGE_FOURTH) and main:
+        route = "R4+R2" if text.startswith("why") else "R2"
+        return "Q4", route, "vintage"
+    if contains_any(question, MEASUREMENT) and main:
+        return "Q2", "R4", "measurement"
+    if len(main) >= 2:
+        route = "R4+R2" if contains_any(question, WHY) else "R2"
+        return "Q5", route, "two economies"
+    if main and text.startswith("what is"):
+        return "Q6", "R4+R2", "definition and a figure"
+    if main and contains_any(question, DRIVERS + ["how much of"]):
+        return "Q3", "R2", "compute"
+    if main and YEAR.search(question):
+        return "Q1", "R2", "value lookup"
+    words = topic_words(question)
+    if words and sum(word in known_words for word in words) / len(words) < OUTSIDE_SHARE:
+        return "OUT", "escalate", "outside the corpus"
+    return "Q2", "R4", "definition (default)"
+```
+
+| Router | Bank (56) | First test set (32) | Second test set (16) | Chapter 14 fair questions (10) |
+| --- | --- | --- | --- | --- |
+| Ragged-edge rules (12.5.6) | 56 | 26 | 9 | 4 |
+| Fourth-round rules (12.5.7) | 56 | 25 | 12 | 10 |
+
+- **All fourth-round scores are training scores.** The rules were changed after reading every question in the table.
+- **t-01 is escalated, as the domain expert chose on 17 November 2026: the data have no figures for US states.** Its label (R4) is kept so that the earlier scores stand, fair ones included; it counts as a miss here.
+- **On the second set, u-05, u-07 and u-16 are now routed as labelled.** u-06 keeps its route (R2) but gets the class Q5 instead of Q3, because it names two economies.
+
 ## 12.6 Tests, glossary and links
 
 ### 12.6.1 Tests
 
-The file `tests/test_ch12_routing.py` has 25 tests. None needs the model; three read the saved replies from the two laptop runs. Run them with `python -m pytest tests/test_ch12_routing.py -v`.
+The file `tests/test_ch12_routing.py` has 29 tests. None needs the model; three read the saved replies from the two laptop runs. Run them with `python -m pytest tests/test_ch12_routing.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -637,6 +807,10 @@ The file `tests/test_ch12_routing.py` has 25 tests. None needs the model; three 
 | Last years | Japan 2024 and the UK 2025 in the latest edition; the US 2022 and Ireland absent in the archive |
 | Ragged edge | Japan to 2025 is past the edge, the UK to 2025 is not; a revision question about Ireland is checked against the archive; the message names the economy and year |
 | Ragged-edge scores | 56 of 56; 26 of 32; 9 of 16 |
+| Economies from the graph | Japan's names are "japan" and "japanese"; Ireland is a member of the euro area; "USA" and "euroarea" are found, "because" is not |
+| Revision date | "revised by in 2023" leaves 2023 out of the years of data |
+| Fourth-round rules | t-01's wording escalates; u-16's wording is vague; u-15's wording goes to passages; "revision" is a vintage word; Japan to 2025 is still past the edge |
+| Fourth-round scores | 56 of 56; 25 of 32 (t-01 escalated, label kept); 12 of 16; 10 of 10 on the Chapter 14 fair questions |
 
 ### 12.6.2 Glossary
 
@@ -650,6 +824,7 @@ The file `tests/test_ch12_routing.py` has 25 tests. None needs the model; three 
 | Keyword rule | A test of a question's text for a word, phrase or pattern |
 | Test set | Questions written after the router and kept unchanged, used only to score it |
 | Training score | A score on the questions a router was built from; it overstates the score on new questions |
+| Alias | Another name for the same thing (USA for the United States), kept in the knowledge graph |
 | Fall-back rule | A rule that decides only because no other rule matched |
 
 ### 12.6.3 Links

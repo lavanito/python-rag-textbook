@@ -23,6 +23,7 @@ Used by
 
 Uses
     Chapter 1 (load_passages); Chapter 2 (load_corpus, topic_words);
+    Chapter 5 (GRAPH_FOLDER, KnowledgeGraph: the economies' names, 12.5.7);
     Chapter 3 (QUESTION_FILE); Chapter 11 (SETTINGS,
     ask_model_with_details, save_answers, load_answers). Python's csv,
     re, sys, urllib and pathlib modules. For 12.4, Ollama running locally
@@ -50,6 +51,7 @@ from pathlib import Path
 from ragbook.ch01_python_basics import load_passages, split_into_words
 from ragbook.ch02_minimal_pipeline import load_corpus, topic_words
 from ragbook.ch03_keyword_search import QUESTION_FILE
+from ragbook.ch05_hybrid_search import GRAPH_FOLDER, KnowledgeGraph
 from ragbook.ch11_prompts import (
     ANSWER_FOLDER, SETTINGS, ask_model_with_details, load_answers, save_answers,
 )
@@ -486,6 +488,195 @@ def route_bank_ragged(questions, known_words, titles, last_years):
 
 
 # ---------------------------------------------------------------------------
+# 12.5.7  Fourth round: economy names from the knowledge graph
+# ---------------------------------------------------------------------------
+
+# The fourth round reads every economy's names from the knowledge graph
+# (data/knowledge_graph/entities.csv, the label and aliases of each Economy)
+# and the euro area members from its member_of triplets. The domain expert,
+# 17 November 2026, after the Chapter 14 fair questions used names the
+# lists above did not have (USA, euroarea, Chinese, Japanese). Scores with
+# these rules are training scores.
+
+# The data's code for each Economy in the graph. Names are kept in the graph
+# only; this table links each one to the rows of the data.
+DATA_CODES = {"united_states": "USA", "euro_area": "EA21", "united_kingdom": "GBR",
+              "china": "CHN", "india": "IND", "japan": "JPN", "ireland": "IRL"}
+
+# Word lists added in the fourth round, each for one question that showed
+# the gap (in brackets).
+NOT_IN_DATA_FOURTH = OTHER_ECONOMIES + ["states of the usa", "states of the us"]   # t-01
+VAGUE_FOURTH = VAGUE + ["better economy"]                                         # u-16
+VINTAGE_FOURTH = VINTAGE + ["revision"]                                           # f-04
+MEASUREMENT = ["affected by", "unmeasured"]                                       # u-15
+REVISION_DATE = re.compile(r"\brevised\b[^?.]*?\bin ((?:19|20)[0-9]{2})\b")       # f-06
+
+
+def load_economies(folder=GRAPH_FOLDER):
+    """
+    Read each economy's names and the euro area members from the graph.
+
+    Returns a dictionary: "names" maps each data code to its names in lower
+    case (label first, then aliases); "members" maps a member's code to the
+    code of the economy it belongs to.
+
+    Example:
+        load_economies()["names"]["JPN"] returns ["japan", "japanese"]
+        load_economies()["members"] returns {"IRL": "EA21"}
+    """
+    graph = KnowledgeGraph([], folder)
+    names = {}
+    for entity_id, entity in graph.entities.items():
+        if entity["type"] == "Economy":
+            names[DATA_CODES[entity_id]] = [name.lower() for name in graph.names(entity_id)]
+    members = {}
+    for triple in graph.triples:
+        if triple["relation"] == "member_of":
+            members[DATA_CODES[triple["subject"]]] = DATA_CODES[triple["object"]]
+    return {"names": names, "members": members}
+
+
+def economies_in(question, names):
+    """
+    The codes of the economies a question names, matched as whole words.
+
+    Example:
+        economies_in("Is the USA richer than the euroarea?", load_economies()["names"])
+        returns ["USA", "EA21"]
+    """
+    text = " " + " ".join(split_into_words(question)) + " "
+    return [code for code, economy_names in names.items()
+            if any(" " + name + " " in text for name in economy_names)]
+
+
+def data_years(question):
+    """
+    The years a question asks data for. A year after "revised ... in" is the
+    date of a revision, not a year of data, so it is left out.
+
+    Example:
+        data_years("How much was Japanese GDP in 2020 revised by in 2023?")
+        returns [2020]
+    """
+    years = [int(year) for year in re.findall(r"\b(?:19|20)[0-9]{2}\b", question)]
+    for date in REVISION_DATE.findall(question):
+        years.remove(int(date))
+    return years
+
+
+def beyond_the_edge_graph(question, last_years, economies):
+    """
+    beyond_the_edge with the names from the graph and the years from
+    data_years. Returns (economy, edition, last year), or None.
+
+    Example:
+        beyond_the_edge_graph("Japanese growth from 2010 to 2025?", last_years, economies)
+        returns ("JPN", "latest", 2024)
+    """
+    years = data_years(question)
+    if not years:
+        return None
+    named = economies_in(question, economies["names"])
+    editions = ["latest"]
+    if contains_any(question, REVISION_WORDS):
+        editions.append("archive")
+    if not named:
+        latest = max(year for (economy, edition), year in last_years.items()
+                     if edition == "latest" and year is not None)
+        return ("", "latest", latest) if max(years) > latest else None
+    for economy in named:
+        for edition in editions:
+            last = last_years[(economy, edition)]
+            if last is None or max(years) > last:
+                return economy, edition, last
+    return None
+
+
+def route_question_graph(question, known_words, titles, last_years, economies):
+    """
+    The fourth-round rules: the third round's order, with the economies read
+    from the graph and the word lists above. Members of the euro area count
+    for the member rule only, as in the earlier rounds.
+
+    Example:
+        route_question_graph("Is the USA a better economy than China?", words, titles,
+                             last_years, load_economies())
+        returns ("AMB", "clarify", "too vague")
+    """
+    text = question.lower()
+    words_in_text = " " + " ".join(split_into_words(question)) + " "
+    named = economies_in(question, economies["names"])
+    members = [code for code in named if code in economies["members"]]
+    main = [code for code in named if code not in economies["members"]]
+    code = ANY_CODE.search(question)
+    if code:
+        if code.group() in titles:
+            return "Q1", "R1", "series code"
+        return "OUT", "escalate", "series not in the data"
+    if any(" " + name + " " in words_in_text for name in NOT_IN_DATA_FOURTH):
+        return "OUT", "escalate", "economy not in the data"
+    if CONDITIONAL.search(text):
+        return "Q7", "R5>R2", "scenario (if ... had)"
+    if beyond_the_edge_graph(question, last_years, economies):
+        return "OUT", "escalate", "beyond the data"
+    if members and data_years(question):
+        return "Q1", "R2", "value lookup (euro area member)"
+    if "components" in text and main:
+        return "Q3", "R2", "compute (components)"
+    if FORECAST.search(text):
+        return "OUT", "escalate", "forecast"
+    if ADVICE.search(text):
+        return "OUT", "escalate", "policy advice"
+    if contains_any(question, JUDGEMENT):
+        return "OUT", "escalate", "judgement"
+    if contains_any(question, SCENARIO):
+        return "Q7", "R5>R2", "scenario"
+    if contains_any(question, VAGUE_FOURTH) and not YEAR.search(question):
+        return "AMB", "clarify", "too vague"
+    if " now " in f" {text} " and " ago" in text:
+        return "Q8", "R6", "two dates and an explanation"
+    if contains_any(question, VINTAGE_FOURTH) and main:
+        route = "R4+R2" if text.startswith("why") else "R2"
+        return "Q4", route, "vintage"
+    if contains_any(question, MEASUREMENT) and main:
+        return "Q2", "R4", "measurement"
+    if len(main) >= 2:
+        route = "R4+R2" if contains_any(question, WHY) else "R2"
+        return "Q5", route, "two economies"
+    if main and text.startswith("what is"):
+        return "Q6", "R4+R2", "definition and a figure"
+    if main and contains_any(question, DRIVERS + ["how much of"]):
+        return "Q3", "R2", "compute"
+    if main and YEAR.search(question):
+        return "Q1", "R2", "value lookup"
+    words = topic_words(question)
+    if words and sum(word in known_words for word in words) / len(words) < OUTSIDE_SHARE:
+        return "OUT", "escalate", "outside the corpus"
+    return "Q2", "R4", "definition (default)"
+
+
+def route_bank_graph(questions, known_words, titles, last_years, economies):
+    """
+    route_bank with the fourth-round rules.
+
+    Example:
+        count_right(route_bank_graph(questions, words, titles, last_years, load_economies()))
+    """
+    records = []
+    for question in questions:
+        found_class, found_route, rule = route_question_graph(
+            question["question"], known_words, titles, last_years, economies)
+        records.append({
+            "id": question["id"], "question": question["question"],
+            "class": question["class"], "route": question["route"],
+            "found_class": found_class, "found_route": found_route, "rule": rule,
+            "class_right": found_class == question["class"],
+            "route_right": found_route == question["route"],
+        })
+    return records
+
+
+# ---------------------------------------------------------------------------
 # 12.4  A small model as router
 # ---------------------------------------------------------------------------
 
@@ -694,6 +885,12 @@ def main():
     report("12.5.4  Revised rules on the bank", route_bank_revised(bank, words, titles))
     report("12.5.4  Revised rules on the test set (a training score)",
            route_bank_revised(test, words, titles))
+    last_years, economies = load_last_years(), load_economies()
+    for label, questions in [("bank", bank), ("first test set", test),
+                             ("second test set", load_passages(SECOND_TEST_FILE)),
+                             ("Chapter 14 fair test", load_passages(QUESTION_FILE.parent / "ch14_fair_test.jsonl"))]:
+        report(f"12.5.7  Fourth-round rules on the {label} (a training score)",
+               route_bank_graph(questions, words, titles, last_years, economies))
 
 
 if __name__ == "__main__":

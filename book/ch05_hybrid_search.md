@@ -92,7 +92,7 @@ The **knowledge graph** is a small, hand-built record of the ideas in the corpus
 
 It has two parts: an **ontology**, the rules that say which kinds of thing exist and which relations may link them, and the facts that follow those rules. The glossary (5.8.2) defines both terms strictly and says how a knowledge graph differs from a concept map.
 
-- `entities.csv` lists 66 things: concepts, manuals, economies, indicators and question types. Each has an id, a kind, a label and other names (**aliases**). For example, the concept `gni` has the label "gross national income" and the aliases "GNI" and "national income".
+- `entities.csv` lists 67 things: concepts, manuals, economies, indicators and question types. Each has an id, a kind, a label and other names (**aliases**). For example, the concept `gni` has the label "gross national income" and the aliases "GNI" and "national income".
 - `triples.csv` holds 91 facts, each in three parts: subject, relation, object. These are **triplets**. For example, `nni, defined_in, sna08-2.144` says that paragraph 2.144 of the 2008 SNA defines net national income. Every triplet records its evidence: a passage, or `author` for the author's own framing.
 - `schema.json` lists the six kinds of thing and the eleven relations allowed between them: the ontology.
 
@@ -263,7 +263,7 @@ class KnowledgeGraph:
 - `re.sub(r"\s*\([^)]*\)$", "", ...)` removes a note in brackets at the end of a label. `re` is Python's module for **regular expressions**, patterns that describe text: `\(` is an opening bracket, `[^)]*` any characters except a closing bracket, `$` the end of the text.
 - `words[start:start + size] == phrase_words` compares a slice of the question's words with the phrase, one position at a time.
 - `matches` maps each concept to every place its names were found, as (start, end) pairs; `always_inside_longer_name` then applies the longer-name rule.
-- `linked` reads the triplets each time it is called. With 130 triplets that takes no noticeable time; a larger graph would be indexed once, as `KeywordIndex` does for words.
+- `linked` reads the triplets each time it is called. With 131 triplets that takes no noticeable time; a larger graph would be indexed once, as `KeywordIndex` does for words.
 
 ## 5.4 Widening the keyword search with aliases
 
@@ -618,7 +618,7 @@ The file `tests/test_ch05_hybrid_search.py` holds 17 tests. The first fourteen u
 | Hybrid search | Ranking passages with keyword and semantic search together and combining the results |
 | Reciprocal rank fusion (RRF) | Combining rankings by adding 1 / (k + place) for each passage across rankings |
 | Ontology | The rules of a knowledge graph: which kinds of thing exist, and which relations may link which kinds. In this book: `schema.json`, six kinds and eleven relations |
-| Knowledge graph | An ontology together with the facts that follow its rules: the things, and the triplets that link them. In this book: `data/knowledge_graph/`, 66 things and 130 triplets |
+| Knowledge graph | An ontology together with the facts that follow its rules: the things, and the triplets that link them. In this book: `data/knowledge_graph/`, 67 things and 131 triplets |
 | Concept map | A diagram of concepts joined by labelled arrows, with no fixed rules on kinds or relations. A knowledge graph differs from it by having an ontology and checking every fact against it. This book does not use one |
 | Alias | Another name for a concept, such as "GNI" for gross national income |
 | Triplet | One fact in three parts: subject, relation, object |

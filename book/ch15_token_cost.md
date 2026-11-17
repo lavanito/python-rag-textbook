@@ -175,8 +175,8 @@ def trace_question(question, parameters, saved, settings, context):
     """
     qid, text = question["id"], question["question"]
     lines = []
-    found, seconds = timed(route_question_ragged, text, context["known_words"],
-                           context["titles"], context["last_years"])
+    found, seconds = timed(route_question_graph, text, context["known_words"],
+                           context["titles"], context["last_years"], context["economies"])
     lines.append(step_line(qid, "route", settings,
                            {"class": found[0], "route": found[1], "rule": found[2],
                             "route_used": question["route"]}, seconds, TIMED_HERE))
@@ -238,7 +238,8 @@ The trace of the 24 questions has 202 lines (`data/traces/ch15_traces.jsonl`). T
 
 - The locked block and the evidence are the same as in the saved run for all 24 questions.
 - Over the 24 questions, the steps in Python took under a tenth of a second here; the model's 34 attempts took 1,944 seconds on the laptop. The NNI model's data load once, in about 0.02 seconds.
-- The routing rules give 6 of the domain expert's 10 questions a route other than the one the run used. Five go to R4, the default for definitions, because the rules do not know "USA", "Euroarea", "Chinese" or "Japanese" as economy names (f-02 to f-05, f-10). f-06 ("revised by in 2023") is escalated as beyond the data. The Chapter 14 run used the labelled routes, so its figures are right; through the rules, these questions would get passages and no figures.
+- The third-round routing rules (Chapter 12) gave 6 of the domain expert's 10 questions a route other than the one the run used. Five went to R4, the default for definitions, because the rules did not know "USA", "Euroarea", "Chinese" or "Japanese" as economy names (f-02 to f-05, f-10); f-06 ("revised by in 2023") was escalated as beyond the data. The Chapter 14 run used the labelled routes, so its figures are right.
+- The fourth-round rules (12.5.7) read the economy names from the knowledge graph and route all 10 as labelled, a training score. The trace uses the fourth round.
 
 ## 15.4 The user's two settings
 
@@ -360,6 +361,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 | 12 | Questions routed as labelled, bank, ragged-edge rules | 56 of 56 | Training |
 | 12 | Questions routed as labelled, first test set, first-round rules | 19 of 32 | Fair |
 | 12 | Questions routed as labelled, second test set, revised rules | 6 of 16 | Fair |
+| 12 | Questions routed as labelled, Chapter 14 fair questions, fourth-round rules | 10 of 10 | Training |
 | 13 | Parameters read right (same figures), keyword rules, new questions | 2 of 20 | Fair |
 | 13 | Parameters read right (same figures), model round 2, new questions | 9 of 20 | Fair |
 | 13 | Replies with no invented number (model wrote the whole reply) | 13 of 14 | Training |
@@ -400,7 +402,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 
 ## Tests
 
-`tests/test_ch15_token_cost.py`, 19 tests; with the earlier chapters, 331 pass. No language model is called. They check:
+`tests/test_ch15_token_cost.py`, 19 tests; with the earlier chapters, 335 pass. No language model is called. They check:
 
 - tokens and seconds are counted from every saved run, retries counted apart, and the Chapter 14 run totals 34 calls and 32.4 minutes;
 - lookups cost no tokens;

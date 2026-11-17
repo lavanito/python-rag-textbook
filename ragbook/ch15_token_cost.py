@@ -30,7 +30,7 @@ Uses
     Chapter 1 (load_passages); Chapter 2 (load_corpus); Chapter 3
     (QUESTION_FILE); Chapter 8 (USE_MODES, licence_filter); Chapter 11
     (ANSWER_FOLDER, ROLE_LENGTH, load_answers); Chapter 12
-    (route_question_ragged, corpus_words, load_titles, load_last_years);
+    (route_question_graph, load_economies, corpus_words, load_titles, load_last_years);
     Chapter 13 (PARAMETER_FILE, load_edition); Chapter 14 (fetch,
     locked_block, evidence_for, the checks and the saved runs). Decisions:
     the domain expert, 16 November 2026 (claude/ch15-decisions.md in the
@@ -51,7 +51,8 @@ from ragbook.ch02_minimal_pipeline import load_corpus
 from ragbook.ch03_keyword_search import QUESTION_FILE
 from ragbook.ch08_filters import USE_MODES, licence_filter
 from ragbook.ch11_prompts import ANSWER_FOLDER, ROLE_LENGTH, load_answers
-from ragbook.ch12_routing import corpus_words, load_last_years, load_titles, route_question_ragged
+from ragbook.ch12_routing import (corpus_words, load_economies, load_last_years, load_titles,
+                                  route_question_graph)
 from ragbook.ch13_model_tool import PARAMETER_FILE, load_edition
 from ragbook.ch14_answer_checks import (FAIR_TEST_FILE, REVIEW_FILE, evidence_for, fetch,
                                         load_definitions, load_graph, locked_block)
@@ -258,8 +259,8 @@ def trace_question(question, parameters, saved, settings, context):
     """
     qid, text = question["id"], question["question"]
     lines = []
-    found, seconds = timed(route_question_ragged, text, context["known_words"],
-                           context["titles"], context["last_years"])
+    found, seconds = timed(route_question_graph, text, context["known_words"],
+                           context["titles"], context["last_years"], context["economies"])
     lines.append(step_line(qid, "route", settings,
                            {"class": found[0], "route": found[1], "rule": found[2],
                             "route_used": question["route"]}, seconds, TIMED_HERE))
@@ -307,7 +308,7 @@ def trace_context():
     _, data_seconds = timed(lambda: [load_edition(e) for e in ("latest", "archive")])
     return {"corpus": corpus, "known_words": corpus_words(corpus), "titles": load_titles(),
             "last_years": load_last_years(), "definitions": load_definitions(),
-            "graph": load_graph(), "data_seconds": data_seconds}
+            "graph": load_graph(), "economies": load_economies(), "data_seconds": data_seconds}
 
 
 def trace_run(saved_records, settings, context=None):
@@ -413,6 +414,8 @@ SCORES = [
     ("12", "Questions routed as labelled, bank, ragged-edge rules", "56 of 56", "training"),
     ("12", "Questions routed as labelled, first test set, first-round rules", "19 of 32", "fair"),
     ("12", "Questions routed as labelled, second test set, revised rules", "6 of 16", "fair"),
+    ("12", "Questions routed as labelled, Chapter 14 fair questions, fourth-round rules",
+     "10 of 10", "training"),
     ("13", "Parameters read right (same figures), keyword rules, new questions", "2 of 20", "fair"),
     ("13", "Parameters read right (same figures), model round 2, new questions", "9 of 20", "fair"),
     ("13", "Replies with no invented number (model wrote the whole reply)", "13 of 14", "training"),
