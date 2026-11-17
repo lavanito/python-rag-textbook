@@ -59,6 +59,7 @@ SNA25,next_edition_of,SNA08,sna25-A4.10,
 ESA10,based_on,SNA08,esa10-8.94,ESA 2010 is the EU's legally binding version of the SNA (scope note)
 united_states,compiled_under,BEA,bea-ch2-gnp,
 euro_area,compiled_under,ESA10,esa10-8.94,
+ireland,member_of,euro_area,author,Ireland uses the euro and compiles its accounts under ESA 2010
 living_standards,requires,gni_per_head_ppp,author,the domain expert's framing of 13 October 2026
 living_standards,requires,gni_per_hour_ppp,author,the domain expert's framing of 13 October 2026
 growth,requires,real_gdp_growth,author,the domain expert's framing of 13 October 2026

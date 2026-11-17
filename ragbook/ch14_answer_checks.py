@@ -22,7 +22,7 @@ Outputs
     check found, and the status (lookup, passed, passed on retry, dropped).
 
 Used by
-    Chapter 15 (tracing and cost) and the demonstrator's reply page.
+    Chapter 15 (token cost) and the demonstrator's reply page.
 
 Uses
     Chapter 1 (load_passages); Chapter 2 (load_corpus); Chapter 3

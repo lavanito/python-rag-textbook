@@ -254,3 +254,52 @@ def test_saved_model_replies_on_the_second_set():
     # The first-round rules also score 6; combined as in 12.5, still 6.
     second = load_passages(SECOND_TEST_FILE)
     assert count_right(combine(route_bank(second, WORDS, TITLES), records))["both"] == 6
+
+
+# Fourth round (17 November 2026): economy names from the knowledge graph.
+# Written after the Chapter 14 fair questions were seen: training scores.
+
+def test_economies_come_from_the_graph():
+    from ragbook.ch12_routing import economies_in, load_economies
+    economies = load_economies()
+    assert economies["names"]["JPN"] == ["japan", "japanese"]
+    assert economies["members"] == {"IRL": "EA21"}
+    assert economies_in("Is the USA richer than the euroarea?", economies["names"]) == ["USA", "EA21"]
+    assert economies_in("Why is this so, because of prices?", economies["names"]) == []
+
+
+def test_revision_date_is_not_a_data_year():
+    from ragbook.ch12_routing import data_years
+    assert data_years("How much was Japanese GDP in 2020 revised by in 2023?") == [2020]
+    assert data_years("Japan's growth from 2010 to 2025?") == [2010, 2025]
+
+
+def test_fourth_round_rules():
+    from ragbook.ch12_routing import load_economies, route_question_graph
+    economies = load_economies()
+
+    def graph_route(question):
+        return route_question_graph(question, WORDS, TITLES, LAST_YEARS, economies)[:2]
+
+    assert graph_route("Is the USA a better economy than China?") == ("AMB", "clarify")
+    assert graph_route("How does the UK compare with the 50 states of the USA?") == ("OUT", "escalate")
+    assert graph_route("Could the USA and euroarea comparison be affected by unpaid work?") == ("Q2", "R4")
+    assert graph_route("What was the largest revision to USA real GDP?") == ("Q4", "R2")
+    assert graph_route("How much was Japanese GDP in 2020 revised by in 2023?")[1] != "escalate"
+    assert graph_route("Japanese growth from 2010 to 2025?") == ("OUT", "escalate")
+
+
+def test_fourth_round_scores():
+    from ragbook.ch12_routing import load_economies, route_bank_graph
+    economies = load_economies()
+
+    def score(questions):
+        return count_right(route_bank_graph(questions, WORDS, TITLES, LAST_YEARS, economies))["both"]
+
+    assert score(QUESTIONS) == 56
+    first = route_bank_graph(load_passages(TEST_FILE), WORDS, TITLES, LAST_YEARS, economies)
+    assert count_right(first)["both"] == 25
+    t01 = [r for r in first if r["id"] == "t-01"][0]
+    assert (t01["found_route"], t01["route"]) == ("escalate", "R4")   # label kept; see 12.5.7
+    assert score(load_passages(QUESTION_FILE.parent / "routing_test_6_november.jsonl")) == 12
+    assert score(load_passages(QUESTION_FILE.parent / "ch14_fair_test.jsonl")) == 10

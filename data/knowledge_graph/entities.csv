@@ -42,12 +42,13 @@ UNA14,Manual,OECD Understanding National Accounts (2014),
 CSO,Manual,CSO Ireland: Modified GNI (web page),
 ONS,Manual,ONS blog: The hardest part of productivity measurement (2019),
 WB13,Manual,World Bank: Measuring the Real Size of the World Economy (2013),ICP 2005 book
-united_states,Economy,United States,US; USA
-euro_area,Economy,euro area,eurozone
-united_kingdom,Economy,United Kingdom,UK; Britain
-china,Economy,China,
-india,Economy,India,
-japan,Economy,Japan,
+united_states,Economy,United States,US; USA; United States of America; American
+euro_area,Economy,euro area,eurozone; euroarea; euro zone
+united_kingdom,Economy,United Kingdom,UK; Britain; British; Great Britain
+china,Economy,China,Chinese
+india,Economy,India,Indian
+japan,Economy,Japan,Japanese
+ireland,Economy,Ireland,Irish
 gni_per_head_ppp,Indicator,GNI per head at purchasing power parities,GNI per capita at PPP; income per head; national income per person; average income
 gni_per_hour_ppp,Indicator,GNI per hour worked at PPP,GNI per hour; national income per hour worked
 real_gdp_growth,Indicator,growth in real GDP,GDP growth; economic growth; real growth; how fast the economy grew; GDP in volume
