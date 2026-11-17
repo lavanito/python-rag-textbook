@@ -771,9 +771,9 @@ def route_question_graph(question, known_words, titles, last_years, economies):
 | Ragged-edge rules (12.5.6) | 56 | 26 | 9 | 4 |
 | Fourth-round rules (12.5.7) | 56 | 25 | 12 | 10 |
 
-- **All fourth-round scores are training scores.** The rules were changed after reading every question in the table.
-- **t-01 is escalated, as the domain expert chose on 17 November 2026: the data have no figures for US states.** Its label (R4) is kept so that the earlier scores stand, fair ones included; it counts as a miss here.
-- **On the second set, u-05, u-07 and u-16 are now routed as labelled.** u-06 keeps its route (R2) but gets the class Q5 instead of Q3, because it names two economies.
+- All fourth-round scores are training scores. The rules were changed after reading every question in the table.
+- t-01 is escalated, as the domain expert chose on 17 November 2026: the data have no figures for US states. Its label (R4) is kept so that the earlier scores stand, fair ones included; it counts as a miss here.
+- On the second set, u-05, u-07 and u-16 are now routed as labelled. u-06 keeps its route (R2) but gets the class Q5 instead of Q3, because it names two economies.
 
 ## 12.6 Tests, glossary and links
 
