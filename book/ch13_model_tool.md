@@ -581,7 +581,7 @@ def beyond_the_data(parameters, last_years):
 
 The last step turns figures into a reply. Code works out every figure and writes it as one line: the value, unit, year, source, edition, DQR band and reason, and flags. The language model is asked only to report those lines in words.
 
-Code then checks the reply. Every number in it must appear in the question or the figures; any other number is invented. The reply must end "Passed to an analyst." exactly when code decided to escalate.
+Code then checks the reply. Every number in it must appear in the question or the figures; any other number is an unsupported number. The reply must end "Passed to an analyst." exactly when code decided to escalate.
 
 The test uses the bank's 14 questions routed to code, with the checked parameters of 13.4, so a misread question does not count against the reply.
 

@@ -252,7 +252,7 @@ One line of the log, for "How do you get from GNI to net national income?" in co
 
 The filters run before the search, not after it. Removing passages from a finished ranking would leave fewer than three, or force a deeper search to fill the gap. Filtering first also means BM25's word statistics (Chapter 3) count only the passages that may be used.
 
-`FilteredSearch` rebuilds Chapter 5's keyword, semantic and hybrid indexes from the kept passages for each question. At 57 passages that takes a few milliseconds. A **reachable** question is one that keeps at least one gold passage after filtering; no search can find a gold passage that was withheld.
+`FilteredSearch` rebuilds Chapter 5's keyword, semantic and hybrid indexes from the kept passages for each question. At 57 passages that takes a few milliseconds. An **answerable question** is one that keeps at least one gold passage after filtering (the code calls it reachable); no search can find a gold passage that was withheld.
 
 ### 8.5.2 Code
 
@@ -316,7 +316,7 @@ def reachable(questions, passages, use_mode):
 
 Hybrid search with query expansion, on the 32 definition questions:
 
-| Use mode | Passages kept | Questions reachable | Hits at 1 | Hits at 3 | Hits at 10 |
+| Use mode | Passages kept | Answerable questions | Hits at 1 | Hits at 3 | Hits at 10 |
 | --- | --- | --- | --- | --- | --- |
 | No filter (Chapter 5) | 57 | 32 | 24 | 31 | 32 |
 | non-commercial | 55 | 32 | 25 | 31 | 32 |
