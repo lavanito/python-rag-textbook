@@ -132,7 +132,7 @@ q("q2-29", "Q2", R4, "What does nominal GNI divided by the consumer price index 
   "Must separate comparing growth rates (possible) from comparing levels (needs PPPs).")
 q("q2-30", "Q2", R4, "Why can real GDP growth and comparisons at PPP tell different stories about two economies?",
   # The two wb13-mccarthy passages were added 24 Oct with the corpus batch:
-  # they answer this question directly (decision: the domain expert, 24 Oct).
+  # they answer this question directly (decision: the vertical domain expert, 24 Oct).
   ["esa10-10.47", "sna08-15.187", "ppp23-1.31", "wb13-mccarthy-space-time"],
   "Real GDP growth values output at the base year's prices; PPP levels use current prices. Between benchmark years, PPPs are extrapolated with GDP deflators, and comparisons across countries and across time cannot both be kept consistent. If one country specialises in goods whose prices fall fast (such as technology services), its volume growth is high while its command over goods rises less: the trading-gain logic of real GDI.",
   "Should link to terms of trade and real GDI; Krugman (2026) is book text, not corpus.")
@@ -176,7 +176,7 @@ q("q6-03", "Q6", "R4+R2", "What is the gap between GDP and national income, and 
 # --- Data questions: answered by the model class, passages give context ------
 q("q1-01", "Q1", "R2", "What was GNI per head at PPP in the United Kingdom in 2024?", ["ppp23-ov.12"], "A single value from the fact table, with unit and vintage.")
 q("q1-02", "Q1", "R2", "What was the population of India in 2022?", ["esa10-11.05"], "A single value with source and vintage.")
-# R1 (no AI) added to the routing ladder by the domain expert on 3 November 2026,
+# R1 (no AI) added to the cascade by the horizontal domain expert on 3 November 2026,
 # as part of Q1: the exact name of a series is copied from data/series/wdi_titles.csv.
 ADDED_3_NOVEMBER = ["q1-03"]
 q("q1-03", "Q1", "R1", "What is the exact name of the World Bank series NY.GNP.PCAP.PP.CD?", [], "The published title, word for word: GNI per capita, PPP (current international $).", "Copies the title from data/series/wdi_titles.csv; no model.")
@@ -198,7 +198,7 @@ q("q4-02", "Q4", "R4+R2", "Why did China's and India's GDP per head at PPP fall 
   ["wb13-deaton-revision", "wb13-deaton-benchmark", "wb13-deaton-updating"],
   "Earlier PPPs for many poorer countries were extrapolated from old benchmarks or guessed; the 2005 ICP measured their prices directly. China's PPP rose by a factor of 1.65 and India's by 1.55, so their GDP per head in international dollars fell, although their economies did not change. Rich countries that compute PPPs every year saw little revision.",
   "Says the change is relative to the United States, not a fall in output, and names the benchmark year.")
-# Relabelled from Q5, R4+R2 by the domain expert on 3 November 2026: it asks
+# Relabelled from Q5, R4+R2 by the vertical domain expert on 3 November 2026: it asks
 # why the two measures differ in general, for no named economy. It keeps its
 # id, so retrieval is still measured on q2-01 to q2-32 only (Chapter 3).
 RELABELLED_3_NOVEMBER = {"q5-04": ("Q5", "R4+R2")}
@@ -220,7 +220,7 @@ q("out-03", "OUT", "escalate", "What will China's GDP be in 2030?", [], "Escalat
 q("out-04", "OUT", "escalate", "What is the best restaurant in Dublin?", [], "Decline: outside the corpus and the data.")
 
 # Distractors: passages that answer no question. They test whether a search
-# avoids related but wrong passages. The domain expert removed them from the gold
+# avoids related but wrong passages. The vertical domain expert removed them from the gold
 # lists on 27 October 2026 as passages on neighbouring topics. On 28 October
 # bea-ch1-revisions, cso-gnistar-6 and ppp23-8.2 went back into gold lists.
 DISTRACTORS = {

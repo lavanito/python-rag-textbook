@@ -65,7 +65,7 @@ def test_bank_score():
 
 
 def test_held_out_score_before_any_rule_change():
-    # The domain expert's 32 questions of 5 November 2026, scored with the rules as they
+    # The vertical domain expert's 32 questions of 5 November 2026, scored with the rules as they
     # stood (commit a83ba07). This records the first score; later rule changes
     # are scored separately and do not change this test's file or rules.
     held_out = load_passages(QUESTION_FILE.parent / "routing_test_5_november.jsonl")
@@ -126,7 +126,7 @@ def test_model_router_with_a_stand_in():
 
 
 def test_saved_model_router_replies():
-    # The domain expert's laptop run of 5 November 2026: 77 replies in 3.3 minutes.
+    # The horizontal domain expert's laptop run of 5 November 2026: 77 replies in 3.3 minutes.
     import pytest
     if not ROUTER_FILE.exists():
         pytest.skip("no saved router replies yet")
@@ -196,11 +196,11 @@ def test_escalation_messages():
 
 
 def test_second_test_set_scored_once():
-    # The domain expert's 16 questions of 6 November 2026, written after the revised rules
+    # The vertical domain expert's 16 questions of 6 November 2026, written after the revised rules
     # and scored once with them, unchanged: the fair score for the second round.
     second = load_passages(QUESTION_FILE.parent / "routing_test_6_november.jsonl")
     assert len(second) == 16
-    # Labels confirmed by the domain expert on 6 November 2026 (u-03 and u-13 escalated
+    # Labels confirmed by the vertical domain expert on 6 November 2026 (u-03 and u-13 escalated
     # as beyond the data; u-05 R4+R2; u-10 R6).
     assert count_right(route_bank(second, WORDS, TITLES))["both"] == 6
     records = route_bank_revised(second, WORDS, TITLES)
@@ -241,7 +241,7 @@ def test_ragged_edge_scores():
 
 
 def test_saved_model_replies_on_the_second_set():
-    # The domain expert's laptop run on the 16 questions of 6 November 2026.
+    # The horizontal domain expert's laptop run on the 16 questions of 6 November 2026.
     import pytest
     from ragbook.ch12_routing import SECOND_ROUTER_FILE, SECOND_TEST_FILE
     if not SECOND_ROUTER_FILE.exists():

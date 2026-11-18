@@ -82,14 +82,14 @@ TOOL = {
 ### 13.2.3 Annotations
 
 - **Each measure names its DQR purpose and inputs,** from the S3 statement. The rating looks only at those inputs: India's population is rated on population alone (Medium, last census 2011).
-- `shown` **sets the digits by band** (build spec v2, decision 4): High one decimal place, Medium a whole number, Low "about" and a whole number. Counts, such as population, are always whole numbers (the domain expert, 7 November 2026).
+- `shown` **sets the digits by band** (build spec v2, decision 4): High one decimal place, Medium a whole number, Low "about" and a whole number. Counts, such as population, are always whole numbers (the horizontal domain expert, 7 November 2026).
 - **The description lists the measures and economies as fixed choices.** A reply outside them gets a message, not a number.
 
 ## 13.3 Calling the model
 
 ### 13.3.1 Principles
 
-The NNI model is installed as a package, `nni-model`, pinned to one commit (the domain expert, 6 November 2026). The textbook imports it like any other package.
+The NNI model is installed as a package, `nni-model`, pinned to one commit (the horizontal domain expert, 6 November 2026). The textbook imports it like any other package.
 
 `call_model` checks the economy and the measure, loads the edition once, works out the value and rates it. When there is no value, it says what is missing and what the data contain, as Chapter 12's escalation messages do.
 
@@ -98,7 +98,7 @@ The NNI model is installed as a package, `nni-model`, pinned to one commit (the 
 ```python
 # S3 rates only the six economies. A euro area member is given the euro area's
 # rating: the members' statistical offices follow one standard, ESA 2010.
-# Assumption agreed by the domain expert, 6 November 2026.
+# Assumption agreed by the horizontal domain expert, 6 November 2026.
 MEMBER_ASSUMPTION = ("Assumption: rated as the euro area, because its members "
                      "follow one standard (ESA 2010)")
 
@@ -107,7 +107,7 @@ def rating(measure, code, flags=(), chk=None):
     """The DQR band and the reason that set it.
 
     A measure with more than one purpose takes the weakest rating. A proxy
-    is rated at most Low (the domain expert, 7 November 2026).
+    is rated at most Low (the horizontal domain expert, 7 November 2026).
     """
     rated_as = "EA21" if code in EURO_MEMBERS else code
     words = [flag.split(":")[0] for flag in flags]
@@ -125,7 +125,7 @@ def rating(measure, code, flags=(), chk=None):
 
 ```python
 # Rates (log points, per cent) get one more decimal place than levels:
-# High 2, Medium 1, Low "about" and 1 (the domain expert, 7 November 2026).
+# High 2, Medium 1, Low "about" and 1 (the horizontal domain expert, 7 November 2026).
 RATE_DECIMALS = {dqr.HIGH: 2, dqr.MEDIUM: 1, dqr.LOW: 1}
 
 
@@ -136,7 +136,7 @@ def is_rate(unit):
 
 def show(value, band, count=False, rate=False):
     """The value as the page shows it. Counts, such as population, have no
-    decimal places (the domain expert, 7 November 2026); rates have one more decimal
+    decimal places (the horizontal domain expert, 7 November 2026); rates have one more decimal
     place than levels; other values follow the digits rule by band. A Low
     band always says "about".
 
@@ -206,8 +206,8 @@ def call_model(economy, year, measure, edition="latest"):
 ### 13.3.3 Annotations
 
 - **Two editions.** "latest" is WDI of 8 October 2026 with PWT 11.0, and euro area GDP at PPPs summed from its members. "archive" is WDI of March 2024, with no euro area. Q4 questions compare the two: India's GNI per head at PPP for 2016 differs between them.
-- **Euro area members are rated as the euro area.** S3 rates only the six economies. The members' statistical offices follow one standard, ESA 2010, so a member is given the euro area's band, and the reason states this as an assumption (the domain expert, 6 November 2026). Ireland's GNI per head at PPP for 2024 is 105767, rated Medium: the euro area's rating, whose reason is Ireland's multinational profits.
-- **The model builds euro area GNI per head at PPP** (the domain expert, 6 November 2026). Each member's GNI in euros, divided by its PPP conversion factor, is in current international dollars, so the members add up; the total is divided by euro area population. For the United States, United Kingdom, Japan and China the same formula reproduces WDI's published figure within WDI's rounding to 10 dollars. The euro area's value for 2024 is 65935, rated Medium because its total includes Ireland's multinational profits.
+- **Euro area members are rated as the euro area.** S3 rates only the six economies. The members' statistical offices follow one standard, ESA 2010, so a member is given the euro area's band, and the reason states this as an assumption (the horizontal domain expert, 6 November 2026). Ireland's GNI per head at PPP for 2024 is 105767, rated Medium: the euro area's rating, whose reason is Ireland's multinational profits.
+- **The model builds euro area GNI per head at PPP** (the horizontal domain expert, 6 November 2026). Each member's GNI in euros, divided by its PPP conversion factor, is in current international dollars, so the members add up; the total is divided by euro area population. For the United States, United Kingdom, Japan and China the same formula reproduces WDI's published figure within WDI's rounding to 10 dollars. The euro area's value for 2024 is 65935, rated Medium because its total includes Ireland's multinational profits.
 
 ### 13.3.4 Results
 
@@ -351,7 +351,7 @@ def plan_calls(parameters, last_years):
         if not years:
             continue
         for measure in measures:
-            # A span fetches every year in it (the domain expert, 7 November 2026). Growth in
+            # A span fetches every year in it (the horizontal domain expert, 7 November 2026). Growth in
             # a year is growth from the year before, so for nni_growth a span
             # from 2004 to 2024 is the growth of 2005 to 2024: 20 years.
             start = years[0] + 1 if measure == "nni_growth" else years[0]
@@ -369,7 +369,7 @@ def plan_calls(parameters, last_years):
 
 ### 13.4.4 Results
 
-The expected parameters for the 28 questions routed to code (14 from the bank, 14 from the two test sets) are in `data/question_bank/parameters_7_november.jsonl`. The agent builder proposed them on 7 November 2026. The domain expert checked them the same day and changed five (q5-02, q5-05, t-25, t-30, u-09); PARAMETERS.md records each change. He also decided that a span of years fetches every year to the end of the data, for every measure.
+The expected parameters for the 28 questions routed to code (14 from the bank, 14 from the two test sets) are in `data/question_bank/parameters_7_november.jsonl`. The AI coding assistant proposed them on 7 November 2026. The vertical domain expert checked them the same day and changed five (q5-02, q5-05, t-25, t-30, u-09); PARAMETERS.md records each change. He also decided that a span of years fetches every year to the end of the data, for every measure.
 
 | Reader | All five right | Economies | Years | Measures | Editions | Change |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -377,10 +377,10 @@ The expected parameters for the 28 questions routed to code (14 from the bank, 1
 | Small model (training score) | 12 | 28 | 23 | 15 | 26 | 28 |
 
 - **Both scores are training scores.** The rules and the model's instructions were written after reading all 28 questions.
-- **The rules miss seven.** "Fallen behind" (q5-02), "average hours ... contributes" (u-05) and "grown" with a deflator (u-14) match no measure phrase; q7-01 names the yen, not Japan; t-02's "2026 IEA analysis" is read as a data year. q5-05 needs no figure and t-25 asks for growth per head: the domain expert set both after the rules were written.
+- **The rules miss seven.** "Fallen behind" (q5-02), "average hours ... contributes" (u-05) and "grown" with a deflator (u-14) match no measure phrase; q7-01 names the yen, not Japan; t-02's "2026 IEA analysis" is read as a data year. q5-05 needs no figure and t-25 asks for growth per head: the vertical domain expert set both after the rules were written.
 - **Every figure asked for now has a route.** The first four measures covered 16 of the 28; the gap table of 13.5 adds nine measures and three figures that are not in the data.
 
-The domain expert ran the model on 7 November 2026: 28 replies in 5.6 minutes, 11.9 seconds each, with about 841 tokens in and 49 out. Every reply was valid JSON.
+The horizontal domain expert ran the model on 7 November 2026: 28 replies in 5.6 minutes, 11.9 seconds each, with about 841 tokens in and 49 out. Every reply was valid JSON.
 
 - **The model scores lower than the rules: 12 against 21.** It gets none right that the rules miss.
 - **Most misses are the measure (13 of 16).** The parts of NNI growth are not named in its description, so "the deflator mix" (q6-01) and "the gap between GDP and national income" (q6-03) became "other", and "prices rather than volumes" (q3-02) became the terms of trade.
@@ -393,10 +393,10 @@ The domain expert ran the model on 7 November 2026: 28 replies in 5.6 minutes, 1
 
 A change to the instructions written after reading the 28 questions will raise the score on those 28. That shows only that it fits them. To learn whether it helps on questions a user might ask, it must be scored on questions written after the change.
 
-The order was fixed in advance (the domain expert, 7 November 2026):
+The order was fixed in advance (the horizontal domain expert, 7 November 2026):
 
-1. **The agent builder wrote round 2 and committed it** (`7b756d3`): spans give their first and last year; the model decides first whether a question asks for a level or for growth; every measure says which it is; nni_growth names its parts; revision words mean both editions; trend_gap_2007 became trend_gap.
-2. **The domain expert wrote 20 new questions** without showing them. The agent builder proposed labels, with 13 judgement calls noted, and the domain expert agreed them.
+1. **The AI coding assistant wrote round 2 and committed it** (`7b756d3`): spans give their first and last year; the model decides first whether a question asks for a level or for growth; every measure says which it is; nni_growth names its parts; revision words mean both editions; trend_gap_2007 became trend_gap.
+2. **The vertical domain expert wrote 20 new questions** without showing them. The AI coding assistant proposed labels, with 13 judgement calls noted, and the vertical domain expert agreed them.
 3. **One laptop run** gave round 2 on the 28, and both rounds on the 20: 68 replies in 13.9 minutes. Round 2's instructions are longer: 1,111 tokens in, against 838.
 
 A second, looser score counts a reading as right if code would fetch the same figures: no year and "latest" fetch the same, for example.
@@ -445,7 +445,7 @@ Every figure has flags, and three of them lower its DQR band.
 | break | A series changes source or base, such as India's GDP in 2022 | Low |
 | proxy | A stand-in for the figure asked for | Low |
 
-Some questions ask for a figure the tool did not give. The domain expert's rule (7 November 2026) gives up to three answers at once.
+Some questions ask for a figure the tool did not give. The horizontal domain expert's rule (7 November 2026) gives up to three answers at once.
 
 1. **If the figure is in the data, give it exactly,** as a new measure.
 2. **If only a near figure is in the data, give that stand-in,** flagged "proxy", with how it differs from what was asked and the best data for the question.
@@ -493,7 +493,7 @@ def real_nni_per_head_ppp(s, code, y, base=2021):
 
     In 2021: NNI in local currency / the 2021 household PPP / population.
     Other years: the 2021 level moved by the model's own real NNI per head,
-    so growth matches the decomposition exactly (method approved by the domain expert,
+    so growth matches the decomposition exactly (method approved by the vertical domain expert,
     7 November 2026).
     """
     model = NNIDecomposition(s, code)
@@ -524,7 +524,7 @@ def escalate(calls, problems):
 - **The level of real NNI per head is fixed in 2021 and moved by the model's growth.** Its growth from one year to the next equals the decomposition's total exactly; a test checks this for the six economies.
 - **The euro area's household PPP weights members by household consumption:** members' consumption in euros, divided by the same in international dollars.
 - **Real GDP growth is exact, not a stand-in:** growth in real GDP per head plus growth in population. A test checks the sum.
-- **Sources checked on 7 November 2026.** Five of the seven WDI codes and the BEA table name were found on the web. The domain expert checked the other two against the World Bank API the same day: NE.GDI.TOTL.CN is "Gross capital formation (current LCU)" and NE.IMP.GNFS.KN is "Imports of goods and services (constant LCU)".
+- **Sources checked on 7 November 2026.** Five of the seven WDI codes and the BEA table name were found on the web. The vertical domain expert checked the other two against the World Bank API the same day: NE.GDI.TOTL.CN is "Gross capital formation (current LCU)" and NE.IMP.GNFS.KN is "Imports of goods and services (constant LCU)".
 
 ### 13.5.4 Results
 
@@ -539,7 +539,7 @@ def escalate(calls, problems):
 | United Kingdom, 2023 | Employment rate (proxy) | about 49.0 per cent of total population | Low |
 | United Kingdom, 2025 | GDP per head against the 2000 to 2007 trend (proxy) | about -23.3 per cent | Low |
 
-Rates (log points, per cent) show one more decimal place than levels: High 2, Medium 1, Low "about" and 1 (the domain expert, 7 November 2026). Under the first rule, Japan's 2024 growth read "1 log point" with parts of 0 and 1.
+Rates (log points, per cent) show one more decimal place than levels: High 2, Medium 1, Low "about" and 1 (the horizontal domain expert, 7 November 2026). Under the first rule, Japan's 2024 growth read "1 log point" with parts of 0 and 1.
 
 ### 13.5.5 Beyond the data
 
@@ -581,7 +581,7 @@ def beyond_the_data(parameters, last_years):
 
 The last step turns figures into a reply. Code works out every figure and writes it as one line: the value, unit, year, source, edition, DQR band and reason, and flags. The language model is asked only to report those lines in words.
 
-Code then checks the reply. Every number in it must appear in the question or the figures; any other number is invented. The reply must end "Passed to an analyst." exactly when code decided to escalate.
+Code then checks the reply. Every number in it must appear in the question or the figures; any other number is an unsupported number. The reply must end "Passed to an analyst." exactly when code decided to escalate.
 
 The test uses the bank's 14 questions routed to code, with the checked parameters of 13.4, so a misread question does not count against the reply.
 
@@ -602,7 +602,7 @@ REPLY_INSTRUCTIONS = """You answer questions about national accounts statistics.
 def check_reply(question, facts, reply):
     """
     Check a reply against its facts. Returns the numbers in the reply that
-    are not in the question or the facts (invented numbers), and whether
+    are not in the question or the facts (unsupported numbers), and whether
     the reply escalates exactly when it should.
     """
     allowed = numbers_in(question + " " + " ".join(facts["figures"] + facts["missing"]))
@@ -613,11 +613,11 @@ def check_reply(question, facts, reply):
 
 ### 13.6.3 Results
 
-The domain expert ran the model on 7 November 2026: 14 replies in 5.1 minutes, with about 347 tokens in and 88 out each.
+The horizontal domain expert ran the model on 7 November 2026: 14 replies in 5.1 minutes, with about 347 tokens in and 88 out each.
 
 | Check | Replies right of 14 |
 | --- | --- |
-| No invented number | 13 |
+| No unsupported number | 13 |
 | Escalates exactly when code decided | 7 |
 | No flag the figures do not have | 7 |
 
@@ -633,26 +633,20 @@ The domain expert ran the model on 7 November 2026: 14 replies in 5.1 minutes, w
 
 - **The tool:** values match the model's own data; ratings match the model's rule; the parts of NNI growth add up to the total; flags and breaks appear where they should; euro area members are rated as the euro area; counts and rates show the agreed digits.
 - **The added measures:** real GDP growth equals growth per head plus population growth; real NNI per head grows exactly as the decomposition says; a proxy is flagged and rated Low; a figure not in the data names the best data and escalates.
-- **Reading parameters:** every question routed to code has an answer key; relative years come from the ragged edge; spans fetch every year; a stand-in model that copies the key scores 28.
+- **Reading parameters:** every question routed to code has a list of expected inputs; years such as "latest" come from the ragged edge; spans fetch every year; a stand-in model that copies the key scores 28.
 - **Saved runs:** each laptop run scores as reported (12, 15, 2 and 6, and the reply checks).
 
 ## Glossary additions
 
 - **Tool:** a function a program or a language model can call, with fixed inputs and outputs.
 - **Contract (of a tool):** the list of a tool's inputs and outputs.
-- **Tool calling:** a language model replies with a function's name and arguments; the program runs the function.
-- **Pinned install:** installing a package at one fixed commit, so every run uses the same code.
-- **Parameter:** one input a question gives to the tool: an economy, a year, a measure or an edition.
-- **Enforced JSON shape:** Ollama makes the reply valid JSON with the listed fields, and allows only the listed choices.
-- **Relative year:** "latest" or "latest-N", turned into a year from the last year of data.
-- **Answer key:** the expected parameters each reading is scored against.
-- **Fair score:** a score on questions written after the rules or instructions were fixed.
-- **Sign test:** counts the questions on which one reader is right and the other wrong, and asks how likely that split is by chance.
-- **Proxy:** a stand-in figure close to the one asked for, flagged and rated at most Low.
-- **Gap table:** for each figure the tool lacks, what the reply gives instead.
+- **Tool calling:** the language model's output names a function and its arguments; the program runs the function.
+- **Parameter (of a question):** one input a question gives to the tool: an economy, a year, a measure or an edition.
+- **Fair score:** a score on questions written after the rules or instructions it tests were fixed, and scored once.
+- **Proxy:** a near figure given in place of the one asked for, flagged, with its data quality rated Low at most.
 - **Escalate:** mark a question as passed to an analyst, with what was missing.
 - **Household-consumption PPP:** a currency converter based on the prices of what households buy.
-- **Invented number:** a number in a reply that is in neither the question nor the figures.
+- **Unsupported number:** a number in a reply that is in neither the question nor the figures. Also called a hallucinated number.
 
 ## Links
 

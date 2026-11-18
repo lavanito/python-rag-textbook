@@ -7,7 +7,7 @@ What this checks
     the steps with no model reproducing the saved run), the review list
     and the score table. No language model is called.
 
-Chapter: 15. Decisions: the domain expert, 16 November 2026.
+Chapter: 15. Decisions: the horizontal domain expert, 16 November 2026.
 """
 import pytest
 

@@ -22,7 +22,7 @@ Chapters 3 to 9 counted **hits**: the questions with at least one gold passage i
 
 Every measure in this chapter compares what a search returns with a **gold list**: the passages a person judged to answer the question. The measures are only as good as the lists.
 
-The rule, set on 26 October 2026: **a passage is gold if it states what the expected answer says.** On 27 October the domain expert read each of the 56 passages once and judged it against all 32 definition questions with that rule. On 28 October he revised four judgements, and one passage, sna25-11.238, was added to the corpus. Each judgement is yes or no; a passage cannot be half gold.
+The rule, set on 26 October 2026: **a passage is gold if it states what the expected answer says.** On 27 October the vertical domain expert read each of the 56 passages once and judged it against all 32 definition questions with that rule. On 28 October he revised four judgements, and one passage, sna25-11.238, was added to the corpus. Each judgement is yes or no; a passage cannot be half gold.
 
 Some passages state part of an expected answer without answering the question by themselves. They are kept as **supporting passages**: they stay in the gold list, and each question names them, so the figures can be shown with and without them (10.7). There are six, on five questions. Three passages answer no question; they are **distractors**, which test whether a search avoids related but wrong passages.
 
@@ -674,7 +674,7 @@ The first eleven tests check the code on hand-worked cases and the gold-list rec
 | Distractor | A corpus passage that is gold for no question |
 | Precision at 3 | The share of the first three passages returned that are gold |
 | Recall at 3 | The share of a question's gold passages found in the first three places |
-| F1 | The harmonic mean of precision and recall: 2 × precision × recall ÷ (precision + recall) |
+| F1 | One score that combines precision and recall and is low if either is low: 2 × precision × recall ÷ (precision + recall) |
 | Reciprocal rank | 1 divided by the place of the first gold passage; 0 if none is in the first ten |
 | Mean reciprocal rank (MRR) | The mean of the reciprocal ranks over the questions |
 | Average precision | The precision at each gold passage found, added up and divided by the number of gold passages |

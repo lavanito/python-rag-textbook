@@ -57,7 +57,7 @@ relations, evidence for each fact. Appendix D loads this graph into Neo4j.
 
 ## Measures (indicators), added 16 November 2026
 
-The domain expert decided on 16 November 2026 that the graph holds the
+The horizontal domain expert decided on 16 November 2026 that the graph holds the
 catalogue of measures, so a question can be read against things and triplets
 rather than matched to a whole banked question.
 
@@ -74,6 +74,6 @@ rather than matched to a whole banked question.
   measure: GNI total, population and average hours. The other measures are
   built from parts, so every passage in their definition line
   (`data/definitions.csv`) is `discussed_in`: their definition line is
-  assembled from passages (the domain expert, 16 November 2026).
+  assembled from passages (the horizontal domain expert, 16 November 2026).
 - `requires` links each question type to the measures that answer it;
   `affected_by` links measures to known measurement problems.

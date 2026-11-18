@@ -29,17 +29,17 @@ Uses
     (search_words, bm25s_rank, QUESTION_FILE); Chapter 8 (licence_filter);
     Chapter 11 (citations, sentences, asking the model, saving answers);
     Chapter 12 (load_last_years, DISPLAY_NAMES); Chapter 13 (calling the
-    NNI model, figure lines, escalation). Decisions: the domain expert, 13 November 2026
+    NNI model, figure lines, escalation). Decisions: the horizontal domain expert, 13 November 2026
     (claude/ch14-decisions.md in the project).
 
 Run the worked example
     python -m ragbook.ch14_answer_checks
         Writes the locked blocks for the bank's questions routed to code,
         rechecks Chapter 11's analyst answers, scores the support check
-        against the domain expert's 20 judgements, and checks Chapter 13's replies as if
+        against the vertical domain expert's 20 judgements, and checks Chapter 13's replies as if
         they were explanations. Needs no language model.
     python -m ragbook.ch14_answer_checks --explain --review
-        The same, after the domain expert's review of 16 November 2026, saved
+        The same, after the vertical domain expert's review of 16 November 2026, saved
         to data/answers/ch14_explanations_review.jsonl.
     python -m ragbook.ch14_answer_checks --explain
         Also asks the local language model (Ollama) for an explanation of
@@ -73,7 +73,7 @@ DEFINITIONS_FILE = DATA_FOLDER / "definitions.csv"
 GRAPH_FOLDER = DATA_FOLDER / "knowledge_graph"
 JUDGEMENTS_FILE = ANSWER_FOLDER / "ch14_support_judgements.csv"
 EXPLANATIONS_FILE = ANSWER_FOLDER / "ch14_explanations.jsonl"
-# The rerun after the domain expert's review (16 November 2026): size bands, id protocol.
+# The rerun after the vertical domain expert's review (16 November 2026): size bands, id protocol.
 REVIEW_FILE = ANSWER_FOLDER / "ch14_explanations_review.jsonl"
 FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 
@@ -82,7 +82,7 @@ FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 # 14.2  The locked block
 # ---------------------------------------------------------------------------
 
-# The size of a change (the domain expert, 16 November 2026): every non-zero
+# The size of a change (the horizontal domain expert, 16 November 2026): every non-zero
 # revision between the two editions, pooled in one unit (log points for levels,
 # percentage points for rates and shares) and cut into three roughly equal
 # parts. The same bands judge changes over time and gaps between economies.
@@ -118,7 +118,7 @@ DEMONSTRATOR_ANALYST = "Demonstrator note: in this demonstrator, no analyst rece
 
 def load_definitions(file_path=DEFINITIONS_FILE):
     """
-    What each measure means and leaves out, approved by the domain expert on 13 November
+    What each measure means and leaves out, approved by the vertical domain expert on 13 November
     2026, with the passages that define it.
 
     Example:
@@ -279,7 +279,7 @@ def revision(old, new):
 def between(a_results, b_results):
     """
     Two economies on one measure: economy A against economy B, by the ratio
-    in log points (the domain expert, 13 November 2026), in the first and last years
+    in log points (the horizontal domain expert, 13 November 2026), in the first and last years
     they share. Over a span, also whether A gained or lost ground.
 
     Example:
@@ -449,7 +449,7 @@ def fetch(parameters, last_years):
 def locked_block(question, parameters, last_years, definitions):
     """
     Everything code writes for a reply, in the order the page shows it:
-    the premise line (if any), figures, comparisons, what is missing, what
+    the false-premise correction (if any), figures, comparisons, what is missing, what
     each measure means and leaves out, and the escalation.
 
     Example:
@@ -506,7 +506,7 @@ def invented_numbers(explanation, allowed_text):
 # ---------------------------------------------------------------------------
 
 # Words that state a change or a comparison. The explanation may not use
-# them: the locked block states every direction (the domain expert, 13 November 2026).
+# them: the locked block states every direction (the horizontal domain expert, 13 November 2026).
 # The list cannot be complete; 14.4 lists what it misses ("more", "above")
 # and what it rejects wrongly.
 DIRECTION_WORDS = re.compile(
@@ -543,7 +543,7 @@ def words_found(pattern, text):
 # A sentence is supported if at least this share of its words (Chapter 3's
 # search words) is in the passage it cites. A passage given but not cited
 # whose share is at least MISCITED_BY higher shows a miscitation (fix C).
-# Both chosen by looking at the domain expert's 20 judgements: a training choice.
+# Both chosen by looking at the vertical domain expert's 20 judgements: a training choice.
 SUPPORT_MIN = 0.2
 MISCITED_BY = 0.2
 
@@ -552,7 +552,7 @@ def overlap(sentence, passage):
     """
     The share of a sentence's search words that are in a passage's text.
     Citations are left out first. Scope notes are not counted: they are our
-    notes, not evidence (the domain expert, 13 November 2026).
+    notes, not evidence (the horizontal domain expert, 13 November 2026).
 
     Example:
         overlap("PPPs are statistical constructs [ppp23-1.31].", ppp23-1.31) returns 1.0
@@ -563,14 +563,14 @@ def overlap(sentence, passage):
     return len(words & set(search_words(passage["text"]))) / len(words)
 
 
-# Abbreviations whose full stops do not end a sentence (the domain expert, 16 November 2026).
+# Abbreviations whose full stops do not end a sentence (the horizontal domain expert, 16 November 2026).
 ABBREVIATIONS = re.compile(r"\b(i\.e\.|e\.g\.)")
 
 
 def explanation_sentences(text):
     """
     Split an explanation into sentences, with the id protocol agreed by the
-    domain expert on 16 November 2026: ids go after their sentence, but a
+    horizontal domain expert on 16 November 2026: ids go after their sentence, but a
     reply that starts with an id is read as putting every id before its
     sentence. "i.e." and "e.g." do not end a sentence.
 
@@ -804,7 +804,7 @@ def retry_messages(messages, first_reply, problems):
 def explain(question, question_class, locked, evidence, must_cite_first, ask):
     """
     Ask for an explanation, check it, retry once if it fails, and drop it if
-    the retry fails too (the domain expert, 13 November 2026). Lookups (class Q1) get no
+    the retry fails too (the horizontal domain expert, 13 November 2026). Lookups (class Q1) get no
     explanation. Returns the status, the text shown, and every attempt.
     """
     if question_class == "Q1":
@@ -870,14 +870,14 @@ def recheck_passage_answers(records, corpus):
 
 
 def load_judgements(file_path=JUDGEMENTS_FILE):
-    """The domain expert's 20 judgements of support and relevance (13 November 2026)."""
+    """The vertical domain expert's 20 judgements of support and relevance (13 November 2026)."""
     with open(file_path, encoding="utf-8") as file:
         return list(csv.DictReader(file))
 
 
 def support_agreement(judgements, records, corpus):
     """
-    For each of the domain expert's 20 sentences: his judgement, and whether 14.5's
+    For each of the vertical domain expert's 20 sentences: his judgement, and whether 14.5's
     checks pass the sentence. He counts a miscited sentence as a failure
     (13 November 2026), so a miscitation the check finds agrees with him
     when he marks the miscitation in his notes; the rows are listed for
@@ -946,11 +946,11 @@ def main():
     failing = sum(bool(problems) for problems in found.values())
     print(f"14.5  Chapter 11 analyst answers: {len(found)}; failing the citation checks {failing}")
     rows = support_agreement(load_judgements(), answers, corpus)
-    print(f"14.5  The domain expert's 20 sentences: code passes {sum(r['code_passes'] for r in rows)}; "
-          f"the domain expert judged Supported {sum(r['expert_support'] == 'Supported' for r in rows)} (training)")
+    print(f"14.5  The vertical domain expert's 20 sentences: code passes {sum(r['code_passes'] for r in rows)}; "
+          f"the vertical domain expert judged Supported {sum(r['expert_support'] == 'Supported' for r in rows)} (training)")
     for r in rows:
         if not r["code_passes"] or r["expert_support"] != "Supported":
-            print(f"      row {r['row']} {r['question_id']}: the domain expert {r['expert_support']}; "
+            print(f"      row {r['row']} {r['question_id']}: the vertical domain expert {r['expert_support']}; "
                   f"code {'passes' if r['code_passes'] else 'fails: ' + ' | '.join(r['problems'])}")
 
     if REPLIES_FILE.exists():

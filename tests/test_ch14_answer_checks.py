@@ -8,7 +8,7 @@ What this checks
     miscitation), the evidence code chooses, and the retry and fall-back.
     A stand-in replaces the language model, so no Ollama is needed.
 
-Chapter: 14. Decisions: the domain expert, 13 November 2026.
+Chapter: 14. Decisions: the horizontal domain expert, 13 November 2026.
 """
 import csv
 from pathlib import Path
@@ -106,7 +106,7 @@ def test_direction_counts_any_visible_change():
 
 def test_size_bands_are_equal_thirds_of_the_revisions():
     # The cuts are the 16.5th, 33rd, 67th and 83.5th percentiles of the
-    # non-zero revisions in data/series/revisions.csv (the domain expert, 16 November 2026).
+    # non-zero revisions in data/series/revisions.csv (the horizontal domain expert, 16 November 2026).
     rows = list(csv.DictReader(open(REPO / "data" / "series" / "revisions.csv", encoding="utf-8")))
     non_zero = sorted(float(r["revision"]) for r in rows if abs(float(r["revision"])) >= 0.005)
     counts = {"small": 0, "medium": 0, "large": 0}

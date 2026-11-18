@@ -617,9 +617,9 @@ The file `tests/test_ch05_hybrid_search.py` has 17 tests. The first fourteen use
 | --- | --- |
 | Hybrid search | Ranking passages with keyword and semantic search together and combining the results |
 | Reciprocal rank fusion (RRF) | Combining rankings by adding 1 / (k + place) for each passage across rankings |
-| Ontology | The rules of a knowledge graph: which kinds of thing exist, and which relations may link which kinds. In this book: `schema.json`, six kinds and twelve relations |
-| Knowledge graph | An ontology together with the facts that follow its rules: the things, and the triplets that link them. In this book: `data/knowledge_graph/`, 67 things and 131 triplets |
-| Concept map | A diagram of concepts joined by labelled arrows, with no fixed rules on kinds or relations. A knowledge graph differs from it by having an ontology and checking every fact against it. This book does not use one |
+| Ontology | The rules for a knowledge graph: which kinds of thing exist, and which links may join which kinds. In this book: `schema.json`, six kinds and twelve relations |
+| Knowledge graph | Facts stored as links between named things (subject, relation, object), each checked against fixed rules about which links are allowed. In this book: `data/knowledge_graph/`, 67 things and 131 triplets |
+| Concept map | A diagram of concepts joined by labelled arrows, with no fixed rules on kinds or links. A knowledge graph differs from it by checking every fact against fixed rules. This book does not use one |
 | Alias | Another name for a concept, such as "GNI" for gross national income |
 | Triplet | One fact in three parts: subject, relation, object |
 | Query expansion | Adding words to a question before searching, here the names of the concepts it names |

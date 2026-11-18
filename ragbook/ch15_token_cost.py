@@ -8,7 +8,7 @@ What this file does
     the saved model runs of Chapters 11 to 14, add up tokens in, tokens out
     and seconds by route, write one line to a file for each step of each
     question, and list every failed check, retry and dropped explanation
-    for the domain expert, with what each retry cost.
+    for the horizontal domain expert, with what each retry cost.
 
 Inputs
     The saved runs in data/answers/ (each model call has prompt_tokens,
@@ -33,7 +33,7 @@ Uses
     (route_question_graph, load_economies, corpus_words, load_titles, load_last_years);
     Chapter 13 (PARAMETER_FILE, load_edition); Chapter 14 (fetch,
     locked_block, evidence_for, the checks and the saved runs). Decisions:
-    the domain expert, 16 November 2026 (claude/ch15-decisions.md in the
+    the horizontal domain expert, 16 November 2026 (claude/ch15-decisions.md in the
     project): cost in tokens and laptop seconds only, no hosted price; the
     step lines are built from the saved runs, with no new laptop run.
 
@@ -358,7 +358,7 @@ def seconds_by_step(lines):
 
 def review_list(saved_records):
     """
-    Every problem the domain expert should see, one row each: each failed
+    Every problem the horizontal domain expert should see, one row each: each failed
     check of each attempt (with the problem in words), each dropped
     explanation and each escalation. Rows for an attempt give its tokens
     and seconds, so a retry shows what it cost.
@@ -418,11 +418,11 @@ SCORES = [
      "10 of 10", "training"),
     ("13", "Parameters read right (same figures), keyword rules, new questions", "2 of 20", "fair"),
     ("13", "Parameters read right (same figures), model round 2, new questions", "9 of 20", "fair"),
-    ("13", "Replies with no invented number (model wrote the whole reply)", "13 of 14", "training"),
-    ("14", "The domain expert's sentences judged supported; the check agreed on 17",
+    ("13", "Replies with no unsupported number (language model output used as the whole reply)", "13 of 14", "training"),
+    ("14", "The vertical domain expert's sentences judged supported; the check agreed on 17",
      "19 of 20", "training"),
     ("14", "Explanations with content shown, first run, new questions", "0 of 10", "fair"),
-    ("14", "Explanations with content shown, after the review, the domain expert's 10",
+    ("14", "Explanations with content shown, after the review, the vertical domain expert's 10",
      "2 of 10", "training"),
 ]
 

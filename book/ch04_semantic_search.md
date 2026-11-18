@@ -431,7 +431,7 @@ The file `tests/test_ch04_semantic_search.py` has 12 tests. The first eight use 
 | Cosine similarity | The dot product divided by both lengths: how closely two embeddings point the same way, from −1 to 1 |
 | Semantic search | Ranking passages by the similarity of their embeddings to the question's |
 | Transformer | The kind of model behind language models and embedding models |
-| Word piece | A whole word, or part of a rarer word, as a transformer reads it |
+| Word piece | A whole word, or part of a rarer word: the unit a transformer works on |
 | Sentence transformer | A transformer trained to give one embedding for a whole text |
 | Array | numpy's table of numbers, worked on all at once |
 

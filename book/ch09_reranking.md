@@ -362,7 +362,7 @@ A reranker pays off when a crude first stage leaves the right passage low in a p
 
 A reranker would be worth measuring again with a model trained on statistical text, or with a larger collection searched by a cruder first stage.
 
-**Decision (the domain expert, 26 October 2026):** the demonstrator app shows the first-stage ranking. The reranker stays in the book as a measured step that did not pay off on this corpus.
+**Decision (the horizontal domain expert, 26 October 2026):** the demonstrator app shows the first-stage ranking. The reranker stays in the book as a measured step that did not pay off on this corpus.
 
 ## 9.7 What it costs
 
@@ -427,7 +427,7 @@ The pool and ceiling tests use a stand-in score file built from the saved embedd
 | Reranking | Sorting a short list from a first search again, with a slower and more careful scorer |
 | Pool | The passages the first stage passes to the reranker |
 | Reranker | The model or rule that sorts the pool again |
-| Cross-encoder | A model that reads a question and a passage as one text and returns one relevance score |
+| Cross-encoder | A model that takes a question and a passage as one text and returns one relevance score |
 | Ceiling | The number of questions with a gold passage somewhere in the pool: the most a reranker can reach |
 | MS MARCO | A Microsoft collection of web-search questions and passages judged relevant, used to train rerankers |
 | ColBERT | A search model that keeps one embedding per word piece and matches word pieces at search time |

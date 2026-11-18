@@ -252,7 +252,7 @@ One line of the log, for "How do you get from GNI to net national income?" in co
 
 The filters run before the search, not after it. Removing passages from a finished ranking would leave fewer than three, or force a deeper search to fill the gap. Filtering first also means BM25's word statistics (Chapter 3) count only the passages that may be used.
 
-`FilteredSearch` rebuilds Chapter 5's keyword, semantic and hybrid indexes from the kept passages for each question. At 57 passages that takes a few milliseconds. A **reachable** question is one that keeps at least one gold passage after filtering; no search can find a gold passage that was withheld.
+`FilteredSearch` rebuilds Chapter 5's keyword, semantic and hybrid indexes from the kept passages for each question. At 57 passages that takes a few milliseconds. An **answerable question** is one that keeps at least one gold passage after filtering (the code calls it reachable); no search can find a gold passage that was withheld.
 
 ### 8.5.2 Code
 
@@ -316,7 +316,7 @@ def reachable(questions, passages, use_mode):
 
 Hybrid search with query expansion, on the 32 definition questions:
 
-| Use mode | Passages kept | Questions reachable | Hits at 1 | Hits at 3 | Hits at 10 |
+| Use mode | Passages kept | Answerable questions | Hits at 1 | Hits at 3 | Hits at 10 |
 | --- | --- | --- | --- | --- | --- |
 | No filter (Chapter 5) | 57 | 32 | 24 | 31 | 32 |
 | non-commercial | 55 | 32 | 25 | 31 | 32 |
@@ -325,7 +325,7 @@ Hybrid search with query expansion, on the 32 definition questions:
 "Passages kept" is for a question that names no edition.
 
 - **Non-commercial** differs from Chapter 5 only through the edition filter. q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings.
-- **Commercial** finds a gold passage within ten places for every reachable question. The eight it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus contains no passage it may use.
+- **Commercial** finds a gold passage within ten places for every answerable question. The eight it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus contains no passage it may use.
 
 ## 8.6 The same filters inside Chroma
 
@@ -443,7 +443,7 @@ The file `tests/test_ch08_filters.py` has 12 tests. The Chroma tests build their
 | Both filters | No passage is both kept and withheld; together they make 57, for every question in both use modes |
 | Log | One line per withheld passage, added to, with six fields |
 | Filtered search | No withheld passage appears in the first ten places |
-| Reachable questions | Commercial use loses q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32 |
+| Answerable questions | Commercial use loses q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32 |
 | Chroma condition | The condition written for each use mode |
 | Chroma licence | Commercial results are all open |
 | Chroma agrees | Same top three as filtered exact search on all 32 questions, both use modes |
@@ -461,7 +461,7 @@ The corpus test that counted one subscriber passage is replaced by one that chec
 | Edition filter | The filter that keeps the SNA edition a question names, or the latest edition on each topic |
 | Withheld passage | A passage a filter removed for one question, recorded with the reason |
 | Log | A file to which one line is added per event, here per withheld passage |
-| Reachable question | A question that keeps at least one gold passage after filtering |
+| Answerable question | A question that keeps at least one gold passage after filtering. The code calls it reachable |
 | Metadata filter | A condition on metadata that a vector database checks before ranking |
 
 ### 8.7.3 Links

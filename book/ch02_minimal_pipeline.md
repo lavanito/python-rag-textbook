@@ -70,7 +70,7 @@ def load_corpus(file_path=CORPUS_FILE):
 
 The model sees only the passages it is given, so this step decides which facts the answer can use. A passage left out cannot be used; a wrong passage can mislead.
 
-This chapter uses the simplest method that works at all. Drop common words such as "the" and "what" from the question; the words left are its **topic words**. Each passage scores one point for every topic word it contains, and the highest-scoring passages are kept.
+This chapter uses the simplest method that works at all. Drop common words such as "the" and "what" from the question; the words left are its **_topic words_**. Each passage scores one point for every topic word it contains, and the highest-scoring passages are kept.
 
 Matching the whole question as one piece of text would find nothing, because no passage contains the question word for word. Matching word by word avoids that.
 
@@ -336,7 +336,7 @@ From the repository folder, with Ollama running, run:
 python -m ragbook.ch02_minimal_pipeline
 ```
 
-The example loads the corpus and, for three questions, prints the topic words, the passages matched and the model's answer. The retrieval part of the output is fixed:
+The example loads the corpus and, for three questions, prints the *topic words*, the passages matched and the model's answer. The retrieval part of the output is fixed:
 
 ```text
 2.2  Loaded 57 passages
@@ -383,7 +383,7 @@ What the matches show:
 
 - **Net national income.** The first match, sna08-2.144, is the right one: net national income is GNI less consumption of fixed capital. The other two match on "net", "national" and "income" but answer different questions (BEA's US identities, Ireland's modified GNI).
 - **Terms of trade.** Both passages that define the terms of trade come first. The third, esa10-8.94, scores one point for "terms" in the phrase "in net terms". Word matching cannot tell the two senses apart.
-- **Population.** The two ESA 2010 passages on population come first and third. Second is McCarthy's passage on extrapolating PPPs, which shares three topic words with the question ("country", "calculating", "gdp") but is not about population.
+- **Population.** The two ESA 2010 passages on population come first and third. Second is McCarthy's passage on extrapolating PPPs, which shares three *topic words* with the question ("country", "calculating", "gdp") but is not about population.
 
 Without Ollama running, the example prints the matches and then a line saying the model was not asked, with the reason. If Ollama is running but refuses the request, it prints Ollama's error message instead.
 
@@ -411,7 +411,7 @@ The file `tests/test_ch02_minimal_pipeline.py` has nine tests. Retrieval is test
 | --- | --- |
 | The corpus loads 57 passages, each with id, source, reference and text | Every passage can be cited |
 | `topic_words` drops common words and repeats | "What is the GDP deflator?" gives `["gdp", "deflator"]` |
-| `find_matching_passages` ranks by shared topic words | The net national income question returns the three passages shown in 2.7, in that order |
+| `find_matching_passages` ranks by shared *topic words* | The net national income question returns the three passages shown in 2.7, in that order |
 | `find_matching_passages` returns at most `how_many` passages | The prompt stays short |
 | `find_matching_passages` returns nothing when no word matches | A question about Dublin restaurants finds no passage |
 | `build_prompt` puts the rules first and labelled passages after the question | The model sees exactly the layout shown in 2.4 |
@@ -425,9 +425,9 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 
 | Term | Meaning |
 | --- | --- |
-| RAG (retrieval-augmented generation) | Finding passages that bear on a question and giving them to a language model with the question, so the model answers from them |
-| Language model | A program that writes text by predicting one word or part of a word at a time |
-| Topic words | The words of a question left after common words are dropped |
+| RAG (retrieval-augmented generation) | A search finds passages that match the question, and they are sent to a language model with the question; the answer is the language model's output |
+| Language model | A program that produces text one word or part of a word at a time, each chosen from the likely next words |
+| *Topic words* | The words of a question left after common words are dropped. Our own term, close to what search engines call keywords; the dropped words are called stop words |
 | Default value | The value an argument takes when none is given |
 | Set | A collection with no order and no repeats |
 | Tuple | Values kept together in round brackets |
@@ -437,8 +437,8 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 | Prompt | Everything sent to the model: here, the system and user messages |
 | Ollama | A free program that runs language models on your own computer |
 | Parameter (of a model) | One of the numbers set when the model was trained; Qwen3 4B Instruct has about 4 billion |
-| Temperature | A setting for how strongly the model favours its most likely next word; 0 always takes it |
-| Token | A word or part of a word, the unit a model reads and writes |
+| Temperature | A setting for how often the most likely next word is chosen; at 0 it is always chosen |
+| Token | A word or part of a word: the unit of a language model's input and output |
 | Gold passages | The passages that state what a correct answer says, listed for each question in the question bank |
 | Top-k, top-p | Settings that limit the draw to the k most likely next words, or to the most likely words whose probabilities add up to p |
 | Seed | A number that fixes the random draws, so the same prompt gives the same reply, except possibly on the first request after the model loads |

@@ -20,10 +20,10 @@ The **context** is everything the model is given to answer from: here, the passa
 Three choices are made here:
 
 - **Which passages.** The first three from Chapter 8's filtered search, in its order, in the non-commercial use mode.
-- **How much text.** A **word budget** of 600 words of quoted text. The three longest passages in the corpus have 170, 178 and 180 words, so three passages always fit; the budget matters when a later chapter sends more.
-- **How each is labelled.** Chapter 1's label (id, source, reference), then the edition, then a **scope line** if the passage describes one country's or one body's practice.
+- **How much text.** A limit of 600 words of quoted text. The three longest passages in the corpus have 170, 178 and 180 words, so three passages always fit; the budget matters when a later chapter sends more.
+- **How each is labelled.** Chapter 1's label (id, source, reference), then the edition, then a **_scope line_** if the passage describes one country's or one body's practice.
 
-The scope line copies the passage's `scope` and `scope_note` fields (Chapter 8, corpus review). Without it, the model has no way to know that modified GNI is an Irish measure or that BEA's GDI is not the SNA's real GDI.
+The *scope line* copies the passage's `scope` and `scope_note` fields (Chapter 8, corpus review). Without it, the model has no way to know that modified GNI is an Irish measure or that BEA's GDI is not the SNA's real GDI.
 
 ### 11.2.2 Code
 
@@ -101,7 +101,7 @@ def assemble_context(ranked, how_many=3, word_budget=WORD_BUDGET):
 
 Chapter 2's system message had four rules: answer about national accounts, use only the passages, cite an id after each sentence, say so when the passages do not answer. This chapter adds three.
 
-- **Scope.** A passage with a scope line is presented as that body's practice, for example "in US practice (BEA)".
+- **Scope.** A passage with a *scope line* is presented as that body's practice, for example "in US practice (BEA)".
 - **Editions.** If the 2008 SNA and the 2025 SNA differ, the answer says which edition says what. Chapter 8's edition filter withholds a 2008 passage when a 2025 passage on the same topic is kept, so this rule applies when a question names both editions.
 - **Length by role.** An analyst gets a full answer; an executive at most two sentences. This follows the demonstrator's design: role changes length only, not the evidence.
 
@@ -178,7 +178,7 @@ def word_count(messages):
 
 ### 11.3.4 An example
 
-For q2-22, "What is modified GNI and why does Ireland publish it?", the search returns cso-gnistar-4, cso-gnistar-1 and cso-gnistar-6. Each has the scope line "national practice: Ireland". The executive prompt is 451 words: 118 of instructions and question, and the rest passages and labels.
+For q2-22, "What is modified GNI and why does Ireland publish it?", the search returns cso-gnistar-4, cso-gnistar-1 and cso-gnistar-6. Each has the *scope line* "national practice: Ireland". The executive prompt is 451 words: 118 of instructions and question, and the rest passages and labels.
 
 Run `python -m ragbook.ch11_prompts` to print it.
 
@@ -334,7 +334,7 @@ def distinct_replies(records):
 
 ### 11.4.4 Results
 
-All 20 trials sent the same prompt of 667 tokens. The domain expert ran them on 30 October 2026; they took 18 minutes.
+All 20 trials sent the same prompt of 667 tokens. The horizontal domain expert ran them on 30 October 2026; they took 18 minutes.
 
 | Trial | Reply tokens | Seconds | Result |
 | --- | --- | --- | --- |
@@ -566,7 +566,7 @@ def summarise(records, passages_by_id):
 
 ### 11.5.4 Results
 
-The domain expert ran the 64 answers on 30 October 2026; they took 53 minutes. The prompts averaged 532 words and 779 prompt tokens, about 1.5 tokens a word. The longest was 1,085 tokens, so a prompt and a 400-token reply fit the 4,096-token window.
+The horizontal domain expert ran the 64 answers on 30 October 2026; they took 53 minutes. The prompts averaged 532 words and 779 prompt tokens, about 1.5 tokens a word. The longest was 1,085 tokens, so a prompt and a 400-token reply fit the 4,096-token window.
 
 | Count | Analyst | Executive |
 | --- | --- | --- |
@@ -586,7 +586,7 @@ The domain expert ran the 64 answers on 30 October 2026; they took 53 minutes. T
 - **Nearly half the analyst's sentences have no citation: 119 of 252.** Many link or restate cited sentences. Some add claims no passage makes, such as q2-01's "This definition is consistent with the 2008 SNA"; Chapter 14 checks which.
 - **The executive length rule held.** No executive answer has more than two sentences: 10 have one and 22 have two. They took 30.2 seconds on average, against 69.3 for the analyst's.
 - **Six analyst answers were cut off at 400 tokens:** q2-08, q2-12, q2-16, q2-18, q2-24 and q2-25. A higher `num_predict` would let them finish, at the cost of time.
-- **At 800 tokens all six finish.** The domain expert reran the 32 analyst answers with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
+- **At 800 tokens all six finish.** The horizontal domain expert reran the 32 analyst answers with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
 - **The scope rule failed four times.** q2-12 cites the Eurostat-OECD passages ppp23-8.2 and ppp23-4.16 without naming Eurostat or the OECD, in both roles; its check in the question bank asks for exactly that. q2-20 (analyst) and q2-23 (executive) cite cso-gnistar-2 without naming Ireland or the CSO.
 
 ## 11.6 Tests, glossary and links
@@ -598,7 +598,7 @@ The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three 
 | Test | What it proves |
 | --- | --- |
 | Editions | Every passage has an edition |
-| Scope line | Only passages with a scope note get a scope line; the edition is the second line and the quoted text the last |
+| *Scope line* | Only passages with a scope note get a *scope line*; the edition is the second line and the quoted text the last |
 | Budget | Passages are kept in rank order; one that would pass the budget is left out and a shorter one after it kept |
 | First passage | The first passage is kept even when it is over the budget |
 | Bank contexts | All 32 questions get three passages within 600 words |
@@ -624,15 +624,14 @@ The bank test uses a stand-in model that cites the first passage label it sees, 
 
 | Term | Meaning |
 | --- | --- |
-| Context | The passages given to the model with the question, which the answer is written from |
-| Word budget | The most words of quoted text put into the prompt |
-| Scope line | A line in a passage's label giving the country or body whose practice it describes |
+| Context | The passages sent to the language model with the question |
+| *Scope line* | A line in a passage's label giving the country or body whose practice it describes. Our own term |
 | Role | Who the answer is for: analyst (full answer) or executive (at most two sentences) |
 | Min-p | A setting that drops tokens whose probability is below a fraction of the most likely token's |
 | Length limit | The most tokens a reply may have (`num_predict`); a reply that reaches it is cut off |
-| Stop sequence | Text that ends the reply as soon as the model writes it |
+| Stop sequence | Text that ends the reply as soon as it appears in the output |
 | Repeat penalty | A setting that lowers the scores of tokens used recently; 1.0 turns it off |
-| Prompt tokens, reply tokens | The tokens the model read and the tokens it wrote, as Ollama reports them |
+| Prompt tokens, reply tokens | The tokens sent to the language model and the tokens in its output, as Ollama reports them; also called tokens in and tokens out |
 
 ### 11.6.3 Links
 

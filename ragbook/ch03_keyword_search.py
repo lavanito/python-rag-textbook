@@ -296,7 +296,7 @@ def load_questions(file_path=QUESTION_FILE, question_class="Q2"):
     the passages that state what a correct answer says. Retrieval is
     measured on the 32 numbered q2-01 to q2-32. A question relabelled Q2
     later keeps its own id and is routed as Q2 but not measured, so the
-    figures in Chapters 3 to 11 stay comparable (the domain expert,
+    figures in Chapters 3 to 11 stay comparable (the horizontal domain expert,
     3 November 2026; q5-04 is the first).
 
     Example:
