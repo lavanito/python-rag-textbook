@@ -12,7 +12,7 @@ All three need the same first step: splitting text into words properly (3.2). BM
 
 | Method | Definition questions with a correct passage in the top three |
 | --- | --- |
-| Chapter 2: shared topic words | 25 of 32 |
+| Chapter 2: shared *topic words* | 25 of 32 |
 | Word counts | 27 of 32 |
 | TF-IDF | 29 of 32 |
 | BM25 | 30 of 32 |
@@ -395,7 +395,7 @@ Each definition question (class Q2) in the question bank lists its **gold passag
 
 | Method | Questions with a gold passage in the top three | Questions missed |
 | --- | --- | --- |
-| Chapter 2: shared topic words | 25 of 32 | 7 |
+| Chapter 2: shared *topic words* | 25 of 32 | 7 |
 | Word counts | 27 of 32 | q2-02, q2-04, q2-21, q2-26, q2-30 |
 | TF-IDF | 29 of 32 | q2-02, q2-04, q2-30 |
 | BM25 | 30 of 32 | q2-04, q2-30 |

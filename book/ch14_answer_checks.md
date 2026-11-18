@@ -12,7 +12,7 @@ The checks are closed-world: a statement that the Python checks cannot match to 
 
 | Part | Written by | What it contains | If something is wrong |
 | --- | --- | --- | --- |
-| Template part | Code | Figures, comparisons, definition lines, premise line, source, edition, DQR, flags, escalation | A test fails before the code is used |
+| Template part | Code | Figures, comparisons, definition lines, false-premise correction, source, edition, DQR, flags, escalation | A test fails before the code is used |
 | Explanation | Language model | Reasons, each sentence citing a passage | One retry, told what failed; then dropped |
 
 The checks, one section each:
@@ -30,7 +30,7 @@ The decisions in this chapter are the horizontal domain expert's, made on 13 Nov
 
 The template part comes first on the page, always, and the language model never changes it. It has five parts, in this order:
 
-1. **Premise line**, only when the question assumes a direction the figures contradict.
+1. **False-premise correction**, only when the question assumes a direction the figures contradict.
 2. **Figures**, as Chapter 13 wrote them: value, unit, year, source, edition, DQR band and reason, flags.
 3. **Comparisons** calculated by Python functions from the figures: each figure over time, each figure between editions, and each economy against the first one named.
 4. **What the measures mean:** a definition line per measure.
@@ -54,7 +54,7 @@ The first rule, agreed on 13 November, was a threshold by DQR band (High 0.5, Me
 
 **Ahead and behind.** Two economies are compared by the ratio of their figures, in log points, the unit used for growth. The gap in dollars grows with prices and growth even when the ratio does not move.
 
-**The question's premise.** A Python function looks for direction words in the question. A comparison ("fallen behind") is compared with the calculated comparisons between economies; a change ("fell") against changes over time and between editions. When they clash, the premise line opens the template part.
+**The question's premise.** A Python function looks for direction words in the question. A comparison ("fallen behind") is compared with the calculated comparisons between economies; a change ("fell") against changes over time and between editions. When they clash, the false-premise correction opens the template part.
 
 ### 14.2.2 Code
 
@@ -230,7 +230,7 @@ def invented_numbers(explanation, allowed_text):
 
 ### 14.4.1 Principles
 
-A direction word states a change or a comparison: rose, fell, higher, lower, ahead, behind. Chapter 13's q4-02 reply had no invented number and still said the figures fell when they rose (failing F16). A number check cannot catch that, so directions need their own rule.
+A direction word states a change or a comparison: rose, fell, higher, lower, ahead, behind. Chapter 13's q4-02 reply had no unsupported number and still said the figures fell when they rose (failing F16). A number check cannot catch that, so directions need their own rule.
 
 The rule (the horizontal domain expert, 13 November 2026): **the explanation may not use direction words at all.** Every direction is stated in the template part, from the calculated comparisons, and the explanation gives only reasons. The alternative, matching each direction word to a figure, fails on ordinary English. Ten cases show why:
 
@@ -284,7 +284,7 @@ In the laptop run (14.7), direction words were found in four first attempts, all
 
 - **True catch:** q5-02 wrote "The United Kingdom has not fallen behind the United States since 2007", the same claim as in Chapter 13. The template part, under the size bands, says the United Kingdom lost ground (a large change).
 - **True catch:** q4-01 wrote "has decreased". The template part states the direction itself: "revised down (a large revision, which happens about one third of the time)".
-- **False alarm:** q4-02 wrote "the figures show a rise, not a fall", which agrees with the premise line in the template part. The ban rejected it anyway. Its next sentence ("The ICP revises PPPs upward, which reduces the estimated GDP per head") contradicts the figures and had no citation, so it would have failed in any case.
+- **False alarm:** q4-02 wrote "the figures show a rise, not a fall", which agrees with the false-premise correction in the template part. The ban rejected it anyway. Its next sentence ("The ICP revises PPPs upward, which reduces the estimated GDP per head") contradicts the figures and had no citation, so it would have failed in any case.
 
 *Demonstrator note: this demonstrator bans direction words from the explanation because it cannot check them reliably. A product would need a measured error rate for its direction check, a review of the explanations it drops, and someone responsible for the size bands. It will never be right every time.*
 
@@ -600,7 +600,7 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 - every measure has an approved definition whose passages exist, and the unpaid-work clause appears in the 10 measures the vertical domain expert agreed;
 - directions and size bands (q4-01's revision is "revised down (a large revision…)"; each size has about a third of the revisions);
 - where ids go: ids before sentences, "i.e." inside a sentence, ids compared without capitals;
-- the premise line for q4-02, and that "fallen behind" is read as a comparison (q5-02);
+- the false-premise correction for q4-02, and that "fallen behind" is read as a comparison (q5-02);
 - the number check ignores passage ids;
 - the word lists, including one known miss and one known false alarm;
 - the citation checks, the miscitation in the vertical domain expert's row 7, the defining passage first, and the fixed sentence;
@@ -616,8 +616,8 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 - **Closed-world check:** a check that counts anything it cannot match to the template part or a passage as false.
 - **Definition line:** what a measure means and what it leaves out, approved by the vertical domain expert, citing passage ids.
 - **Direction word:** a word that states a change or a comparison (rose, fell, higher, lower, ahead, behind).
-- **Size band:** large, medium or small: where a change falls among the revisions between the two editions; each band has about a third of them.
-- **Premise line:** the line that opens the template part when the question assumes a direction the figures contradict.
+- **Size band:** large, medium or small: where a change falls among the revisions between the two editions; each band has about a third of them. Statisticians call three equal groups like these terciles.
+- **False-premise correction:** the line that opens the template part when the question assumes a direction the figures contradict, for example "fell" when the figures rose. A question like this is called a false-premise question.
 - **Support:** the cited passage says what the sentence says; here measured by word overlap.
 - **Word overlap:** the share of a sentence's search words found in a passage's text.
 - **Miscitation:** a sentence cites one passage given, while its words are in another.

@@ -17,7 +17,7 @@ Each question is routed alone. The demonstrator keeps no memory of earlier quest
 
 ### 12.2.1 Principles
 
-The routes form a routing ladder, cheapest first. The rule: send each question to the lowest route that can answer it.
+The routes form a cascade, cheapest first. The rule: send each question to the lowest route that can answer it.
 
 | Route | How the question is answered | Cost |
 | --- | --- | --- |
@@ -317,7 +317,7 @@ The horizontal domain expert ran the model on 5 November 2026: 77 replies (45 ba
 
 ### 12.5.1 Principles
 
-The routing ladder suggests an order: the cheap, certain router first, the model only where it is unsure. Here the rules are taken as unsure when they decide only because nothing else matched: the default (Q2, R4) and "outside the corpus". This choice was fixed on 5 November 2026 before the combined score was computed.
+The cascade suggests an order: the cheap, certain router first, the model only where it is unsure. Here the rules are taken as unsure when they decide only because nothing else matched: the default (Q2, R4) and "outside the corpus". This choice was fixed on 5 November 2026 before the combined score was computed.
 
 ### 12.5.2 Code
 
@@ -819,7 +819,7 @@ The file `tests/test_ch12_routing.py` has 29 tests. None needs the model; three 
 | Router | Code that gives a question a class and a route before it is answered |
 | Class (of a question) | What kind of question it is: Q1 to Q8, AMB or OUT |
 | Route | How a question is answered: R1 to R6, clarify or escalate |
-| Routing ladder | The routes ordered from cheapest and most certain to most costly |
+| Cascade | The routes ordered from cheapest and most certain to most costly; each question goes to the cheapest route that can answer it. Called the routing ladder in *Making Data AI-Ready* |
 | Cached answer | An answer built once and served again unchanged until its sources change (R3) |
 | Keyword rule | A test of a question's text for a word, phrase or pattern |
 | Test set | Questions written after the router and kept unchanged, used only to score it |

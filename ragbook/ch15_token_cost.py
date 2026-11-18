@@ -418,7 +418,7 @@ SCORES = [
      "10 of 10", "training"),
     ("13", "Parameters read right (same figures), keyword rules, new questions", "2 of 20", "fair"),
     ("13", "Parameters read right (same figures), model round 2, new questions", "9 of 20", "fair"),
-    ("13", "Replies with no invented number (model wrote the whole reply)", "13 of 14", "training"),
+    ("13", "Replies with no unsupported number (language model output used as the whole reply)", "13 of 14", "training"),
     ("14", "The vertical domain expert's sentences judged supported; the check agreed on 17",
      "19 of 20", "training"),
     ("14", "Explanations with content shown, first run, new questions", "0 of 10", "fair"),

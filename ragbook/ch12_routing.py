@@ -4,7 +4,7 @@ Chapter 12 — Routing questions
 What this file does
     Gives each question a class (what kind of question it is) and a route
     (how it is answered), using keyword rules, and scores the rules against
-    the labels in the question bank. The routes follow the routing ladder,
+    the labels in the question bank. The routes follow the cascade,
     cheapest first: R1 no AI, R2 code, R4 retrieval, R5 small model, R6
     agent loop, plus clarify and escalate. The rules are tried in a fixed
     order and the first that matches decides.

@@ -1031,7 +1031,7 @@ def numbers_in(text):
 def check_reply(question, facts, reply):
     """
     Check a reply against its facts. Returns the numbers in the reply that
-    are not in the question or the facts (invented numbers), and whether
+    are not in the question or the facts (unsupported numbers), and whether
     the reply escalates exactly when it should.
     """
     allowed = numbers_in(question + " " + " ".join(facts["figures"] + facts["missing"]))

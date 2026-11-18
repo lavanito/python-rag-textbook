@@ -325,7 +325,7 @@ Hybrid search with query expansion, on the 32 definition questions:
 "Passages kept" is for a question that names no edition.
 
 - **Non-commercial** differs from Chapter 5 only through the edition filter. q2-25 rises from second place to first, although its gold passage was never withheld: removing two passages changes how many passages contain each word, so BM25 scores every passage differently, and moves other passages up both rankings.
-- **Commercial** finds a gold passage within ten places for every reachable question. The eight it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus contains no passage it may use.
+- **Commercial** finds a gold passage within ten places for every answerable question. The eight it cannot reach, q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32, have gold passages only in non-commercial or quotation-only sources. Answering them in commercial use needs open sources added to the corpus, or an answer that says the corpus contains no passage it may use.
 
 ## 8.6 The same filters inside Chroma
 
@@ -443,7 +443,7 @@ The file `tests/test_ch08_filters.py` has 12 tests. The Chroma tests build their
 | Both filters | No passage is both kept and withheld; together they make 57, for every question in both use modes |
 | Log | One line per withheld passage, added to, with six fields |
 | Filtered search | No withheld passage appears in the first ten places |
-| Reachable questions | Commercial use loses q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32 |
+| Answerable questions | Commercial use loses q2-02, q2-03, q2-06, q2-08, q2-16, q2-18, q2-19 and q2-32 |
 | Chroma condition | The condition written for each use mode |
 | Chroma licence | Commercial results are all open |
 | Chroma agrees | Same top three as filtered exact search on all 32 questions, both use modes |
@@ -461,7 +461,7 @@ The corpus test that counted one subscriber passage is replaced by one that chec
 | Edition filter | The filter that keeps the SNA edition a question names, or the latest edition on each topic |
 | Withheld passage | A passage a filter removed for one question, recorded with the reason |
 | Log | A file to which one line is added per event, here per withheld passage |
-| Reachable question | A question that keeps at least one gold passage after filtering |
+| Answerable question | A question that keeps at least one gold passage after filtering. The code calls it reachable |
 | Metadata filter | A condition on metadata that a vector database checks before ranking |
 
 ### 8.7.3 Links

@@ -176,7 +176,7 @@ q("q6-03", "Q6", "R4+R2", "What is the gap between GDP and national income, and 
 # --- Data questions: answered by the model class, passages give context ------
 q("q1-01", "Q1", "R2", "What was GNI per head at PPP in the United Kingdom in 2024?", ["ppp23-ov.12"], "A single value from the fact table, with unit and vintage.")
 q("q1-02", "Q1", "R2", "What was the population of India in 2022?", ["esa10-11.05"], "A single value with source and vintage.")
-# R1 (no AI) added to the routing ladder by the horizontal domain expert on 3 November 2026,
+# R1 (no AI) added to the cascade by the horizontal domain expert on 3 November 2026,
 # as part of Q1: the exact name of a series is copied from data/series/wdi_titles.csv.
 ADDED_3_NOVEMBER = ["q1-03"]
 q("q1-03", "Q1", "R1", "What is the exact name of the World Bank series NY.GNP.PCAP.PP.CD?", [], "The published title, word for word: GNI per capita, PPP (current international $).", "Copies the title from data/series/wdi_titles.csv; no model.")

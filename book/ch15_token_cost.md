@@ -364,7 +364,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 | 12 | Questions routed as labelled, Chapter 14 fair questions, fourth-round rules | 10 of 10 | Training |
 | 13 | Parameters read right (same figures), keyword rules, new questions | 2 of 20 | Fair |
 | 13 | Parameters read right (same figures), model round 2, new questions | 9 of 20 | Fair |
-| 13 | Replies with no invented number (model wrote the whole reply) | 13 of 14 | Training |
+| 13 | Replies with no unsupported number (language model output used as the whole reply) | 13 of 14 | Training |
 | 14 | The vertical domain expert's sentences judged supported; the check agreed on 17 | 19 of 20 | Training |
 | 14 | Explanations with content shown, first run, new questions | 0 of 10 | Fair |
 | 14 | Explanations with content shown, after the review, the vertical domain expert's 10 | 2 of 10 | Training |

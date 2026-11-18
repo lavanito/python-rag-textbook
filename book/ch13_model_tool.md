@@ -602,7 +602,7 @@ REPLY_INSTRUCTIONS = """You answer questions about national accounts statistics.
 def check_reply(question, facts, reply):
     """
     Check a reply against its facts. Returns the numbers in the reply that
-    are not in the question or the facts (invented numbers), and whether
+    are not in the question or the facts (unsupported numbers), and whether
     the reply escalates exactly when it should.
     """
     allowed = numbers_in(question + " " + " ".join(facts["figures"] + facts["missing"]))
@@ -617,7 +617,7 @@ The horizontal domain expert ran the model on 7 November 2026: 14 replies in 5.1
 
 | Check | Replies right of 14 |
 | --- | --- |
-| No invented number | 13 |
+| No unsupported number | 13 |
 | Escalates exactly when code decided | 7 |
 | No flag the figures do not have | 7 |
 
@@ -646,7 +646,7 @@ The horizontal domain expert ran the model on 7 November 2026: 14 replies in 5.1
 - **Proxy:** a near figure given in place of the one asked for, flagged, with its data quality rated Low at most.
 - **Escalate:** mark a question as passed to an analyst, with what was missing.
 - **Household-consumption PPP:** a currency converter based on the prices of what households buy.
-- **Invented number:** a number in a reply that is in neither the question nor the figures.
+- **Unsupported number:** a number in a reply that is in neither the question nor the figures. Also called a hallucinated number.
 
 ## Links
 

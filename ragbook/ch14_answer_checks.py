@@ -449,7 +449,7 @@ def fetch(parameters, last_years):
 def locked_block(question, parameters, last_years, definitions):
     """
     Everything code writes for a reply, in the order the page shows it:
-    the premise line (if any), figures, comparisons, what is missing, what
+    the false-premise correction (if any), figures, comparisons, what is missing, what
     each measure means and leaves out, and the escalation.
 
     Example:

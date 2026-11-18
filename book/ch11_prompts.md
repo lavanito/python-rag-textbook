@@ -21,9 +21,9 @@ Three choices are made here:
 
 - **Which passages.** The first three from Chapter 8's filtered search, in its order, in the non-commercial use mode.
 - **How much text.** A limit of 600 words of quoted text. The three longest passages in the corpus have 170, 178 and 180 words, so three passages always fit; the budget matters when a later chapter sends more.
-- **How each is labelled.** Chapter 1's label (id, source, reference), then the edition, then a **scope line** if the passage describes one country's or one body's practice.
+- **How each is labelled.** Chapter 1's label (id, source, reference), then the edition, then a **_scope line_** if the passage describes one country's or one body's practice.
 
-The scope line copies the passage's `scope` and `scope_note` fields (Chapter 8, corpus review). Without it, the model has no way to know that modified GNI is an Irish measure or that BEA's GDI is not the SNA's real GDI.
+The *scope line* copies the passage's `scope` and `scope_note` fields (Chapter 8, corpus review). Without it, the model has no way to know that modified GNI is an Irish measure or that BEA's GDI is not the SNA's real GDI.
 
 ### 11.2.2 Code
 
@@ -101,7 +101,7 @@ def assemble_context(ranked, how_many=3, word_budget=WORD_BUDGET):
 
 Chapter 2's system message had four rules: answer about national accounts, use only the passages, cite an id after each sentence, say so when the passages do not answer. This chapter adds three.
 
-- **Scope.** A passage with a scope line is presented as that body's practice, for example "in US practice (BEA)".
+- **Scope.** A passage with a *scope line* is presented as that body's practice, for example "in US practice (BEA)".
 - **Editions.** If the 2008 SNA and the 2025 SNA differ, the answer says which edition says what. Chapter 8's edition filter withholds a 2008 passage when a 2025 passage on the same topic is kept, so this rule applies when a question names both editions.
 - **Length by role.** An analyst gets a full answer; an executive at most two sentences. This follows the demonstrator's design: role changes length only, not the evidence.
 
@@ -178,7 +178,7 @@ def word_count(messages):
 
 ### 11.3.4 An example
 
-For q2-22, "What is modified GNI and why does Ireland publish it?", the search returns cso-gnistar-4, cso-gnistar-1 and cso-gnistar-6. Each has the scope line "national practice: Ireland". The executive prompt is 451 words: 118 of instructions and question, and the rest passages and labels.
+For q2-22, "What is modified GNI and why does Ireland publish it?", the search returns cso-gnistar-4, cso-gnistar-1 and cso-gnistar-6. Each has the *scope line* "national practice: Ireland". The executive prompt is 451 words: 118 of instructions and question, and the rest passages and labels.
 
 Run `python -m ragbook.ch11_prompts` to print it.
 
@@ -598,7 +598,7 @@ The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three 
 | Test | What it proves |
 | --- | --- |
 | Editions | Every passage has an edition |
-| Scope line | Only passages with a scope note get a scope line; the edition is the second line and the quoted text the last |
+| *Scope line* | Only passages with a scope note get a *scope line*; the edition is the second line and the quoted text the last |
 | Budget | Passages are kept in rank order; one that would pass the budget is left out and a shorter one after it kept |
 | First passage | The first passage is kept even when it is over the budget |
 | Bank contexts | All 32 questions get three passages within 600 words |
@@ -625,7 +625,7 @@ The bank test uses a stand-in model that cites the first passage label it sees, 
 | Term | Meaning |
 | --- | --- |
 | Context | The passages sent to the language model with the question |
-| Scope line | A line in a passage's label giving the country or body whose practice it describes |
+| *Scope line* | A line in a passage's label giving the country or body whose practice it describes. Our own term |
 | Role | Who the answer is for: analyst (full answer) or executive (at most two sentences) |
 | Min-p | A setting that drops tokens whose probability is below a fraction of the most likely token's |
 | Length limit | The most tokens a reply may have (`num_predict`); a reply that reaches it is cut off |
