@@ -674,7 +674,7 @@ The first eleven tests check the code on hand-worked cases and the gold-list rec
 | Distractor | A corpus passage that is gold for no question |
 | Precision at 3 | The share of the first three passages returned that are gold |
 | Recall at 3 | The share of a question's gold passages found in the first three places |
-| F1 | The harmonic mean of precision and recall: 2 × precision × recall ÷ (precision + recall) |
+| F1 | One score that combines precision and recall and is low if either is low: 2 × precision × recall ÷ (precision + recall) |
 | Reciprocal rank | 1 divided by the place of the first gold passage; 0 if none is in the first ten |
 | Mean reciprocal rank (MRR) | The mean of the reciprocal ranks over the questions |
 | Average precision | The precision at each gold passage found, added up and divided by the number of gold passages |

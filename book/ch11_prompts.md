@@ -20,7 +20,7 @@ The **context** is everything the model is given to answer from: here, the passa
 Three choices are made here:
 
 - **Which passages.** The first three from Chapter 8's filtered search, in its order, in the non-commercial use mode.
-- **How much text.** A **word budget** of 600 words of quoted text. The three longest passages in the corpus have 170, 178 and 180 words, so three passages always fit; the budget matters when a later chapter sends more.
+- **How much text.** A limit of 600 words of quoted text. The three longest passages in the corpus have 170, 178 and 180 words, so three passages always fit; the budget matters when a later chapter sends more.
 - **How each is labelled.** Chapter 1's label (id, source, reference), then the edition, then a **scope line** if the passage describes one country's or one body's practice.
 
 The scope line copies the passage's `scope` and `scope_note` fields (Chapter 8, corpus review). Without it, the model has no way to know that modified GNI is an Irish measure or that BEA's GDI is not the SNA's real GDI.
@@ -624,15 +624,14 @@ The bank test uses a stand-in model that cites the first passage label it sees, 
 
 | Term | Meaning |
 | --- | --- |
-| Context | The passages given to the model with the question, which the answer is written from |
-| Word budget | The most words of quoted text put into the prompt |
+| Context | The passages sent to the language model with the question |
 | Scope line | A line in a passage's label giving the country or body whose practice it describes |
 | Role | Who the answer is for: analyst (full answer) or executive (at most two sentences) |
 | Min-p | A setting that drops tokens whose probability is below a fraction of the most likely token's |
 | Length limit | The most tokens a reply may have (`num_predict`); a reply that reaches it is cut off |
-| Stop sequence | Text that ends the reply as soon as the model writes it |
+| Stop sequence | Text that ends the reply as soon as it appears in the output |
 | Repeat penalty | A setting that lowers the scores of tokens used recently; 1.0 turns it off |
-| Prompt tokens, reply tokens | The tokens the model read and the tokens it wrote, as Ollama reports them |
+| Prompt tokens, reply tokens | The tokens sent to the language model and the tokens in its output, as Ollama reports them; also called tokens in and tokens out |
 
 ### 11.6.3 Links
 

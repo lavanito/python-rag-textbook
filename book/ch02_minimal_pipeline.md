@@ -425,8 +425,8 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 
 | Term | Meaning |
 | --- | --- |
-| RAG (retrieval-augmented generation) | Finding passages that bear on a question and giving them to a language model with the question, so the model answers from them |
-| Language model | A program that writes text by predicting one word or part of a word at a time |
+| RAG (retrieval-augmented generation) | A search finds passages that match the question, and they are sent to a language model with the question; the answer is the language model's output |
+| Language model | A program that produces text one word or part of a word at a time, each chosen from the likely next words |
 | Topic words | The words of a question left after common words are dropped |
 | Default value | The value an argument takes when none is given |
 | Set | A collection with no order and no repeats |
@@ -437,8 +437,8 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 | Prompt | Everything sent to the model: here, the system and user messages |
 | Ollama | A free program that runs language models on your own computer |
 | Parameter (of a model) | One of the numbers set when the model was trained; Qwen3 4B Instruct has about 4 billion |
-| Temperature | A setting for how strongly the model favours its most likely next word; 0 always takes it |
-| Token | A word or part of a word, the unit a model reads and writes |
+| Temperature | A setting for how often the most likely next word is chosen; at 0 it is always chosen |
+| Token | A word or part of a word: the unit of a language model's input and output |
 | Gold passages | The passages that state what a correct answer says, listed for each question in the question bank |
 | Top-k, top-p | Settings that limit the draw to the k most likely next words, or to the most likely words whose probabilities add up to p |
 | Seed | A number that fixes the random draws, so the same prompt gives the same reply, except possibly on the first request after the model loads |

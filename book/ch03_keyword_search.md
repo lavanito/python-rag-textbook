@@ -543,7 +543,7 @@ The file `tests/test_ch03_keyword_search.py` has 13 tests. Retrieval is tested e
 | TF-IDF | A score that multiplies term frequency by inverse document frequency |
 | BM25 | A score that refines TF-IDF: repeats count for less and less, and long passages are marked down |
 | Index | Data about the corpus worked out once and kept, so each search is quick |
-| Class | A bundle of data and the functions that use it |
+| Class (Python) | A bundle of data and the functions that use it |
 | Object | One example of a class, built with its data |
 | Method (of a class) | A function that belongs to a class |
 | Lucene | The open-source search library inside Elasticsearch and OpenSearch |

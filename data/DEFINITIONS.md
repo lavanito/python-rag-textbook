@@ -1,5 +1,7 @@
 # Definitions and judgements for Chapter 14
 
+Roles (18 November 2026): the vertical domain expert judges meaning and data (definitions, gold passages, test questions); the horizontal domain expert sets rules, methods and runs; the AI coding assistant drafted code and proposals. Records written before that date in JSONL and CSV files (`route_by`, notes, triplet evidence) keep the names "the domain expert" and "the agent builder".
+
 ## `definitions.csv`
 
 One row per measure the NNI model gives (13). Columns: `measure` (code name), `means` (what it means), `leaves_out` (what it leaves out; empty when the definition already says it), `passages` (passage ids that define it, separated by "; "; empty when the corpus has none). Each reply's locked block shows them as "What it means: … What it leaves out: … See …". Passages are cited by id, not quoted.

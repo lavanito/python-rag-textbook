@@ -4,7 +4,7 @@
 
 This chapter monitors token cost. Every call to a language model is paid for in tokens: on a hosted model in money, on the laptop in time. So the chapter counts the tokens and seconds each answer uses, at each step and on each route.
 
-A **token** is the unit a language model reads and writes: a word or part of a word. **Tokens in** are what the model is sent (instructions, question, locked block, passages); **tokens out** are what it writes. Ollama reports both for every call, and Chapters 11 to 14 saved them with the seconds each call took.
+A **token** is a word or part of a word: the unit of a language model's input and output. **Tokens in** are what the model is sent (instructions, question, template part, passages); **tokens out** are what it writes. Ollama reports both for every call, and Chapters 11 to 14 saved them with the seconds each call took.
 
 The canvas, from the saved runs:
 
@@ -22,7 +22,7 @@ What the chapter builds:
 5. **The scores already measured** (15.6), each labelled training or fair.
 6. **Lessons for a production version** (15.7).
 
-Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No new model run was made: the step lines are built from the saved runs (the horizontal domain expert, 16 November 2026).
+Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No new model run was made: the lines of the trace are built from the saved runs (the horizontal domain expert, 16 November 2026).
 
 ## 15.2 Tokens and seconds per route
 
@@ -135,7 +135,7 @@ The trials of earlier chapters, per call:
 | Chapter 13: reading the question by model (rounds 1 and 2) | 68 | 1,031 | 46 | 12.2 |
 | Chapter 13: whole reply written by the model | 14 | 347 | 88 | 21.7 |
 
-- R2 sends the most tokens. The prompt contains the instructions, the locked block and up to five passages, and a locked block over a span lists every year (f-04, f-05).
+- R2 sends the most tokens. The prompt contains the instructions, the template part and up to five passages, and a template part over a span lists every year (f-04, f-05).
 - Tokens in and tokens out both add seconds. With almost the same tokens in, the executive's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
 - The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5.
 - Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: the model wrote fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
@@ -146,7 +146,7 @@ The trials of earlier chapters, per call:
 
 A **trace** is a file with one line for each step of each question, in the order the reply is built. Each line has the question, the step, the user's settings, what the step produced, its seconds and tokens, and where the seconds were measured.
 
-The steps for a question routed to code: route; read the question; licence filter; NNI model; locked block; evidence; each explanation attempt; status.
+The steps for a question routed to code: route; read the question; licence filter; NNI model; `locked block` (the template part); evidence; each explanation attempt; status.
 
 The trace is built from the saved Chapter 14 run, with no new laptop run. The steps with no model are run again and timed when the trace is built; the model's attempts are copied from the saved run with their tokens and seconds. A step run again must give what the run gave, and the trace records whether it does. The trace is saved in `data/traces/`, not in `logs/` (Chapter 8): it is built from committed runs, so it is committed with them.
 
@@ -217,7 +217,7 @@ def trace_question(question, parameters, saved, settings, context):
 
 - `timed` runs a function and returns its result and the seconds it took, measured with `time.perf_counter`.
 - The read-question step uses the labelled parameters, as the Chapter 14 run did; it records zero seconds and says so. Reading typed questions is the demonstrator's job (decision 24).
-- `same_as_saved_run` on the locked block and the evidence checks that the rebuilt steps match the run.
+- `same_as_saved_run` on the template part and the evidence checks that the rebuilt steps match the run.
 - The route step records the route the rules give and the route the run used.
 
 ### 15.3.4 Results
@@ -230,13 +230,13 @@ The trace of the 24 questions has 202 lines (`data/traces/ch15_traces.jsonl`). T
 | read question | India, 2016, GNI per head at PPP, latest and archive | 0 | 0 | 0 |
 | licence filter | 57 kept, none withheld | 0.0000 | 0 | 0 |
 | NNI model | 2 figures, no problems, no escalation | 0.0000 | 0 | 0 |
-| locked block | same as the saved run | 0.0001 | 0 | 0 |
+| `locked block` (the template part) | same as the saved run | 0.0001 | 0 | 0 |
 | evidence | esa10-8.94, ppp23-1.13, esa10-11.05, ppp23-4.16 | 0.0003 | 0 | 0 |
 | explanation, attempt 1 | failed: directions, passage talk, citations | 90.2 | 1,683 | 133 |
 | explanation, attempt 2 | passed (the fixed sentence) | 16.7 | 2,111 | 9 |
 | status | passed on retry | 0 | 0 | 0 |
 
-- The locked block and the evidence are the same as in the saved run for all 24 questions.
+- The template part and the evidence are the same as in the saved run for all 24 questions.
 - Over the 24 questions, the steps in Python took under a tenth of a second here; the model's 34 attempts took 1,944 seconds on the laptop. The NNI model's data load once, in about 0.02 seconds.
 - The third-round routing rules (Chapter 12) gave 6 of the vertical domain expert's 10 questions a route other than the one the run used. Five went to R4, the default for definitions, because the rules did not know "USA", "Euroarea", "Chinese" or "Japanese" as economy names (f-02 to f-05, f-10); f-06 ("revised by in 2023") was escalated as beyond the data. The Chapter 14 run used the labelled routes, so its figures are right.
 - The fourth-round rules (12.5.7) read the economy names from the knowledge graph and route all 10 as labelled, a training score. The trace uses the fourth round.
@@ -377,8 +377,8 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 ### What worked
 
 1. Every figure is calculated by Python from WDI and PWT data. The JavaScript version gives the same numbers for all 147 economy-years tested.
-2. The locked block answered all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
-3. The four kinds of model mistake in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the locked block: a tested function writes each of those lines.
+2. The template part answered all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
+3. The four kinds of model mistake in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: a tested function writes each of those lines.
 4. The checks dropped all 28 faulty explanations and showed none.
 5. The vertical domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
 6. Routing: 56 of 56 bank questions (training); 19 of 32 new questions in the first fair test.
@@ -415,16 +415,9 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 
 ## Glossary additions
 
-- **Token:** the unit a language model reads and writes: a word or part of a word.
-- **Tokens in:** the tokens sent to the model in one call (Ollama's `prompt_eval_count`, saved as `prompt_tokens`).
-- **Tokens out:** the tokens the model writes in one call (Ollama's `eval_count`, saved as `reply_tokens`).
 - **Token cost:** the tokens a step or a route uses per question; on a hosted model it is paid in money, on the laptop in time.
 - **Trace:** a file with one line for each step of each question, with its output, seconds and tokens.
-- **Step line:** one line of a trace.
-- **User settings:** the use mode and the role, chosen by the user and recorded on every step line.
 - **Review list:** every failed check, retry, dropped explanation and escalation, one row each, for the horizontal domain expert.
-- **Training score:** a score on questions the code or rules were written or chosen while reading.
-- **Fair score:** a score on questions written before the code they score and opened once.
 
 ## Links
 

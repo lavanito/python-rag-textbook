@@ -633,23 +633,17 @@ The horizontal domain expert ran the model on 7 November 2026: 14 replies in 5.1
 
 - **The tool:** values match the model's own data; ratings match the model's rule; the parts of NNI growth add up to the total; flags and breaks appear where they should; euro area members are rated as the euro area; counts and rates show the agreed digits.
 - **The added measures:** real GDP growth equals growth per head plus population growth; real NNI per head grows exactly as the decomposition says; a proxy is flagged and rated Low; a figure not in the data names the best data and escalates.
-- **Reading parameters:** every question routed to code has an answer key; relative years come from the ragged edge; spans fetch every year; a stand-in model that copies the key scores 28.
+- **Reading parameters:** every question routed to code has a list of expected inputs; years such as "latest" come from the ragged edge; spans fetch every year; a stand-in model that copies the key scores 28.
 - **Saved runs:** each laptop run scores as reported (12, 15, 2 and 6, and the reply checks).
 
 ## Glossary additions
 
 - **Tool:** a function a program or a language model can call, with fixed inputs and outputs.
 - **Contract (of a tool):** the list of a tool's inputs and outputs.
-- **Tool calling:** a language model replies with a function's name and arguments; the program runs the function.
-- **Pinned install:** installing a package at one fixed commit, so every run uses the same code.
-- **Parameter:** one input a question gives to the tool: an economy, a year, a measure or an edition.
-- **Enforced JSON shape:** Ollama makes the reply valid JSON with the listed fields, and allows only the listed choices.
-- **Relative year:** "latest" or "latest-N", turned into a year from the last year of data.
-- **Answer key:** the expected parameters each reading is scored against.
-- **Fair score:** a score on questions written after the rules or instructions were fixed.
-- **Sign test:** counts the questions on which one reader is right and the other wrong, and asks how likely that split is by chance.
-- **Proxy:** a stand-in figure close to the one asked for, flagged and rated at most Low.
-- **Gap table:** for each figure the tool lacks, what the reply gives instead.
+- **Tool calling:** the language model's output names a function and its arguments; the program runs the function.
+- **Parameter (of a question):** one input a question gives to the tool: an economy, a year, a measure or an edition.
+- **Fair score:** a score on questions written after the rules or instructions it tests were fixed, and scored once.
+- **Proxy:** a near figure given in place of the one asked for, flagged, with its data quality rated Low at most.
 - **Escalate:** mark a question as passed to an analyst, with what was missing.
 - **Household-consumption PPP:** a currency converter based on the prices of what households buy.
 - **Invented number:** a number in a reply that is in neither the question nor the figures.

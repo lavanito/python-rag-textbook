@@ -40,7 +40,7 @@ Each class has a usual route:
 | Q1 | Lookup: one value, or a series' exact name | R2 (R1 for a series name) |
 | Q2 | Definition | R4 |
 | Q3 | Compute, such as what drove growth | R2 |
-| Q4 | Vintage: how an estimate changed between releases | R2, or R4+R2 if it asks why |
+| Q4 | Revision: how an estimate changed between editions | R2, or R4+R2 if it asks why |
 | Q5 | Two or more economies compared | R2, or R4+R2 if it asks why |
 | Q6 | A definition and a figure | R4+R2 |
 | Q7 | Scenario: what if one input were different | R5>R2 |
@@ -487,7 +487,7 @@ def escalation_message(rule, titles):
     return reason, message
 ```
 
-- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could give the 2025 value with its source, vintage and DQR; that needs the model class, so it waits for the app build.
+- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could give the 2025 value with its source, edition and DQR; that needs the model class, so it waits for the app build.
 
 ### 12.5.6 Third round: the ragged edge
 
@@ -624,7 +624,7 @@ Five more changes, each for one question that showed a gap:
 
 - "states of the usa" is an economy not in the data, so t-01 is escalated;
 - "better economy" is a vague phrase, so u-16 gets sharper questions (clarify);
-- "revision" is a vintage word, so f-04 goes to the code (R2);
+- "revision" is an edition word, so f-04 goes to the code (R2);
 - a question that names economies and uses a measurement phrase ("affected by", "unmeasured") goes to passages (R4) before the two-economies rule (u-15);
 - a year after "revised ... in" is the date of a revision, not a year of data (f-06).
 
@@ -809,7 +809,7 @@ The file `tests/test_ch12_routing.py` has 29 tests. None needs the model; three 
 | Ragged-edge scores | 56 of 56; 26 of 32; 9 of 16 |
 | Economies from the graph | Japan's names are "japan" and "japanese"; Ireland is a member of the euro area; "USA" and "euroarea" are found, "because" is not |
 | Revision date | "revised by in 2023" leaves 2023 out of the years of data |
-| Fourth-round rules | t-01's wording escalates; u-16's wording is vague; u-15's wording goes to passages; "revision" is a vintage word; Japan to 2025 is still past the edge |
+| Fourth-round rules | t-01's wording escalates; u-16's wording is vague; u-15's wording goes to passages; "revision" is an edition word; Japan to 2025 is still past the edge |
 | Fourth-round scores | 56 of 56; 25 of 32 (t-01 escalated, label kept); 12 of 16; 10 of 10 on the Chapter 14 fair questions |
 
 ### 12.6.2 Glossary
@@ -817,14 +817,13 @@ The file `tests/test_ch12_routing.py` has 29 tests. None needs the model; three 
 | Term | Meaning |
 | --- | --- |
 | Router | Code that gives a question a class and a route before it is answered |
-| Class | What kind of question it is: Q1 to Q8, AMB or OUT |
+| Class (of a question) | What kind of question it is: Q1 to Q8, AMB or OUT |
 | Route | How a question is answered: R1 to R6, clarify or escalate |
 | Routing ladder | The routes ordered from cheapest and most certain to most costly |
 | Cached answer | An answer built once and served again unchanged until its sources change (R3) |
 | Keyword rule | A test of a question's text for a word, phrase or pattern |
 | Test set | Questions written after the router and kept unchanged, used only to score it |
 | Training score | A score on the questions a router was built from; it overstates the score on new questions |
-| Alias | Another name for the same thing (USA for the United States), kept in the knowledge graph |
 | Fall-back rule | A rule that decides only because no other rule matched |
 
 ### 12.6.3 Links

@@ -607,11 +607,10 @@ The file `tests/test_ch07_vector_store.py` has 12 tests. The Chroma tests build 
 | Recall (of a near-neighbour search) | The share of the true nearest embeddings, found by exact search, that a search finds |
 | Graph | Points joined by links; here each point is an embedding |
 | Navigable small world (NSW) | A graph built as points arrive, whose early links cross the collection, so a few steps reach any part |
-| HNSW | Hierarchical navigable small world: an NSW graph with sparse upper layers that bring the search close to the answer in a few long steps |
+| HNSW | Hierarchical navigable small world: points linked in layers, so a search takes a few long steps in the sparse top layers, then short steps near the answer |
 | ef | The length of the list of best points kept during an HNSW search; longer finds more and costs more |
 | Collection | Chroma's name for one searchable set of embeddings |
 | Metadata | Facts stored beside each embedding, such as source, edition and licence |
-| Set | A Python collection of distinct items that answers "is this in it?" at once |
 
 ### 7.8.3 Links
 

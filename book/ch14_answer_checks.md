@@ -2,33 +2,33 @@
 
 ## 14.1 What this chapter builds
 
-Every reply now has two parts. Python functions produce the first part, the **locked block**, from the figures with fixed templates: the figures, the differences and directions between them, what each measure means and leaves out, the source, edition, DQR, flags and escalation. The template is a bit like a mathematical formula or a function. A language model writes the second, the **explanation**, and the user who asked the question sees that explanation only if it passes every check in this chapter.
+Every reply now has two parts. Python functions produce the first part, the **template part** (called the locked block in the code), from the figures with fixed templates: the figures, the differences and directions between them, what each measure means and leaves out, the source, edition, DQR, flags and escalation. The template is a bit like a mathematical formula or a function. A language model writes the second, the **explanation**, and the user who asked the question sees that explanation only if it passes every check in this chapter.
 
 In Chapter 13, we let the model write the whole reply from the figures that were worked out in code. Of 14 replies, one reply said a figure rose by 140 when it fell by 140 (failing F15); one said two figures fell when both rose (F16); seven ended with "Passed to an analyst." although the escalation rule in the Python code said no (F17); and seven called figures "estimated" or "proxy" although no such flag was set (F18). None of these sentences needed the model. Each could be produced by a subtraction, a comparison of two numbers, the escalation rule or the list of flags. This chapter does that: a Python function builds each such sentence from the figures with a fixed template, and a test checks each template.
 
 We call this **Governed RAG**: Python functions select the passages and calculate the figures; the language model only writes an explanation of them. The language model's step comes between Python steps. Python steps run before the model (routing in Chapter 12, reading parameters in Chapter 13, the licence filter in Chapter 8, retrieval in Chapters 3 to 10, the figures from the NNI model) and after it (the checks here, the record in Chapter 15).
 
-The checks are closed-world: a statement that the Python checks cannot match to the locked block or to a passage counts as false. A sentence with no passage id cannot be checked, so it fails.
+The checks are closed-world: a statement that the Python checks cannot match to the template part or to a passage counts as false. A sentence with no passage id cannot be checked, so it fails.
 
 | Part | Written by | What it contains | If something is wrong |
 | --- | --- | --- | --- |
-| Locked block | Code | Figures, comparisons, definition lines, premise line, source, edition, DQR, flags, escalation | A test fails before the code is used |
+| Template part | Code | Figures, comparisons, definition lines, premise line, source, edition, DQR, flags, escalation | A test fails before the code is used |
 | Explanation | Language model | Reasons, each sentence citing a passage | One retry, told what failed; then dropped |
 
 The checks, one section each:
 
-- **Numbers (14.3):** every number in the explanation is in the question, the locked block or a passage given.
-- **Direction words (14.4):** the explanation uses none; the locked block states every direction.
-- **Flags, DQR and escalation (14.4):** only in the locked block, never in the explanation.
+- **Numbers (14.3):** every number in the explanation is in the question, the template part or a passage given.
+- **Direction words (14.4):** the explanation uses none; the template part states every direction.
+- **Flags, DQR and escalation (14.4):** only in the template part, never in the explanation.
 - **Citations (14.5):** every sentence cites a passage it was given, the passage supports it, and no other passage given supports it better.
 
-The decisions in this chapter are the horizontal domain expert's, made on 13 November 2026 with the AI coding assistant's proposals and examples. The result of the laptop run (14.7) is plain: under these checks, no explanation with content passed. The locked block answered every question by itself.
+The decisions in this chapter are the horizontal domain expert's, made on 13 November 2026 with the AI coding assistant's proposals and examples. The result of the laptop run (14.7) is plain: under these checks, no explanation with content passed. The template part answered every question by itself.
 
-## 14.2 The locked block
+## 14.2 The template part
 
 ### 14.2.1 Principles
 
-The locked block comes first on the page, always, and the language model never changes it. It has five parts, in this order:
+The template part comes first on the page, always, and the language model never changes it. It has five parts, in this order:
 
 1. **Premise line**, only when the question assumes a direction the figures contradict.
 2. **Figures**, as Chapter 13 wrote them: value, unit, year, source, edition, DQR band and reason, flags.
@@ -40,7 +40,7 @@ The locked block comes first on the page, always, and the language model never c
 
 **Edition, not "last updated".** The edition date is the release we used. It is not the date the figure was last revised.
 
-**Directions and sizes.** The locked block gives every change a direction and a size. The sizes come from the revisions between the two editions (the horizontal domain expert, 16 November 2026): every figure in both editions, the latest minus the older, in log points for levels and percentage points for rates and shares. The 778 revisions of 0.005 or more are cut into three roughly equal parts, and the same cuts judge changes over time and gaps between economies. A change below 0.005 shows as 0.00, so it reads "unchanged".
+**Directions and sizes.** The template part gives every change a direction and a size. The sizes come from the revisions between the two editions (the horizontal domain expert, 16 November 2026): every figure in both editions, the latest minus the older, in log points for levels and percentage points for rates and shares. The 778 revisions of 0.005 or more are cut into three roughly equal parts, and the same cuts judge changes over time and gaps between economies. A change below 0.005 shows as 0.00, so it reads "unchanged".
 
 | Size | Percentiles of the revisions | Change (log points or percentage points) |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ The first rule, agreed on 13 November, was a threshold by DQR band (High 0.5, Me
 
 **Ahead and behind.** Two economies are compared by the ratio of their figures, in log points, the unit used for growth. The gap in dollars grows with prices and growth even when the ratio does not move.
 
-**The question's premise.** A Python function looks for direction words in the question. A comparison ("fallen behind") is compared with the calculated comparisons between economies; a change ("fell") against changes over time and between editions. When they clash, the premise line opens the locked block.
+**The question's premise.** A Python function looks for direction words in the question. A comparison ("fallen behind") is compared with the calculated comparisons between economies; a change ("fell") against changes over time and between editions. When they clash, the premise line opens the template part.
 
 ### 14.2.2 Code
 
@@ -179,7 +179,7 @@ def premise_line(question, found):
 
 ### 14.2.4 Results
 
-q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP results. Both rose. The locked block opens with the correction (extract):
+q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP results. Both rose. The template part opens with the correction (extract):
 
 ```text
 The question assumes a fall; the figures show a rise.
@@ -201,7 +201,7 @@ The size bands also change an earlier answer. India's GNI per head for 2016 was 
 
 ### 14.3.1 Principles
 
-Every number in the explanation must appear in the question, the locked block or a passage given. Python functions calculate every difference before the model is asked, so the model is not asked to calculate anything. This is Chapter 13's number check, now applied to the explanation only.
+Every number in the explanation must appear in the question, the template part or a passage given. Python functions calculate every difference before the model is asked, so the model is not asked to calculate anything. This is Chapter 13's number check, now applied to the explanation only.
 
 Passage ids are removed before the numbers are read: "[esa10-8.94]" contains 10 and 8.94, which are not figures.
 
@@ -224,7 +224,7 @@ def invented_numbers(explanation, allowed_text):
 ### 14.3.3 Annotations
 
 - The check compares strings of digits, so it treats the same number written another way as new. In the run, f-01's explanation turned "65.9% of its level" into a ratio of "0.659". The value was right; the check failed it.
-- The check does not stop the model repeating numbers that are allowed. Five explanations restated figures from the locked block, which the instructions ask it not to do (14.7).
+- The check does not stop the model repeating numbers that are allowed. Five explanations restated figures from the template part, which the instructions ask it not to do (14.7).
 
 ## 14.4 Direction words
 
@@ -232,7 +232,7 @@ def invented_numbers(explanation, allowed_text):
 
 A direction word states a change or a comparison: rose, fell, higher, lower, ahead, behind. Chapter 13's q4-02 reply had no invented number and still said the figures fell when they rose (failing F16). A number check cannot catch that, so directions need their own rule.
 
-The rule (the horizontal domain expert, 13 November 2026): **the explanation may not use direction words at all.** Every direction is stated in the locked block, from the calculated comparisons, and the explanation gives only reasons. The alternative, matching each direction word to a figure, fails on ordinary English. Ten cases show why:
+The rule (the horizontal domain expert, 13 November 2026): **the explanation may not use direction words at all.** Every direction is stated in the template part, from the calculated comparisons, and the explanation gives only reasons. The alternative, matching each direction word to a figure, fails on ordinary English. Ten cases show why:
 
 | # | Case | Example |
 | --- | --- | --- |
@@ -249,7 +249,7 @@ The rule (the horizontal domain expert, 13 November 2026): **the explanation may
 
 No word list covers all ten. The closed-world rule decides which way the errors go: a direction the list misses can reach the user, and a correct sentence that uses a listed word is dropped. The first is a **miss**, the second a **false alarm**. Both are reported, never one alone.
 
-The same section bans the words for flags, DQR and escalation, which only the locked block may state (failings F17 and F18), and remarks about the passages themselves. When the passages do not explain the point, the model writes one fixed sentence instead: "No explanation is available from the passages."
+The same section bans the words for flags, DQR and escalation, which only the template part may state (failings F17 and F18), and remarks about the passages themselves. When the passages do not explain the point, the model writes one fixed sentence instead: "No explanation is available from the passages."
 
 ### 14.4.2 Code
 
@@ -282,9 +282,9 @@ NO_EXPLANATION = "No explanation is available from the passages."
 
 In the laptop run (14.7), direction words were found in four first attempts, all in questions the checks were built from:
 
-- **True catch:** q5-02 wrote "The United Kingdom has not fallen behind the United States since 2007", the same claim as in Chapter 13. The locked block, under the size bands, says the United Kingdom lost ground (a large change).
-- **True catch:** q4-01 wrote "has decreased". The locked block states the direction itself: "revised down (a large revision, which happens about one third of the time)".
-- **False alarm:** q4-02 wrote "the figures show a rise, not a fall", which agrees with the premise line in the locked block. The ban rejected it anyway. Its next sentence ("The ICP revises PPPs upward, which reduces the estimated GDP per head") contradicts the figures and had no citation, so it would have failed in any case.
+- **True catch:** q5-02 wrote "The United Kingdom has not fallen behind the United States since 2007", the same claim as in Chapter 13. The template part, under the size bands, says the United Kingdom lost ground (a large change).
+- **True catch:** q4-01 wrote "has decreased". The template part states the direction itself: "revised down (a large revision, which happens about one third of the time)".
+- **False alarm:** q4-02 wrote "the figures show a rise, not a fall", which agrees with the premise line in the template part. The ban rejected it anyway. Its next sentence ("The ICP revises PPPs upward, which reduces the estimated GDP per head") contradicts the figures and had no citation, so it would have failed in any case.
 
 *Demonstrator note: this demonstrator bans direction words from the explanation because it cannot check them reliably. A product would need a measured error rate for its direction check, a review of the explanations it drops, and someone responsible for the size bands. It will never be right every time.*
 
@@ -433,13 +433,13 @@ Against the vertical domain expert's 20 judgements (training), the check passes 
 
 1. The passages that define the concepts the question names (the knowledge graph's `defined_in`).
 2. For questions routed to passages (route R4), the top three by BM25 (Chapter 3).
-3. The passages that define the measures in the locked block (`data/definitions.csv`).
+3. The passages that define the measures in the template part (`data/definitions.csv`).
 
 So every explanation has evidence to cite, even for a question routed only to the NNI model.
 
-**Lookups get no explanation.** A question in class Q1 (one figure) is answered fully by the locked block.
+**Lookups get no explanation.** A question in class Q1 (one figure) is answered fully by the template part.
 
-**One retry, then the fall-back** (the horizontal domain expert, 13 November 2026). If the first explanation fails any check, the model gets the problems in plain words and one more try. If the second also fails, the page shows the locked block, then:
+**One retry, then the fall-back** (the horizontal domain expert, 13 November 2026). If the first explanation fails any check, the model gets the problems in plain words and one more try. If the second also fails, the page shows the template part, then:
 
 "The written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more."
 
@@ -494,7 +494,7 @@ def explain(question, question_class, locked, evidence, must_cite_first, ask):
 
 ### 14.6.4 Near measures
 
-Three of the fair-test questions asked for a measure the NNI model does not have: real GDP per head (f-03) and revisions to the GDP level (f-04, f-06). The vertical domain expert agreed the nearest measures in advance: GDP per head at PPP, and revisions to real GDP growth, with the answer stated in those terms. The locked block names the measure it used, but it does not yet say that this differs from the one asked for.
+Three of the fair-test questions asked for a measure the NNI model does not have: real GDP per head (f-03) and revisions to the GDP level (f-04, f-06). The vertical domain expert agreed the nearest measures in advance: GDP per head at PPP, and revisions to real GDP growth, with the answer stated in those terms. The template part names the measure it used, but it does not yet say that this differs from the one asked for.
 
 *Demonstrator note: when the data do not have the measure you asked for, this demonstrator answers with a near one chosen in advance. A product would find the nearest measure by meaning, say how near it is, and tell you plainly that it is not the measure you asked for.*
 
@@ -511,7 +511,7 @@ Command: `python -m ragbook.ch14_answer_checks --explain`. Saved run: `data/answ
 
 ### 14.7.2 Results
 
-**No explanation with content passed.** Every explanation shown is the fixed sentence "No explanation is available from the passages." The locked block answered every question by itself.
+**No explanation with content passed.** Every explanation shown is the fixed sentence "No explanation is available from the passages." The template part answered every question by itself.
 
 | Set | Questions | Lookup | Passed | Passed on retry | Dropped | Explanations with content shown |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -525,8 +525,8 @@ What the 21 explanations did (one explanation can do several):
 | What the model did | Questions | Kind of failure |
 | --- | --- | --- |
 | Wrote only the fixed sentence | q5-03, q7-01, f-02, f-03, f-04, f-05, f-06 (retry) | Passed, with nothing to say |
-| Restated figures from the locked block | q3-02, q4-01, q5-01, q6-02, f-01, f-06 | Real: the instructions forbid it |
-| Cited the locked block ("[locked-block]", "[Comparisons]") | q4-01, f-01 | Real: it wanted to cite the figures |
+| Restated figures from the template part | q3-02, q4-01, q5-01, q6-02, f-01, f-06 | Real: the instructions forbid it |
+| Cited the template part ("[locked-block]", "[Comparisons]") | q4-01, f-01 | Real: it wanted to cite the figures |
 | Grouped all ids at the end of the paragraph | q4-02, q5-01, q5-05, q6-02 | Real: earlier sentences uncited |
 | Used direction words | q4-01, q4-02, q5-01, q5-02 | Real in three; false alarm in q4-02 |
 | Cited an id it was not given | q3-01, q5-05, f-07 | Real: invented or misspelt ("sn25-11.238") |
@@ -538,9 +538,9 @@ Three fair-test explanations came close. f-07 failed on one misspelt id and an i
 
 ### 14.7.3 What this shows
 
-- **The locked block works.** It corrected q4-02's premise, gave q5-02 "about the same" under the first rule, and named a missing year (f-02, hours end 2023) and the escalation.
+- **The template part works.** It corrected q4-02's premise, gave q5-02 "about the same" under the first rule, and named a missing year (f-02, hours end 2023) and the escalation.
 - **The model mostly restates rather than explains.** Given the figures and up to five passages, it repeated the figures or declined. Where it gave reasons, it rarely cited each sentence.
-- **The checks have false alarms of their own:** ids placed before a sentence, "i.e." read as a sentence end, ids in lower case, and a direction word used to agree with the locked block. A product would need to count these separately from real failures.
+- **The checks have false alarms of their own:** ids placed before a sentence, "i.e." read as a sentence end, ids in lower case, and a direction word used to agree with the template part. A product would need to count these separately from real failures.
 - **The fair score and the training score tell the same story:** zero explanations with content in both.
 
 Possible changes: show the model an example of where ids go; accept an id at the start of a sentence; treat "i.e." and "e.g." as part of a sentence; compare ids without regard to capitals; reject restated figures outright. The horizontal domain expert chose four of them on 16 November 2026; 14.8 reports the rerun.
@@ -553,7 +553,7 @@ Running the frozen code on the new questions, before any model run, showed these
 - Comparing a growth rate's first and last years over a span says nothing (f-04). To fix.
 - A revision over a span lists every year: about 24 lines for f-04 and f-05.
 - The knowledge graph has no passage marked as defining PPP (f-09).
-- Questions routed only to passages show "Figures: none" and do not yet quote the passages in the locked block, as decision 1 says they should.
+- Questions routed only to passages show "Figures: none" and do not yet quote the passages in the template part, as decision 1 says they should.
 
 *Demonstrator note: in this demonstrator a small model on a laptop writes the explanations, and strict checks drop every one that cannot be traced to a passage. A product would use a larger model, measure the checks' false alarms, and have analysts read the explanations it drops.*
 
@@ -571,7 +571,7 @@ The vertical domain expert reviewed the run on 16 November 2026. He judged two r
 
 He chose the second row and an instruction with an example:
 
-- **An id protocol.** The id goes at the end of its sentence, before the full stop. A reply that starts with an id is read as putting every id before its sentence.
+- **A rule for where ids go.** The id goes at the end of its sentence, before the full stop. A reply that starts with an id is read as putting every id before its sentence.
 - **"i.e." and "e.g."** do not end a sentence.
 - **Ids are compared without regard to capitals:** sna25-a4.59 is sna25-A4.59.
 - **Not chosen:** removing a fixed sentence added after other sentences (it would have shown f-09), and rejecting restated figures (no verdict changed).
@@ -599,7 +599,7 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 
 - every measure has an approved definition whose passages exist, and the unpaid-work clause appears in the 10 measures the vertical domain expert agreed;
 - directions and size bands (q4-01's revision is "revised down (a large revision…)"; each size has about a third of the revisions);
-- the id protocol: ids before sentences, "i.e." inside a sentence, ids compared without capitals;
+- where ids go: ids before sentences, "i.e." inside a sentence, ids compared without capitals;
 - the premise line for q4-02, and that "fallen behind" is read as a comparison (q5-02);
 - the number check ignores passage ids;
 - the word lists, including one known miss and one known false alarm;
@@ -609,25 +609,24 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 
 ## Glossary additions
 
-- **Locked block:** the part of a reply that Python functions produce from the figures with fixed templates; the language model never changes it.
-- **Explanation:** text written by the language model under the locked block, shown only if it passes every check.
-- **Governed RAG:** retrieval and generation in which Python functions select the passages and calculate the figures, and the language model only writes an explanation of them.
-- **Closed-world check:** a check that treats anything it cannot trace to the locked block or a passage as false.
+- **Template part (of the reply):** the part of a reply made by filling fixed templates with the calculated figures and approved passages; the same question always gives the same text. Called the locked block in the code.
+- **Template:** a fixed sentence with blanks for figures and names, such as "[economy], [measure]: [value] in [year]".
+- **Explanation:** the reasons, as text generated by the language model, shown under the template part only if it passes every check.
+- **Governed RAG:** a version of RAG in which the passages are chosen and every figure is calculated with fixed rules before the language model is called; the language model's output is used only for an explanation, which is checked.
+- **Closed-world check:** a check that counts anything it cannot match to the template part or a passage as false.
 - **Definition line:** what a measure means and what it leaves out, approved by the vertical domain expert, citing passage ids.
 - **Direction word:** a word that states a change or a comparison (rose, fell, higher, lower, ahead, behind).
 - **Size band:** large, medium or small: where a change falls among the revisions between the two editions; each band has about a third of them.
-- **Id protocol:** where a passage id goes: at the end of its sentence, or before every sentence when the reply starts with an id.
-- **Premise line:** the line that opens the locked block when the question assumes a direction the figures contradict.
+- **Premise line:** the line that opens the template part when the question assumes a direction the figures contradict.
 - **Support:** the cited passage says what the sentence says; here measured by word overlap.
 - **Word overlap:** the share of a sentence's search words found in a passage's text.
 - **Miscitation:** a sentence cites one passage given, while its words are in another.
 - **Defining passage:** the passage the knowledge graph links to a concept with `defined_in`.
-- **Retry:** a second call to the model, showing it the problems the checks found.
-- **Fall-back:** the locked block alone, with the withheld line, after the retry fails.
+- **Retry:** a second call to the language model, with the problems the checks found added to the prompt.
+- **Fall-back (reply):** the template part alone, with a line saying no explanation passed, after the retry fails.
 - **Miss:** a check passes something wrong.
 - **False alarm:** a check rejects something correct.
 - **Demonstrator note:** an italic line saying what this demonstrator lacks and what a product would do.
-- **Freeze commit:** the commit that fixes the checks before new test questions are written.
 - **Edition:** the dated data release a figure comes from.
 
 ## Links
