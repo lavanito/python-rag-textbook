@@ -72,7 +72,7 @@ def test_no_triple_is_repeated():
 
 
 def test_every_measure_in_the_nni_model_is_an_indicator():
-    # The catalogue of measures (the domain expert, 16 November 2026): each of the
+    # The catalogue of measures (the horizontal domain expert, 16 November 2026): each of the
     # NNI model's measures is a thing in the graph, so a question can be read
     # against it. Two ids differ from the measure's name, because a concept
     # already has that id.
@@ -84,7 +84,7 @@ def test_every_measure_in_the_nni_model_is_an_indicator():
 
 def test_only_whole_measure_definitions_are_defined_in():
     # A measure is defined_in a passage only when the passage defines the whole
-    # measure (the domain expert, 16 November 2026).
+    # measure (the horizontal domain expert, 16 November 2026).
     defined = {(t["subject"], t["object"]) for t in TRIPLES
                if t["relation"] == "defined_in" and KIND.get(t["subject"]) == "Indicator"}
     assert defined == {("gni_total", "esa10-8.94"), ("population_total", "esa10-11.05"),

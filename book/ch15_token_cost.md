@@ -22,7 +22,7 @@ What the chapter builds:
 5. **The scores already measured** (15.6), each labelled training or fair.
 6. **Lessons for a production version** (15.7).
 
-Cost is shown in tokens and laptop seconds only, with no hosted price (the domain expert, 16 November 2026). No new model run was made: the step lines are built from the saved runs (the domain expert, 16 November 2026).
+Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No new model run was made: the step lines are built from the saved runs (the horizontal domain expert, 16 November 2026).
 
 ## 15.2 Tokens and seconds per route
 
@@ -238,7 +238,7 @@ The trace of the 24 questions has 202 lines (`data/traces/ch15_traces.jsonl`). T
 
 - The locked block and the evidence are the same as in the saved run for all 24 questions.
 - Over the 24 questions, the steps in Python took under a tenth of a second here; the model's 34 attempts took 1,944 seconds on the laptop. The NNI model's data load once, in about 0.02 seconds.
-- The third-round routing rules (Chapter 12) gave 6 of the domain expert's 10 questions a route other than the one the run used. Five went to R4, the default for definitions, because the rules did not know "USA", "Euroarea", "Chinese" or "Japanese" as economy names (f-02 to f-05, f-10); f-06 ("revised by in 2023") was escalated as beyond the data. The Chapter 14 run used the labelled routes, so its figures are right.
+- The third-round routing rules (Chapter 12) gave 6 of the vertical domain expert's 10 questions a route other than the one the run used. Five went to R4, the default for definitions, because the rules did not know "USA", "Euroarea", "Chinese" or "Japanese" as economy names (f-02 to f-05, f-10); f-06 ("revised by in 2023") was escalated as beyond the data. The Chapter 14 run used the labelled routes, so its figures are right.
 - The fourth-round rules (12.5.7) read the economy names from the knowledge graph and route all 10 as labelled, a training score. The trace uses the fourth round.
 
 ## 15.4 The user's two settings
@@ -280,14 +280,14 @@ def user_settings(use_mode="non-commercial", role="analyst"):
 
 ### 15.5.1 Principles
 
-The domain expert needs every problem in one plain list: each failed check of each attempt, with the problem in words; each dropped explanation; each escalation. Each attempt's row gives its tokens and seconds, so the list shows what each retry cost. The counts per check say which check fails most.
+The horizontal domain expert needs every problem in one plain list: each failed check of each attempt, with the problem in words; each dropped explanation; each escalation. Each attempt's row gives its tokens and seconds, so the list shows what each retry cost. The counts per check say which check fails most.
 
 ### 15.5.2 Code
 
 ```python
 def review_list(saved_records):
     """
-    Every problem the domain expert should see, one row each: each failed
+    Every problem the horizontal domain expert should see, one row each: each failed
     check of each attempt (with the problem in words), each dropped
     explanation and each escalation. Rows for an attempt give its tokens
     and seconds, so a retry shows what it cost.
@@ -365,9 +365,9 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 | 13 | Parameters read right (same figures), keyword rules, new questions | 2 of 20 | Fair |
 | 13 | Parameters read right (same figures), model round 2, new questions | 9 of 20 | Fair |
 | 13 | Replies with no invented number (model wrote the whole reply) | 13 of 14 | Training |
-| 14 | The domain expert's sentences judged supported; the check agreed on 17 | 19 of 20 | Training |
+| 14 | The vertical domain expert's sentences judged supported; the check agreed on 17 | 19 of 20 | Training |
 | 14 | Explanations with content shown, first run, new questions | 0 of 10 | Fair |
-| 14 | Explanations with content shown, after the review, the domain expert's 10 | 2 of 10 | Training |
+| 14 | Explanations with content shown, after the review, the vertical domain expert's 10 | 2 of 10 | Training |
 
 - The fair scores are lower than the training scores wherever both exist: routing 56 of 56 against 19 of 32; reading parameters 21 of 28 against 2 of 20 (keyword rules, Chapter 13).
 - Retrieval scores are training scores: the searches were chosen while reading the 32 definition questions.
@@ -380,7 +380,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 2. The locked block answered all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
 3. The four kinds of model mistake in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the locked block: a tested function writes each of those lines.
 4. The checks dropped all 28 faulty explanations and showed none.
-5. The domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
+5. The vertical domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
 6. Routing: 56 of 56 bank questions (training); 19 of 32 new questions in the first fair test.
 7. Definition questions: a correct passage in the top three for 31 of 32.
 8. The licence filter in the vector database kept the same passages as the hand-written filter on all 32 questions.
@@ -390,7 +390,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 
 ### What a production version needs
 
-1. A better reader for typed questions. Keyword rules found the right figures for 2 of 20 new questions, the small model for 9 of 20, and the routing rules sent 6 of the domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator reads questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
+1. A better reader for typed questions. Keyword rules found the right figures for 2 of 20 new questions, the small model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator reads questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
 2. A larger model asked for sentence and id as separate fields.
 3. Counts of both kinds of check error: good replies dropped and bad replies shown.
 4. A check that a reply answers the question (f-09).
@@ -422,7 +422,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 - **Trace:** a file with one line for each step of each question, with its output, seconds and tokens.
 - **Step line:** one line of a trace.
 - **User settings:** the use mode and the role, chosen by the user and recorded on every step line.
-- **Review list:** every failed check, retry, dropped explanation and escalation, one row each, for the domain expert.
+- **Review list:** every failed check, retry, dropped explanation and escalation, one row each, for the horizontal domain expert.
 - **Training score:** a score on questions the code or rules were written or chosen while reading.
 - **Fair score:** a score on questions written before the code they score and opened once.
 

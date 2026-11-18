@@ -334,7 +334,7 @@ def distinct_replies(records):
 
 ### 11.4.4 Results
 
-All 20 trials sent the same prompt of 667 tokens. The domain expert ran them on 30 October 2026; they took 18 minutes.
+All 20 trials sent the same prompt of 667 tokens. The horizontal domain expert ran them on 30 October 2026; they took 18 minutes.
 
 | Trial | Reply tokens | Seconds | Result |
 | --- | --- | --- | --- |
@@ -566,7 +566,7 @@ def summarise(records, passages_by_id):
 
 ### 11.5.4 Results
 
-The domain expert ran the 64 answers on 30 October 2026; they took 53 minutes. The prompts averaged 532 words and 779 prompt tokens, about 1.5 tokens a word. The longest was 1,085 tokens, so a prompt and a 400-token reply fit the 4,096-token window.
+The horizontal domain expert ran the 64 answers on 30 October 2026; they took 53 minutes. The prompts averaged 532 words and 779 prompt tokens, about 1.5 tokens a word. The longest was 1,085 tokens, so a prompt and a 400-token reply fit the 4,096-token window.
 
 | Count | Analyst | Executive |
 | --- | --- | --- |
@@ -586,7 +586,7 @@ The domain expert ran the 64 answers on 30 October 2026; they took 53 minutes. T
 - **Nearly half the analyst's sentences have no citation: 119 of 252.** Many link or restate cited sentences. Some add claims no passage makes, such as q2-01's "This definition is consistent with the 2008 SNA"; Chapter 14 checks which.
 - **The executive length rule held.** No executive answer has more than two sentences: 10 have one and 22 have two. They took 30.2 seconds on average, against 69.3 for the analyst's.
 - **Six analyst answers were cut off at 400 tokens:** q2-08, q2-12, q2-16, q2-18, q2-24 and q2-25. A higher `num_predict` would let them finish, at the cost of time.
-- **At 800 tokens all six finish.** The domain expert reran the 32 analyst answers with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
+- **At 800 tokens all six finish.** The horizontal domain expert reran the 32 analyst answers with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
 - **The scope rule failed four times.** q2-12 cites the Eurostat-OECD passages ppp23-8.2 and ppp23-4.16 without naming Eurostat or the OECD, in both roles; its check in the question bank asks for exactly that. q2-20 (analyst) and q2-23 (executive) cite cso-gnistar-2 without naming Ireland or the CSO.
 
 ## 11.6 Tests, glossary and links

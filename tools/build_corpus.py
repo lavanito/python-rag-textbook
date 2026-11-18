@@ -135,7 +135,7 @@ add("sna25-A4.10", "SNA25", "para. A4.10 (first part)", "Net measures and growth
     partial=True)
 add("sna25-A4.59", "SNA25", "Annex 4, para. A4.59", "Depletion of natural resources", ["C1a"],
     "A4.59 Depletion of non-produced natural resources is recorded as a cost of production in the 2025 SNA, instead of the 2008 SNA treatment as other changes in the volume of assets. Consequently, net domestic product is not only affected by depreciation (known as “consumption of fixed capital” in the 2008 SNA; see table A4.2 below), but also by the amount of depletion (see also section C.1 above).")
-# --- Depletion in the 2025 SNA (the domain expert, 28 Oct) -----------------------------
+# --- Depletion in the 2025 SNA (the vertical domain expert, 28 Oct) -----------------------------
 # Gives q2-03 a gold passage the edition filter keeps (Chapter 8) and says what
 # depletion covers beyond subsoil assets. Cut to fit the SNA cap of 500 words.
 add("sna25-11.238", "SNA25", "para. 11.238 (parts)", "Depletion of natural resources", ["C1a"],

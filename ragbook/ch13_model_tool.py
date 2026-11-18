@@ -114,7 +114,7 @@ MEASURES = {
         "purpose": "P4",
         "inputs": dqr.INPUTS["P4"],
     },
-    # Added from the gap table, approved by the domain expert on 7 November 2026. A
+    # Added from the gap table, approved by the vertical domain expert on 7 November 2026. A
     # "proxy" entry is a stand-in for the figure asked: it is flagged, says
     # how it differs and where the best data are, and is rated at most Low.
     "real_gdp_growth": {
@@ -197,7 +197,7 @@ SERIES = {"gni_per_head_ppp": "NY.GNP.PCAP.PP.CD", "population": "SP.POP.TOTL",
           "gni": "NY.GNP.MKTP.CD", "average_hours": "PWT.AVH"}
 
 # Figures not in the data at all: the reply names the best data and passes
-# the question to an analyst (gap table, the domain expert, 7 November 2026).
+# the question to an analyst (gap table, the vertical domain expert, 7 November 2026).
 GAPS = {
     "terms_of_trade": {
         "description": "The terms of trade effect",
@@ -265,7 +265,7 @@ def economy_code(economy):
 
 # S3 rates only the six economies. A euro area member is given the euro area's
 # rating: the members' statistical offices follow one standard, ESA 2010.
-# Assumption agreed by the domain expert, 6 November 2026.
+# Assumption agreed by the horizontal domain expert, 6 November 2026.
 MEMBER_ASSUMPTION = ("Assumption: rated as the euro area, because its members "
                      "follow one standard (ESA 2010)")
 
@@ -274,7 +274,7 @@ def rating(measure, code, flags=(), chk=None):
     """The DQR band and the reason that set it.
 
     A measure with more than one purpose takes the weakest rating. A proxy
-    is rated at most Low (the domain expert, 7 November 2026).
+    is rated at most Low (the horizontal domain expert, 7 November 2026).
     """
     rated_as = "EA21" if code in EURO_MEMBERS else code
     words = [flag.split(":")[0] for flag in flags]
@@ -291,7 +291,7 @@ def rating(measure, code, flags=(), chk=None):
 
 
 # Rates (log points, per cent) get one more decimal place than levels:
-# High 2, Medium 1, Low "about" and 1 (the domain expert, 7 November 2026).
+# High 2, Medium 1, Low "about" and 1 (the horizontal domain expert, 7 November 2026).
 RATE_DECIMALS = {dqr.HIGH: 2, dqr.MEDIUM: 1, dqr.LOW: 1}
 
 
@@ -302,7 +302,7 @@ def is_rate(unit):
 
 def show(value, band, count=False, rate=False):
     """The value as the page shows it. Counts, such as population, have no
-    decimal places (the domain expert, 7 November 2026); rates have one more decimal
+    decimal places (the horizontal domain expert, 7 November 2026); rates have one more decimal
     place than levels; other values follow the digits rule by band. A Low
     band always says "about".
 
@@ -362,7 +362,7 @@ def real_nni_per_head_ppp(s, code, y, base=2021):
 
     In 2021: NNI in local currency / the 2021 household PPP / population.
     Other years: the 2021 level moved by the model's own real NNI per head,
-    so growth matches the decomposition exactly (method approved by the domain expert,
+    so growth matches the decomposition exactly (method approved by the vertical domain expert,
     7 November 2026).
     """
     model = NNIDecomposition(s, code)
@@ -500,7 +500,7 @@ TOOL = {
 PARAMETER_FILE = QUESTION_FILE.parent / "parameters_7_november.jsonl"
 PARAMETER_REPLIES = ANSWER_FOLDER / "ch13_parameter_replies.jsonl"
 SECOND_REPLIES = ANSWER_FOLDER / "ch13_parameter_replies_second.jsonl"
-# Questions the domain expert writes and labels after round 2 is fixed, unseen by the agent builder:
+# Questions the vertical domain expert writes and labels after round 2 is fixed, unseen by the AI coding assistant:
 # the fair test of whether round 2 reads new questions better than round 1.
 NEW_QUESTION_FILE = QUESTION_FILE.parent / "parameters_test.jsonl"
 FIRST_YEAR = 2000
@@ -615,7 +615,7 @@ PARAMETER_EXAMPLES = [
 
 PARAMETER_SETTINGS = dict(SETTINGS, temperature=0, num_predict=150)
 
-# Round 2 (the domain expert, 7 November 2026), written after the first run missed 16 of
+# Round 2 (the horizontal domain expert, 7 November 2026), written after the first run missed 16 of
 # 28, mostly on the measure. Three changes: spans give two years; a level is
 # told apart from growth; revision words mean both editions. Each measure
 # also says whether it is a level or growth, and nni_growth names its parts.
@@ -856,7 +856,7 @@ def plan_calls(parameters, last_years):
         if not years:
             continue
         for measure in measures:
-            # A span fetches every year in it (the domain expert, 7 November 2026). Growth in
+            # A span fetches every year in it (the horizontal domain expert, 7 November 2026). Growth in
             # a year is growth from the year before, so for nni_growth a span
             # from 2004 to 2024 is the growth of 2005 to 2024: 20 years.
             start = years[0] + 1 if measure == "nni_growth" else years[0]

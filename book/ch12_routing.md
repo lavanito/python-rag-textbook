@@ -11,7 +11,7 @@ A router reads a question and gives it two labels before anything else runs:
 
 This chapter builds two routers and scores them on the same questions: keyword rules (12.3) and a small language model (12.4). It then combines them (12.5). The code is in `ragbook/ch12_routing.py`.
 
-Each question is routed alone. The demonstrator keeps no memory of earlier questions, so a follow-up such as "what does that mean?" cannot be answered, and a user cannot narrow a question in steps. The one exchange it supports is "clarify": a vague question gets three sharper questions, each complete in itself, and the user picks one (the domain expert, 6 November 2026).
+Each question is routed alone. The demonstrator keeps no memory of earlier questions, so a follow-up such as "what does that mean?" cannot be answered, and a user cannot narrow a question in steps. The one exchange it supports is "clarify": a vague question gets three sharper questions, each complete in itself, and the user picks one (the horizontal domain expert, 6 November 2026).
 
 ## 12.2 Classes and routes
 
@@ -51,7 +51,7 @@ Each class has a usual route:
 ### 12.2.2 The two question sets
 
 - **The bank: 56 questions.** 33 definition questions (Q2: q2-01 to q2-32, and q5-04, relabelled Q2 on 3 November 2026) and 23 of other classes. Retrieval in Chapters 3–11 is still measured on q2-01 to q2-32 only. The rules in 12.3 were written with the bank in view.
-- **The test set: 32 questions.** The domain expert wrote them on 3 November 2026, after the rules were written and without seeing them, and labelled their classes; the routes follow from the classes by the usual pairs. They are in `data/question_bank/routing_test_5_november.jsonl` and are never edited to suit a router.
+- **The test set: 32 questions.** The vertical domain expert wrote them on 3 November 2026, after the rules were written and without seeing them, and labelled their classes; the routes follow from the classes by the usual pairs. They are in `data/question_bank/routing_test_5_november.jsonl` and are never edited to suit a router.
 
 | Class | Bank | Test set |
 | --- | --- | --- |
@@ -298,7 +298,7 @@ def route_with_model(questions, examples, titles, ask=ask_model_with_details, te
 
 ### 12.4.4 Results
 
-The domain expert ran the model on 5 November 2026: 77 replies (45 bank questions and the 32 test questions) in 3.3 minutes, 2.6 seconds each.
+The horizontal domain expert ran the model on 5 November 2026: 77 replies (45 bank questions and the 32 test questions) in 3.3 minutes, 2.6 seconds each.
 
 | Questions | Class right | Route right | Both right |
 | --- | --- | --- | --- |
@@ -311,7 +311,7 @@ The domain expert ran the model on 5 November 2026: 77 replies (45 bank question
 - **The model escalates too often.** It refused two definition questions (t-01, t-12) and read "how do you calculate…" and "how do economists determine…" as compute (t-14, t-16, t-20).
 - **The model is better at spotting what is out of scope.** It escalated the poll (t-04), the question on GDP per head and quality of life (t-08) and the China–Switzerland question (t-09), and kept t-17 and t-19 as definitions.
 - **Both missed seven:** t-02, t-03, t-21, t-26, t-28, t-31 and t-32. Most are about the limits of the data.
-- **On the second test set the model and the rules tie: 6 of 16 each.** The domain expert ran the model on the 16 new questions on 6 November 2026 (`--model-second`, 72 seconds). It missed the three questions past the ragged edge (u-03, u-04, u-13), called u-14's "what would … have grown if" a compute question, and escalated u-16 instead of clarifying. Rules first, then the model, also gives 6.
+- **On the second test set the model and the rules tie: 6 of 16 each.** The horizontal domain expert ran the model on the 16 new questions on 6 November 2026 (`--model-second`, 72 seconds). It missed the three questions past the ragged edge (u-03, u-04, u-13), called u-14's "what would … have grown if" a compute question, and escalated u-16 instead of clarifying. Rules first, then the model, also gives 6.
 
 ## 12.5 Rules first, the model for the rest
 
@@ -432,17 +432,17 @@ def route_question_revised(question, known_words, titles):
 - **The bank score did not change.** None of the six checks fires wrongly on the 56 bank questions.
 - **Six misses remain.** t-05 (the UK and the US in a definition question), t-08 and t-17, t-19 (the corpus check), t-28 ("lost decade" gives no years), and t-31. For t-31, "2022 to 2026" is now escalated as beyond the data; the label says multi-step (Q8, R6). This is the first wording; see 12.5.6.
 - **The list of other economies is short.** It names 18 places; a question about Chile still passes it.
-- **The fair score is 6 of 16.** The domain expert wrote 16 more questions on 6 November 2026, after the revised rules, without seeing them (`data/question_bank/routing_test_6_november.jsonl`). Scored once, unchanged, the revised rules route 6 of 16 as labelled, the same as the first-round rules. Two of the 16 ask about years beyond the data (u-03, Japan to 2025; u-13, Ireland's revisions to 2025) and are labelled for escalation; the revised rules miss both, because they check one last year, 2025, for every economy and every release. The main misses: "USA" and "euroarea" are not in the economy names; "if we had to use" fires the new "if … had" scenario check; "What is … of Japan" reads as a definition and a figure.
+- **The fair score is 6 of 16.** The vertical domain expert wrote 16 more questions on 6 November 2026, after the revised rules, without seeing them (`data/question_bank/routing_test_6_november.jsonl`). Scored once, unchanged, the revised rules route 6 of 16 as labelled, the same as the first-round rules. Two of the 16 ask about years beyond the data (u-03, Japan to 2025; u-13, Ireland's revisions to 2025) and are labelled for escalation; the revised rules miss both, because they check one last year, 2025, for every economy and every release. The main misses: "USA" and "euroarea" are not in the economy names; "if we had to use" fires the new "if … had" scenario check; "What is … of Japan" reads as a definition and a figure.
 
 ### 12.5.5 What an escalated question gets
 
-A question routed to "escalate" gets a reason and a message. The build spec listed four reasons: judgement, policy advice, forecast, outside the corpus. A year after 2025 is not a forecast, since the figure may already be published elsewhere; Switzerland is not outside the corpus, since the World Bank publishes it. Both are gaps in this data set, a matter of completeness, so on 6 November 2026 the domain expert added two reasons: **beyond the data** and **economy not in the data**. Their messages say what is missing and what the data contain. A code not among the 17 series gets a third, **series not in the data**.
+A question routed to "escalate" gets a reason and a message. The build spec listed four reasons: judgement, policy advice, forecast, outside the corpus. A year after 2025 is not a forecast, since the figure may already be published elsewhere; Switzerland is not outside the corpus, since the World Bank publishes it. Both are gaps in this data set, a matter of completeness, so on 6 November 2026 the horizontal domain expert added two reasons: **beyond the data** and **economy not in the data**. Their messages say what is missing and what the data contain. A code not among the 17 series gets a third, **series not in the data**.
 
 `ragbook/ch12_routing.py`, the reasons, the messages and the function `escalation_message`:
 
 ```python
 # The reason a user is given for each rule that escalates. "Beyond the data"
-# and "economy not in the data" were added by the domain expert on 6 November 2026:
+# and "economy not in the data" were added by the horizontal domain expert on 6 November 2026:
 # both are gaps in this data set (completeness), not questions the system
 # refuses on principle, so the message says what is missing and what the data contain.
 ESCALATION_REASONS = {
@@ -493,7 +493,7 @@ def escalation_message(rule, titles):
 
 The data do not end in the same year everywhere. The last year with every input for real NNI per head is 2024 for the United States, Japan and China (household consumption ends there) and 2025 for the United Kingdom, India, the euro area and Ireland. In the March 2024 archive edition it is 2022, and the euro area members are not in it. This uneven end is the **ragged edge**.
 
-The second-round rules checked one last year, 2025, for every economy and edition, so they passed questions about Japan to 2025 or Ireland's revisions to 2025. On 6 November 2026 the domain expert asked for a last year for each economy and edition. A script, `tools/build_last_year.py`, runs the model's own loader and decomposition class and writes `data/series/last_year.csv`; no year is typed.
+The second-round rules checked one last year, 2025, for every economy and edition, so they passed questions about Japan to 2025 or Ireland's revisions to 2025. On 6 November 2026 the horizontal domain expert asked for a last year for each economy and edition. A script, `tools/build_last_year.py`, runs the model's own loader and decomposition class and writes `data/series/last_year.csv`; no year is typed.
 
 The last year also differs by measure: hours worked end in 2023, and published NNI ends in 2021. The rule does not check the measure. In practice, statistical producers often nowcast the missing years with a model such as a Kalman filter and mark the filled values as estimated; this book escalates them instead, except NNI after 2021, which is filled and flagged "estimated" (Chapter 13).
 
@@ -501,7 +501,7 @@ The last year also differs by measure: hours worked end in 2023, and published N
 
 ```python
 # The last year of real NNI per head differs by economy and by WDI edition
-# (the domain expert, 6 November 2026). Written by tools/build_last_year.py from
+# (the horizontal domain expert, 6 November 2026). Written by tools/build_last_year.py from
 # the nni-model code; a blank last year means the economy is not in that edition.
 LAST_YEAR_FILE = Path(__file__).parent.parent / "data" / "series" / "last_year.csv"
 
@@ -591,7 +591,7 @@ def beyond_the_edge_message(edge):
     return f"The data here for {name} end in {last}, so later years are not available."
 ```
 
-**Changes to the test sets, 6 November 2026 (the domain expert).** Two questions asked about years past the edge without meaning to: t-26 (US spending components, "2022 to 2025") and t-31 (euro area NNI, "2022 to 2026"). Their dates were moved to 2024, inside the data, and their labels kept. One, u-04 (Japan "2010 to 2025"), was relabelled OUT/escalate. The first wording is kept in each question's note. The model's saved replies answer the first wording of t-26 and t-31.
+**Changes to the test sets, 6 November 2026 (the vertical domain expert).** Two questions asked about years past the edge without meaning to: t-26 (US spending components, "2022 to 2025") and t-31 (euro area NNI, "2022 to 2026"). Their dates were moved to 2024, inside the data, and their labels kept. One, u-04 (Japan "2010 to 2025"), was relabelled OUT/escalate. The first wording is kept in each question's note. The model's saved replies answer the first wording of t-26 and t-31.
 
 | Router | Bank (56) | First test set (32) | Second test set (16) |
 | --- | --- | --- | --- |
@@ -601,13 +601,13 @@ def beyond_the_edge_message(edge):
 
 - **Fair scores: 19 of 32 and 6 of 16 for the first-round rules, and 6 of 16 for the revised rules.** Each set was written before the rules it scores. Every other number is a training score.
 - **The ragged edge adds three on the second set:** u-03, u-04 and u-13, the three questions about years past the edge.
-- **A fair score for the ragged-edge rules needs a third set of new questions. The domain expert decided on 6 November 2026 to stop the rule rounds here.**
+- **A fair score for the ragged-edge rules needs a third set of new questions. The horizontal domain expert decided on 6 November 2026 to stop the rule rounds here.**
 
 What would a test set twice the size show: the same order of routers, or a different one?
 
 ### 12.5.7 Fourth round: economy names from the knowledge graph
 
-On 17 November 2026 the domain expert reopened the rules. Chapter 15 found that the third-round rules gave 6 of the 10 Chapter 14 fair questions a route other than the labelled one. Five named an economy in a form the rules did not know ("USA", "Euroarea", "Chinese", "Japanese"), so no economy was found and the default rule sent them to R4. One, f-06, asked how Japanese GDP "in 2020" was "revised by in 2023": the rules read 2023 as a year of data, past the archive edition's last year (2022), and escalated it.
+On 17 November 2026 the horizontal domain expert reopened the rules. Chapter 15 found that the third-round rules gave 6 of the 10 Chapter 14 fair questions a route other than the labelled one. Five named an economy in a form the rules did not know ("USA", "Euroarea", "Chinese", "Japanese"), so no economy was found and the default rule sent them to R4. One, f-06, asked how Japanese GDP "in 2020" was "revised by in 2023": the rules read 2023 as a year of data, past the archive edition's last year (2022), and escalated it.
 
 The cause was four lists of economy names:
 
@@ -772,7 +772,7 @@ def route_question_graph(question, known_words, titles, last_years, economies):
 | Fourth-round rules (12.5.7) | 56 | 25 | 12 | 10 |
 
 - All fourth-round scores are training scores. The rules were changed after reading every question in the table.
-- t-01 is escalated, as the domain expert chose on 17 November 2026: the data have no figures for US states. Its label (R4) is kept so that the earlier scores stand, fair ones included; it counts as a miss here.
+- t-01 is escalated, as the horizontal domain expert chose on 17 November 2026: the data have no figures for US states. Its label (R4) is kept so that the earlier scores stand, fair ones included; it counts as a miss here.
 - On the second set, u-05, u-07 and u-16 are now routed as labelled. u-06 keeps its route (R2) but gets the class Q5 instead of Q3, because it names two economies.
 
 ## 12.6 Tests, glossary and links

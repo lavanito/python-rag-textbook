@@ -254,7 +254,7 @@ ADDED_26_OCTOBER = {
 }
 
 
-# The changes of 27 October 2026, after the domain expert judged every passage
+# The changes of 27 October 2026, after the vertical domain expert judged every passage
 # against every definition question with the same rule, with four amendments
 # of 28 October (q2-03, q2-12, q2-17, q2-22). Most changes remove passages:
 # the earlier lists had counted passages on neighbouring topics.

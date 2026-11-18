@@ -297,7 +297,7 @@ def route_bank_revised(questions, known_words, titles):
 
 
 # The reason a user is given for each rule that escalates. "Beyond the data"
-# and "economy not in the data" were added by the domain expert on 6 November 2026:
+# and "economy not in the data" were added by the horizontal domain expert on 6 November 2026:
 # both are gaps in this data set (completeness), not questions the system
 # refuses on principle, so the message says what is missing and what the data contain.
 ESCALATION_REASONS = {
@@ -346,7 +346,7 @@ def escalation_message(rule, titles):
 # ---------------------------------------------------------------------------
 
 # The last year of real NNI per head differs by economy and by WDI edition
-# (the domain expert, 6 November 2026). Written by tools/build_last_year.py from
+# (the horizontal domain expert, 6 November 2026). Written by tools/build_last_year.py from
 # the nni-model code; a blank last year means the economy is not in that edition.
 LAST_YEAR_FILE = Path(__file__).parent.parent / "data" / "series" / "last_year.csv"
 
@@ -493,7 +493,7 @@ def route_bank_ragged(questions, known_words, titles, last_years):
 
 # The fourth round reads every economy's names from the knowledge graph
 # (data/knowledge_graph/entities.csv, the label and aliases of each Economy)
-# and the euro area members from its member_of triplets. The domain expert,
+# and the euro area members from its member_of triplets. The horizontal domain expert,
 # 17 November 2026, after the Chapter 14 fair questions used names the
 # lists above did not have (USA, euroarea, Chinese, Japanese). Scores with
 # these rules are training scores.

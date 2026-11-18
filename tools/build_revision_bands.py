@@ -1,6 +1,6 @@
 """
 Write the size bands for changes: how large a revision, a change over time
-or a gap between economies is (the domain expert, 16 November 2026).
+or a gap between economies is (the horizontal domain expert, 16 November 2026).
 
 Every figure the NNI model gives in both WDI editions is compared: the
 latest edition minus the archive edition, for the same economy, measure and

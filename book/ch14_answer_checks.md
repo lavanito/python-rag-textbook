@@ -22,7 +22,7 @@ The checks, one section each:
 - **Flags, DQR and escalation (14.4):** only in the locked block, never in the explanation.
 - **Citations (14.5):** every sentence cites a passage it was given, the passage supports it, and no other passage given supports it better.
 
-The decisions in this chapter are the domain expert's, made on 13 November 2026 with the agent builder's proposals and examples. The result of the laptop run (14.7) is plain: under these checks, no explanation with content passed. The locked block answered every question by itself.
+The decisions in this chapter are the horizontal domain expert's, made on 13 November 2026 with the AI coding assistant's proposals and examples. The result of the laptop run (14.7) is plain: under these checks, no explanation with content passed. The locked block answered every question by itself.
 
 ## 14.2 The locked block
 
@@ -36,11 +36,11 @@ The locked block comes first on the page, always, and the language model never c
 4. **What the measures mean:** a definition line per measure.
 5. **Escalation**, added only when the escalation rule in the Python program returns yes, with a demonstrator note.
 
-**Definition lines.** Each measure has one sentence on what it means and one on what it leaves out, approved by the domain expert on 13 November 2026 (`data/definitions.csv`, record in `data/DEFINITIONS.md`). Each cites the passages that define it by id; it does not quote them. Ten of the 13 measures name the same omission in the same words: "unpaid work at home, such as caring, cooking and cleaning, most of it done by women" (source: ILO 2018, women do 76.2 per cent of unpaid care work hours).
+**Definition lines.** Each measure has one sentence on what it means and one on what it leaves out, approved by the vertical domain expert on 13 November 2026 (`data/definitions.csv`, record in `data/DEFINITIONS.md`). Each cites the passages that define it by id; it does not quote them. Ten of the 13 measures name the same omission in the same words: "unpaid work at home, such as caring, cooking and cleaning, most of it done by women" (source: ILO 2018, women do 76.2 per cent of unpaid care work hours).
 
 **Edition, not "last updated".** The edition date is the release we used. It is not the date the figure was last revised.
 
-**Directions and sizes.** The locked block gives every change a direction and a size. The sizes come from the revisions between the two editions (the domain expert, 16 November 2026): every figure in both editions, the latest minus the older, in log points for levels and percentage points for rates and shares. The 778 revisions of 0.005 or more are cut into three roughly equal parts, and the same cuts judge changes over time and gaps between economies. A change below 0.005 shows as 0.00, so it reads "unchanged".
+**Directions and sizes.** The locked block gives every change a direction and a size. The sizes come from the revisions between the two editions (the horizontal domain expert, 16 November 2026): every figure in both editions, the latest minus the older, in log points for levels and percentage points for rates and shares. The 778 revisions of 0.005 or more are cut into three roughly equal parts, and the same cuts judge changes over time and gaps between economies. A change below 0.005 shows as 0.00, so it reads "unchanged".
 
 | Size | Percentiles of the revisions | Change (log points or percentage points) |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ The first rule, agreed on 13 November, was a threshold by DQR band (High 0.5, Me
 ### 14.2.2 Code
 
 ```python
-# The size of a change (the domain expert, 16 November 2026): every non-zero
+# The size of a change (the horizontal domain expert, 16 November 2026): every non-zero
 # revision between the two editions, pooled in one unit (log points for levels,
 # percentage points for rates and shares) and cut into three roughly equal
 # parts. The same bands judge changes over time and gaps between economies.
@@ -232,7 +232,7 @@ def invented_numbers(explanation, allowed_text):
 
 A direction word states a change or a comparison: rose, fell, higher, lower, ahead, behind. Chapter 13's q4-02 reply had no invented number and still said the figures fell when they rose (failing F16). A number check cannot catch that, so directions need their own rule.
 
-The rule (the domain expert, 13 November 2026): **the explanation may not use direction words at all.** Every direction is stated in the locked block, from the calculated comparisons, and the explanation gives only reasons. The alternative, matching each direction word to a figure, fails on ordinary English. Ten cases show why:
+The rule (the horizontal domain expert, 13 November 2026): **the explanation may not use direction words at all.** Every direction is stated in the locked block, from the calculated comparisons, and the explanation gives only reasons. The alternative, matching each direction word to a figure, fails on ordinary English. Ten cases show why:
 
 | # | Case | Example |
 | --- | --- | --- |
@@ -294,17 +294,17 @@ In the laptop run (14.7), direction words were found in four first attempts, all
 
 Chapter 11 asked the model to put a passage id in square brackets after each sentence. In the 32 analyst answers of 30 October (800-token setting), 122 of 262 sentences (47%) cite nothing, only 4 answers cite every sentence, and one cites an id that does not exist (q2-31, "esa10-11.2.7" for esa10-11.27).
 
-The rule here is strict (the domain expert, 13 November 2026). Every sentence of the explanation must cite a passage it was given, and that passage must support it:
+The rule here is strict (the horizontal domain expert, 13 November 2026). Every sentence of the explanation must cite a passage it was given, and that passage must support it:
 
 - **Cited:** the sentence ends with an id in square brackets.
 - **Given:** the id is one of the passages that the Python program selected as evidence.
 - **Supported:** at least 20% of the sentence's search words (Chapter 3) are in the passage's text.
-- **Not miscited:** no other passage given scores at least 20 percentage points higher. A miscited sentence with true content still fails, because a reader who opens the cited passage will not find the claim (the domain expert, 13 November).
+- **Not miscited:** no other passage given scores at least 20 percentage points higher. A miscited sentence with true content still fails, because a reader who opens the cited passage will not find the claim (the horizontal domain expert, 13 November).
 - **Defining passage first:** for definition questions (classes Q2 and Q6), the first sentence cites the passage the knowledge graph links to the concept with `defined_in`.
 
 Scope notes are our notes, not evidence. Support is measured against the passage's own text only.
 
-**The domain expert's 20 judgements.** To test the word-overlap check, the domain expert judged 20 sentences drawn at random from Chapter 11's answers (seed 14), without seeing the scores. He gave two judgements per sentence: does the passage support the sentence, and does the sentence help answer the question?
+**The vertical domain expert's 20 judgements.** To test the word-overlap check, the vertical domain expert judged 20 sentences drawn at random from Chapter 11's answers (seed 14), without seeing the scores. He gave two judgements per sentence: does the passage support the sentence, and does the sentence help answer the question?
 
 | Judgement | Result |
 | --- | --- |
@@ -330,7 +330,7 @@ def overlap(sentence, passage):
     """
     The share of a sentence's search words that are in a passage's text.
     Citations are left out first. Scope notes are not counted: they are our
-    notes, not evidence (the domain expert, 13 November 2026).
+    notes, not evidence (the horizontal domain expert, 13 November 2026).
 
     Example:
         overlap("PPPs are statistical constructs [ppp23-1.31].", ppp23-1.31) returns 1.0
@@ -342,14 +342,14 @@ def overlap(sentence, passage):
 ```
 
 ```python
-# Abbreviations whose full stops do not end a sentence (the domain expert, 16 November 2026).
+# Abbreviations whose full stops do not end a sentence (the horizontal domain expert, 16 November 2026).
 ABBREVIATIONS = re.compile(r"\b(i\.e\.|e\.g\.)")
 
 
 def explanation_sentences(text):
     """
     Split an explanation into sentences, with the id protocol agreed by the
-    domain expert on 16 November 2026: ids go after their sentence, but a
+    horizontal domain expert on 16 November 2026: ids go after their sentence, but a
     reply that starts with an id is read as putting every id before its
     sentence. "i.e." and "e.g." do not end a sentence.
 
@@ -408,17 +408,17 @@ def check_sentences(text, evidence, must_cite_first=()):
 
 - The problems are written as sentences because the retry (14.6) shows them to the model as they stand.
 - An unknown id ends the checks for that sentence: there is no passage to measure support against.
-- `SUPPORT_MIN` (0.2) and `MISCITED_BY` (0.2) were chosen by looking at the domain expert's 20 judgements. Agreement with those 20 is therefore a training score.
+- `SUPPORT_MIN` (0.2) and `MISCITED_BY` (0.2) were chosen by looking at the vertical domain expert's 20 judgements. Agreement with those 20 is therefore a training score.
 
 ### 14.5.4 Results
 
 Chapter 11's analyst answers, rechecked without a new model run: 31 of 32 fail the strict rule. Only q2-10 passes ("What is a price level index?", three sentences, each citing ppp23-ov.13).
 
-Against the domain expert's 20 judgements (training), the check passes 17 sentences; he judged 19 Supported. They differ on four rows:
+Against the vertical domain expert's 20 judgements (training), the check passes 17 sentences; he judged 19 Supported. They differ on four rows:
 
-| Row | Question | Domain expert | Check | Reading |
+| Row | Question | Vertical domain expert | Check | Reading |
 | --- | --- | --- | --- | --- |
-| 7 | q2-09 | Supported | Fails: miscited (ppp23-1.13 scores 0.65, the cited ppp23-1.17 0.15) | Agrees with the domain expert's rule that a miscitation is a failure |
+| 7 | q2-09 | Supported | Fails: miscited (ppp23-1.13 scores 0.65, the cited ppp23-1.17 0.15) | Agrees with the horizontal domain expert's rule that a miscitation is a failure |
 | 15 | q2-23 | Supported | Fails: miscited (sna25-23.68 scores 0.59, the cited CSO passage 0.05) | The sentence names the 2025 SNA but cites the CSO |
 | 17 | q2-25 | Partly | Passes | Its support comes from our scope note; overlap with the BEA text is still 0.43 |
 | 18 | q2-26 | Supported | Fails: overlap 0.15 | The passage defines double deflation but does not say it reflects "true volume growth" |
@@ -439,7 +439,7 @@ So every explanation has evidence to cite, even for a question routed only to th
 
 **Lookups get no explanation.** A question in class Q1 (one figure) is answered fully by the locked block.
 
-**One retry, then the fall-back** (the domain expert, 13 November 2026). If the first explanation fails any check, the model gets the problems in plain words and one more try. If the second also fails, the page shows the locked block, then:
+**One retry, then the fall-back** (the horizontal domain expert, 13 November 2026). If the first explanation fails any check, the model gets the problems in plain words and one more try. If the second also fails, the page shows the locked block, then:
 
 "The written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more."
 
@@ -466,7 +466,7 @@ EXPLAIN_INSTRUCTIONS = """You explain answers about national accounts statistics
 def explain(question, question_class, locked, evidence, must_cite_first, ask):
     """
     Ask for an explanation, check it, retry once if it fails, and drop it if
-    the retry fails too (the domain expert, 13 November 2026). Lookups (class Q1) get no
+    the retry fails too (the horizontal domain expert, 13 November 2026). Lookups (class Q1) get no
     explanation. Returns the status, the text shown, and every attempt.
     """
     if question_class == "Q1":
@@ -494,7 +494,7 @@ def explain(question, question_class, locked, evidence, must_cite_first, ask):
 
 ### 14.6.4 Near measures
 
-Three of the fair-test questions asked for a measure the NNI model does not have: real GDP per head (f-03) and revisions to the GDP level (f-04, f-06). The domain expert agreed the nearest measures in advance: GDP per head at PPP, and revisions to real GDP growth, with the answer stated in those terms. The locked block names the measure it used, but it does not yet say that this differs from the one asked for.
+Three of the fair-test questions asked for a measure the NNI model does not have: real GDP per head (f-03) and revisions to the GDP level (f-04, f-06). The vertical domain expert agreed the nearest measures in advance: GDP per head at PPP, and revisions to real GDP growth, with the answer stated in those terms. The locked block names the measure it used, but it does not yet say that this differs from the one asked for.
 
 *Demonstrator note: when the data do not have the measure you asked for, this demonstrator answers with a near one chosen in advance. A product would find the nearest measure by meaning, say how near it is, and tell you plainly that it is not the measure you asked for.*
 
@@ -502,10 +502,10 @@ Three of the fair-test questions asked for a measure the NNI model does not have
 
 ### 14.7.1 The run
 
-The checks were frozen in a commit (`9b1e82e`, 14 November 2026) before the agent builder saw the domain expert's 10 new questions. The domain expert agreed their labels on 16 November, and one laptop run (qwen3:4b-instruct, temperature 0) answered 24 questions in 30.9 minutes:
+The checks were frozen in a commit (`9b1e82e`, 14 November 2026) before the AI coding assistant saw the vertical domain expert's 10 new questions. The vertical domain expert agreed their labels on 16 November, and one laptop run (qwen3:4b-instruct, temperature 0) answered 24 questions in 30.9 minutes:
 
 - **Training:** the bank's 14 questions routed to the NNI model, from which failings F15 to F18 came.
-- **Fair:** the domain expert's 10 new questions (3 compare, 3 revision, 3 why, 1 lookup).
+- **Fair:** the vertical domain expert's 10 new questions (3 compare, 3 revision, 3 why, 1 lookup).
 
 Command: `python -m ragbook.ch14_answer_checks --explain`. Saved run: `data/answers/ch14_explanations.jsonl`.
 
@@ -543,7 +543,7 @@ Three fair-test explanations came close. f-07 failed on one misspelt id and an i
 - **The checks have false alarms of their own:** ids placed before a sentence, "i.e." read as a sentence end, ids in lower case, and a direction word used to agree with the locked block. A product would need to count these separately from real failures.
 - **The fair score and the training score tell the same story:** zero explanations with content in both.
 
-Possible changes: show the model an example of where ids go; accept an id at the start of a sentence; treat "i.e." and "e.g." as part of a sentence; compare ids without regard to capitals; reject restated figures outright. The domain expert chose four of them on 16 November 2026; 14.8 reports the rerun.
+Possible changes: show the model an example of where ids go; accept an id at the start of a sentence; treat "i.e." and "e.g." as part of a sentence; compare ids without regard to capitals; reject restated figures outright. The horizontal domain expert chose four of them on 16 November 2026; 14.8 reports the rerun.
 
 ### 14.7.4 Findings for later chapters
 
@@ -561,7 +561,7 @@ Running the frozen code on the new questions, before any model run, showed these
 
 ### 14.8.1 What changed
 
-The domain expert reviewed the run on 16 November 2026. He judged two replies the fixes would let through: f-08's retry good (each sentence close to its passage), f-09's retry a fault (cited correctly, but it does not answer the question). With those labels, the saved replies were checked again in Python, with no model run:
+The vertical domain expert reviewed the run on 16 November 2026. He judged two replies the fixes would let through: f-08's retry good (each sentence close to its passage), f-09's retry a fault (cited correctly, but it does not answer the question). With those labels, the saved replies were checked again in Python, with no model run:
 
 | Checks | Good replies dropped (of 1) | Faulty replies shown (of 28) |
 | --- | --- | --- |
@@ -585,7 +585,7 @@ One laptop run on 16 November 2026 answered the same 24 questions in 32.4 minute
 | Set | Questions | Lookup | Passed | Passed on retry | Dropped | Shown with content |
 | --- | --- | --- | --- | --- | --- | --- |
 | Training (bank) | 14 | 2 | 3 | 2 | 7 | 0 |
-| The domain expert's 10 | 10 | 1 | 5 | 2 | 2 | 2 |
+| The vertical domain expert's 10 | 10 | 1 | 5 | 2 | 2 | 2 |
 
 - **Two explanations with content passed:** f-07 (depletion), three sentences, each citing its passage at the end; and f-08 (modified NNI), four sentences close to their passages, saying nothing about Ireland.
 - **The other passes are the fixed sentence.** Why, compare and revision questions still get no explanation with content.
@@ -597,13 +597,13 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 
 `tests/test_ch14_answer_checks.py`, 33 tests; with the earlier chapters, 310 pass. A stand-in replaces the language model, so no Ollama is needed. They check:
 
-- every measure has an approved definition whose passages exist, and the unpaid-work clause appears in the 10 measures the domain expert agreed;
+- every measure has an approved definition whose passages exist, and the unpaid-work clause appears in the 10 measures the vertical domain expert agreed;
 - directions and size bands (q4-01's revision is "revised down (a large revision…)"; each size has about a third of the revisions);
 - the id protocol: ids before sentences, "i.e." inside a sentence, ids compared without capitals;
 - the premise line for q4-02, and that "fallen behind" is read as a comparison (q5-02);
 - the number check ignores passage ids;
 - the word lists, including one known miss and one known false alarm;
-- the citation checks, the miscitation in the domain expert's row 7, the defining passage first, and the fixed sentence;
+- the citation checks, the miscitation in the vertical domain expert's row 7, the defining passage first, and the fixed sentence;
 - the evidence respects the licence filter and the cap of five;
 - the retry names the problems, and two failures drop the explanation.
 
@@ -613,7 +613,7 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 - **Explanation:** text written by the language model under the locked block, shown only if it passes every check.
 - **Governed RAG:** retrieval and generation in which Python functions select the passages and calculate the figures, and the language model only writes an explanation of them.
 - **Closed-world check:** a check that treats anything it cannot trace to the locked block or a passage as false.
-- **Definition line:** what a measure means and what it leaves out, approved by the domain expert, citing passage ids.
+- **Definition line:** what a measure means and what it leaves out, approved by the vertical domain expert, citing passage ids.
 - **Direction word:** a word that states a change or a comparison (rose, fell, higher, lower, ahead, behind).
 - **Size band:** large, medium or small: where a change falls among the revisions between the two editions; each band has about a third of them.
 - **Id protocol:** where a passage id goes: at the end of its sentence, or before every sentence when the reply starts with an id.
@@ -634,7 +634,7 @@ Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `
 
 - Code: `ragbook/ch14_answer_checks.py`; tests: `tests/test_ch14_answer_checks.py`
 - Definitions and their record: `data/definitions.csv`, `data/DEFINITIONS.md`
-- The domain expert's 20 judgements: `data/answers/ch14_support_judgements.csv`
+- The vertical domain expert's 20 judgements: `data/answers/ch14_support_judgements.csv`
 - Fair-test questions: `data/question_bank/ch14_fair_test.jsonl`; saved runs: `data/answers/ch14_explanations.jsonl`, `data/answers/ch14_explanations_review.jsonl`
 - Revisions and size bands: `data/series/revisions.csv`, `data/series/revision_bands.csv`, `tools/build_revision_bands.py`
 - Chapter 11 analyst answers: `data/answers/ch11_answers_800.jsonl`; Chapter 13 replies: `data/answers/ch13_replies.jsonl`
