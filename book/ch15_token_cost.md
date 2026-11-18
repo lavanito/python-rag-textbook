@@ -408,7 +408,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 - lookups cost no tokens;
 - the executive's answers have fewer than half the analyst's tokens out;
 - unknown settings stop with an error;
-- the trace has one line per step, the steps with no model reproduce the saved locked blocks and evidence, and only the model uses tokens;
+- the trace has one line per step, the steps with no model reproduce the saved template parts and evidence, and only the model uses tokens;
 - commercial use changes the evidence;
 - the review list counts dropped explanations, and every attempt row gives its tokens;
 - every score is labelled training or fair.
