@@ -377,7 +377,7 @@ def review_list(saved_records):
                          "problem": "explanation dropped after the retry", "tokens": 0, "seconds": 0})
         if record["locked"]["escalate"]:
             rows.append({"question_id": record["id"], "attempt": None, "check": "escalated",
-                         "problem": "passed to an analyst", "tokens": 0, "seconds": 0})
+                         "problem": "passed to the vertical domain expert", "tokens": 0, "seconds": 0})
     return rows
 
 

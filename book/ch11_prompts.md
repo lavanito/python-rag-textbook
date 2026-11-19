@@ -5,9 +5,9 @@
 Chapters 3 to 10 found and measured passages. This chapter decides what the model is given with those passages, and with which settings it writes the answer.
 
 1. **Context** (11.2): which passages go into the prompt, in what order, and how each is labelled.
-2. **Instructions** (11.3): Chapter 2's rules, plus rules for passages that describe one country's practice, for the two SNA editions, and for answer length by role.
+2. **Instructions** (11.3): Chapter 2's rules, plus rules for passages that describe one country's practice, for the two SNA editions, and for the reply length.
 3. **Settings** (11.4): what temperature, top-k, top-p, min-p, seed, length limit, stop sequence and repeat penalty do, each tried on one question.
-4. **The question bank** (11.5): all 32 definition questions answered for two roles, with tokens and seconds recorded, and code that counts citations.
+4. **The question bank** (11.5): all 32 definition questions answered for two reply lengths, with tokens and seconds recorded, and code that counts citations.
 
 The code counts what can be counted without judgement: ids cited, ids not given, sentences with no citation, bodies not named. Whether an answer is correct is Chapter 14.
 
@@ -103,7 +103,7 @@ Chapter 2's system message had four rules: answer about national accounts, use o
 
 - **Scope.** A passage with a *scope line* is presented as that body's practice, for example "in US practice (BEA)".
 - **Editions.** If the 2008 SNA and the 2025 SNA differ, the answer says which edition says what. Chapter 8's edition filter withholds a 2008 passage when a 2025 passage on the same topic is kept, so this rule applies when a question names both editions.
-- **Length by role.** An analyst gets a full answer; an executive at most two sentences. This follows the demonstrator's design: role changes length only, not the evidence.
+- **Reply length.** A full reply is as long as the passages support; a short reply has at most two sentences (called role in the code: analyst or executive). This follows the demonstrator's design: the setting changes length only, not the evidence.
 
 A rule is an instruction, not a guarantee (Chapter 2). 11.5 counts how often the model follows the citation and scope rules; the length rule is counted the same way.
 
@@ -172,13 +172,13 @@ def word_count(messages):
 ### 11.3.3 Annotations
 
 - `INSTRUCTIONS` replaces Chapter 2's text of the same name; Chapter 2's code is unchanged.
-- The length rule is added at the end of the system message, so the two roles share every other word of the prompt. Any difference in their answers comes from that one sentence.
+- The length rule is added at the end of the system message, so the two reply lengths share every other word of the prompt. Any difference in their answers comes from that one sentence.
 - `\"in US practice (BEA)\"` puts quotation marks inside a string that is itself in quotation marks; the backslash marks them as part of the text.
 - `word_count` splits at spaces. A model counts tokens, not words; 11.5 compares the two on the laptop run.
 
 ### 11.3.4 An example
 
-For q2-22, "What is modified GNI and why does Ireland publish it?", the search returns cso-gnistar-4, cso-gnistar-1 and cso-gnistar-6. Each has the *scope line* "national practice: Ireland". The executive prompt is 451 words: 118 of instructions and question, and the rest passages and labels.
+For q2-22, "What is modified GNI and why does Ireland publish it?", the search returns cso-gnistar-4, cso-gnistar-1 and cso-gnistar-6. Each has the *scope line* "national practice: Ireland". The short-reply prompt is 451 words: 118 of instructions and question, and the rest passages and labels.
 
 Run `python -m ragbook.ch11_prompts` to print it.
 
@@ -204,7 +204,7 @@ The defaults are from [Ollama's Modelfile reference](https://docs.ollama.com/mod
 
 Ollama's reply reports two counts with every answer: `prompt_eval_count`, the tokens in the prompt, and `eval_count`, the tokens in the reply. It also gives the time taken in nanoseconds and `done_reason`, why the reply ended.
 
-The trials in this section use one question, q2-01, "What is consumption of fixed capital?", with the analyst prompt. Its three passages are esa10-3.139, sna25-A4.10 and sna25-A4.59. Each trial changes one or two settings from the book's values.
+The trials in this section use one question, q2-01, "What is consumption of fixed capital?", with the full-reply prompt. Its three passages are esa10-3.139, sna25-A4.10 and sna25-A4.59. Each trial changes one or two settings from the book's values.
 
 | Trials | Changes | What they show |
 | --- | --- | --- |
@@ -347,7 +347,7 @@ All 20 trials sent the same prompt of 667 tokens. The horizontal domain expert r
 | Stop at a blank line | 389 | 61.3 | The same reply as run 2, word for word |
 | Repeat penalty 1.5 | 400 | 63.2 | Cut off at the 400-token limit; cites two passages |
 
-- **The same seed gave two different replies.** Run 1 was the first request after the model loaded. Run 2, the stop trial and the bank's analyst answer to q2-01 (11.5) all used the same prompt and settings, and all three are word for word the same.
+- **The same seed gave two different replies.** Run 1 was the first request after the model loaded. Run 2, the stop trial and the bank's full reply to q2-01 (11.5) all used the same prompt and settings, and all three are word for word the same.
 - **So a fixed seed repeats here except on the first request.** A likely cause is that Ollama reused the processed prompt from the request before, which can change its arithmetic slightly; the run does not prove it. Chapter 2 (2.5.3) now notes this exception.
 - **Temperature 0 gave one reply whatever the seed.** With no random draw, the seed has nothing to fix.
 - **At 0.7 and 1.5 each seed gave a different reply, and every reply cited the same three passages.** The replies at 1.5 are still readable, likely because top-k 20 and top-p 0.8 limit each draw to a short list of likely tokens.
@@ -359,7 +359,7 @@ All 20 trials sent the same prompt of 667 tokens. The horizontal domain expert r
 
 ### 11.5.1 Principles
 
-Each of the 32 definition questions is answered twice, once for each role, with the book's settings: 64 answers. The answers are saved with the passage ids given, tokens, seconds and `done_reason`, so later chapters and the tests read the file instead of asking the model again.
+Each of the 32 definition questions is answered twice, once for each reply length, with the book's settings: 64 answers. The answers are saved with the passage ids given, tokens, seconds and `done_reason`, so later chapters and the tests read the file instead of asking the model again.
 
 Four counts are made by code:
 
@@ -568,7 +568,7 @@ def summarise(records, passages_by_id):
 
 The horizontal domain expert ran the 64 answers on 30 October 2026; they took 53 minutes. The prompts averaged 532 words and 779 prompt tokens, about 1.5 tokens a word. The longest was 1,085 tokens, so a prompt and a 400-token reply fit the 4,096-token window.
 
-| Count | Analyst | Executive |
+| Count | Full reply | Short reply |
 | --- | --- | --- |
 | Answers | 32 | 32 |
 | No citation | 0 | 0 |
@@ -582,12 +582,12 @@ The horizontal domain expert ran the 64 answers on 30 October 2026; they took 53
 | Mean reply tokens | 307 | 80 |
 
 - **Every answer cites at least one passage.** None is a defect in the demonstrator's sense.
-- **The one id not given is a misspelling.** The analyst answer to q2-31 cites [esa10-11.2.7] for esa10-11.27.
-- **Nearly half the analyst's sentences have no citation: 119 of 252.** Many link or restate cited sentences. Some add claims no passage makes, such as q2-01's "This definition is consistent with the 2008 SNA"; Chapter 14 checks which.
-- **The executive length rule held.** No executive answer has more than two sentences: 10 have one and 22 have two. They took 30.2 seconds on average, against 69.3 for the analyst's.
-- **Six analyst answers were cut off at 400 tokens:** q2-08, q2-12, q2-16, q2-18, q2-24 and q2-25. A higher `num_predict` would let them finish, at the cost of time.
-- **At 800 tokens all six finish.** The horizontal domain expert reran the 32 analyst answers with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
-- **The scope rule failed four times.** q2-12 cites the Eurostat-OECD passages ppp23-8.2 and ppp23-4.16 without naming Eurostat or the OECD, in both roles; its check in the question bank asks for exactly that. q2-20 (analyst) and q2-23 (executive) cite cso-gnistar-2 without naming Ireland or the CSO.
+- **The one id not given is a misspelling.** The full reply to q2-31 cites [esa10-11.2.7] for esa10-11.27.
+- **Nearly half the full replies' sentences have no citation: 119 of 252.** Many link or restate cited sentences. Some add claims no passage makes, such as q2-01's "This definition is consistent with the 2008 SNA"; Chapter 14 checks which.
+- **The short-reply length rule held.** No short reply has more than two sentences: 10 have one and 22 have two. They took 30.2 seconds on average, against 69.3 for full replies.
+- **Six full replies were cut off at 400 tokens:** q2-08, q2-12, q2-16, q2-18, q2-24 and q2-25. A higher `num_predict` would let them finish, at the cost of time.
+- **At 800 tokens all six finish.** The horizontal domain expert reran the 32 full replies with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
+- **The scope rule failed four times.** q2-12 cites the Eurostat-OECD passages ppp23-8.2 and ppp23-4.16 without naming Eurostat or the OECD, at both reply lengths; its check in the question bank asks for exactly that. q2-20 (full) and q2-23 (short) cite cso-gnistar-2 without naming Ireland or the CSO.
 
 ## 11.6 Tests, glossary and links
 
@@ -602,7 +602,7 @@ The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three 
 | Budget | Passages are kept in rank order; one that would pass the budget is left out and a shorter one after it kept |
 | First passage | The first passage is kept even when it is over the budget |
 | Bank contexts | All 32 questions get three passages within 600 words |
-| Role rule | Each role's messages are the instructions plus its length rule, then the question and labelled passages |
+| Reply-length rule | The messages for each reply length are the instructions plus its length rule, then the question and labelled passages |
 | Word count | Words are counted across messages |
 | Trials | 20 trials with different labels; each changes only what it names; `SETTINGS` is unchanged |
 | Different replies | Repeated reply texts are counted once |
@@ -611,12 +611,12 @@ The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three 
 | Sentences | A text is split at sentence ends; ids after a full stop count for the sentence before |
 | Citations | Ids not given and uncited sentences are counted |
 | Scope | Irish, US and Eurostat-OECD passages cited without naming the body are found; passages with no scope note, and ESA passages, are not checked |
-| Bank | 32 answers per role with three passage ids each; in commercial use every passage is open |
+| Bank | 32 answers per reply length with three passage ids each; in commercial use every passage is open |
 | Summary | The counts in `summarise` on three made-up answers |
 | Save and load | Answers round-trip through the file, with model and date added |
 | Saved trials | The 20 trials in order; run 1 differs from run 2; run 2 and the stop trial are the same; 1, 5 and 5 different replies at temperatures 0, 0.7 and 1.5; the 40-token and repeat-penalty replies are cut off |
-| Saved answers | 64 answers; the counts in 11.5.4 for each role; the analyst answer to q2-01 is the same as settings run 2 |
-| Saved answers at 800 tokens | 32 analyst answers; the counts at 800 tokens; only q2-01 and the six cut-off answers differ from the 400 run; the six finish in 449 to 529 tokens |
+| Saved answers | 64 answers; the counts in 11.5.4 for each reply length; the full reply to q2-01 is the same as settings run 2 |
+| Saved answers at 800 tokens | 32 full replies; the counts at 800 tokens; only q2-01 and the six cut-off answers differ from the 400 run; the six finish in 449 to 529 tokens |
 
 The bank test uses a stand-in model that cites the first passage label it sees, so it checks the pipeline, not the model.
 
@@ -626,7 +626,7 @@ The bank test uses a stand-in model that cites the first passage label it sees, 
 | --- | --- |
 | Context | The passages sent to the language model with the question |
 | *Scope line* | A line in a passage's label giving the country or body whose practice it describes. Our own term |
-| Role | Who the answer is for: analyst (full answer) or executive (at most two sentences) |
+| Reply length | How long an answer from passages may be: full, or at most two sentences (short). Called role in the code, with the values analyst and executive |
 | Min-p | A setting that drops tokens whose probability is below a fraction of the most likely token's |
 | Length limit | The most tokens a reply may have (`num_predict`); a reply that reaches it is cut off |
 | Stop sequence | Text that ends the reply as soon as it appears in the output |

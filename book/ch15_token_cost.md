@@ -17,12 +17,16 @@ What the chapter builds:
 
 1. **Tokens and seconds per route** (15.2), from the saved runs.
 2. **One line per step** (15.3): a file with one line for each step of each question.
-3. **The user's two settings** (15.4): use mode and role, recorded on every line.
+3. **The user's two settings** (15.4): use mode and reply length, recorded on every line.
 4. **The list for review** (15.5): every failed check, retry, dropped explanation and escalation, with what each retry cost.
 5. **The scores already measured** (15.6), each labelled training or fair.
 6. **Lessons for a production version** (15.7).
 
 Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No new model run was made: the lines of the trace are built from the saved runs (the horizontal domain expert, 16 November 2026).
+
+Tokens and seconds measure one part of the cost: running the language model. People's time is not counted: building the system, maintaining the rules and data, reading the review list and answering escalations (see "Who does what" in the front matter).
+
+A study of agent costs in large firms counts the language model as one of 13 cost parts. It finds that most tasks can use a smaller, cheaper language model (*What Does Agentic AI Really Cost?*, Wharton AI & Analytics and Accenture, November 2026); here, most steps use no language model at all.
 
 ## 15.2 Tokens and seconds per route
 
@@ -122,8 +126,8 @@ By route, on the laptop (qwen3:4b-instruct). The rows for R2, R4+R2, R5>R2 and R
 | R4+R2 | Code and passages; the model explains | 6 | 2,866 | 149 | 96.3 |
 | R5>R2 | Code; the model explains | 1 | 278 | 9 | 3.4 |
 | R4, Chapter 14 | Passages; the model explains | 3 | 1,597 | 169 | 56.8 |
-| R4, analyst (Chapter 11) | The model answers from three passages | 32 | 779 | 307 | 69.3 |
-| R4, executive (Chapter 11) | The same, at most two sentences | 32 | 772 | 80 | 30.2 |
+| R4, full reply (Chapter 11) | The model answers from three passages | 32 | 779 | 307 | 69.3 |
+| R4, short reply (Chapter 11) | The same, at most two sentences | 32 | 772 | 80 | 30.2 |
 | clarify, escalate | Code writes the message | — | 0 | 0 | 0 |
 | R6 | Agent loop: not built in this demonstrator | — | — | — | — |
 
@@ -136,8 +140,8 @@ The trials of earlier chapters, per call:
 | Chapter 13: whole reply written by the model | 14 | 347 | 88 | 21.7 |
 
 - R2 sends the most tokens. The prompt contains the instructions, the template part and up to five passages, and a template part over a span lists every year (f-04, f-05).
-- Tokens in and tokens out both add seconds. With almost the same tokens in, the executive's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
-- The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5.
+- Tokens in and tokens out both add seconds. With almost the same tokens in, the short reply's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
+- The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5. The same study advises choosing the language model when the system is designed, because a choice made while it runs is hard to track.
 - Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: the model wrote fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
 
 ## 15.3 One line per step
@@ -245,7 +249,7 @@ The trace of the 24 questions has 202 lines (`data/traces/ch15_traces.jsonl`). T
 
 ### 15.4.1 Principles
 
-A user chooses two settings. The **use mode** (non-commercial or commercial) decides which passages may be sent to the model, through Chapter 8's licence filter. The **role** (analyst or executive) decides how long an answer from passages may be, through Chapter 11's length rule. Both are kept in one dictionary, passed to each step and recorded on every line of the trace.
+A user chooses two settings. The **use mode** (non-commercial or commercial) decides which passages may be sent to the model, through Chapter 8's licence filter. The **reply length** (full or short; called role in the code, with the values analyst and executive) decides how long an answer from passages may be, through Chapter 11's length rule. Both are kept in one dictionary, passed to each step and recorded on every line of the trace.
 
 An unknown value stops the program with an error, rather than falling back to a default the user did not choose.
 
@@ -274,7 +278,7 @@ def user_settings(use_mode="non-commercial", role="analyst"):
 ### 15.4.3 Results
 
 - Commercial use changes the evidence for 13 of the 24 questions: the licence filter withholds the passages whose licence class allows only non-commercial use or quotation (Chapter 8), and the evidence takes the next passages.
-- The role changes tokens out, not tokens in: 307 tokens out and 69 seconds for the analyst, 80 and 30 for the executive (Chapter 11's run). Explanations in Chapter 14 have one limit, 120 words, for both roles.
+- The reply length changes tokens out, not tokens in: 307 tokens out and 69 seconds for full replies, 80 and 30 for short replies (Chapter 11's run). Explanations in Chapter 14 have one limit, 120 words, for both reply lengths.
 
 ## 15.5 The list for review
 
@@ -306,7 +310,7 @@ def review_list(saved_records):
                          "problem": "explanation dropped after the retry", "tokens": 0, "seconds": 0})
         if record["locked"]["escalate"]:
             rows.append({"question_id": record["id"], "attempt": None, "check": "escalated",
-                         "problem": "passed to an analyst", "tokens": 0, "seconds": 0})
+                         "problem": "passed to the vertical domain expert", "tokens": 0, "seconds": 0})
     return rows
 ```
 
@@ -394,11 +398,14 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 2. A larger model asked for sentence and id as separate fields.
 3. Counts of both kinds of check error: good replies dropped and bad replies shown.
 4. A check that a reply answers the question (f-09).
-5. A named person who sets and reviews the size bands.
+5. A named horizontal domain expert who sets and reviews the size bands, consulting the vertical domain expert.
 6. New questions from real users, scored before any rule changes.
 7. More data and passages (a passage defining PPP; the production boundary for unpaid work at home).
-8. Review in a form the expert can read quickly.
-9. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,100 tokens in and 108 seconds; a retry added about 1,800 tokens and 29 seconds, and gave real content only once out of 13 retries.
+8. Explanations and their cited passages in a form the vertical domain expert can review quickly.
+9. The review list in a form the horizontal domain expert can read quickly.
+10. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,100 tokens in and 108 seconds; a retry added about 1,800 tokens and 29 seconds, and gave real content only once out of 13 retries.
+
+    Cost per route times the number of questions asked gives the total, so a team can price a rise in use.
 
 ## Tests
 
@@ -406,7 +413,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 
 - tokens and seconds are counted from every saved run, retries counted apart, and the Chapter 14 run totals 34 calls and 32.4 minutes;
 - lookups cost no tokens;
-- the executive's answers have fewer than half the analyst's tokens out;
+- short replies have fewer than half the tokens out of full replies;
 - unknown settings stop with an error;
 - the trace has one line per step, the steps with no model reproduce the saved template parts and evidence, and only the model uses tokens;
 - commercial use changes the evidence;
@@ -418,6 +425,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 - **Token cost:** the tokens a step or a route uses per question; on a hosted model it is paid in money, on the laptop in time.
 - **Trace:** a file with one line for each step of each question, with its output, seconds and tokens.
 - **Review list:** every failed check, retry, dropped explanation and escalation, one row each, for the horizontal domain expert.
+- **Reply length:** how long an answer from passages may be: full, or at most two sentences (short). Called `role` in the code, with the values `analyst` and `executive`.
 
 ## Links
 
@@ -428,3 +436,4 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 - [Ollama API: the counts each reply returns](https://github.com/ollama/ollama/blob/main/docs/api.md)
 - [Python `time.perf_counter`](https://docs.python.org/3/library/time.html#time.perf_counter)
 - [JSON Lines](https://jsonlines.org/)
+- *What Does Agentic AI Really Cost? A Task-Level Framework for Enterprise Investment*, [Wharton AI & Analytics and Accenture, 16 November 2026](https://knowledge.wharton.upenn.edu/special-report/wharton-accenture-agentic-cost-framework/)
