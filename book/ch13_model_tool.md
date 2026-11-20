@@ -1,4 +1,4 @@
-# Chapter 13 — Calling a model instead of writing numbers
+# Chapter 13 — Calling a language model instead of writing numbers
 
 ## 13.1 What this chapter builds
 

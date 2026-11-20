@@ -181,9 +181,9 @@ Fifteen chapters in four parts, then three appendices.
 | 8 | [Filters, metadata and access rules](ch08_filters.md) | Finding passages | `ch08_filters.py` | 5, 7 |
 | 9 | [Reranking](ch09_reranking.md) | Finding passages | `ch09_reranking.py` | 5, 8 |
 | 10 | [Is the retriever any good?](ch10_evaluation.md) | Measuring retrieval | `ch10_evaluation.py` | 3–9 |
-| 11 | [Prompts, context and model settings](ch11_prompts.md) | Generating answers | `ch11_prompts.py` | 2–5, 8 |
+| 11 | [Prompts, context and language model settings](ch11_prompts.md) | Generating answers | `ch11_prompts.py` | 2–5, 8 |
 | 12 | [Routing questions](ch12_routing.md) | Generating answers | `ch12_routing.py` | 10, 11 |
-| 13 | [Calling a model instead of writing numbers](ch13_model_tool.md) | Generating answers | `ch13_model_tool.py` | 11, 12 |
+| 13 | [Calling a language model instead of writing numbers](ch13_model_tool.md) | Generating answers | `ch13_model_tool.py` | 11, 12 |
 | 14 | [Checking answers](ch14_answer_checks.md) | Generating answers | `ch14_answer_checks.py` | 10–13 |
 | 15 | [Monitoring token cost](ch15_token_cost.md) | Generating answers | `ch15_token_cost.py` | 12–14 |
 | A | Fine-tuning or retrieval? (not yet written) | Appendix | none (concept only) | — |

@@ -1,4 +1,4 @@
-# Chapter 11 — Prompts, context and model settings
+# Chapter 11 — Prompts, context and language model settings
 
 ## 11.1 What this chapter builds
 
