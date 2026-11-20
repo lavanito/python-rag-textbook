@@ -381,8 +381,8 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 ### What worked
 
 1. Every figure is calculated by Python from WDI and PWT data. The JavaScript version gives the same numbers for all 147 economy-years tested.
-2. The template part answered all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
-3. The four kinds of model mistake in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: a tested function writes each of those lines.
+2. The template part gave an answer to all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
+3. The four kinds of mistake in the language model's output in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: each of those lines comes from a tested function.
 4. The checks dropped all 28 faulty explanations and showed none.
 5. The vertical domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
 6. Routing: 56 of 56 bank questions (training); 19 of 32 new questions in the first fair test.
@@ -394,10 +394,10 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 
 ### What a production version needs
 
-1. A better reader for typed questions. Keyword rules found the right figures for 2 of 20 new questions, the small model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator reads questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
-2. A larger model asked for sentence and id as separate fields.
+1. A better reader for typed questions. Keyword rules gave the right figures for 2 of 20 new questions, the small language model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator matches questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
+2. A larger language model, with sentence and id requested as separate fields.
 3. Counts of both kinds of check error: good replies dropped and bad replies shown.
-4. A check that a reply answers the question (f-09).
+4. A check that a reply is an answer to the question (f-09).
 5. A named horizontal domain expert who sets and reviews the size bands, consulting the vertical domain expert.
 6. New questions from real users, scored before any rule changes.
 7. More data and passages (a passage defining PPP; the production boundary for unpaid work at home).
