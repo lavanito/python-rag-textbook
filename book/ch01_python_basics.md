@@ -2,7 +2,7 @@
 
 ## 1.1 What this chapter builds
 
-This chapter builds eight small functions for handling text. Every later chapter uses them: to clean passages taken from PDFs, to split text into words for keyword search, to keep each passage together with its source, and to lay passages out for a language model to read.
+This chapter builds eight small functions for handling text. Every later chapter uses them: to clean passages taken from PDFs, to split text into words for keyword search, to keep each passage together with its source, and to lay passages out for the prompt sent to a language model.
 
 **Code file:** `ragbook/ch01_python_basics.py`
 
@@ -207,7 +207,7 @@ def find_passages_containing(passages, word):
 
 ### 1.6.1 Principles
 
-A language model reads plain text, not dictionaries. Before passages are given to a model (Chapter 2), each record must be laid out as text. The layout puts the passage's id, source and reference on a heading line above its words, so the model can cite them.
+A language model's input is plain text, not dictionaries. Before passages are sent to a language model (Chapter 2), each record must be laid out as text. The layout puts the passage's id, source and reference on a heading line above its words, so the model can cite them.
 
 Two tools do this. An **f-string** is a string with an `f` in front, in which anything inside curly brackets is replaced by its value. `join` puts a list of strings together with a chosen separator between them.
 
@@ -375,7 +375,7 @@ The file `tests/test_ch01_python_basics.py` has ten tests. Each checks one funct
 | `split_into_words` splits on hyphens | "non-financial" becomes two words, as 1.3.3 states |
 | `make_passage` stores fields and cleans text | Every record has the four keys and clean text |
 | `find_passages_containing` matches whole words only | "Income" finds "income," but not "incomes" |
-| `format_passage` shows id, source, reference and text | The layout a model will read is exactly as shown in 1.6 |
+| `format_passage` shows id, source, reference and text | The layout sent to the language model is exactly as shown in 1.6 |
 | `format_passages` puts a blank line between blocks | Passages stay visibly separate |
 | Save then load returns the same passages | Nothing is lost or changed in the file, accented letters included |
 | The sample file loads three passages with all fields | The worked example's data is complete |

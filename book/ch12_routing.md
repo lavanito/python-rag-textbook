@@ -4,7 +4,7 @@
 
 Chapters 3 to 11 answer one kind of question: a definition, answered from quoted passages. The bank has other kinds: a figure for one year, a growth split, a comparison of two economies, a "what if". Each needs a different part of the system, and some need no language model at all.
 
-A router reads a question and gives it two labels before anything else runs:
+A router takes a question and gives it two labels before anything else runs:
 
 1. **A class:** what kind of question it is, Q1 to Q8, AMB (too vague) or OUT (out of scope).
 2. **A route:** how it is answered, from R1 (no AI) to R6 (an agent loop), or clarify, or escalate.
@@ -26,7 +26,7 @@ The routes form a cascade, cheapest first. The rule: send each question to the l
 | R3 | A cached answer, built once and served again | Near-free |
 | R4 | Retrieval: quoted passages, reported by the language model (Chapters 3–11) | Low |
 | R4+R2 | Retrieval for the explanation, code for the figure | Low |
-| R5>R2 | A small model reads the inputs from the question; code computes | Low |
+| R5>R2 | A small language model extracts the inputs from the question; code computes | Low |
 | R6 | An agent loop: the model plans several steps within a step budget | High |
 | clarify | Offer three sharper questions: living standards, growth or productivity | Low |
 | escalate | Refuse, with the reason | — |
@@ -205,7 +205,7 @@ def route_question(question, known_words, titles):
 
 A language model can route wording that no rule was written for. Routing is a narrow task: read one question, reply with two labels. A small local model can do it in a few seconds.
 
-The model gets four things:
+The prompt holds four things:
 
 - **The labels:** each class and route, in one line.
 - **The limits of the data:** six economies plus the 21 euro area members, 2000 to 2025, and no exports, imports or spending components other than household consumption.
@@ -358,9 +358,9 @@ def combine(rule_records, model_records):
 | Small model | 15 |
 | Rules first, then the model | 16 |
 
-- **Combining them lowered the score.** The model decided 21 of the 32 questions.
+- **Combining them lowered the score.** The language model's output set the route for 21 of the 32 questions.
 - **The default was a good guess.** 15 of the 32 test questions are definitions, so "Q2, R4" was right on most of the questions the rules could not place. The model replaced several of those right answers with its own errors (t-01, t-12, t-14, t-16, t-20) and gained three (t-08, t-17, t-19).
-- **A different way of combining them could score higher.** One example: let the model decide only when it says OUT. But that idea came from reading these results, so its score would be a training score too.
+- **A different way of combining them could score higher.** One example: use the language model's route only when its output is OUT. But that idea came from reading these results, so its score would be a training score too.
 
 ### 12.5.4 Second round: revised rules
 
@@ -607,7 +607,7 @@ What would a test set twice the size show: the same order of routers, or a diffe
 
 ### 12.5.7 Fourth round: economy names from the knowledge graph
 
-On 17 November 2026 the horizontal domain expert reopened the rules. Chapter 15 found that the third-round rules gave 6 of the 10 Chapter 14 fair questions a route other than the labelled one. Five named an economy in a form the rules did not know ("USA", "Euroarea", "Chinese", "Japanese"), so no economy was found and the default rule sent them to R4. One, f-06, asked how Japanese GDP "in 2020" was "revised by in 2023": the rules read 2023 as a year of data, past the archive edition's last year (2022), and escalated it.
+On 17 November 2026 the horizontal domain expert reopened the rules. Chapter 15 found that the third-round rules gave 6 of the 10 Chapter 14 fair questions a route other than the labelled one. Five named an economy in a form the rules did not know ("USA", "Euroarea", "Chinese", "Japanese"), so no economy was found and the default rule sent them to R4. One, f-06, asked how Japanese GDP "in 2020" was "revised by in 2023": the rules took 2023 as a year of data, past the archive edition's last year (2022), and escalated it.
 
 The cause was four lists of economy names:
 
@@ -799,7 +799,7 @@ The file `tests/test_ch12_routing.py` has 29 tests. None needs the model; three 
 | Settings | Temperature 0, 20 tokens, seed 42 |
 | Stand-in model | The pipeline with a stand-in that always replies "Q2 R4" |
 | Saved replies | 77 replies; the scores in 12.4.4; the seven questions both routers miss |
-| Combined | The model decides 21; 16 of 32 |
+| Combined | Language model's route used for 21; 16 of 32 |
 | Revised rules | A series code in a link is R1; an unknown code, another economy or a year after 2025 is escalated; "Irish" with a year is a lookup; everything else goes to the first-round rules |
 | Revised scores | 56 of 56 on the bank; 26 of 32 on the test set; the six misses |
 | Escalation messages | Every rule that escalates has a reason and a message; "beyond the data" names 2025; "economy not in the data" lists the economies in the data |

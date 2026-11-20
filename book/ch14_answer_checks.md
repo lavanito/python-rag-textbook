@@ -2,11 +2,11 @@
 
 ## 14.1 What this chapter builds
 
-Every reply now has two parts. Python functions produce the first part, the **template part** (called the locked block in the code), from the figures with fixed templates: the figures, the differences and directions between them, what each measure means and leaves out, the source, edition, DQR, flags and escalation. The template is a bit like a mathematical formula or a function. A language model writes the second, the **explanation**, and the user who asked the question sees that explanation only if it passes every check in this chapter.
+Every reply now has two parts. Python functions produce the first part, the **template part** (called the locked block in the code), from the figures with fixed templates: the figures, the differences and directions between them, what each measure means and leaves out, the source, edition, DQR, flags and escalation. The template is a bit like a mathematical formula or a function. The language model's output is the second, the **explanation**, and the user who asked the question sees that explanation only if it passes every check in this chapter.
 
-In Chapter 13, we let the model write the whole reply from the figures that were worked out in code. Of 14 replies, one reply said a figure rose by 140 when it fell by 140 (failing F15); one said two figures fell when both rose (F16); seven ended with "Passed to an analyst." although the escalation rule in the Python code said no (F17); and seven called figures "estimated" or "proxy" although no such flag was set (F18). None of these sentences needed the model. Each could be produced by a subtraction, a comparison of two numbers, the escalation rule or the list of flags. This chapter does that: a Python function builds each such sentence from the figures with a fixed template, and a test checks each template.
+In Chapter 13, the whole reply was the language model's output, based on the figures worked out in code. Of 14 replies, one reply said a figure rose by 140 when it fell by 140 (failing F15); one said two figures fell when both rose (F16); seven ended with "Passed to an analyst." although the escalation rule in the Python code said no (F17); and seven called figures "estimated" or "proxy" although no such flag was set (F18). None of these sentences needed the model. Each could be produced by a subtraction, a comparison of two numbers, the escalation rule or the list of flags. This chapter does that: a Python function builds each such sentence from the figures with a fixed template, and a test checks each template.
 
-We call this **Governed RAG**: Python functions select the passages and calculate the figures; the language model only writes an explanation of them. The language model's step comes between Python steps. Python steps run before the model (routing in Chapter 12, reading parameters in Chapter 13, the licence filter in Chapter 8, retrieval in Chapters 3 to 10, the figures from the NNI model) and after it (the checks here, the record in Chapter 15).
+We call this **Governed RAG**: Python functions select the passages and calculate the figures; the language model's output is used only for an explanation of them. The language model's step comes between Python steps. Python steps run before the model (routing in Chapter 12, reading parameters in Chapter 13, the licence filter in Chapter 8, retrieval in Chapters 3 to 10, the figures from the NNI model) and after it (the checks here, the record in Chapter 15).
 
 The checks are closed-world: a statement that the Python checks cannot match to the template part or to a passage counts as false. A sentence with no passage id cannot be checked, so it fails.
 
@@ -195,13 +195,13 @@ q5-02 asks whether the United Kingdom has fallen behind the United States since 
 - The United Kingdom against the United States, GNI per head at purchasing power parities: in 2007 the United Kingdom was behind the United States (-31.2 log points, 73.2% of its level; a large gap: about one third of revisions are this large); in 2024 the United Kingdom was behind the United States (-31.5 log points, 73.0% of its level; a large gap: about one third of revisions are this large): the United Kingdom lost ground (-0.3 log points; a large change: about one third of revisions are this large).
 ```
 
-The size bands also change an earlier answer. India's GNI per head for 2016 was revised from 5710 to 5570, −2.5 log points: "revised down (a large revision, which happens about one third of the time)". Chapter 13's model wrote "increased by 140"; the first rule said "about the same".
+The size bands also change an earlier answer. India's GNI per head for 2016 was revised from 5710 to 5570, −2.5 log points: "revised down (a large revision, which happens about one third of the time)". Chapter 13's reply had "increased by 140"; the first rule gave "about the same".
 
 ## 14.3 Numbers
 
 ### 14.3.1 Principles
 
-Every number in the explanation must appear in the question, the template part or a passage given. Python functions calculate every difference before the model is asked, so the model is not asked to calculate anything. This is Chapter 13's number check, now applied to the explanation only.
+Every number in the explanation must appear in the question, the template part or a passage given. Python functions calculate every difference before the language model is called, so no calculation is asked of it. This is Chapter 13's number check, now applied to the explanation only.
 
 Passage ids are removed before the numbers are read: "[esa10-8.94]" contains 10 and 8.94, which are not figures.
 
@@ -249,7 +249,7 @@ The rule (the horizontal domain expert, 13 November 2026): **the explanation may
 
 No word list covers all ten. The closed-world rule decides which way the errors go: a direction the list misses can reach the user, and a correct sentence that uses a listed word is dropped. The first is a **miss**, the second a **false alarm**. Both are reported, never one alone.
 
-The same section bans the words for flags, DQR and escalation, which only the template part may state (failings F17 and F18), and remarks about the passages themselves. When the passages do not explain the point, the model writes one fixed sentence instead: "No explanation is available from the passages."
+The same section bans the words for flags, DQR and escalation, which only the template part may state (failings F17 and F18), and remarks about the passages themselves. When the passages do not explain the point, the prompt asks for one fixed sentence instead: "No explanation is available from the passages."
 
 ### 14.4.2 Code
 
@@ -282,9 +282,9 @@ NO_EXPLANATION = "No explanation is available from the passages."
 
 In the laptop run (14.7), direction words were found in four first attempts, all in questions the checks were built from:
 
-- **True catch:** q5-02 wrote "The United Kingdom has not fallen behind the United States since 2007", the same claim as in Chapter 13. The template part, under the size bands, says the United Kingdom lost ground (a large change).
-- **True catch:** q4-01 wrote "has decreased". The template part states the direction itself: "revised down (a large revision, which happens about one third of the time)".
-- **False alarm:** q4-02 wrote "the figures show a rise, not a fall", which agrees with the false-premise correction in the template part. The ban rejected it anyway. Its next sentence ("The ICP revises PPPs upward, which reduces the estimated GDP per head") contradicts the figures and had no citation, so it would have failed in any case.
+- **True catch:** q5-02's explanation said "The United Kingdom has not fallen behind the United States since 2007", the same claim as in Chapter 13. The template part, under the size bands, says the United Kingdom lost ground (a large change).
+- **True catch:** q4-01's explanation said "has decreased". The template part states the direction itself: "revised down (a large revision, which happens about one third of the time)".
+- **False alarm:** q4-02's explanation said "the figures show a rise, not a fall", which agrees with the false-premise correction in the template part. The ban rejected it anyway. Its next sentence ("The ICP revises PPPs upward, which reduces the estimated GDP per head") contradicts the figures and had no citation, so it would have failed in any case.
 
 *Demonstrator note: this demonstrator bans direction words from the explanation because it cannot check them reliably. A product would need a measured error rate for its direction check, a review of the explanations it drops, and someone responsible for the size bands. It will never be right every time.*
 
@@ -439,7 +439,7 @@ So every explanation has evidence to cite, even for a question routed only to th
 
 **Lookups get no explanation.** A question in class Q1 (one figure) is answered fully by the template part.
 
-**One retry, then the fall-back** (the horizontal domain expert, 13 November 2026). If the first explanation fails any check, the model gets the problems in plain words and one more try. If the second also fails, the page shows the template part, then:
+**One retry, then the fall-back** (the horizontal domain expert, 13 November 2026). If the first explanation fails any check, the problems are added to the prompt in plain words for one more try. If the second also fails, the page shows the template part, then:
 
 "The written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more."
 
@@ -489,7 +489,7 @@ def explain(question, question_class, locked, evidence, must_cite_first, ask):
 ### 14.6.3 Annotations
 
 - `ask` is passed in, so the tests use a stand-in that gives fixed replies and the laptop run uses Ollama (Chapter 11's `ask_model_with_details`).
-- The retry adds the model's first reply and the problems to the same conversation, so the model sees what it wrote and why it failed.
+- The retry adds the language model's first output and the problems to the same conversation, so the second prompt holds the first output and why it failed.
 - Temperature 0: the same messages give the same reply, so a retry differs only because the problems were added.
 
 ### 14.6.4 Near measures
@@ -530,7 +530,7 @@ What the 21 explanations did (one explanation can do several):
 | Grouped all ids at the end of the paragraph | q4-02, q5-01, q5-05, q6-02 | Real: earlier sentences uncited |
 | Used direction words | q4-01, q4-02, q5-01, q5-02 | Real in three; false alarm in q4-02 |
 | Cited an id it was not given | q3-01, q5-05, f-07 | Real: invented or misspelt ("sn25-11.238") |
-| Put each id before its sentence | q6-03, f-07, f-08, f-09 | False alarm: the check reads the id as the previous sentence's |
+| Put each id before its sentence | q6-03, f-07, f-08, f-09 | False alarm: the check takes the id as the previous sentence's |
 | Added the fixed sentence after other sentences | q3-01, q3-02, q6-03, f-07, f-09 | Real: the rule says "write only" |
 | Contradicted the figures | q4-02 ("reduces the estimated GDP per head") | Real |
 

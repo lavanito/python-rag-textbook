@@ -6,7 +6,7 @@ The router (Chapter 12) gives each question a class and a route. Route R2 sends 
 
 This chapter writes that code. One function, `call_model`, asks the NNI model for one value and returns it with its unit, source, data edition, flags and data quality rating (DQR).
 
-- **The language model only reports the number.** A language model writes text one token at a time; a figure it writes is a guess unless it copies one from its prompt. Code works out every value and every rating.
+- **The language model only reports the number.** A language model's output is produced one token at a time; a figure in it is a guess unless it is copied from the prompt. Code works out every value and every rating.
 - **The NNI model is installed, not copied.** It lives in its own repository. `requirements.txt` installs it from GitHub at one fixed commit, so the textbook and the demonstrator run the same code on the same data.
 
 ## 13.2 A tool's contract
@@ -227,7 +227,7 @@ Each Medium band comes from one input: PPPs after 2021 are extrapolated from the
 
 ### 13.4.1 Principles
 
-Before code can call the model, someone must read the question: which economies, which years, which measure. Chapter 12 named this route R5>R2: a small model reads, then code computes.
+Before code can call the model, someone must read the question: which economies, which years, which measure. Chapter 12 named this route R5>R2: a small language model extracts, then code computes.
 
 The reading gives five parameters.
 
@@ -384,8 +384,8 @@ The horizontal domain expert ran the model on 7 November 2026: 28 replies in 5.6
 
 - **The model scores lower than the rules: 12 against 21.** It gets none right that the rules miss.
 - **Most misses are the measure (13 of 16).** The parts of NNI growth are not named in its description, so "the deflator mix" (q6-01) and "the gap between GDP and national income" (q6-03) became "other", and "prices rather than volumes" (q3-02) became the terms of trade.
-- **A measure's name can mislead.** q5-02 asks about the UK "since 2007"; the model picked trend_gap_2007, whose name contains the year.
-- **Some misses are arguable.** For t-25 ("what if euro area GDP had grown at the same rate as the US") the model picked real GDP growth; the key has growth per head, chosen before real GDP growth was a measure.
+- **A measure's name can mislead.** q5-02 asks about the UK "since 2007"; the language model's output named trend_gap_2007, whose name contains the year.
+- **Some misses are arguable.** For t-25 ("what if euro area GDP had grown at the same rate as the US") the language model's output named real GDP growth; the key has growth per head, chosen before real GDP growth was a measure.
 - **Two year misses change nothing downstream.** t-26 lists 2022, 2023 and 2024 instead of 2022 and 2024, and code fetches every year in a span either way. t-22 lists the 20 years before the latest but not the latest, so code would stop a year early.
 - **Revisions were missed twice** (q4-02, t-23): the model gave only the latest edition.
 
@@ -395,7 +395,7 @@ A change to the instructions written after reading the 28 questions will raise t
 
 The order was fixed in advance (the horizontal domain expert, 7 November 2026):
 
-1. **The AI coding assistant wrote round 2 and committed it** (`7b756d3`): spans give their first and last year; the model decides first whether a question asks for a level or for growth; every measure says which it is; nni_growth names its parts; revision words mean both editions; trend_gap_2007 became trend_gap.
+1. **The AI coding assistant wrote round 2 and committed it** (`7b756d3`): spans give their first and last year; the language model's output states first whether a question asks for a level or for growth; every measure is labelled as one or the other; nni_growth names its parts; revision words mean both editions; trend_gap_2007 became trend_gap.
 2. **The vertical domain expert wrote 20 new questions** without showing them. The AI coding assistant proposed labels, with 13 judgement calls noted, and the vertical domain expert agreed them.
 3. **One laptop run** gave round 2 on the 28, and both rounds on the 20: 68 replies in 13.9 minutes. Round 2's instructions are longer: 1,111 tokens in, against 838.
 
@@ -581,7 +581,7 @@ def beyond_the_data(parameters, last_years):
 
 The last step turns figures into a reply. Code works out every figure and writes it as one line: the value, unit, year, source, edition, DQR band and reason, and flags. The language model is asked only to report those lines in words.
 
-Code then checks the reply. Every number in it must appear in the question or the figures; any other number is an unsupported number. The reply must end "Passed to an analyst." exactly when code decided to escalate.
+Code then checks the reply. Every number in it must appear in the question or the figures; any other number is an unsupported number. The reply must end "Passed to an analyst." exactly when the escalation rule in code is met.
 
 The test uses the bank's 14 questions routed to code, with the checked parameters of 13.4, so a misread question does not count against the reply.
 
@@ -618,14 +618,14 @@ The horizontal domain expert ran the model on 7 November 2026: 14 replies in 5.1
 | Check | Replies right of 14 |
 | --- | --- |
 | No unsupported number | 13 |
-| Escalates exactly when code decided | 7 |
+| Escalates exactly when the rule in code is met | 7 |
 | No flag the figures do not have | 7 |
 
-- **One reply worked out a number, and got its sign wrong.** For q4-01 the model wrote that India's 2016 GNI per head "increased by 140" between editions. It fell, from 5710 in the March 2024 edition to 5570 in the latest. The number check caught it.
-- **One reply followed a wrong premise, and the check missed it.** q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP results. In the data both rose: China from 21483 to 23028 in 2022. The model copied the numbers correctly but swapped the editions, so it reported a fall. No number was invented.
-- **The model escalated whenever it could.** Seven replies end "Passed to an analyst." when code had decided not to escalate.
+- **One reply worked out a number, and got its sign wrong.** For q4-01 the reply stated that India's 2016 GNI per head "increased by 140" between editions. It fell, from 5710 in the March 2024 edition to 5570 in the latest. The number check flagged it.
+- **One reply repeated a wrong premise, and the check did not flag it.** q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP results. In the data both rose: China from 21483 to 23028 in 2022. The model copied the numbers correctly but swapped the editions, so it reported a fall. No number was invented.
+- **Most replies ended with an escalation.** Seven replies end "Passed to an analyst." when the escalation rule in code was not met.
 - **It added flags.** Seven replies call a figure "estimated" or "proxy" when the figures have no such flag.
-- **What follows:** anything code can decide, code should write. The escalation sentence and the flags can be added by code after the reply. Only the wording is left to the model, and Chapter 14 checks it further.
+- **What follows:** anything a rule in code can settle should be written by code. The escalation sentence and the flags can be added by code after the reply. Only the wording is left to the model, and Chapter 14 checks it further.
 
 ## Tests
 

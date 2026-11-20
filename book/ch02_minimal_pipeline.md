@@ -4,7 +4,7 @@
 
 This chapter answers a question about national accounts from quoted passages, in five steps. Each step is one function; later chapters replace one step at a time with a better one.
 
-**RAG** (retrieval-augmented generation) means: find passages that bear on a question, then give them to a language model with the question, so the model answers from those passages. The model writes the answer; the passages supply the facts.
+**RAG** (retrieval-augmented generation) means: find passages that bear on a question, then give them to a language model with the question, so the answer comes from those passages. The answer is the language model's output; the passages supply the facts.
 
 1. Load the corpus: read the 57 quoted passages from file (2.2).
 2. Find matching passages: keep the few that share most words with the question (2.3).
@@ -68,7 +68,7 @@ def load_corpus(file_path=CORPUS_FILE):
 
 ### 2.3.1 Principles
 
-The model sees only the passages it is given, so this step decides which facts the answer can use. A passage left out cannot be used; a wrong passage can mislead.
+The prompt holds only the passages chosen here, so this step decides which facts the answer can use. A passage left out cannot be used; a wrong passage can mislead.
 
 This chapter uses the simplest method that works at all. Drop common words such as "the" and "what" from the question; the words left are its **_topic words_**. Each passage scores one point for every topic word it contains, and the highest-scoring passages are kept.
 
@@ -156,11 +156,11 @@ def find_matching_passages(passages, question, how_many=3):
 
 ### 2.4.1 Principles
 
-A chat model reads a list of **messages**, each with a role. The **system** message sets the rules for the whole exchange; the **user** message contains the request.
+A chat model's input is a list of **messages**, each with a role. The **system** message sets the rules for the whole exchange; the **user** message contains the request.
 
 The rules here do three things. They limit the model to the passages given, they ask for the passage id after each sentence, and they tell the model to say so when the passages do not answer the question.
 
-A rule is an instruction, not a guarantee. The model can still ignore it; Chapter 14 checks whether answers keep to their passages.
+A rule is an instruction, not a guarantee. The language model's output can still break it; Chapter 14 checks whether answers keep to their passages.
 
 ### 2.4.2 Code
 
@@ -214,7 +214,7 @@ def build_prompt(question, passages):
 
 The code sends the messages as **JSON** (Chapter 1) to Ollama's chat address and reads the reply from the JSON that comes back. Settings for the model go inside `options`.
 
-A model writes one token at a time. For each, it gives every possible next token a probability, and the settings decide how one is drawn from them. This chapter uses the values Qwen recommends and fixes the random draws so that results repeat, with one exception (2.5.3); Chapter 11 compares the settings.
+A language model produces its output one token at a time. For each, it gives every possible next token a probability, and the settings decide how one is drawn from them. This chapter uses the values Qwen recommends and fixes the random draws so that results repeat, with one exception (2.5.3); Chapter 11 compares the settings.
 
 ### 2.5.2 Code
 
@@ -360,7 +360,7 @@ Question: Who counts in a country's population when calculating GDP per head?
      matched [esa10-11.06] Eurostat, European System of Accounts (ESA 2010), para. 11.06
 ```
 
-**Model answers.** A run of `qwen3:4b-instruct` on the 2015 test laptop, processor only, on 15 October 2026. The three answers took about 3 minutes together, including loading the model:
+**Language model answers.** A run of `qwen3:4b-instruct` on the 2015 test laptop, processor only, on 15 October 2026. The three answers took about 3 minutes together, including loading the model:
 
 ```text
 How do you get from GNI to net national income?
@@ -375,7 +375,7 @@ When calculating GDP per head, a country's population includes all persons, nati
 
 What the answers show:
 
-- The first two are correct, one sentence each, and cite the right passage. The model ignored the passages that matched on words alone.
+- The first two are correct, one sentence each, and cite the right passage. Neither cites the passages that matched on words alone.
 - The third is correct and comes from esa10-11.05 and esa10-11.06 (the one-year rule is in 11.06). But it cites no passage, although the rules ask for an id after every sentence. This is the point of 2.4.1: a rule is an instruction, not a guarantee. Chapter 14 checks citations.
 - Another model version may word the answers differently; the passages matched will not change.
 
@@ -414,7 +414,7 @@ The file `tests/test_ch02_minimal_pipeline.py` has nine tests. Retrieval is test
 | `find_matching_passages` ranks by shared *topic words* | The net national income question returns the three passages shown in 2.7, in that order |
 | `find_matching_passages` returns at most `how_many` passages | The prompt stays short |
 | `find_matching_passages` returns nothing when no word matches | A question about Dublin restaurants finds no passage |
-| `build_prompt` puts the rules first and labelled passages after the question | The model sees exactly the layout shown in 2.4 |
+| `build_prompt` puts the rules first and labelled passages after the question | The prompt has exactly the layout shown in 2.4 |
 | `answer_question` sends only the matched passages | Each passage id returned was in the prompt |
 | `answer_question` does not ask the model when nothing matches | No answer without evidence |
 | `ask_model` sends its settings inside `options` and reads the reply | All seven settings reach the model, and the request names `qwen3:4b-instruct` |

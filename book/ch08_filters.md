@@ -10,7 +10,7 @@ A **filter** decides which passages a question may use, before any search. A pas
 4. **Searching only what passes** (8.5): hit counts in each use mode. Five questions lose every gold passage in commercial use.
 5. **The same filters in Chroma** (8.6): conditions on metadata give the same top three as exact search on all 32 definition questions, in both use modes.
 
-Until this chapter one passage, esa10-10.20, carried the label `access: subscriber`. The label stood for a rule no publisher set. The licence class is a real term of use, recorded for every passage, so the filter reads it instead. The label and the `access` field that held it are gone, so no field other than the licence class can be read as a term of use.
+Until this chapter one passage, esa10-10.20, carried the label `access: subscriber`. The label stood for a rule no publisher set. The licence class is a real term of use, recorded for every passage, so the filter uses it instead. The label and the `access` field that held it are gone, so no field other than the licence class can be read as a term of use.
 
 **Code file:** `ragbook/ch08_filters.py`
 

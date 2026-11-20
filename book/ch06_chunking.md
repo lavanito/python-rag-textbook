@@ -20,7 +20,7 @@ Section 6.8 compares the five methods on the same text: how many chunks each mak
 The example is Paul McCarthy, "Extrapolating PPPs and Comparing ICP Benchmark Results", Chapter 18 of World Bank (2013), *Measuring the Real Size of the World Economy* (6.9.3). It is stored in full as `data/sources/mccarthy_2013_ch18.pdf`.
 
 - **Licence.** The book is published under Creative Commons Attribution 3.0 (CC BY 3.0), which allows the whole chapter to be stored, cut and shown with attribution. The manuals in the corpus allow only short quotations (Chapter 2), so their chunks cannot be stored here.
-- **Subject.** The chapter explains why a country's growth measured by its own national accounts differs from the change implied by two sets of purchasing power parities (PPPs). The app answers the same kind of question (Chapter 12).
+- **Subject.** The chapter explains why a country's growth measured by its own national accounts differs from the change implied by two sets of purchasing power parities (PPPs). The app gives answers to the same kind of question (Chapter 12).
 - **Layout.** It has the faults most PDFs have: a page number and running header on every page, a footer on the first page, tables, equations and notes printed away from the sentences they explain. Section 6.2 shows each one.
 
 The same code can cut the manuals on the reader's own computer, from copies the reader has. Section 6.8 reports the counts for the manuals, not their text.

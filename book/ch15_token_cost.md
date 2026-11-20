@@ -122,13 +122,13 @@ By route, on the laptop (qwen3:4b-instruct). The rows for R2, R4+R2, R5>R2 and R
 | --- | --- | --- | --- | --- | --- |
 | R1 | Code copies the published series title | — | 0 | 0 | 0 |
 | R2, lookup (class Q1) | Code calculates the figure; no explanation | 3 | 0 | 0 | 0 |
-| R2 | Code; the model explains | 11 | 3,144 | 129 | 108.4 |
-| R4+R2 | Code and passages; the model explains | 6 | 2,866 | 149 | 96.3 |
-| R5>R2 | Code; the model explains | 1 | 278 | 9 | 3.4 |
-| R4, Chapter 14 | Passages; the model explains | 3 | 1,597 | 169 | 56.8 |
-| R4, full reply (Chapter 11) | The model answers from three passages | 32 | 779 | 307 | 69.3 |
+| R2 | Code; the language model's explanation | 11 | 3,144 | 129 | 108.4 |
+| R4+R2 | Code and passages; the language model's explanation | 6 | 2,866 | 149 | 96.3 |
+| R5>R2 | Code; the language model's explanation | 1 | 278 | 9 | 3.4 |
+| R4, Chapter 14 | Passages; the language model's explanation | 3 | 1,597 | 169 | 56.8 |
+| R4, full reply (Chapter 11) | Language model's answer from three passages | 32 | 779 | 307 | 69.3 |
 | R4, short reply (Chapter 11) | The same, at most two sentences | 32 | 772 | 80 | 30.2 |
-| clarify, escalate | Code writes the message | — | 0 | 0 | 0 |
+| clarify, escalate | Code fills in the message | — | 0 | 0 | 0 |
 | R6 | Agent loop: not built in this demonstrator | — | — | — | — |
 
 The trials of earlier chapters, per call:
@@ -142,7 +142,7 @@ The trials of earlier chapters, per call:
 - R2 sends the most tokens. The prompt contains the instructions, the template part and up to five passages, and a template part over a span lists every year (f-04, f-05).
 - Tokens in and tokens out both add seconds. With almost the same tokens in, the short reply's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
 - The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5. The same study advises choosing the language model when the system is designed, because a choice made while it runs is hard to track.
-- Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: the model wrote fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
+- Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: there were fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
 
 ## 15.3 One line per step
 

@@ -32,11 +32,11 @@ The numbers are not chosen by hand. The model was trained on many pairs of texts
 
 So each list can be read as an arrow in a space with 384 directions. Texts with similar meanings point roughly the same way. No single number means anything on its own: meaning is in the direction of the whole list.
 
-This is why semantic search can match words that differ. A question about "GNI" and a passage about "gross national income" share no words, but if the model learned that the two are used alike, their arrows point close together. Keyword search (Chapter 3) cannot do this.
+This is why semantic search can match words that differ. A question about "GNI" and a passage about "gross national income" share no words, but if the embedding model was trained on text where the two are used alike, their arrows point close together. Keyword search (Chapter 3) cannot do this.
 
 Two limits follow from how embeddings are made:
 
-- **The model knows what it was trained on.** all-MiniLM-L6-v2 learned from general English text, not from national accounts manuals. It may treat two technical terms as close because they appear in similar sentences, not because they mean the same thing.
+- **The embedding model reflects its training text.** all-MiniLM-L6-v2 was trained on general English text, not on national accounts manuals. It may treat two technical terms as close because they appear in similar sentences, not because they mean the same thing.
 - **An embedding is a summary.** Two hundred words become 384 numbers. Detail is lost, and a passage that says many things is pulled towards its average.
 
 There is no code in this section: 4.3 measures direction, and 4.4 makes the embeddings.

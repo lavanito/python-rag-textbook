@@ -5,7 +5,7 @@
 **Reranking** is a second, slower look at a short list. The first stage, Chapter 8's filtered hybrid search, ranks every passage quickly and passes a **pool** of the best few to a **reranker**, which reads the question and each passage together and sorts the pool again.
 
 1. **Two stages** (9.2): why a quick first stage and a slower second stage are combined, and why the pool sets a limit the reranker cannot pass.
-2. **The cross-encoder** (9.3): the model that reads a question and a passage as one text and returns one score.
+2. **The cross-encoder** (9.3): the reranking model that takes a question and a passage as one text and returns one score.
 3. **Saving the scores** (9.4): the model scores every pair of definition question and passage once, on the laptop; the chapter and the tests read the saved file.
 4. **Reranking the pool** (9.5): sort the pool by score; equal scores keep their first-stage order.
 5. **Measuring** (9.6): hits at 1, 3 and 10 on the 32 definition questions, against Chapter 8's 25, 31 and 32, for pools of 5, 10 and 20.
@@ -20,7 +20,7 @@
 
 ### 9.2.1 Principles
 
-Chapter 4's embedding model turns the question and each passage into an embedding **separately**. The passage embeddings are worked out once and saved, so a search compares one new embedding with 57 saved ones. That is quick, but the model never sees the question and the passage at the same time: a passage that mentions every word of the question, in the wrong relation, can score as high as one that answers it.
+Chapter 4's embedding model turns the question and each passage into an embedding **separately**. The passage embeddings are worked out once and saved, so a search compares one new embedding with 57 saved ones. That is quick, but the embedding model never has the question and the passage in one input: a passage that mentions every word of the question, in the wrong relation, can score as high as one that answers it.
 
 A **cross-encoder** reads the question and one passage as a single text and returns one number: how well the passage answers the question. Each word of the question can be compared with each word of the passage, so word order and relations count. Nothing can be worked out in advance, because every score needs the question. Scoring every passage for every question grows with the collection: a million passages means a million runs of the model for each question.
 
@@ -108,7 +108,7 @@ def model_scorer(reranker):
 ### 9.3.3 Annotations
 
 - `CrossEncoder` is imported inside `load_reranker`, so the rest of the file runs without sentence-transformers or the model, as in Chapter 4.
-- `model_scorer` returns a function. The search code calls that function and does not know whether it runs the model or reads saved scores (9.4). Chapter 5's `saved_question_embedder` does the same for embeddings.
+- `model_scorer` returns a function. The search code calls that function in the same way whether it runs the reranking model or reads saved scores (9.4). Chapter 5's `saved_question_embedder` does the same for embeddings.
 - `activation_fn=torch.nn.Identity()` asks for the raw output, unchanged.
 - One call to `predict` scores the whole list of pairs, which is quicker than one call per pair.
 
@@ -285,7 +285,7 @@ class RerankedSearch:
 ### 9.5.3 Annotations
 
 - `rerank` builds a list of triples: the score with its sign reversed, the place in the pool, and the passage. Sorting the triples puts the highest score first; for equal scores, the earlier place wins.
-- `RerankedSearch` uses a Chapter 8 `FilteredSearch` as its first stage, so the licence and edition filters run before the reranker sees anything.
+- `RerankedSearch` uses a Chapter 8 `FilteredSearch` as its first stage, so the licence and edition filters run before the reranker receives any passage.
 - `pool_size` sets how many passages the first stage passes on; `how_many` sets how many the reranker returns.
 
 ### 9.5.4 An example
@@ -305,7 +305,7 @@ q2-01, "What is consumption of fixed capital?", has two gold passages: esa10-3.1
 | esa10-8.89 | 9 | −6.93 | 7 |  |
 | bea-ch4-chained | 10 | −10.29 | 9 |  |
 
-The reranker agrees on the first passage and gives it a score far above the rest. It moves the second gold passage, sna25-A4.59, which names depreciation and its 2008 SNA name, from third place to second. The scores run from 10.03 to −11.18; only their order is used.
+The reranker puts the same passage first and gives it a score far above the rest. It moves the second gold passage, sna25-A4.59, which names depreciation and its 2008 SNA name, from third place to second. The scores run from 10.03 to −11.18; only their order is used.
 
 ## 9.6 Measuring
 
@@ -339,7 +339,7 @@ The top three loses two questions and gains one. q2-30 gains, through the move a
 ### 9.6.3 Why
 
 - **The first stage is already strong.** It misses first place on 7 questions and the top three on 1, so there is something to gain and something to lose.
-- **The model learned from web searches.** It appears to reward a passage that shares the question's terms and reads like an answer. Several passages in the corpus do both without being the definition the question asks for, such as esa10-8.94 for q2-25.
+- **The reranking model was trained on web searches.** Its scores appear to favour a passage that shares the question's terms and reads like an answer. Several passages in the corpus do both without being the definition the question asks for, such as esa10-8.94 for q2-25.
 - **Its first choices exposed gaps in the gold lists.** On the first measurement, four of the reranker's first choices answered part of their question but were not in its gold list, among them esa10-10.22, on the drawback of chaining, for q2-15. They were added on 26 October 2026. On 27 and 28 October every passage was judged against every question: 12 passages left the gold lists and 3 joined, and three of the four additions stayed only as supporting passages, which state part of an expected answer (Chapter 10, 10.7). All figures in Chapters 2 to 9 use the lists of 28 October. The reranker's first places against the first stage's: 24 against 25 on the lists before 26 October, 28 against 27 on those of 26 October, 26 against 25 on those of 28 October, and 22 against 23 counting gold passages only. A count can only be as good as the gold lists; Chapter 10 returns to this (10.7).
 
 The reranker is measured, not assumed to help. On 57 short passages with a strong first stage it adds time (9.7), moves one question up at first place, and moves one out of the top three.
@@ -376,7 +376,7 @@ On the target laptop (Intel Core i7-6820HQ, processor only) the model scored 1,8
 
 The first stage, at 57 passages, takes a few milliseconds (Chapter 8), so the reranker is most of the time a search takes. The time grows with the pool, not the collection.
 
-Scoring every passage instead, as 9.2 explains, grows with the collection: at 36 milliseconds a pair, a million passages would take about 10 hours for one question. That is why the reranker sees only the pool.
+Scoring every passage instead, as 9.2 explains, grows with the collection: at 36 milliseconds a pair, a million passages would take about 10 hours for one question. That is why the reranker scores only the pool.
 
 ## 9.8 Late interaction: ColBERT
 
