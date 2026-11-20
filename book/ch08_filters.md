@@ -2,7 +2,7 @@
 
 ## 8.1 What this chapter builds
 
-A **filter** decides which passages a question may use, before any search. A passage the filter withholds never enters a ranking, so it never reaches the model.
+A **filter** decides which passages a question may use, before any search. A passage the filter withholds never enters a ranking, so it never reaches the language model.
 
 1. **The licence filter** (8.2): a **use mode** keeps only the licence classes it allows. Commercial use keeps 41 of the 57 passages.
 2. **The edition filter** (8.3): a question gets the SNA edition it names, or the latest edition on each topic when it names none.
@@ -422,7 +422,7 @@ def compare_with_filtered_exact(collection, passages, saved, questions, use_mode
 
 - `$in`, `$nin` and `$and` are Chroma's words for "is one of", "is not one of" and "all of these".
 - `where=` hands the condition to Chroma, which applies it before ranking.
-- `lambda text: vector` is a one-line function that returns the question's saved embedding whatever text it is given, so the exact index needs no model.
+- `lambda text: vector` is a one-line function that returns the question's saved embedding whatever text it is given, so the exact index needs no embedding model.
 - `compare_with_filtered_exact` builds Chapter 4's exact semantic index from the kept passages only, and checks that Chroma returns the same three passages in the same order.
 
 Result: Chroma's filtered top three equal exact search on 32 of 32 questions, in both use modes.

@@ -22,7 +22,7 @@ Combining the two methods puts a correct passage first more often and finds one 
 
 **Code file:** `ragbook/ch05_hybrid_search.py`
 
-**Uses:** Chapter 2 (`load_corpus`); Chapter 3 (`search_words`, `KeywordIndex`, `load_questions`); Chapter 4 (`SemanticIndex`, `load_embeddings`); Python's `csv` and `re` modules. The chapter reads Chapter 4's saved embeddings, so it needs no model and no internet connection.
+**Uses:** Chapter 2 (`load_corpus`); Chapter 3 (`search_words`, `KeywordIndex`, `load_questions`); Chapter 4 (`SemanticIndex`, `load_embeddings`); Python's `csv` and `re` modules. The chapter reads Chapter 4's saved embeddings, so it needs no embedding model and no internet connection.
 
 ## 5.2 Reciprocal rank fusion
 
@@ -527,7 +527,7 @@ def build_indexes():
 
 - `rank_function(question["question"])[:depth]` keeps the first `depth` passages; the ranking function must return at least that many.
 - `saved_question_embedder` builds and returns a function, `embed_question`, that remembers `ids_by_text`. A function defined inside another and returned this way is a **closure**.
-- `raise KeyError(...)` stops with a clear message if a question has no saved embedding. A new question needs the model, as in Chapter 4 (4.4).
+- `raise KeyError(...)` stops with a clear message if a question has no saved embedding. A new question needs the embedding model, as in Chapter 4 (4.4).
 - `build_indexes` returns four things at once; `keyword_index, semantic_index, hybrid_index, questions = build_indexes()` unpacks them.
 
 ## 5.7 Running the worked example

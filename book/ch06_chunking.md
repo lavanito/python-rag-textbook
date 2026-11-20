@@ -316,7 +316,7 @@ The method needs nothing from the document but its words, so it works on any tex
 
 Every method in this chapter uses the same limit, 90 words, so section 6.8 compares like with like. The limit must keep each chunk within the embedding model's 256 word pieces (Chapter 4); 6.8 shows how 90 was chosen. The overlap is 18 words, a fifth of a chunk.
 
-The limit is counted in words, not word pieces, because words can be counted without the model.
+The limit is counted in words, not word pieces, because words can be counted without the embedding model.
 
 ### 6.4.2 Code
 
@@ -759,7 +759,7 @@ The five methods are run on the same cleaned text with the same limit, 90 words.
 2. Is a chunk about one subject? A chunk cut mid-sentence, or one that runs across two sections, is harder to match to a question.
 3. How much text is stored? Overlap and repeated headings add words to embed and store.
 
-Word pieces are counted with the model's own **tokenizer**, the part of the model that cuts text into word pieces. This needs the model, so it runs only where the model is installed.
+Word pieces are counted with the embedding model's own **tokenizer**, the part of the embedding model that cuts text into word pieces. This needs the embedding model, so it runs only where the embedding model is installed.
 
 ### 6.8.2 Code
 
@@ -823,7 +823,7 @@ def count_word_pieces(model, chunks):
 
 - `sizes[len(sizes) // 2]` is the middle value of the sorted sizes; `//` divides and drops the remainder.
 - `model.tokenizer(chunk)` returns the chunk's word pieces as numbers under `"input_ids"`, with a marker added at the start and one at the end; the limit of 256 counts them.
-- The worked example (`python -m ragbook.ch06_chunking`) prints the table below. With `--word-pieces` it loads the model with Chapter 4's `load_model` and adds the word-piece count.
+- The worked example (`python -m ragbook.ch06_chunking`) prints the table below. With `--word-pieces` it loads the embedding model with Chapter 4's `load_model` and adds the word-piece count.
 
 ### 6.8.4 Results
 
@@ -839,7 +839,7 @@ On the example (16,634 words). Word pieces were counted on the author's laptop w
 
 - Fixed size fits both limits and stores each word once, but cuts sentences.
 - Overlap keeps the words around each cut together, at the cost of 25% more words to embed.
-- Paragraph chunks never cut a sentence, but 65 are over the word limit and 17 over the model's.
+- Paragraph chunks never cut a sentence, but 65 are over the word limit and 17 over the embedding model's.
 - Header chunks keep whole subjects, but 23 of 24 are over the limit; the longest is 29 times it.
 - Recursive chunks fit the limit, cut inside a sentence only once, and include their heading, for 9% more words.
 
@@ -866,7 +866,7 @@ The worst chunk had 2.4 word pieces per word. Recursive chunking was then run at
 | 120 | 208 | 2 | 279 |
 | 130 | 192 | 2 | 302 |
 
-90 words is the largest limit at which no recursive chunk passes the model's limit, so the chapter uses 90. A test records the choice.
+90 words is the largest limit at which no recursive chunk passes the embedding model's limit, so the chapter uses 90. A test records the choice.
 
 ### 6.8.6 Why words are a poor measure
 
@@ -903,7 +903,7 @@ Recursive chunking at the 90-word limit, with word pieces counted by all-MiniLM-
 | BEA | 481 | 189,236 | 15–40 | 3,261 | 0 | 252 |
 | All seven | 4,378 | 2,290,659 |  | 36,160 | 113 | 649 |
 
-- **Recursive chunking fits almost everything.** 36,047 of 36,160 chunks (99.7%) are within the model's limit.
+- **Recursive chunking fits almost everything.** 36,047 of 36,160 chunks (99.7%) are within the embedding model's limit.
 - **Cleaning made the largest difference.** Before the rules for dot leaders, hyphen rows and font codes (6.3), 226 of SNA08's recursive chunks were over the limit, the largest at 10,302 word pieces. After them, one is: part of a reference list with long web addresses. BEA's two chunks over the limit, both rows of hyphens, are gone.
 - **PPP23 has 91 of the 113.** Its worked examples of price-index formulas, such as "[(FB/A/FA/A)(FB/B/FA/B)(FB/C/FA/C)(FB/D/FA/D)]1/4", count as one word but split into dozens of word pieces: one chunk of 88 words has 649. No cleaning rule should remove them, because they are the text. This is the strongest case for 6.8.6: in a document full of formulas, limit word pieces, not words.
 - **Header chunking fails on every manual,** from 3 of 3 chunks over the limit (BEA) to 535 of 1,342 (ESA10). BEA prints its headings at the size of its body text, so a range of sizes finds only 18 heading lines and 3 sections. Finding BEA's headings would need the font's name as well as its size.

@@ -12,7 +12,7 @@ This book teaches retrieval-augmented generation (RAG) in Python by building one
 - a bank of test questions, each with the passages that should answer it;
 - a Python model that splits growth in real net national income per head into five parts (the NNI decomposition), used from Chapter 13.
 
-The same corpus, questions and model drive the online demonstration *Demonstrating AI readiness: what it takes*.
+The same corpus, questions and NNI model drive the online demonstration *Demonstrating AI readiness: what it takes*.
 
 **What this book is not.** The code is not production software. It runs on an ordinary laptop with free, open-source tools: Python, Ollama with the Qwen3 model, sentence-transformers, bm25s, Chroma and pytest. Nothing is sent to a paid or cloud service.
 

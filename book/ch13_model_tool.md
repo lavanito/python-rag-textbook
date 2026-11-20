@@ -34,7 +34,7 @@ A tool is a function a program can call, with fixed inputs and outputs. Its cont
 There are two ways to call the same function.
 
 - **Code calls it from the router's labels.** This chapter does so: the router names R2, and code passes the economy, year and measure.
-- **A language model calls it itself.** The model is given a description of the tool. It replies with the function's name and arguments, and the program runs the function (Ollama's tool calling).
+- **A language model calls it itself.** The language model is given a description of the tool. It replies with the function's name and arguments, and the program runs the function (Ollama's tool calling).
 
 ### 13.2.2 Code
 
@@ -85,7 +85,7 @@ TOOL = {
 - `shown` **sets the digits by band** (build spec v2, decision 4): High one decimal place, Medium a whole number, Low "about" and a whole number. Counts, such as population, are always whole numbers (the horizontal domain expert, 7 November 2026).
 - **The description lists the measures and economies as fixed choices.** A reply outside them gets a message, not a number.
 
-## 13.3 Calling the model
+## 13.3 Calling the NNI model
 
 ### 13.3.1 Principles
 
@@ -207,7 +207,7 @@ def call_model(economy, year, measure, edition="latest"):
 
 - **Two editions.** "latest" is WDI of 8 October 2026 with PWT 11.0, and euro area GDP at PPPs summed from its members. "archive" is WDI of March 2024, with no euro area. Q4 questions compare the two: India's GNI per head at PPP for 2016 differs between them.
 - **Euro area members are rated as the euro area.** S3 rates only the six economies. The members' statistical offices follow one standard, ESA 2010, so a member is given the euro area's band, and the reason states this as an assumption (the horizontal domain expert, 6 November 2026). Ireland's GNI per head at PPP for 2024 is 105767, rated Medium: the euro area's rating, whose reason is Ireland's multinational profits.
-- **The model builds euro area GNI per head at PPP** (the horizontal domain expert, 6 November 2026). Each member's GNI in euros, divided by its PPP conversion factor, is in current international dollars, so the members add up; the total is divided by euro area population. For the United States, United Kingdom, Japan and China the same formula reproduces WDI's published figure within WDI's rounding to 10 dollars. The euro area's value for 2024 is 65935, rated Medium because its total includes Ireland's multinational profits.
+- **The NNI model builds euro area GNI per head at PPP** (the horizontal domain expert, 6 November 2026). Each member's GNI in euros, divided by its PPP conversion factor, is in current international dollars, so the members add up; the total is divided by euro area population. For the United States, United Kingdom, Japan and China the same formula reproduces WDI's published figure within WDI's rounding to 10 dollars. The euro area's value for 2024 is 65935, rated Medium because its total includes Ireland's multinational profits.
 
 ### 13.3.4 Results
 
@@ -227,7 +227,7 @@ Each Medium band comes from one input: PPPs after 2021 are extrapolated from the
 
 ### 13.4.1 Principles
 
-Before code can call the model, someone must read the question: which economies, which years, which measure. Chapter 12 named this route R5>R2: a small language model extracts, then code computes.
+Before code can call the NNI model, someone must read the question: which economies, which years, which measure. Chapter 12 named this route R5>R2: a small language model extracts, then code computes.
 
 The reading gives five parameters.
 
@@ -244,7 +244,7 @@ Years stay as text until code checks them. "Last year" for Japan becomes 2024, b
 Two readers are compared, as in Chapter 12.
 
 - **Keyword rules:** phrase lists for measures, Chapter 12's economy names, and patterns for years such as "since 2007" and "the last two decades".
-- **The small model:** qwen3:4b-instruct at temperature 0, given the five parameters, the four measures and five made-up examples. Ollama makes the reply follow a fixed JSON shape: valid JSON, the five fields, and only the listed economies and measures.
+- **The small language model:** qwen3:4b-instruct at temperature 0, given the five parameters, the four measures and five made-up examples. Ollama makes the reply follow a fixed JSON shape: valid JSON, the five fields, and only the listed economies and measures.
 
 Then code checks the reply against the data and lists the calls to `call_model`. Anything outside the data gives a message instead of a call.
 
@@ -362,7 +362,7 @@ def plan_calls(parameters, last_years):
 
 ### 13.4.3 Annotations
 
-- **The shape stops some errors, not all.** The model cannot reply with a measure that is not listed or with broken JSON. It can still pick the wrong measure from the list.
+- **The shape stops some errors, not all.** The language model cannot reply with a measure that is not listed or with broken JSON. It can still pick the wrong measure from the list.
 - **"Latest" uses the earliest last year among the economies named.** A comparison of the United States (data end in 2024) and the United Kingdom (2025) uses 2024 for both.
 - **No year named means the latest year.** q5-01 asks how the euro area compares with the United States, with no year, so code uses 2024.
 - **A member without its own last year uses the euro area's.** The ragged-edge table has rows for Ireland and the six economies only.
@@ -374,20 +374,20 @@ The expected parameters for the 28 questions routed to code (14 from the bank, 1
 | Reader | All five right | Economies | Years | Measures | Editions | Change |
 | --- | --- | --- | --- | --- | --- | --- |
 | Keyword rules (training score) | 21 | 27 | 27 | 22 | 28 | 28 |
-| Small model (training score) | 12 | 28 | 23 | 15 | 26 | 28 |
+| Small language model (training score) | 12 | 28 | 23 | 15 | 26 | 28 |
 
-- **Both scores are training scores.** The rules and the model's instructions were written after reading all 28 questions.
+- **Both scores are training scores.** The rules and the language model's instructions were written after reading all 28 questions.
 - **The rules miss seven.** "Fallen behind" (q5-02), "average hours ... contributes" (u-05) and "grown" with a deflator (u-14) match no measure phrase; q7-01 names the yen, not Japan; t-02's "2026 IEA analysis" is read as a data year. q5-05 needs no figure and t-25 asks for growth per head: the vertical domain expert set both after the rules were written.
 - **Every figure asked for now has a route.** The first four measures covered 16 of the 28; the gap table of 13.5 adds nine measures and three figures that are not in the data.
 
-The horizontal domain expert ran the model on 7 November 2026: 28 replies in 5.6 minutes, 11.9 seconds each, with about 841 tokens in and 49 out. Every reply was valid JSON.
+The horizontal domain expert ran the language model on 7 November 2026: 28 replies in 5.6 minutes, 11.9 seconds each, with about 841 tokens in and 49 out. Every reply was valid JSON.
 
-- **The model scores lower than the rules: 12 against 21.** It gets none right that the rules miss.
+- **The language model scores lower than the rules: 12 against 21.** It gets none right that the rules miss.
 - **Most misses are the measure (13 of 16).** The parts of NNI growth are not named in its description, so "the deflator mix" (q6-01) and "the gap between GDP and national income" (q6-03) became "other", and "prices rather than volumes" (q3-02) became the terms of trade.
 - **A measure's name can mislead.** q5-02 asks about the UK "since 2007"; the language model's output named trend_gap_2007, whose name contains the year.
 - **Some misses are arguable.** For t-25 ("what if euro area GDP had grown at the same rate as the US") the language model's output named real GDP growth; the key has growth per head, chosen before real GDP growth was a measure.
 - **Two year misses change nothing downstream.** t-26 lists 2022, 2023 and 2024 instead of 2022 and 2024, and code fetches every year in a span either way. t-22 lists the 20 years before the latest but not the latest, so code would stop a year early.
-- **Revisions were missed twice** (q4-02, t-23): the model gave only the latest edition.
+- **Revisions were missed twice** (q4-02, t-23): the language model gave only the latest edition.
 
 ### 13.4.5 Round 2 and a fair test
 
@@ -420,8 +420,8 @@ def same_calls(found, expected, last_years):
 | Reader | 28 questions (training): all five right | Same figures | 20 new questions (fair): all five right | Same figures |
 | --- | --- | --- | --- | --- |
 | Keyword rules | 21 | 21 | 1 | 2 |
-| Model, round 1 | 12 | 13 | 2 | 6 |
-| Model, round 2 | 15 | 17 | 6 | 9 |
+| Language model, round 1 | 12 | 13 | 2 | 6 |
+| Language model, round 2 | 15 | 17 | 6 | 9 |
 
 - **The rules fall from 21 of 28 to 1 of 20.** Their phrase lists match the wordings they were written from; on new wordings they find the measure for 3 of 20.
 - **Round 2 reads new questions better than round 1: 6 against 2.** It is right on four questions where round 1 is wrong (n-10, n-11, n-12, n-19) and wrong on none where round 1 is right. Four changes are too few to rule out chance (sign test, p = 0.125), but none goes the other way.
@@ -521,7 +521,7 @@ def escalate(calls, problems):
 
 ### 13.5.3 Annotations
 
-- **The level of real NNI per head is fixed in 2021 and moved by the model's growth.** Its growth from one year to the next equals the decomposition's total exactly; a test checks this for the six economies.
+- **The level of real NNI per head is fixed in 2021 and moved by the NNI model's growth.** Its growth from one year to the next equals the decomposition's total exactly; a test checks this for the six economies.
 - **The euro area's household PPP weights members by household consumption:** members' consumption in euros, divided by the same in international dollars.
 - **Real GDP growth is exact, not a stand-in:** growth in real GDP per head plus growth in population. A test checks the sum.
 - **Sources checked on 7 November 2026.** Five of the seven WDI codes and the BEA table name were found on the web. The vertical domain expert checked the other two against the World Bank API the same day: NE.GDI.TOTL.CN is "Gross capital formation (current LCU)" and NE.IMP.GNFS.KN is "Imports of goods and services (constant LCU)".
@@ -613,7 +613,7 @@ def check_reply(question, facts, reply):
 
 ### 13.6.3 Results
 
-The horizontal domain expert ran the model on 7 November 2026: 14 replies in 5.1 minutes, with about 347 tokens in and 88 out each.
+The horizontal domain expert ran the language model on 7 November 2026: 14 replies in 5.1 minutes, with about 347 tokens in and 88 out each.
 
 | Check | Replies right of 14 |
 | --- | --- |
@@ -622,16 +622,16 @@ The horizontal domain expert ran the model on 7 November 2026: 14 replies in 5.1
 | No flag the figures do not have | 7 |
 
 - **One reply worked out a number, and got its sign wrong.** For q4-01 the reply stated that India's 2016 GNI per head "increased by 140" between editions. It fell, from 5710 in the March 2024 edition to 5570 in the latest. The number check flagged it.
-- **One reply repeated a wrong premise, and the check did not flag it.** q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP results. In the data both rose: China from 21483 to 23028 in 2022. The model copied the numbers correctly but swapped the editions, so it reported a fall. No number was invented.
+- **One reply repeated a wrong premise, and the check did not flag it.** q4-02 asks why China's and India's GDP per head at PPP fell with the new ICP results. In the data both rose: China from 21483 to 23028 in 2022. The language model copied the numbers correctly but swapped the editions, so it reported a fall. No number was invented.
 - **Most replies ended with an escalation.** Seven replies end "Passed to an analyst." when the escalation rule in code was not met.
 - **It added flags.** Seven replies call a figure "estimated" or "proxy" when the figures have no such flag.
-- **What follows:** anything a rule in code can settle should be written by code. The escalation sentence and the flags can be added by code after the reply. Only the wording is left to the model, and Chapter 14 checks it further.
+- **What follows:** anything a rule in code can settle should be written by code. The escalation sentence and the flags can be added by code after the reply. Only the wording is left to the language model, and Chapter 14 checks it further.
 
 ## Tests
 
 `tests/test_ch13_model_tool.py`, 45 tests. They check properties and saved results, never wording.
 
-- **The tool:** values match the model's own data; ratings match the model's rule; the parts of NNI growth add up to the total; flags and breaks appear where they should; euro area members are rated as the euro area; counts and rates show the agreed digits.
+- **The tool:** values match the NNI model's own data; ratings match the NNI model's rule; the parts of NNI growth add up to the total; flags and breaks appear where they should; euro area members are rated as the euro area; counts and rates show the agreed digits.
 - **The added measures:** real GDP growth equals growth per head plus population growth; real NNI per head grows exactly as the decomposition says; a proxy is flagged and rated Low; a figure not in the data names the best data and escalates.
 - **Reading parameters:** every question routed to code has a list of expected inputs; years such as "latest" come from the ragged edge; spans fetch every year; a stand-in model that copies the key scores 28.
 - **Saved runs:** each laptop run scores as reported (12, 15, 2 and 6, and the reply checks).

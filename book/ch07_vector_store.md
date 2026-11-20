@@ -23,7 +23,7 @@ At this book's size, exact search is fast enough; 7.2 shows it. The database ear
 
 Exact search compares the question with every stored embedding. With 384 numbers per embedding, each comparison is 384 multiplications and additions, so ten times as many embeddings take about ten times as long.
 
-To measure that without a model, the code makes test embeddings. Random numbers scattered evenly would be unlike real ones: embeddings of texts on one subject point in similar directions. So each test embedding is one of 50 **group centres** plus some noise, scaled to length 1. Test questions are drawn the same way, from the same groups, as real questions share subjects with the corpus.
+To measure that without an embedding model, the code makes test embeddings. Random numbers scattered evenly would be unlike real ones: embeddings of texts on one subject point in similar directions. So each test embedding is one of 50 **group centres** plus some noise, scaled to length 1. Test questions are drawn the same way, from the same groups, as real questions share subjects with the corpus.
 
 ### 7.2.2 Code
 
@@ -326,7 +326,7 @@ The defaults are Chroma's own, read from a new collection's configuration. This 
 | The text | document | The quoted passage |
 | Facts about it | **metadata** | Source, reference, edition, scope and licence |
 
-The embeddings are those saved in Chapter 4, so this section needs no model. Chroma is told not to load a model of its own, and to use cosine similarity rather than its default (7.4).
+The embeddings are those saved in Chapter 4, so this section needs no embedding model. Chroma is told not to load an embedding model of its own, and to use cosine similarity rather than its default (7.4).
 
 The metadata is what makes a database more than an index. Chapter 8 searches only the passages whose metadata passes a filter, such as one edition or one licence class.
 
@@ -504,11 +504,11 @@ On the 32 definition questions, Chroma's top three equal Chapter 4's in all 32, 
 
 ### 7.7.1 Principles
 
-Chapter 6 cut McCarthy's chapter into 278 recursive chunks of at most 90 words, each starting with its section heading. This section embeds them with the model of Chapter 4, stores them in their own collection, and asks three questions the chapter answers. It is the first time in this book that passages cut by code, not by hand, are searched.
+Chapter 6 cut McCarthy's chapter into 278 recursive chunks of at most 90 words, each starting with its section heading. This section embeds them with the embedding model of Chapter 4, stores them in their own collection, and asks three questions the chapter answers. It is the first time in this book that passages cut by code, not by hand, are searched.
 
 Each chunk's id is its position ("chunk-0001"). Its section heading is stored as metadata, so a result shows where in the chapter it comes from.
 
-Embedding needs the model, so this section runs on a computer where the model is installed: `python -m ragbook.ch07_vector_store --chunks`.
+Embedding needs the embedding model, so this section runs on a computer where the embedding model is installed: `python -m ragbook.ch07_vector_store --chunks`.
 
 ### 7.7.2 Code
 

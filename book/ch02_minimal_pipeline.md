@@ -8,8 +8,8 @@ This chapter answers a question about national accounts from quoted passages, in
 
 1. Load the corpus: read the 57 quoted passages from file (2.2).
 2. Find matching passages: keep the few that share most words with the question (2.3).
-3. Build the prompt: put rules, question and passages into messages for the model (2.4).
-4. Ask the model: send the messages to Qwen3 running on your own computer (2.5).
+3. Build the prompt: put rules, question and passages into messages for the language model (2.4).
+4. Ask the language model: send the messages to Qwen3 running on your own computer (2.5).
 5. Put the steps together: one function that runs steps 2 to 4 and returns the answer with the ids of the passages used (2.6).
 
 **Code file:** `ragbook/ch02_minimal_pipeline.py`
@@ -18,7 +18,7 @@ This chapter answers a question about national accounts from quoted passages, in
 
 **Data:** `data/corpus/passages.jsonl`, 57 passages quoted word for word from ten manuals, statistics offices and books, each with its source, paragraph reference, edition, licence and scope. `data/corpus/SOURCES.md` lists the sources and their terms.
 
-**Before you start:** install Ollama from ollama.com, then run `ollama pull qwen3:4b-instruct` once. The download is 2.5 GB. The model runs on the processor; no graphics card or internet connection is needed once it is downloaded.
+**Before you start:** install Ollama from ollama.com, then run `ollama pull qwen3:4b-instruct` once. The download is 2.5 GB. The language model runs on the processor; no graphics card or internet connection is needed once it is downloaded.
 
 **If Ollama crashes on an older graphics card:** Ollama uses the graphics card if it finds one. On the 2015 laptop this book was tested on, its model process crashed with error 0xc0000005 ("The memory could not be …"). Hiding the graphics card makes Ollama use the processor only. In PowerShell, run `setx CUDA_VISIBLE_DEVICES -1` and `setx GGML_VK_VISIBLE_DEVICES -1` once, then quit Ollama and start it again.
 
@@ -27,7 +27,7 @@ This chapter answers a question about national accounts from quoted passages, in
 | 2.2 | Load the corpus | `load_corpus` |
 | 2.3 | Find matching passages | `topic_words`, `find_matching_passages` |
 | 2.4 | Build the prompt | `build_prompt` |
-| 2.5 | Ask the model | `ask_model` |
+| 2.5 | Ask the language model | `ask_model` |
 | 2.6 | Put the steps together | `answer_question` |
 
 ## 2.2 Step 1: load the corpus
@@ -158,7 +158,7 @@ def find_matching_passages(passages, question, how_many=3):
 
 A chat model's input is a list of **messages**, each with a role. The **system** message sets the rules for the whole exchange; the **user** message contains the request.
 
-The rules here do three things. They limit the model to the passages given, they ask for the passage id after each sentence, and they tell the model to say so when the passages do not answer the question.
+The rules here do three things. They limit the language model to the passages given, they ask for the passage id after each sentence, and they tell the language model to say so when the passages do not answer the question.
 
 A rule is an instruction, not a guarantee. The language model's output can still break it; Chapter 14 checks whether answers keep to their passages.
 
@@ -201,18 +201,18 @@ def build_prompt(question, passages):
 ### 2.4.3 Annotations
 
 - `INSTRUCTIONS` is one string written across several lines. Strings placed side by side inside round brackets are joined into one.
-- `format_passages` (Chapter 1) puts each passage's id, source and reference on a line above its text. The model can then cite `[esa10-8.94]` because it has seen that label.
+- `format_passages` (Chapter 1) puts each passage's id, source and reference on a line above its text. The language model can then cite `[esa10-8.94]` because it has seen that label.
 - The question appears once, in the user message. The system message contains only the rules.
 
-## 2.5 Step 4: ask the model
+## 2.5 Step 4: ask the language model
 
 ### 2.5.1 Principles
 
 **Ollama** is a free program that runs language models on your own computer. It listens at the address `http://localhost:11434`; "localhost" means this computer, so nothing leaves it.
 
-**Qwen3 4B Instruct** is an open model from Alibaba under the Apache 2.0 licence; "4B" means about 4 billion numbers (parameters) set in training. It is small enough for a laptop processor. "Instruct" marks the version that answers directly. Ollama's plain `qwen3:4b` is the "thinking" version, which writes out its reasoning before every answer; on a laptop that is slow, and the reasoning can use up the length limit before the answer begins.
+**Qwen3 4B Instruct** is an open language model from Alibaba under the Apache 2.0 licence; "4B" means about 4 billion numbers (parameters) set in training. It is small enough for a laptop processor. "Instruct" marks the version that answers directly. Ollama's plain `qwen3:4b` is the "thinking" version, which writes out its reasoning before every answer; on a laptop that is slow, and the reasoning can use up the length limit before the answer begins.
 
-The code sends the messages as **JSON** (Chapter 1) to Ollama's chat address and reads the reply from the JSON that comes back. Settings for the model go inside `options`.
+The code sends the messages as **JSON** (Chapter 1) to Ollama's chat address and reads the reply from the JSON that comes back. Settings for the language model go inside `options`.
 
 A language model produces its output one token at a time. For each, it gives every possible next token a probability, and the settings decide how one is drawn from them. This chapter uses the values Qwen recommends and fixes the random draws so that results repeat, with one exception (2.5.3); Chapter 11 compares the settings.
 
@@ -267,9 +267,9 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
 
 - `top_k` 20 keeps only the 20 most likely tokens. `top_p` 0.8 keeps, from those, the most likely tokens whose probabilities add up to 0.8. `min_p` 0 makes no further cut.
 - `temperature` sets how strongly the draw favours the most likely token: 0 always takes it; higher values spread the choice. 0.7, with the three settings above, is what [Qwen's model card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) suggests for this model.
-- `seed` fixes the random draws, so results repeat without temperature 0. In Chapter 11's trials the same prompt and seed gave the same reply every time except on the first request after the model loaded (11.4.4), so a rerun of 2.7 can give a different first answer from the one printed there.
+- `seed` fixes the random draws, so results repeat without temperature 0. In Chapter 11's trials the same prompt and seed gave the same reply every time except on the first request after the language model loaded (11.4.4), so a rerun of 2.7 can give a different first answer from the one printed there.
 - The number 42 has no meaning. A repeatable answer is not thereby a correct one.
-- `num_ctx` is the **context window**: the most tokens the model can process at once, prompt and reply together. Ollama's default depends on the version and the computer's memory (its documentation gives 2,048 in one place and 4,096 in another), so the code sets it. This chapter's prompt is about 225 words, well inside 4,096 tokens; later chapters send more passages.
+- `num_ctx` is the **context window**: the most tokens the language model can process at once, prompt and reply together. Ollama's default depends on the version and the computer's memory (its documentation gives 2,048 in one place and 4,096 in another), so the code sets it. This chapter's prompt is about 225 words, well inside 4,096 tokens; later chapters send more passages.
 - `num_predict` caps the reply at 400 **tokens**. A token is a word or part of a word; 400 tokens is roughly 300 English words.
 - `"stream": False` asks for the whole reply at once rather than word by word.
 - Ollama has other settings, such as `repeat_penalty` and `stop`. They stay at Ollama's defaults here; Chapter 11 covers them.
@@ -283,7 +283,7 @@ def ask_model(messages, model=MODEL, url=OLLAMA_URL):
 
 The last function runs steps 2 to 4 in order and returns three things: the question, the ids of the passages used and the answer. Keeping the ids beside the answer lets a reader check each citation.
 
-When no passage matches, the model is not asked. A model given no passages may answer from what it absorbed in training, which this book cannot cite or check.
+When no passage matches, the language model is not asked. A language model given no passages may answer from what it absorbed in training, which this book cannot cite or check.
 
 ### 2.6.2 Code
 
@@ -324,7 +324,7 @@ def answer_question(question, passages, ask=ask_model, how_many=3):
 
 ### 2.6.3 Annotations
 
-- `ask=ask_model` makes the function that asks the model an argument. Normally it is `ask_model`; the tests pass a stand-in that returns a fixed reply, so they run without Ollama and check the pipeline, not the model's wording.
+- `ask=ask_model` makes the function that asks the language model an argument. Normally it is `ask_model`; the tests pass a stand-in that returns a fixed reply, so they run without Ollama and check the pipeline, not the language model's wording.
 - `if found == []:` tests for an empty list: no passage scored above zero.
 - The result is a dictionary (Chapter 1), so later chapters can add entries, such as the time taken, without changing what is already there.
 
@@ -336,7 +336,7 @@ From the repository folder, with Ollama running, run:
 python -m ragbook.ch02_minimal_pipeline
 ```
 
-The example loads the corpus and, for three questions, prints the *topic words*, the passages matched and the model's answer. The retrieval part of the output is fixed:
+The example loads the corpus and, for three questions, prints the *topic words*, the passages matched and the language model's answer. The retrieval part of the output is fixed:
 
 ```text
 2.2  Loaded 57 passages
@@ -360,7 +360,7 @@ Question: Who counts in a country's population when calculating GDP per head?
      matched [esa10-11.06] Eurostat, European System of Accounts (ESA 2010), para. 11.06
 ```
 
-**Language model answers.** A run of `qwen3:4b-instruct` on the 2015 test laptop, processor only, on 15 October 2026. The three answers took about 3 minutes together, including loading the model:
+**Language model answers.** A run of `qwen3:4b-instruct` on the 2015 test laptop, processor only, on 15 October 2026. The three answers took about 3 minutes together, including loading the language model:
 
 ```text
 How do you get from GNI to net national income?
@@ -377,7 +377,7 @@ What the answers show:
 
 - The first two are correct, one sentence each, and cite the right passage. Neither cites the passages that matched on words alone.
 - The third is correct and comes from esa10-11.05 and esa10-11.06 (the one-year rule is in 11.06). But it cites no passage, although the rules ask for an id after every sentence. This is the point of 2.4.1: a rule is an instruction, not a guarantee. Chapter 14 checks citations.
-- Another model version may word the answers differently; the passages matched will not change.
+- Another language model version may word the answers differently; the passages matched will not change.
 
 What the matches show:
 
@@ -385,7 +385,7 @@ What the matches show:
 - **Terms of trade.** Both passages that define the terms of trade come first. The third, esa10-8.94, scores one point for "terms" in the phrase "in net terms". Word matching cannot tell the two senses apart.
 - **Population.** The two ESA 2010 passages on population come first and third. Second is McCarthy's passage on extrapolating PPPs, which shares three *topic words* with the question ("country", "calculating", "gdp") but is not about population.
 
-Without Ollama running, the example prints the matches and then a line saying the model was not asked, with the reason. If Ollama is running but refuses the request, it prints Ollama's error message instead.
+Without Ollama running, the example prints the matches and then a line saying the language model was not asked, with the reason. If Ollama is running but refuses the request, it prints Ollama's error message instead.
 
 ## 2.8 How often matching finds the right passages
 
@@ -399,13 +399,13 @@ Three of the seven misses show the method's limits:
 | What is consumption of fixed capital? (q2-01) | Four passages contain all three words. Equal scores keep corpus order, and the definition (esa10-3.139) comes fourth. |
 | Are remittances part of national income? (q2-21) | Passages with "national" and "income" score two points; the two passages on remittances score one. Every word counts the same, however rare. |
 
-A question with no topic in the corpus can still match: "What is the capital of Peru?" matches three passages on the word "capital". The model's rules then matter: the passages do not answer the question, and it should say so.
+A question with no topic in the corpus can still match: "What is the capital of Peru?" matches three passages on the word "capital". The language model's rules then matter: the passages do not answer the question, and it should say so.
 
 Chapter 3 replaces this step with keyword scoring that weights rare words more, and Chapter 10 measures retrieval properly.
 
 ## 2.9 Tests for this chapter
 
-The file `tests/test_ch02_minimal_pipeline.py` has nine tests. Retrieval is tested exactly. The model is replaced by a stand-in, so no test depends on Ollama or on the model's wording. Run them with `python -m pytest tests/test_ch02_minimal_pipeline.py -v`.
+The file `tests/test_ch02_minimal_pipeline.py` has nine tests. Retrieval is tested exactly. The language model is replaced by a stand-in, so no test depends on Ollama or on the language model's wording. Run them with `python -m pytest tests/test_ch02_minimal_pipeline.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -416,8 +416,8 @@ The file `tests/test_ch02_minimal_pipeline.py` has nine tests. Retrieval is test
 | `find_matching_passages` returns nothing when no word matches | A question about Dublin restaurants finds no passage |
 | `build_prompt` puts the rules first and labelled passages after the question | The prompt has exactly the layout shown in 2.4 |
 | `answer_question` sends only the matched passages | Each passage id returned was in the prompt |
-| `answer_question` does not ask the model when nothing matches | No answer without evidence |
-| `ask_model` sends its settings inside `options` and reads the reply | All seven settings reach the model, and the request names `qwen3:4b-instruct` |
+| `answer_question` does not ask the language model when nothing matches | No answer without evidence |
+| `ask_model` sends its settings inside `options` and reads the reply | All seven settings reach the language model, and the request names `qwen3:4b-instruct` |
 
 The corpus has its own tests (`tests/test_corpus.py`): every passage has all its fields, scope notes are present where needed, and publishers' limits are kept.
 
@@ -433,16 +433,16 @@ The corpus has its own tests (`tests/test_corpus.py`): every passage has all its
 | Tuple | Values kept together in round brackets |
 | Slice | Part of a list, such as `items[:3]`, the first three |
 | Message | One turn given to a chat model, with a role: system or user |
-| System message | The message that sets the rules for the model |
-| Prompt | Everything sent to the model: here, the system and user messages |
+| System message | The message that sets the rules for the language model |
+| Prompt | Everything sent to the language model: here, the system and user messages |
 | Ollama | A free program that runs language models on your own computer |
 | Parameter (of a model) | One of the numbers set when the model was trained; Qwen3 4B Instruct has about 4 billion |
 | Temperature | A setting for how often the most likely next word is chosen; at 0 it is always chosen |
 | Token | A word or part of a word: the unit of a language model's input and output |
 | Gold passages | The passages that state what a correct answer says, listed for each question in the question bank |
 | Top-k, top-p | Settings that limit the draw to the k most likely next words, or to the most likely words whose probabilities add up to p |
-| Seed | A number that fixes the random draws, so the same prompt gives the same reply, except possibly on the first request after the model loads |
-| Context window | The most tokens a model can process at once, prompt and reply together |
+| Seed | A number that fixes the random draws, so the same prompt gives the same reply, except possibly on the first request after the language model loads |
+| Context window | The most tokens a language model can process at once, prompt and reply together |
 
 **Links**
 
