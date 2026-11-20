@@ -1,8 +1,8 @@
-# Chapter 11 — Prompts, context and model settings
+# Chapter 11 — Prompts, context and language model settings
 
 ## 11.1 What this chapter builds
 
-Chapters 3 to 10 found and measured passages. This chapter decides what the model is given with those passages, and with which settings it writes the answer.
+Chapters 3 to 10 found and measured passages. This chapter decides what the language model is given with those passages, and with which settings it writes the answer.
 
 1. **Context** (11.2): which passages go into the prompt, in what order, and how each is labelled.
 2. **Instructions** (11.3): Chapter 2's rules, plus rules for passages that describe one country's practice, for the two SNA editions, and for the reply length.
@@ -92,7 +92,7 @@ def assemble_context(ranked, how_many=3, word_budget=WORD_BUDGET):
 
 - `"\n".join(lines)` puts each label on its own line above the quoted text, so the label comes before the words it labels in the prompt.
 - `passage["scope_note"] != ""` tests for an empty note. 31 of the 57 passages have one: all 14 from ESA 2010, all 6 from BEA, all 5 from the CSO, 3 from the Eurostat-OECD PPP manual, both from the ONS and 1 from the OECD textbook.
-- `fits or kept == []` keeps the first passage even if it alone is over the budget. An empty context would leave the model nothing to cite.
+- `fits or kept == []` keeps the first passage even if it alone is over the budget. An empty context would leave the language model nothing to cite.
 - A passage left out because of the budget does not stop the loop: a shorter passage further down can still fit.
 
 ## 11.3 The instructions
@@ -174,7 +174,7 @@ def word_count(messages):
 - `INSTRUCTIONS` replaces Chapter 2's text of the same name; Chapter 2's code is unchanged.
 - The length rule is added at the end of the system message, so the two reply lengths share every other word of the prompt. Any difference in their answers comes from that one sentence.
 - `\"in US practice (BEA)\"` puts quotation marks inside a string that is itself in quotation marks; the backslash marks them as part of the text.
-- `word_count` splits at spaces. A model counts tokens, not words; 11.5 compares the two on the laptop run.
+- `word_count` splits at spaces. A language model counts tokens, not words; 11.5 compares the two on the laptop run.
 
 ### 11.3.4 An example
 
@@ -186,7 +186,7 @@ Run `python -m ragbook.ch11_prompts` to print it.
 
 ### 11.4.1 Principles
 
-At each step the model gives every token in its vocabulary a score. The scores become probabilities that add up to 1, and one token is drawn. The settings decide which tokens can be drawn and how the draw is made.
+At each step the language model gives every token in its vocabulary a score. The scores become probabilities that add up to 1, and one token is drawn. The settings decide which tokens can be drawn and how the draw is made.
 
 | Setting | What it does | Ollama's default | This book |
 | --- | --- | --- | --- |
@@ -347,24 +347,24 @@ All 20 trials sent the same prompt of 667 tokens. The horizontal domain expert r
 | Stop at a blank line | 389 | 61.3 | The same reply as run 2, word for word |
 | Repeat penalty 1.5 | 400 | 63.2 | Cut off at the 400-token limit; cites two passages |
 
-- **The same seed gave two different replies.** Run 1 was the first request after the model loaded. Run 2, the stop trial and the bank's full reply to q2-01 (11.5) all used the same prompt and settings, and all three are word for word the same.
+- **The same seed gave two different replies.** Run 1 was the first request after the language model loaded. Run 2, the stop trial and the bank's full reply to q2-01 (11.5) all used the same prompt and settings, and all three are word for word the same.
 - **So a fixed seed repeats here except on the first request.** A likely cause is that Ollama reused the processed prompt from the request before, which can change its arithmetic slightly; the run does not prove it. Chapter 2 (2.5.3) now notes this exception.
 - **Temperature 0 gave one reply whatever the seed.** With no random draw, the seed has nothing to fix.
 - **At 0.7 and 1.5 each seed gave a different reply, and every reply cited the same three passages.** The replies at 1.5 are still readable, likely because top-k 20 and top-p 0.8 limit each draw to a short list of likely tokens.
 - **The 40-token limit cut the reply inside its first citation.** Without the closing bracket the code finds no id, so a limit too small for the answer produces an answer with no citation.
-- **The stop sequence was never written.** The model separates paragraphs with a single line break, so the reply never contains a blank line and ran as in run 2. A stop sequence works only on text in the language model's output.
-- **A repeat penalty of 1.5 changed the terms and then a fact.** The reply had "consumption-of-fixed-capital" with hyphens and "current EU practice (ESA 2013)", where the passage is from ESA 2010. A definition repeats its terms; penalising repeated tokens pushes the model away from them.
+- **The stop sequence was never written.** The language model's output separates paragraphs with a single line break, so the reply never contains a blank line and ran as in run 2. A stop sequence works only on text in the language model's output.
+- **A repeat penalty of 1.5 changed the terms and then a fact.** The reply had "consumption-of-fixed-capital" with hyphens and "current EU practice (ESA 2013)", where the passage is from ESA 2010. A definition repeats its terms; penalising repeated tokens pushes the language model away from them.
 
 ## 11.5 Answering the question bank, and counting citations
 
 ### 11.5.1 Principles
 
-Each of the 32 definition questions is answered twice, once for each reply length, with the book's settings: 64 answers. The answers are saved with the passage ids given, tokens, seconds and `done_reason`, so later chapters and the tests read the file instead of asking the model again.
+Each of the 32 definition questions is answered twice, once for each reply length, with the book's settings: 64 answers. The answers are saved with the passage ids given, tokens, seconds and `done_reason`, so later chapters and the tests read the file instead of asking the language model again.
 
 Four counts are made by code:
 
 - **No citation.** An answer with no passage id at all. The demonstrator's design treats this as a defect: such an answer is not shipped.
-- **Ids not given.** A cited id that was not among the three passages given. The model either made it up or copied the example id from the instructions.
+- **Ids not given.** A cited id that was not among the three passages given. The language model either made it up or copied the example id from the instructions.
 - **Uncited sentences.** A sentence with no id, against the rule to cite after each sentence.
 - **Body not named.** A cited passage that describes one country's practice, or Eurostat-OECD practice, where the answer does not name that country or body.
 
@@ -586,14 +586,14 @@ The horizontal domain expert ran the 64 answers on 30 October 2026; they took 53
 - **Nearly half the full replies' sentences have no citation: 119 of 252.** Many link or restate cited sentences. Some add claims no passage makes, such as q2-01's "This definition is consistent with the 2008 SNA"; Chapter 14 checks which.
 - **The short-reply length rule held.** No short reply has more than two sentences: 10 have one and 22 have two. They took 30.2 seconds on average, against 69.3 for full replies.
 - **Six full replies were cut off at 400 tokens:** q2-08, q2-12, q2-16, q2-18, q2-24 and q2-25. A higher `num_predict` would let them finish, at the cost of time.
-- **At 800 tokens all six finish.** The horizontal domain expert reran the 32 full replies with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
+- **At 800 tokens all six finish.** The horizontal domain expert reran the 32 full replies with `num_predict` 800 (40 minutes; `data/answers/ch11_answers_800.jsonl`): the six took 449 to 529 tokens and 85 to 137 seconds, and none was cut off. Of the other 26, 25 are unchanged; q2-01, the first request after the language model loads, differs (11.4.4). Uncited sentences are 122 of 262, mean seconds 75.0 and mean reply tokens 320; the other counts are unchanged. The demonstrator uses the 800-token answers; this chapter keeps the 400-token run as its example.
 - **The scope rule failed four times.** q2-12 cites the Eurostat-OECD passages ppp23-8.2 and ppp23-4.16 without naming Eurostat or the OECD, at both reply lengths; its check in the question bank asks for exactly that. q2-20 (full) and q2-23 (short) cite cso-gnistar-2 without naming Ireland or the CSO.
 
 ## 11.6 Tests, glossary and links
 
 ### 11.6.1 Tests
 
-The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three read the saved replies from the laptop runs. Run them with `python -m pytest tests/test_ch11_prompts.py -v`.
+The file `tests/test_ch11_prompts.py` has 20 tests. None needs the language model; three read the saved replies from the laptop runs. Run them with `python -m pytest tests/test_ch11_prompts.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -618,7 +618,7 @@ The file `tests/test_ch11_prompts.py` has 20 tests. None needs the model; three 
 | Saved answers | 64 answers; the counts in 11.5.4 for each reply length; the full reply to q2-01 is the same as settings run 2 |
 | Saved answers at 800 tokens | 32 full replies; the counts at 800 tokens; only q2-01 and the six cut-off answers differ from the 400 run; the six finish in 449 to 529 tokens |
 
-The bank test uses a stand-in model that cites the first passage label it sees, so it checks the pipeline, not the model.
+The bank test uses a stand-in model that cites the first passage label it sees, so it checks the pipeline, not the language model.
 
 ### 11.6.2 Glossary additions
 

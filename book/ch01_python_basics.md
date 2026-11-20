@@ -207,7 +207,7 @@ def find_passages_containing(passages, word):
 
 ### 1.6.1 Principles
 
-A language model's input is plain text, not dictionaries. Before passages are sent to a language model (Chapter 2), each record must be laid out as text. The layout puts the passage's id, source and reference on a heading line above its words, so the model can cite them.
+A language model's input is plain text, not dictionaries. Before passages are sent to a language model (Chapter 2), each record must be laid out as text. The layout puts the passage's id, source and reference on a heading line above its words, so the language model can cite them.
 
 Two tools do this. An **f-string** is a string with an `f` in front, in which anything inside curly brackets is replaced by its value. `join` puts a list of strings together with a chosen separator between them.
 

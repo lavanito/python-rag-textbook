@@ -4,9 +4,9 @@
 
 Every reply now has two parts. Python functions produce the first part, the **template part** (called the locked block in the code), from the figures with fixed templates: the figures, the differences and directions between them, what each measure means and leaves out, the source, edition, DQR, flags and escalation. The template is a bit like a mathematical formula or a function. The language model's output is the second, the **explanation**, and the user who asked the question sees that explanation only if it passes every check in this chapter.
 
-In Chapter 13, the whole reply was the language model's output, based on the figures worked out in code. Of 14 replies, one reply said a figure rose by 140 when it fell by 140 (failing F15); one said two figures fell when both rose (F16); seven ended with "Passed to an analyst." although the escalation rule in the Python code said no (F17); and seven called figures "estimated" or "proxy" although no such flag was set (F18). None of these sentences needed the model. Each could be produced by a subtraction, a comparison of two numbers, the escalation rule or the list of flags. This chapter does that: a Python function builds each such sentence from the figures with a fixed template, and a test checks each template.
+In Chapter 13, the whole reply was the language model's output, based on the figures worked out in code. Of 14 replies, one reply said a figure rose by 140 when it fell by 140 (failing F15); one said two figures fell when both rose (F16); seven ended with "Passed to an analyst." although the escalation rule in the Python code said no (F17); and seven called figures "estimated" or "proxy" although no such flag was set (F18). None of these sentences needed the language model. Each could be produced by a subtraction, a comparison of two numbers, the escalation rule or the list of flags. This chapter does that: a Python function builds each such sentence from the figures with a fixed template, and a test checks each template.
 
-We call this **Governed RAG**: Python functions select the passages and calculate the figures; the language model's output is used only for an explanation of them. The language model's step comes between Python steps. Python steps run before the model (routing in Chapter 12, reading parameters in Chapter 13, the licence filter in Chapter 8, retrieval in Chapters 3 to 10, the figures from the NNI model) and after it (the checks here, the record in Chapter 15).
+We call this **Governed RAG**: Python functions select the passages and calculate the figures; the language model's output is used only for an explanation of them. The language model's step comes between Python steps. Python steps run before the language model (routing in Chapter 12, reading parameters in Chapter 13, the licence filter in Chapter 8, retrieval in Chapters 3 to 10, the figures from the NNI model) and after it (the checks here, the record in Chapter 15).
 
 The checks are closed-world: a statement that the Python checks cannot match to the template part or to a passage counts as false. A sentence with no passage id cannot be checked, so it fails.
 
@@ -224,7 +224,7 @@ def invented_numbers(explanation, allowed_text):
 ### 14.3.3 Annotations
 
 - The check compares strings of digits, so it treats the same number written another way as new. In the run, f-01's explanation turned "65.9% of its level" into a ratio of "0.659". The value was right; the check failed it.
-- The check does not stop the model repeating numbers that are allowed. Five explanations restated figures from the template part, which the instructions ask it not to do (14.7).
+- The check does not stop the language model repeating numbers that are allowed. Five explanations restated figures from the template part, which the instructions ask it not to do (14.7).
 
 ## 14.4 Direction words
 
@@ -276,7 +276,7 @@ NO_EXPLANATION = "No explanation is available from the passages."
 - `\w*` after a stem catches every ending: "increas\w*" matches increase, increased and increasing.
 - Known misses, tested: "more than" and "above the trend" pass. "Up" and "down" are not listed because "made up of" and "broken down" are common in the passages.
 - Known false alarm, tested: "Neither fell" fails.
-- "Estimated" is banned because Chapter 13's model used it as an invented flag (F18). An explanation quoting a passage about estimates also fails.
+- "Estimated" is banned because Chapter 13's language model used it as an invented flag (F18). An explanation quoting a passage about estimates also fails.
 
 ### 14.4.4 Results
 
@@ -292,7 +292,7 @@ In the laptop run (14.7), direction words were found in four first attempts, all
 
 ### 14.5.1 Principles
 
-Chapter 11 asked the model to put a passage id in square brackets after each sentence. In the 32 analyst answers of 30 October (800-token setting), 122 of 262 sentences (47%) cite nothing, only 4 answers cite every sentence, and one cites an id that does not exist (q2-31, "esa10-11.2.7" for esa10-11.27).
+Chapter 11 asked the language model to put a passage id in square brackets after each sentence. In the 32 analyst answers of 30 October (800-token setting), 122 of 262 sentences (47%) cite nothing, only 4 answers cite every sentence, and one cites an id that does not exist (q2-31, "esa10-11.2.7" for esa10-11.27).
 
 The rule here is strict (the horizontal domain expert, 13 November 2026). Every sentence of the explanation must cite a passage it was given, and that passage must support it:
 
@@ -311,14 +311,14 @@ Scope notes are our notes, not evidence. Support is measured against the passage
 | Support | 19 Supported, 1 Partly |
 | Answers the question | 14 Yes, 3 Partly, 3 No |
 
-The model cites honestly in this sample. Its weakness is relevance: rows 2, 3 and 4 are true but off the question, and in row 4 the defining passage (sna08-15.187) was given but not used. Seven fixes follow from what went wrong:
+Citations in the language model's output are honest in this sample. Its weakness is relevance: rows 2, 3 and 4 are true but off the question, and in row 4 the defining passage (sna08-15.187) was given but not used. Seven fixes follow from what went wrong:
 
 | Cause | Example | Fix |
 | --- | --- | --- |
 | A. Right passage not found | No passage defining depletion for q2-03 | A Python function looks up the defining passage in the knowledge graph; if there is none, the corpus has a gap to fill |
 | B. Right passage given but ignored | q2-06, sna08-15.187 | The defining passage, selected by a Python function, goes first |
 | C. Miscited | Row 7, ppp23-1.17 for ppp23-1.13 | Overlap against every passage given |
-| D. The model's own claims | Row 18 | Low overlap fails; one retry; then dropped |
+| D. The language model's own claims | Row 18 | Low overlap fails; one retry; then dropped |
 | E. Remarks about the passages | "the passage does not define…" | Banned; the explanation is replaced by one fixed sentence |
 | F. Supported only by our scope note | Row 17 | Not evidence |
 | G. True but off the question | Rows 2, 3, 18 | First sentence cites the defining passage |
@@ -406,13 +406,13 @@ def check_sentences(text, evidence, must_cite_first=()):
 
 ### 14.5.3 Annotations
 
-- The problems are written as sentences because the retry (14.6) shows them to the model as they stand.
+- The problems are written as sentences because the retry (14.6) shows them to the language model as they stand.
 - An unknown id ends the checks for that sentence: there is no passage to measure support against.
 - `SUPPORT_MIN` (0.2) and `MISCITED_BY` (0.2) were chosen by looking at the vertical domain expert's 20 judgements. Agreement with those 20 is therefore a training score.
 
 ### 14.5.4 Results
 
-Chapter 11's analyst answers, rechecked without a new model run: 31 of 32 fail the strict rule. Only q2-10 passes ("What is a price level index?", three sentences, each citing ppp23-ov.13).
+Chapter 11's analyst answers, rechecked without a new language model run: 31 of 32 fail the strict rule. Only q2-10 passes ("What is a price level index?", three sentences, each citing ppp23-ov.13).
 
 Against the vertical domain expert's 20 judgements (training), the check passes 17 sentences; he judged 19 Supported. They differ on four rows:
 
@@ -429,7 +429,7 @@ Against the vertical domain expert's 20 judgements (training), the check passes 
 
 ### 14.6.1 Principles
 
-**The Python program selects the evidence.** The explanation may use only the passages that the program gives the model, at most five, after Chapter 8's licence filter, in this order:
+**The Python program selects the evidence.** The explanation may use only the passages that the program gives the language model, at most five, after Chapter 8's licence filter, in this order:
 
 1. The passages that define the concepts the question names (the knowledge graph's `defined_in`).
 2. For questions routed to passages (route R4), the top three by BM25 (Chapter 3).
@@ -522,7 +522,7 @@ Of 15 first attempts that failed, the retry rescued one (f-06), and it did so by
 
 What the 21 explanations did (one explanation can do several):
 
-| What the model did | Questions | Kind of failure |
+| What the language model did | Questions | Kind of failure |
 | --- | --- | --- |
 | Wrote only the fixed sentence | q5-03, q7-01, f-02, f-03, f-04, f-05, f-06 (retry) | Passed, with nothing to say |
 | Restated figures from the template part | q3-02, q4-01, q5-01, q6-02, f-01, f-06 | Real: the instructions forbid it |
@@ -539,15 +539,15 @@ Three fair-test explanations came close. f-07 failed on one misspelt id and an i
 ### 14.7.3 What this shows
 
 - **The template part works.** It corrected q4-02's premise, gave q5-02 "about the same" under the first rule, and named a missing year (f-02, hours end 2023) and the escalation.
-- **The model mostly restates rather than explains.** Given the figures and up to five passages, it repeated the figures or declined. Where it gave reasons, it rarely cited each sentence.
+- **The language model's output mostly restates rather than explains.** Given the figures and up to five passages, it repeated the figures or declined. Where it gave reasons, it rarely cited each sentence.
 - **The checks have false alarms of their own:** ids placed before a sentence, "i.e." read as a sentence end, ids in lower case, and a direction word used to agree with the template part. A product would need to count these separately from real failures.
 - **The fair score and the training score tell the same story:** zero explanations with content in both.
 
-Possible changes: show the model an example of where ids go; accept an id at the start of a sentence; treat "i.e." and "e.g." as part of a sentence; compare ids without regard to capitals; reject restated figures outright. The horizontal domain expert chose four of them on 16 November 2026; 14.8 reports the rerun.
+Possible changes: show the language model an example of where ids go; accept an id at the start of a sentence; treat "i.e." and "e.g." as part of a sentence; compare ids without regard to capitals; reject restated figures outright. The horizontal domain expert chose four of them on 16 November 2026; 14.8 reports the rerun.
 
 ### 14.7.4 Findings for later chapters
 
-Running the frozen code on the new questions, before any model run, showed these gaps:
+Running the frozen code on the new questions, before any language model run, showed these gaps:
 
 - No statement of a peak or the largest value (f-03, f-04).
 - Comparing a growth rate's first and last years over a span says nothing (f-04). To fix.
@@ -555,13 +555,13 @@ Running the frozen code on the new questions, before any model run, showed these
 - The knowledge graph has no passage marked as defining PPP (f-09).
 - Questions routed only to passages show "Figures: none" and do not yet quote the passages in the template part, as decision 1 says they should.
 
-*Demonstrator note: in this demonstrator a small model on a laptop writes the explanations, and strict checks drop every one that cannot be traced to a passage. A product would use a larger model, measure the checks' false alarms, and have analysts read the explanations it drops.*
+*Demonstrator note: in this demonstrator the explanations are the output of a small language model on a laptop, and strict checks drop every one that cannot be traced to a passage. A product would use a larger language model, measure the checks' false alarms, and have analysts read the explanations it drops.*
 
 ## 14.8 After the review: the rerun
 
 ### 14.8.1 What changed
 
-The vertical domain expert reviewed the run on 16 November 2026. He judged two replies the fixes would let through: f-08's retry good (each sentence close to its passage), f-09's retry a fault (cited correctly, but it does not answer the question). With those labels, the saved replies were checked again in Python, with no model run:
+The vertical domain expert reviewed the run on 16 November 2026. He judged two replies the fixes would let through: f-08's retry good (each sentence close to its passage), f-09's retry a fault (cited correctly, but it does not answer the question). With those labels, the saved replies were checked again in Python, with no language model run:
 
 | Checks | Good replies dropped (of 1) | Faulty replies shown (of 28) |
 | --- | --- | --- |
@@ -589,7 +589,7 @@ One laptop run on 16 November 2026 answered the same 24 questions in 32.4 minute
 
 - **Two explanations with content passed:** f-07 (depletion), three sentences, each citing its passage at the end; and f-08 (modified NNI), four sentences close to their passages, saying nothing about Ireland.
 - **The other passes are the fixed sentence.** Why, compare and revision questions still get no explanation with content.
-- **The example id was copied.** The instruction's example cited esa10-8.94, and the model cited it when it was not given (q3-01, q6-02). The example now uses a made-up id, [example-1.1]; that change has not been run.
+- **The example id was copied.** The instruction's example cited esa10-8.94, and the language model's output cited it when it was not given (q3-01, q6-02). The example now uses a made-up id, [example-1.1]; that change has not been run.
 
 Command: `python -m ragbook.ch14_answer_checks --explain --review`. Saved run: `data/answers/ch14_explanations_review.jsonl`.
 

@@ -1,5 +1,5 @@
 """
-Chapter 11 — Prompts, context and model settings
+Chapter 11 — Prompts, context and language model settings
 
 What this file does
     Turns the passages found by Chapter 8's filtered search into the

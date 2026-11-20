@@ -6,7 +6,7 @@
 
 1. **Two stages** (9.2): why a quick first stage and a slower second stage are combined, and why the pool sets a limit the reranker cannot pass.
 2. **The cross-encoder** (9.3): the reranking model that takes a question and a passage as one text and returns one score.
-3. **Saving the scores** (9.4): the model scores every pair of definition question and passage once, on the laptop; the chapter and the tests read the saved file.
+3. **Saving the scores** (9.4): the reranking model scores every pair of definition question and passage once, on the laptop; the chapter and the tests read the saved file.
 4. **Reranking the pool** (9.5): sort the pool by score; equal scores keep their first-stage order.
 5. **Measuring** (9.6): hits at 1, 3 and 10 on the 32 definition questions, against Chapter 8's 25, 31 and 32, for pools of 5, 10 and 20.
 6. **What it costs** (9.7): time per pair on the target laptop, and per question for each pool size.
@@ -22,7 +22,7 @@
 
 Chapter 4's embedding model turns the question and each passage into an embedding **separately**. The passage embeddings are worked out once and saved, so a search compares one new embedding with 57 saved ones. That is quick, but the embedding model never has the question and the passage in one input: a passage that mentions every word of the question, in the wrong relation, can score as high as one that answers it.
 
-A **cross-encoder** reads the question and one passage as a single text and returns one number: how well the passage answers the question. Each word of the question can be compared with each word of the passage, so word order and relations count. Nothing can be worked out in advance, because every score needs the question. Scoring every passage for every question grows with the collection: a million passages means a million runs of the model for each question.
+A **cross-encoder** reads the question and one passage as a single text and returns one number: how well the passage answers the question. Each word of the question can be compared with each word of the passage, so word order and relations count. Nothing can be worked out in advance, because every score needs the question. Scoring every passage for every question grows with the collection: a million passages means a million runs of the reranking model for each question.
 
 The two are combined:
 
@@ -35,7 +35,7 @@ The reranker only reorders the pool. A gold passage the first stage left outside
 
 ### 9.3.1 Principles
 
-The model is `cross-encoder/ms-marco-MiniLM-L6-v2`:
+The reranking model is `cross-encoder/ms-marco-MiniLM-L6-v2`:
 
 | Property | Value |
 | --- | --- |
@@ -43,14 +43,14 @@ The model is `cross-encoder/ms-marco-MiniLM-L6-v2`:
 | Input limit | 512 word pieces for the question and passage together; the longest corpus passage, 180 words, fits |
 | Output | One number per pair; larger means more relevant |
 | Trained on | MS MARCO: English web-search questions paired with web passages a person judged relevant |
-| Licence | Apache 2.0 (the model) |
+| Licence | Apache 2.0 (the reranking model) |
 
 Two points about the training data matter here.
 
-- **Subject.** MS MARCO questions are web searches, not national accounts. The model was not trained on manuals like the SNA, so whether it helps is measured, not assumed (9.6).
-- **Terms.** Microsoft states that the MS MARCO data is for non-commercial research. The model's own licence is Apache 2.0. This book is non-commercial; anyone using the reranker commercially checks whether the training data's terms affect them. That is a note, not legal advice.
+- **Subject.** MS MARCO questions are web searches, not national accounts. The reranking model was not trained on manuals like the SNA, so whether it helps is measured, not assumed (9.6).
+- **Terms.** Microsoft states that the MS MARCO data is for non-commercial research. The reranking model's own licence is Apache 2.0. This book is non-commercial; anyone using the reranker commercially checks whether the training data's terms affect them. That is a note, not legal advice.
 
-The model's raw output is kept: any number, positive or negative. sentence-transformers can turn it into a number between 0 and 1; that does not change the order, so the chapter does not use it.
+The reranking model's raw output is kept: any number, positive or negative. sentence-transformers can turn it into a number between 0 and 1; that does not change the order, so the chapter does not use it.
 
 ### 9.3.2 Code
 
@@ -107,18 +107,18 @@ def model_scorer(reranker):
 
 ### 9.3.3 Annotations
 
-- `CrossEncoder` is imported inside `load_reranker`, so the rest of the file runs without sentence-transformers or the model, as in Chapter 4.
+- `CrossEncoder` is imported inside `load_reranker`, so the rest of the file runs without sentence-transformers or the reranking model, as in Chapter 4.
 - `model_scorer` returns a function. The search code calls that function in the same way whether it runs the reranking model or reads saved scores (9.4). Chapter 5's `saved_question_embedder` does the same for embeddings.
 - `activation_fn=torch.nn.Identity()` asks for the raw output, unchanged.
 - One call to `predict` scores the whole list of pairs, which is quicker than one call per pair.
 
-## 9.4 Saving the scores, so the model runs once
+## 9.4 Saving the scores, so the reranking model runs once
 
 ### 9.4.1 Principles
 
-Each score depends on both the question and the passage, so the model is run on every pair of the 32 definition questions and the 57 passages: 1,824 pairs. The scores are saved in one numpy file with the ids of its rows and columns, the model name and the time the scoring took. The laptop ran the model once; the rest of the chapter and the tests read the file and need no model and no internet.
+Each score depends on both the question and the passage, so the reranking model is run on every pair of the 32 definition questions and the 57 passages: 1,824 pairs. The scores are saved in one numpy file with the ids of its rows and columns, the reranking model name and the time the scoring took. The laptop ran the reranking model once; the rest of the chapter and the tests read the file and need no reranking model and no internet.
 
-Saving every pair, not just each first-stage pool, means the pool size can change without running the model again.
+Saving every pair, not just each first-stage pool, means the pool size can change without running the reranking model again.
 
 ### 9.4.2 Code
 
@@ -222,7 +222,7 @@ def saved_scorer(questions, scores):
 
 - `score_everything` times the whole run with `time.perf_counter`, Python's clock for measuring short intervals. The time is saved with the scores and used in 9.7.
 - The saved table has one row per question and one column per passage. `load_scores` turns it into a dictionary of dictionaries, so a score is found by two ids: `scores["q2-01"]["sna08-2.144"]`.
-- `saved_scorer` refuses a question that is not in the bank, rather than guessing. A new question needs the model.
+- `saved_scorer` refuses a question that is not in the bank, rather than guessing. A new question needs the reranking model.
 
 ## 9.5 Reranking the pool
 
@@ -352,21 +352,21 @@ A reranker pays off when a crude first stage leaves the right passage low in a p
 | --- | --- | --- |
 | The first stage is near the ceiling | The reranker can only reorder; if the right passage is already first, it can only lose | Partly true: the first stage misses first place on 7 of 32 questions and the top three on 1 |
 | The pool lacks the gold passage | No reordering finds a passage outside the pool | Not true: every pool from 5 to 20 contains a gold passage for all 32 questions |
-| The model was trained on other text | It learned what relevant means from web searches, not from statistical manuals | True: MS MARCO; esa10-8.94 beat the gold passage for q2-25 |
+| The reranking model was trained on other text | It learned what relevant means from web searches, not from statistical manuals | True: MS MARCO; esa10-8.94 beat the gold passage for q2-25 |
 | The candidates are close | Several passages on one concept, in similar words, get scores a small margin apart | Likely: SNA, ESA 2010 and BEA passages cover the same concepts |
 | The gold lists are incomplete | A correct passage that is not listed counts as a miss | Held at first: four first choices were missing from the gold lists, added on 26 October 2026. With each revision the gain at first place changed: −1, +1, +1, or −1 counting gold passages only (10.7) |
 | The answer needs several passages | The reranker scores each passage alone; it cannot see that two together answer the question | Likely for comparisons: q2-04 ("What is the difference between GDP and GNI?") lost its top-three place |
 | Passages are cut or too long | Text past the input limit is dropped before scoring | Not true: the longest passage, 180 words, fits |
-| The question is short or vague | Few words give the model little to compare | Not tested: definition questions are specific |
+| The question is short or vague | Few words give the reranking model little to compare | Not tested: definition questions are specific |
 | The collection is small | A small collection lets the first stage use careful methods, leaving little for a second stage | True: 57 passages, searched with BM25, embeddings, fusion and query expansion |
 
-A reranker would be worth measuring again with a model trained on statistical text, or with a larger collection searched by a cruder first stage.
+A reranker would be worth measuring again with a reranking model trained on statistical text, or with a larger collection searched by a cruder first stage.
 
 **Decision (the horizontal domain expert, 26 October 2026):** the demonstrator app shows the first-stage ranking. The reranker stays in the book as a measured step that did not pay off on this corpus.
 
 ## 9.7 What it costs
 
-On the target laptop (Intel Core i7-6820HQ, processor only) the model scored 1,824 pairs in 65.3 seconds: 36 milliseconds a pair. The time excludes loading the model and the one-off download of about 90 MB.
+On the target laptop (Intel Core i7-6820HQ, processor only) the reranking model scored 1,824 pairs in 65.3 seconds: 36 milliseconds a pair. The time excludes loading the reranking model and the one-off download of about 90 MB.
 
 | Pool | Pairs per question | Reranker time per question |
 | --- | --- | --- |
@@ -388,7 +388,7 @@ The embedding model and the cross-encoder are two ends of a range.
 | --- | --- | --- | --- |
 | Embedding model (Chapter 4) | One embedding per passage | Compares one question embedding with each saved one | Fastest; question and passage never meet |
 | ColBERT | One embedding per word piece of each passage | Compares each word piece of the question with each word piece of the passage | Between the two |
-| Cross-encoder (this chapter) | Nothing | Runs the model on each pair | Slowest; reads the pair as one text |
+| Cross-encoder (this chapter) | Nothing | Runs the reranking model on each pair | Slowest; reads the pair as one text |
 
 **ColBERT** keeps an embedding for every word piece of every passage. For each word piece of the question it finds the closest word piece in the passage, and adds up those best matches. The comparison of single words happens at search time, after the model has run: hence the name **late interaction**. The passage side is still worked out in advance, so ColBERT can search a large collection directly, and it keeps word-level matches that one embedding for the whole passage loses.
 
@@ -398,7 +398,7 @@ The cost is storage: a passage of 100 word pieces needs 100 embeddings instead o
 
 ### 9.9.1 Tests
 
-The file `tests/test_ch09_reranking.py` has 15 tests. None needs the model. Run them with `python -m pytest tests/test_ch09_reranking.py -v`.
+The file `tests/test_ch09_reranking.py` has 15 tests. None needs the reranking model. Run them with `python -m pytest tests/test_ch09_reranking.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -418,7 +418,7 @@ The file `tests/test_ch09_reranking.py` has 15 tests. None needs the model. Run 
 | Timing | The saved time covers 1,824 pairs |
 | Top three | Pool of 10: q2-04 and q2-29 leave the top three; q2-30 enters it |
 
-The pool and ceiling tests use a stand-in score file built from the saved embeddings, so they check the code, not the model. The last five check the results of 9.6 and 9.7.
+The pool and ceiling tests use a stand-in score file built from the saved embeddings, so they check the code, not the reranking model. The last five check the results of 9.6 and 9.7.
 
 ### 9.9.2 Glossary additions
 

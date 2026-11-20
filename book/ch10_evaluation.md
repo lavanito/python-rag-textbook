@@ -48,7 +48,7 @@ Three things follow.
 The answer is built from the first three passages (Chapter 2), so these measures look at the first three places.
 
 - **Precision at 3** is the share of the first three passages that are gold. It asks: how much of what is sent to the language model is right?
-- **Recall at 3** is the share of the gold passages that are in the first three. It asks: how much of the right material does the model get?
+- **Recall at 3** is the share of the gold passages that are in the first three. It asks: how much of the right material does the language model get?
 - **F1** combines the two into one number. It is the harmonic mean: 2 × precision × recall ÷ (precision + recall). Unlike the plain average, it is low when either is low.
 
 An example from Chapter 8's filtered search, q2-01 ("What is consumption of fixed capital?"). The gold list is esa10-3.139 and sna25-A4.59; the first three places are esa10-3.139, sna25-A4.10 and sna25-A4.59.

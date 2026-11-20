@@ -4,9 +4,9 @@
 
 Chapter 3 found passages by the words they share with the question. This chapter finds them by meaning: a passage can match a question with which it shares no words.
 
-1. **Embeddings** (4.2): a model turns each text into a list of 384 numbers, so that texts with similar meanings get similar lists.
+1. **Embeddings** (4.2): an embedding model turns each text into a list of 384 numbers, so that texts with similar meanings get similar lists.
 2. **Cosine similarity** (4.3): a measure of how closely two lists point the same way, written by hand and then with numpy.
-3. **The model** (4.4): all-MiniLM-L6-v2, run with the sentence-transformers library on the laptop's main processor.
+3. **The embedding model** (4.4): all-MiniLM-L6-v2, run with the sentence-transformers library on the laptop's main processor.
 4. **Saving and ranking** (4.5, 4.6): the embeddings are worked out once and saved; each question is then compared with every passage.
 
 Semantic search is measured on the same 32 definition questions as Chapter 3 (4.7).
@@ -26,9 +26,9 @@ Semantic search finds the two questions BM25 misses, but puts a gold passage fir
 
 ### 4.2.1 Principles
 
-An **embedding** is a fixed-length list of numbers that stands for a piece of text. The model used here gives 384 numbers for any text, whether three words or two hundred.
+An **embedding** is a fixed-length list of numbers that stands for a piece of text. The embedding model used here gives 384 numbers for any text, whether three words or two hundred.
 
-The numbers are not chosen by hand. The model was trained on many pairs of texts that mean the same thing, such as a question and its answer. Training adjusted it until the two texts of a pair got similar lists, and unrelated texts got different ones.
+The numbers are not chosen by hand. The embedding model was trained on many pairs of texts that mean the same thing, such as a question and its answer. Training adjusted it until the two texts of a pair got similar lists, and unrelated texts got different ones.
 
 So each list can be read as an arrow in a space with 384 directions. Texts with similar meanings point roughly the same way. No single number means anything on its own: meaning is in the direction of the whole list.
 
@@ -55,7 +55,7 @@ To compare two embeddings, measure the angle between their arrows. **Cosine simi
 - The **length** of a list, written ‖a‖, is the square root of its dot product with itself (Pythagoras, in 384 directions).
 - Dividing by both lengths removes length, so only direction counts.
 
-The result runs from −1 to 1. Arrows pointing the same way give 1; at right angles, 0; opposite, −1. A score is a ranking aid, not a probability: 0.62 does not mean "62% relevant", and no threshold stops a model from inventing an answer.
+The result runs from −1 to 1. Arrows pointing the same way give 1; at right angles, 0; opposite, −1. A score is a ranking aid, not a probability: 0.62 does not mean "62% relevant", and no threshold stops a language model from inventing an answer.
 
 The hand-written version loops over 384 numbers for each passage. numpy, a library for tables of numbers, does the same for all 57 passages in one step, and the two give the same answers (a test checks this, 4.9).
 
@@ -144,9 +144,9 @@ A **transformer** is the kind of model behind both language models and embedding
 
 A **sentence transformer** adds one step: it averages the pieces' lists into a single list for the whole text, and is trained so that whole texts with the same meaning get close lists. The method was published by Reimers and Gurevych in 2019 (4.9.3).
 
-**sentence-transformers** is the Python library that loads and runs these models. It is open source (Apache 2.0) and now maintained by Hugging Face. It also provides the reranker used in Chapter 9, so it is installed once for both chapters. It needs **torch**, the library that does the arithmetic inside the model; on a laptop without a graphics card, torch runs on the main processor (CPU).
+**sentence-transformers** is the Python library that loads and runs these models. It is open source (Apache 2.0) and now maintained by Hugging Face. It also provides the reranker used in Chapter 9, so it is installed once for both chapters. It needs **torch**, the library that does the arithmetic inside the embedding model; on a laptop without a graphics card, torch runs on the main processor (CPU).
 
-The model is **all-MiniLM-L6-v2** (Apache 2.0):
+The embedding model is **all-MiniLM-L6-v2** (Apache 2.0):
 
 | Property | Value |
 | --- | --- |
@@ -154,11 +154,11 @@ The model is **all-MiniLM-L6-v2** (Apache 2.0):
 | Size | about 22 million parameters; a 91 MB download |
 | Longest text read | 256 word pieces; anything longer is cut off without warning |
 
-Some notes say this model gives 768 numbers. It gives 384; 768 belongs to larger models.
+Some notes say this embedding model gives 768 numbers. It gives 384; 768 belongs to larger models.
 
 The longest passage in the corpus has 180 words, close to the 256-piece limit. Chapter 6, on cutting manuals into passages, checks whether any passage is cut off.
 
-The first run downloads the model from Hugging Face and keeps a copy in the user's folder (`.cache/huggingface`). Later runs need no internet connection.
+The first run downloads the embedding model from Hugging Face and keeps a copy in the user's folder (`.cache/huggingface`). Later runs need no internet connection.
 
 ### 4.4.2 Code
 
@@ -199,20 +199,20 @@ def embed_texts(model, texts):
 ### 4.4.3 Annotations
 
 - The import is inside `load_model`, as bm25s did in Chapter 3 (3.7.3), so the rest of the chapter and its tests run without sentence-transformers.
-- `device="cpu"` keeps the model on the main processor, so the code behaves the same on every laptop.
+- `device="cpu"` keeps the embedding model on the main processor, so the code behaves the same on every laptop.
 - `model.encode` embeds a whole list at once, which is faster than one text at a time.
 - `convert_to_numpy=True` returns a numpy array rather than torch's own type, so 4.3's functions can use it directly.
 - `.shape` gives an array's size as (rows, columns): one row per text, 384 columns.
 
-## 4.5 Saving embeddings, so the model runs once
+## 4.5 Saving embeddings, so the embedding model runs once
 
 ### 4.5.1 Principles
 
-A passage's embedding changes only if the passage or the model changes. So the embeddings are worked out once and saved in one file, `data/embeddings/all-MiniLM-L6-v2.npz`, with the id of each passage and question beside its numbers.
+A passage's embedding changes only if the passage or the embedding model changes. So the embeddings are worked out once and saved in one file, `data/embeddings/all-MiniLM-L6-v2.npz`, with the id of each passage and question beside its numbers.
 
-The file also records the model's name. Embeddings from different models cannot be compared: each model has its own space, and a question embedded by one model means nothing against passages embedded by another.
+The file also records the embedding model's name. Embeddings from different models cannot be compared: each model has its own space, and a question embedded by one model means nothing against passages embedded by another.
 
-The saved file has two further uses. The tests (4.9) read it, so they check the reported results without running the model. And Chapter 7 loads it into a vector database instead of embedding the corpus again.
+The saved file has two further uses. The tests (4.9) read it, so they check the reported results without running the embedding model. And Chapter 7 loads it into a vector database instead of embedding the corpus again.
 
 ### 4.5.2 Code
 
@@ -260,7 +260,7 @@ def load_embeddings(file_path=EMBEDDING_FILE):
 - `Path(__file__).parent.parent` is the repository folder, as in Chapter 3's `QUESTION_FILE`; `/` joins folder names into a path.
 - `mkdir(parents=True, exist_ok=True)` creates the folder if it is missing and does nothing if it exists.
 - `np.savez` saves several named arrays in one `.npz` file; `np.load` reads them back by name.
-- `np.float32` stores each number in 4 bytes rather than 8. The model itself works at this precision, so nothing is lost, and the file is half the size.
+- `np.float32` stores each number in 4 bytes rather than 8. The embedding model itself works at this precision, so nothing is lost, and the file is half the size.
 - `str(item_id)` turns numpy's text type back into an ordinary Python string, so ids match those in the corpus.
 
 ## 4.6 Ranking passages by meaning
@@ -272,7 +272,7 @@ Ranking by meaning has three steps: embed the question, compute its cosine simil
 Two differences from keyword search (Chapter 3, 3.6):
 
 - **Every passage gets a score.** A passage sharing no word with the question still has an angle to it. Keyword search left out passages scoring zero; semantic search always returns three, even for a question the corpus cannot answer. Chapter 14 deals with that.
-- **The question needs the model too.** `SemanticIndex` takes a function, `embed_question`, that turns a question into an embedding. In use it calls the model; in the tests it reads the saved file. The ranking code is the same in both.
+- **The question needs the embedding model too.** `SemanticIndex` takes a function, `embed_question`, that turns a question into an embedding. In use it calls the embedding model; in the tests it reads the saved file. The ranking code is the same in both.
 
 ### 4.6.2 Code
 
@@ -338,7 +338,7 @@ The measure is Chapter 3's: the number of definition questions with at least one
 
 Semantic search finds a gold passage in the top three for every question, including the two BM25 misses.
 
-**What is the difference between GDP and GNI? (q2-04).** BM25 missed it because the gold passages never write "GNI". Semantic search ranks bea-ch2-gnp second (similarity 0.728). That passage says GNP equals GDP minus net income paid abroad: it answers the question without sharing its key word. But the other gold passage, esa10-8.94, which writes "gross national income" in full, comes only twelfth (0.495). The model did not reliably treat "GNI" and "gross national income" as the same thing. Chapter 5 adds that knowledge from the knowledge graph.
+**What is the difference between GDP and GNI? (q2-04).** BM25 missed it because the gold passages never write "GNI". Semantic search ranks bea-ch2-gnp second (similarity 0.728). That passage says GNP equals GDP minus net income paid abroad: it answers the question without sharing its key word. But the other gold passage, esa10-8.94, which writes "gross national income" in full, comes only twelfth (0.495). The embedding model did not reliably treat "GNI" and "gross national income" as the same thing. Chapter 5 adds that knowledge from the knowledge graph.
 
 **Why can real GDP growth and comparisons at PPP tell different stories about two economies? (q2-30).** Semantic search ranks wb13-mccarthy-space-time first (0.648): McCarthy explains that PPPs compare countries at one time and national accounts compare one country over time, and that both cannot be kept consistent. That is half the answer. The passages on the terms of trade, the other half, come 12th and 43rd.
 
@@ -403,7 +403,7 @@ Other computers may give slightly different numbers in the last decimal places; 
 
 ### 4.9.1 Tests
 
-The file `tests/test_ch04_semantic_search.py` has 12 tests. The first eight use small hand-made vectors, so they run without the model. The last four read the saved embeddings and fix the results reported in this chapter. Run them with `python -m pytest tests/test_ch04_semantic_search.py -v`.
+The file `tests/test_ch04_semantic_search.py` has 12 tests. The first eight use small hand-made vectors, so they run without the embedding model. The last four read the saved embeddings and fix the results reported in this chapter. Run them with `python -m pytest tests/test_ch04_semantic_search.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -414,7 +414,7 @@ The file `tests/test_ch04_semantic_search.py` has 12 tests. The first eight use 
 | numpy version matches the hand version | 4.3's two versions give the same answers |
 | Ranking puts the closest direction first | A small three-passage example ranks correctly |
 | Equal scores keep corpus order | Ties are broken the same way as in Chapter 3 |
-| Saving and loading round trip | Ids, numbers and the model name come back unchanged |
+| Saving and loading round trip | Ids, numbers and the embedding model name come back unchanged |
 | Saved embeddings cover the corpus and questions | All 57 passages (384 numbers each) and 32 questions |
 | 32 of 32 questions | The count reported in 4.7 |
 | Semantic search finds the BM25 misses | q2-04 and q2-30 found; no question missed (4.7) |

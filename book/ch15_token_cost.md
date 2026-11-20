@@ -2,13 +2,13 @@
 
 ## 15.1 What this chapter builds
 
-This chapter monitors token cost. Every call to a language model is paid for in tokens: on a hosted model in money, on the laptop in time. So the chapter counts the tokens and seconds each answer uses, at each step and on each route.
+This chapter monitors token cost. Every call to a language model is paid for in tokens: on a hosted language model in money, on the laptop in time. So the chapter counts the tokens and seconds each answer uses, at each step and on each route.
 
-A **token** is a word or part of a word: the unit of a language model's input and output. **Tokens in** are what the model is sent (instructions, question, template part, passages); **tokens out** are what it writes. Ollama reports both for every call, and Chapters 11 to 14 saved them with the seconds each call took.
+A **token** is a word or part of a word: the unit of a language model's input and output. **Tokens in** are what the language model is sent (instructions, question, template part, passages); **tokens out** are its output. Ollama reports both for every call, and Chapters 11 to 14 saved them with the seconds each call took.
 
 The canvas, from the saved runs:
 
-- The language model uses every token and almost all the time. For the 24 questions of Chapter 14, the model's 34 calls took 32.4 minutes and 59,674 tokens; the steps in Python took under a tenth of a second.
+- The language model uses every token and almost all the time. For the 24 questions of Chapter 14, the language model's 34 calls took 32.4 minutes and 59,674 tokens; the steps in Python took under a tenth of a second.
 - Lookups, series titles, clarifying and escalation cost no tokens. They are answered by code.
 - A question with figures and an explanation (route R2) cost about 3,100 tokens in and 108 seconds on the laptop.
 - Retries were 13 of the 34 calls and 39 per cent of the tokens. They gave one more explanation with content (f-08).
@@ -22,7 +22,7 @@ What the chapter builds:
 5. **The scores already measured** (15.6), each labelled training or fair.
 6. **Lessons for a production version** (15.7).
 
-Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No new model run was made: the lines of the trace are built from the saved runs (the horizontal domain expert, 16 November 2026).
+Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No new language model run was made: the lines of the trace are built from the saved runs (the horizontal domain expert, 16 November 2026).
 
 Tokens and seconds measure one part of the cost: running the language model. People's time is not counted: building the system, maintaining the rules and data, reading the review list and answering escalations (see "Who does what" in the front matter).
 
@@ -32,7 +32,7 @@ A study of agent costs in large firms counts the language model as one of 13 cos
 
 ### 15.2.1 Principles
 
-Each saved run records, for every model call, `prompt_tokens` (tokens in), `reply_tokens` (tokens out) and `seconds`. A Chapter 14 record has one call per attempt: one, or two with a retry.
+Each saved run records, for every language model call, `prompt_tokens` (tokens in), `reply_tokens` (tokens out) and `seconds`. A Chapter 14 record has one call per attempt: one, or two with a retry.
 
 The cost of a route is the sum over its questions, divided by the number of questions. A question that makes no call counts with zero, so a route of lookups costs nothing per question.
 
@@ -135,13 +135,13 @@ The trials of earlier chapters, per call:
 
 | Saved run | Calls | Tokens in | Tokens out | Seconds |
 | --- | --- | --- | --- | --- |
-| Chapter 12: routing by model | 77 | 838 | 5 | 2.6 |
-| Chapter 13: reading the question by model (rounds 1 and 2) | 68 | 1,031 | 46 | 12.2 |
-| Chapter 13: whole reply written by the model | 14 | 347 | 88 | 21.7 |
+| Chapter 12: routing by language model | 77 | 838 | 5 | 2.6 |
+| Chapter 13: reading the question by language model (rounds 1 and 2) | 68 | 1,031 | 46 | 12.2 |
+| Chapter 13: whole reply from the language model | 14 | 347 | 88 | 21.7 |
 
 - R2 sends the most tokens. The prompt contains the instructions, the template part and up to five passages, and a template part over a span lists every year (f-04, f-05).
 - Tokens in and tokens out both add seconds. With almost the same tokens in, the short reply's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
-- The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5. The same study advises choosing the language model when the system is designed, because a choice made while it runs is hard to track.
+- The routing rules of Chapter 12 cost no tokens. The language model router sent 838 tokens per question to produce 5. The same study advises choosing the language model when the system is designed, because a choice made while it runs is hard to track.
 - Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: there were fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
 
 ## 15.3 One line per step
@@ -152,7 +152,7 @@ A **trace** is a file with one line for each step of each question, in the order
 
 The steps for a question routed to code: route; read the question; licence filter; NNI model; `locked block` (the template part); evidence; each explanation attempt; status.
 
-The trace is built from the saved Chapter 14 run, with no new laptop run. The steps with no model are run again and timed when the trace is built; the model's attempts are copied from the saved run with their tokens and seconds. A step run again must give what the run gave, and the trace records whether it does. The trace is saved in `data/traces/`, not in `logs/` (Chapter 8): it is built from committed runs, so it is committed with them.
+The trace is built from the saved Chapter 14 run, with no new laptop run. The steps with no language model are run again and timed when the trace is built; the language model's attempts are copied from the saved run with their tokens and seconds. A step run again must give what the run gave, and the trace records whether it does. The trace is saved in `data/traces/`, not in `logs/` (Chapter 8): it is built from committed runs, so it is committed with them.
 
 ### 15.3.2 Code
 
@@ -241,7 +241,7 @@ The trace of the 24 questions has 202 lines (`data/traces/ch15_traces.jsonl`). T
 | status | passed on retry | 0 | 0 | 0 |
 
 - The template part and the evidence are the same as in the saved run for all 24 questions.
-- Over the 24 questions, the steps in Python took under a tenth of a second here; the model's 34 attempts took 1,944 seconds on the laptop. The NNI model's data load once, in about 0.02 seconds.
+- Over the 24 questions, the steps in Python took under a tenth of a second here; the language model's 34 attempts took 1,944 seconds on the laptop. The NNI model's data load once, in about 0.02 seconds.
 - The third-round routing rules (Chapter 12) gave 6 of the vertical domain expert's 10 questions a route other than the one the run used. Five went to R4, the default for definitions, because the rules did not know "USA", "Euroarea", "Chinese" or "Japanese" as economy names (f-02 to f-05, f-10); f-06 ("revised by in 2023") was escalated as beyond the data. The Chapter 14 run used the labelled routes, so its figures are right.
 - The fourth-round rules (12.5.7) read the economy names from the knowledge graph and route all 10 as labelled, a training score. The trace uses the fourth round.
 
@@ -249,7 +249,7 @@ The trace of the 24 questions has 202 lines (`data/traces/ch15_traces.jsonl`). T
 
 ### 15.4.1 Principles
 
-A user chooses two settings. The **use mode** (non-commercial or commercial) decides which passages may be sent to the model, through Chapter 8's licence filter. The **reply length** (full or short; called role in the code, with the values analyst and executive) decides how long an answer from passages may be, through Chapter 11's length rule. Both are kept in one dictionary, passed to each step and recorded on every line of the trace.
+A user chooses two settings. The **use mode** (non-commercial or commercial) decides which passages may be sent to the language model, through Chapter 8's licence filter. The **reply length** (full or short; called role in the code, with the values analyst and executive) decides how long an answer from passages may be, through Chapter 11's length rule. Both are kept in one dictionary, passed to each step and recorded on every line of the trace.
 
 An unknown value stops the program with an error, rather than falling back to a default the user did not choose.
 
@@ -367,7 +367,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 | 12 | Questions routed as labelled, second test set, revised rules | 6 of 16 | Fair |
 | 12 | Questions routed as labelled, Chapter 14 fair questions, fourth-round rules | 10 of 10 | Training |
 | 13 | Parameters read right (same figures), keyword rules, new questions | 2 of 20 | Fair |
-| 13 | Parameters read right (same figures), model round 2, new questions | 9 of 20 | Fair |
+| 13 | Parameters read right (same figures), language model round 2, new questions | 9 of 20 | Fair |
 | 13 | Replies with no unsupported number (language model output used as the whole reply) | 13 of 14 | Training |
 | 14 | The vertical domain expert's sentences judged supported; the check agreed on 17 | 19 of 20 | Training |
 | 14 | Explanations with content shown, first run, new questions | 0 of 10 | Fair |
@@ -415,14 +415,14 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 - lookups cost no tokens;
 - short replies have fewer than half the tokens out of full replies;
 - unknown settings stop with an error;
-- the trace has one line per step, the steps with no model reproduce the saved template parts and evidence, and only the model uses tokens;
+- the trace has one line per step, the steps with no language model reproduce the saved template parts and evidence, and only the language model uses tokens;
 - commercial use changes the evidence;
 - the review list counts dropped explanations, and every attempt row gives its tokens;
 - every score is labelled training or fair.
 
 ## Glossary additions
 
-- **Token cost:** the tokens a step or a route uses per question; on a hosted model it is paid in money, on the laptop in time.
+- **Token cost:** the tokens a step or a route uses per question; on a hosted language model it is paid in money, on the laptop in time.
 - **Trace:** a file with one line for each step of each question, with its output, seconds and tokens.
 - **Review list:** every failed check, retry, dropped explanation and escalation, one row each, for the horizontal domain expert.
 - **Reply length:** how long an answer from passages may be: full, or at most two sentences (short). Called `role` in the code, with the values `analyst` and `executive`.

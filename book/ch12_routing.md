@@ -27,7 +27,7 @@ The routes form a cascade, cheapest first. The rule: send each question to the l
 | R4 | Retrieval: quoted passages, reported by the language model (Chapters 3–11) | Low |
 | R4+R2 | Retrieval for the explanation, code for the figure | Low |
 | R5>R2 | A small language model extracts the inputs from the question; code computes | Low |
-| R6 | An agent loop: the model plans several steps within a step budget | High |
+| R6 | An agent loop: the language model plans several steps within a step budget | High |
 | clarify | Offer three sharper questions: living standards, growth or productivity | Low |
 | escalate | Refuse, with the reason | — |
 
@@ -199,11 +199,11 @@ def route_question(question, known_words, titles):
     - Naming the UK and the US made a definition question (t-05) a comparison.
     - A year and an economy made t-04 (a 2026 poll) and t-26 (spending components) value lookups.
 
-## 12.4 A small model as router
+## 12.4 A small language model as router
 
 ### 12.4.1 Principles
 
-A language model can route wording that no rule was written for. Routing is a narrow task: read one question, reply with two labels. A small local model can do it in a few seconds.
+A language model can route wording that no rule was written for. Routing is a narrow task: read one question, reply with two labels. A small local language model can do it in a few seconds.
 
 The prompt holds four things:
 
@@ -294,11 +294,11 @@ def route_with_model(questions, examples, titles, ask=ask_model_with_details, te
 ### 12.4.3 Annotations
 
 - **The reply is read, not trusted.** `read_router_reply` looks for a class followed by a route. A reply without one counts as wrong; none of the 77 replies lacked one.
-- **The model can pair labels badly.** It replied "Q2 clarify" once and "Q2 R4+R2" four times: a class with a route that does not belong to it.
+- **The language model can pair labels badly.** It replied "Q2 clarify" once and "Q2 R4+R2" four times: a class with a route that does not belong to it.
 
 ### 12.4.4 Results
 
-The horizontal domain expert ran the model on 5 November 2026: 77 replies (45 bank questions and the 32 test questions) in 3.3 minutes, 2.6 seconds each.
+The horizontal domain expert ran the language model on 5 November 2026: 77 replies (45 bank questions and the 32 test questions) in 3.3 minutes, 2.6 seconds each.
 
 | Questions | Class right | Route right | Both right |
 | --- | --- | --- | --- |
@@ -306,18 +306,18 @@ The horizontal domain expert ran the model on 5 November 2026: 77 replies (45 ba
 | Test set (32) | 17 | 17 | 15 |
 | Second test set (16), run 6 Nov | 7 | 7 | 6 |
 
-- **The model scores lower than the rules on the test set: 15 against 19.**
-- **They miss mostly different questions.** The rules are right and the model wrong on 10; the model right and the rules wrong on 6; both wrong on 7. At least one is right on 25.
-- **The model escalates too often.** It refused two definition questions (t-01, t-12) and read "how do you calculate…" and "how do economists determine…" as compute (t-14, t-16, t-20).
-- **The model is better at spotting what is out of scope.** It escalated the poll (t-04), the question on GDP per head and quality of life (t-08) and the China–Switzerland question (t-09), and kept t-17 and t-19 as definitions.
+- **The language model scores lower than the rules on the test set: 15 against 19.**
+- **They miss mostly different questions.** The rules are right and the language model wrong on 10; the language model right and the rules wrong on 6; both wrong on 7. At least one is right on 25.
+- **The language model escalates too often.** It refused two definition questions (t-01, t-12) and read "how do you calculate…" and "how do economists determine…" as compute (t-14, t-16, t-20).
+- **The language model is better at spotting what is out of scope.** It escalated the poll (t-04), the question on GDP per head and quality of life (t-08) and the China–Switzerland question (t-09), and kept t-17 and t-19 as definitions.
 - **Both missed seven:** t-02, t-03, t-21, t-26, t-28, t-31 and t-32. Most are about the limits of the data.
-- **On the second test set the model and the rules tie: 6 of 16 each.** The horizontal domain expert ran the model on the 16 new questions on 6 November 2026 (`--model-second`, 72 seconds). It missed the three questions past the ragged edge (u-03, u-04, u-13), called u-14's "what would … have grown if" a compute question, and escalated u-16 instead of clarifying. Rules first, then the model, also gives 6.
+- **On the second test set the language model and the rules tie: 6 of 16 each.** The horizontal domain expert ran the language model on the 16 new questions on 6 November 2026 (`--model-second`, 72 seconds). It missed the three questions past the ragged edge (u-03, u-04, u-13), called u-14's "what would … have grown if" a compute question, and escalated u-16 instead of clarifying. Rules first, then the language model, also gives 6.
 
-## 12.5 Rules first, the model for the rest
+## 12.5 Rules first, the language model for the rest
 
 ### 12.5.1 Principles
 
-The cascade suggests an order: the cheap, certain router first, the model only where it is unsure. Here the rules are taken as unsure when they decide only because nothing else matched: the default (Q2, R4) and "outside the corpus". This choice was fixed on 5 November 2026 before the combined score was computed.
+The cascade suggests an order: the cheap, certain router first, the language model only where it is unsure. Here the rules are taken as unsure when they decide only because nothing else matched: the default (Q2, R4) and "outside the corpus". This choice was fixed on 5 November 2026 before the combined score was computed.
 
 ### 12.5.2 Code
 
@@ -355,11 +355,11 @@ def combine(rule_records, model_records):
 | Router | Test set, both right (of 32) |
 | --- | --- |
 | Keyword rules | 19 |
-| Small model | 15 |
-| Rules first, then the model | 16 |
+| Small language model | 15 |
+| Rules first, then the language model | 16 |
 
 - **Combining them lowered the score.** The language model's output set the route for 21 of the 32 questions.
-- **The default was a good guess.** 15 of the 32 test questions are definitions, so "Q2, R4" was right on most of the questions the rules could not place. The model replaced several of those right answers with its own errors (t-01, t-12, t-14, t-16, t-20) and gained three (t-08, t-17, t-19).
+- **The default was a good guess.** 15 of the 32 test questions are definitions, so "Q2, R4" was right on most of the questions the rules could not place. The language model replaced several of those right answers with its own errors (t-01, t-12, t-14, t-16, t-20) and gained three (t-08, t-17, t-19).
 - **A different way of combining them could score higher.** One example: use the language model's route only when its output is OUT. But that idea came from reading these results, so its score would be a training score too.
 
 ### 12.5.4 Second round: revised rules
@@ -487,13 +487,13 @@ def escalation_message(rule, titles):
     return reason, message
 ```
 
-- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could give the 2025 value with its source, edition and DQR; that needs the model class, so it waits for the app build.
+- **The message does not yet give the nearest figure.** "The latest year in the data is 2025" could give the 2025 value with its source, edition and DQR; that needs the NNI model class, so it waits for the app build.
 
 ### 12.5.6 Third round: the ragged edge
 
 The data do not end in the same year everywhere. The last year with every input for real NNI per head is 2024 for the United States, Japan and China (household consumption ends there) and 2025 for the United Kingdom, India, the euro area and Ireland. In the March 2024 archive edition it is 2022, and the euro area members are not in it. This uneven end is the **ragged edge**.
 
-The second-round rules checked one last year, 2025, for every economy and edition, so they passed questions about Japan to 2025 or Ireland's revisions to 2025. On 6 November 2026 the horizontal domain expert asked for a last year for each economy and edition. A script, `tools/build_last_year.py`, runs the model's own loader and decomposition class and writes `data/series/last_year.csv`; no year is typed.
+The second-round rules checked one last year, 2025, for every economy and edition, so they passed questions about Japan to 2025 or Ireland's revisions to 2025. On 6 November 2026 the horizontal domain expert asked for a last year for each economy and edition. A script, `tools/build_last_year.py`, runs the NNI model's own loader and decomposition class and writes `data/series/last_year.csv`; no year is typed.
 
 The last year also differs by measure: hours worked end in 2023, and published NNI ends in 2021. The rule does not check the measure. In practice, statistical producers often nowcast the missing years with a model such as a Kalman filter and mark the filled values as estimated; this book escalates them instead, except NNI after 2021, which is filled and flagged "estimated" (Chapter 13).
 
@@ -591,7 +591,7 @@ def beyond_the_edge_message(edge):
     return f"The data here for {name} end in {last}, so later years are not available."
 ```
 
-**Changes to the test sets, 6 November 2026 (the vertical domain expert).** Two questions asked about years past the edge without meaning to: t-26 (US spending components, "2022 to 2025") and t-31 (euro area NNI, "2022 to 2026"). Their dates were moved to 2024, inside the data, and their labels kept. One, u-04 (Japan "2010 to 2025"), was relabelled OUT/escalate. The first wording is kept in each question's note. The model's saved replies answer the first wording of t-26 and t-31.
+**Changes to the test sets, 6 November 2026 (the vertical domain expert).** Two questions asked about years past the edge without meaning to: t-26 (US spending components, "2022 to 2025") and t-31 (euro area NNI, "2022 to 2026"). Their dates were moved to 2024, inside the data, and their labels kept. One, u-04 (Japan "2010 to 2025"), was relabelled OUT/escalate. The first wording is kept in each question's note. The language model's saved replies answer the first wording of t-26 and t-31.
 
 | Router | Bank (56) | First test set (32) | Second test set (16) |
 | --- | --- | --- | --- |
@@ -779,7 +779,7 @@ def route_question_graph(question, known_words, titles, last_years, economies):
 
 ### 12.6.1 Tests
 
-The file `tests/test_ch12_routing.py` has 29 tests. None needs the model; three read the saved replies from the two laptop runs. Run them with `python -m pytest tests/test_ch12_routing.py -v`.
+The file `tests/test_ch12_routing.py` has 29 tests. None needs the language model; three read the saved replies from the two laptop runs. Run them with `python -m pytest tests/test_ch12_routing.py -v`.
 
 | Test | What it proves |
 | --- | --- |
@@ -830,5 +830,5 @@ The file `tests/test_ch12_routing.py` has 29 tests. None needs the model; three 
 
 - Lavan Mahadeva, *Making Data AI-Ready: A Layered Framework*, section 20.2, "The Six-Tier Routing Ladder"
 - [World Bank Indicators API](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation): the source of the 17 series titles
-- [Ollama API: chat](https://github.com/ollama/ollama/blob/main/docs/api.md#generate-a-chat-completion): the request the model router sends
+- [Ollama API: chat](https://github.com/ollama/ollama/blob/main/docs/api.md#generate-a-chat-completion): the request the language model router sends
 - Chapter 11 (settings and saving replies); Chapter 14 (checking answers); Appendix A (fine-tuning a router)
