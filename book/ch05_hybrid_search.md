@@ -18,7 +18,7 @@ Each step is measured on the same 32 definition questions (5.6), at three depths
 | Hybrid search | 27 | 30 | 32 |
 | Hybrid search with query expansion | 24 | 31 | 32 |
 
-Combining the two methods puts a correct passage first more often and finds one for every question within ten places. In the top three it finds two questions fewer than semantic search alone; query expansion wins one back, and costs three first places. Section 5.6 shows why.
+Combining the two methods puts a correct passage first more often and finds one for every question within ten places. In the top three it finds two questions fewer than semantic search alone; query expansion brings one back, and costs three first places. Section 5.6 shows why.
 
 **Code file:** `ragbook/ch05_hybrid_search.py`
 
@@ -442,7 +442,7 @@ Chapter 3's measure counts questions with a gold passage in the top three. This 
 
 **Hybrid search loses two questions in the top three.** RRF rewards passages both methods rank fairly well. A passage one method ranks second and the other far down ends up between them. For "What is the difference between GDP and GNI?" (q2-04), semantic search ranks a gold passage second and BM25 nineteenth; the hybrid ranking puts it ninth, so semantic search alone finds the question and hybrid search does not. For q2-30, the long question on real GDP growth and PPPs, McCarthy's passage on extrapolating PPPs (wb13-mccarthy-ipd) comes second; it is not in q2-30's gold list. The gold passage on comparisons across countries and across time comes fifth.
 
-**Query expansion wins q2-04 back, and can also push passages down.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of nineteenth, and the hybrid ranking third. For "Why are GDP estimates revised?" (q2-17), hybrid search ranks bea-ch1-revisions, BEA's account of why it revises, fourth, behind Deaton's passage on the 2005 revisions of PPPs; query expansion adds "gross domestic product" and "domestic product", words found in 10 to 11 of the 57 passages, which push it down to sixth. q2-17 counts as found either way, because qna17-10.48 comes first. Query expansion also costs three first places (27 to 24), and does not win back q2-30: its gold passages rise to fourth and fifth.
+**Query expansion brings q2-04 back, and can also push passages down.** With query expansion, BM25 ranks a gold passage for q2-04 fifth instead of nineteenth, and the hybrid ranking third. For "Why are GDP estimates revised?" (q2-17), hybrid search ranks bea-ch1-revisions, BEA's account of why it revises, fourth, behind Deaton's passage on the 2005 revisions of PPPs; query expansion adds "gross domestic product" and "domestic product", words found in 10 to 11 of the 57 passages, which push it down to sixth. q2-17 counts as found either way, because qna17-10.48 comes first. Query expansion also costs three first places (27 to 24), and does not win back q2-30: its gold passages rise to fourth and fifth.
 
 These figures are for the corpus of 57 passages and the gold lists of 28 October 2026. Adding passages, or gold passages, moves results, which is why Chapter 10 measures retrieval again whenever either changes.
 

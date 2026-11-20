@@ -15,7 +15,7 @@ The code counts what can be counted without judgement: ids cited, ids not given,
 
 ### 11.2.1 Principles
 
-The **context** is everything the model is given to answer from: here, the passages. The model writes from what is in the prompt, so this step decides which facts the answer can use.
+The **context** is everything sent to the language model to answer from: here, the passages. The answer can draw only on what is in the prompt, so this step decides which facts the answer can use.
 
 Three choices are made here:
 
@@ -23,7 +23,7 @@ Three choices are made here:
 - **How much text.** A limit of 600 words of quoted text. The three longest passages in the corpus have 170, 178 and 180 words, so three passages always fit; the budget matters when a later chapter sends more.
 - **How each is labelled.** Chapter 1's label (id, source, reference), then the edition, then a **_scope line_** if the passage describes one country's or one body's practice.
 
-The *scope line* copies the passage's `scope` and `scope_note` fields (Chapter 8, corpus review). Without it, the model has no way to know that modified GNI is an Irish measure or that BEA's GDI is not the SNA's real GDI.
+The *scope line* copies the passage's `scope` and `scope_note` fields (Chapter 8, corpus review). Without it, nothing in the prompt says that modified GNI is an Irish measure or that BEA's GDI is not the SNA's real GDI.
 
 ### 11.2.2 Code
 
@@ -90,7 +90,7 @@ def assemble_context(ranked, how_many=3, word_budget=WORD_BUDGET):
 
 ### 11.2.3 Annotations
 
-- `"\n".join(lines)` puts each label on its own line above the quoted text, so the model reads the label before the words it labels.
+- `"\n".join(lines)` puts each label on its own line above the quoted text, so the label comes before the words it labels in the prompt.
 - `passage["scope_note"] != ""` tests for an empty note. 31 of the 57 passages have one: all 14 from ESA 2010, all 6 from BEA, all 5 from the CSO, 3 from the Eurostat-OECD PPP manual, both from the ONS and 1 from the OECD textbook.
 - `fits or kept == []` keeps the first passage even if it alone is over the budget. An empty context would leave the model nothing to cite.
 - A passage left out because of the budget does not stop the loop: a shorter passage further down can still fit.
@@ -105,7 +105,7 @@ Chapter 2's system message had four rules: answer about national accounts, use o
 - **Editions.** If the 2008 SNA and the 2025 SNA differ, the answer says which edition says what. Chapter 8's edition filter withholds a 2008 passage when a 2025 passage on the same topic is kept, so this rule applies when a question names both editions.
 - **Reply length.** A full reply is as long as the passages support; a short reply has at most two sentences (called role in the code: analyst or executive). This follows the demonstrator's design: the setting changes length only, not the evidence.
 
-A rule is an instruction, not a guarantee (Chapter 2). 11.5 counts how often the model follows the citation and scope rules; the length rule is counted the same way.
+A rule is an instruction, not a guarantee (Chapter 2). 11.5 counts how often the language model's output keeps to the citation and scope rules; the length rule is counted the same way.
 
 ### 11.3.2 Code
 
@@ -198,7 +198,7 @@ At each step the model gives every token in its vocabulary a score. The scores b
 | `num_ctx` | The context window: prompt and reply together, in tokens | 2,048 | 4,096 |
 | `num_predict` | The longest reply, in tokens; −1 means no limit | −1 | 400 |
 | `repeat_penalty` | Lowers the scores of tokens used in the last 64 tokens; 1.0 turns it off | 1.0 | 1.0 |
-| `stop` | Text that ends the reply when the model writes it | none | none |
+| `stop` | Text that ends the reply when it appears in the output | none | none |
 
 The defaults are from [Ollama's Modelfile reference](https://docs.ollama.com/modelfile). A model in Ollama's library can set its own values, which replace these defaults; the code sets every value it uses, so the run does not depend on them. The book's values for the first four are those [Qwen's model card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) gives (Chapter 2).
 
@@ -352,8 +352,8 @@ All 20 trials sent the same prompt of 667 tokens. The horizontal domain expert r
 - **Temperature 0 gave one reply whatever the seed.** With no random draw, the seed has nothing to fix.
 - **At 0.7 and 1.5 each seed gave a different reply, and every reply cited the same three passages.** The replies at 1.5 are still readable, likely because top-k 20 and top-p 0.8 limit each draw to a short list of likely tokens.
 - **The 40-token limit cut the reply inside its first citation.** Without the closing bracket the code finds no id, so a limit too small for the answer produces an answer with no citation.
-- **The stop sequence was never written.** The model separates paragraphs with a single line break, so the reply never contains a blank line and ran as in run 2. A stop sequence works only on text the model writes.
-- **A repeat penalty of 1.5 changed the terms and then a fact.** The reply wrote "consumption-of-fixed-capital" with hyphens and "current EU practice (ESA 2013)", where the passage is from ESA 2010. A definition repeats its terms; penalising repeated tokens pushes the model away from them.
+- **The stop sequence was never written.** The model separates paragraphs with a single line break, so the reply never contains a blank line and ran as in run 2. A stop sequence works only on text in the language model's output.
+- **A repeat penalty of 1.5 changed the terms and then a fact.** The reply had "consumption-of-fixed-capital" with hyphens and "current EU practice (ESA 2013)", where the passage is from ESA 2010. A definition repeats its terms; penalising repeated tokens pushes the model away from them.
 
 ## 11.5 Answering the question bank, and counting citations
 
@@ -558,7 +558,7 @@ def summarise(records, passages_by_id):
 
 - `re.compile` turns a pattern into an object that can be used many times. `\[([^\[\]]+)\]` finds text in square brackets: `[^\[\]]+` means one or more characters that are not brackets.
 - `PASSAGE_ID` accepts lower-case letters and digits, a hyphen, then letters, digits, full stops or hyphens: `esa10-8.94`, `sna25-A4.59`, `bea-ch2-ndp-gni`. "[1]" and "[the table]" do not match, so they are not counted as citations.
-- `(?<=[.!?])\s+` splits after a full stop, question mark or exclamation mark followed by a space. It also splits after "e.g. ", so a sentence count can be one too high; the rule is the same for every answer. Ids in brackets at the start of a piece are moved to the sentence before, because the model often writes the id after the full stop: "obsolescence. [esa10-3.139] This".
+- `(?<=[.!?])\s+` splits after a full stop, question mark or exclamation mark followed by a space. It also splits after "e.g. ", so a sentence count can be one too high; the rule is the same for every answer. Ids in brackets at the start of a piece are moved to the sentence before, because the language model's output often puts the id after the full stop: "obsolescence. [esa10-3.139] This".
 - `r"\b" + re.escape(name) + r"\b"` matches a name as a whole word: "US" matches "in US practice" but not "thus". `re.escape` treats any full stop in the name as a full stop, not as a pattern.
 - `SCOPE_NAMES` leaves out ESA 2010 and the OECD textbook: their scope notes say they follow the SNA. Passages with no scope note, such as the IMF manual's and the World Bank's, are not checked.
 - `counts["no_citation"] += 1` adds 1 to the count; it is short for `counts["no_citation"] = counts["no_citation"] + 1`.

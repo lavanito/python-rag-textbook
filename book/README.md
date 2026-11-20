@@ -1,8 +1,9 @@
 # Book text
 
-The signed-off chapters of *Python RAG*, one Markdown file per chapter, named
-like the code file they explain (`ch01_python_basics.md` explains
-`ragbook/ch01_python_basics.py`).
+The text of *Python RAG*: the front matter (`front_matter.md`) and the
+signed-off chapters, one Markdown file per chapter, named like the code file
+they explain (`ch01_python_basics.md` explains `ragbook/ch01_python_basics.py`).
+Diagrams are PNG files in `images/`, named by their widget id in the shared document.
 
 Chapters are drafted and edited in a shared document. A chapter moves here
 when it is signed off; later changes are made here.

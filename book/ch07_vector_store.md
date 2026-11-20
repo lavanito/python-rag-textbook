@@ -97,7 +97,7 @@ def time_exact_search(sizes, dimensions=384, queries=20):
 
 ### 7.2.3 Annotations
 
-- `np.random.default_rng(seed)` makes a random number generator that gives the same numbers every time for the same seed, so every run and test sees the same embeddings.
+- `np.random.default_rng(seed)` makes a random number generator that gives the same numbers every time for the same seed, so every run and test uses the same embeddings.
 - `generator.normal(size=(groups, dimensions))` draws a table of random numbers; dividing each row by its length (`np.linalg.norm`) makes it length 1. `centres[group_of_row]` picks each row's centre.
 - `spread / np.sqrt(dimensions)` sets the noise so that its total size is about `spread` whatever the number of dimensions.
 - `random_embeddings(size + queries)[size:]` makes the questions as extra rows of the same table: same groups, not seen in the stored rows.

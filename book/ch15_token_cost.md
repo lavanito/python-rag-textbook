@@ -122,13 +122,13 @@ By route, on the laptop (qwen3:4b-instruct). The rows for R2, R4+R2, R5>R2 and R
 | --- | --- | --- | --- | --- | --- |
 | R1 | Code copies the published series title | — | 0 | 0 | 0 |
 | R2, lookup (class Q1) | Code calculates the figure; no explanation | 3 | 0 | 0 | 0 |
-| R2 | Code; the model explains | 11 | 3,144 | 129 | 108.4 |
-| R4+R2 | Code and passages; the model explains | 6 | 2,866 | 149 | 96.3 |
-| R5>R2 | Code; the model explains | 1 | 278 | 9 | 3.4 |
-| R4, Chapter 14 | Passages; the model explains | 3 | 1,597 | 169 | 56.8 |
-| R4, full reply (Chapter 11) | The model answers from three passages | 32 | 779 | 307 | 69.3 |
+| R2 | Code; the language model's explanation | 11 | 3,144 | 129 | 108.4 |
+| R4+R2 | Code and passages; the language model's explanation | 6 | 2,866 | 149 | 96.3 |
+| R5>R2 | Code; the language model's explanation | 1 | 278 | 9 | 3.4 |
+| R4, Chapter 14 | Passages; the language model's explanation | 3 | 1,597 | 169 | 56.8 |
+| R4, full reply (Chapter 11) | Language model's answer from three passages | 32 | 779 | 307 | 69.3 |
 | R4, short reply (Chapter 11) | The same, at most two sentences | 32 | 772 | 80 | 30.2 |
-| clarify, escalate | Code writes the message | — | 0 | 0 | 0 |
+| clarify, escalate | Code fills in the message | — | 0 | 0 | 0 |
 | R6 | Agent loop: not built in this demonstrator | — | — | — | — |
 
 The trials of earlier chapters, per call:
@@ -142,7 +142,7 @@ The trials of earlier chapters, per call:
 - R2 sends the most tokens. The prompt contains the instructions, the template part and up to five passages, and a template part over a span lists every year (f-04, f-05).
 - Tokens in and tokens out both add seconds. With almost the same tokens in, the short reply's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
 - The routing rules of Chapter 12 cost no tokens. The model router sent 838 tokens per question to produce 5. The same study advises choosing the language model when the system is designed, because a choice made while it runs is hard to track.
-- Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: the model wrote fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
+- Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: there were fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
 
 ## 15.3 One line per step
 
@@ -381,8 +381,8 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 ### What worked
 
 1. Every figure is calculated by Python from WDI and PWT data. The JavaScript version gives the same numbers for all 147 economy-years tested.
-2. The template part answered all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
-3. The four kinds of model mistake in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: a tested function writes each of those lines.
+2. The template part gave an answer to all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
+3. The four kinds of mistake in the language model's output in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: each of those lines comes from a tested function.
 4. The checks dropped all 28 faulty explanations and showed none.
 5. The vertical domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
 6. Routing: 56 of 56 bank questions (training); 19 of 32 new questions in the first fair test.
@@ -394,10 +394,10 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 
 ### What a production version needs
 
-1. A better reader for typed questions. Keyword rules found the right figures for 2 of 20 new questions, the small model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator reads questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
-2. A larger model asked for sentence and id as separate fields.
+1. A better reader for typed questions. Keyword rules gave the right figures for 2 of 20 new questions, the small language model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator matches questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
+2. A larger language model, with sentence and id requested as separate fields.
 3. Counts of both kinds of check error: good replies dropped and bad replies shown.
-4. A check that a reply answers the question (f-09).
+4. A check that a reply is an answer to the question (f-09).
 5. A named horizontal domain expert who sets and reviews the size bands, consulting the vertical domain expert.
 6. New questions from real users, scored before any rule changes.
 7. More data and passages (a passage defining PPP; the production boundary for unpaid work at home).

@@ -47,7 +47,7 @@ Three things follow.
 
 The answer is built from the first three passages (Chapter 2), so these measures look at the first three places.
 
-- **Precision at 3** is the share of the first three passages that are gold. It asks: how much of what the model will read is right?
+- **Precision at 3** is the share of the first three passages that are gold. It asks: how much of what is sent to the language model is right?
 - **Recall at 3** is the share of the gold passages that are in the first three. It asks: how much of the right material does the model get?
 - **F1** combines the two into one number. It is the harmonic mean: 2 × precision × recall ÷ (precision + recall). Unlike the plain average, it is low when either is low.
 
@@ -373,7 +373,7 @@ Expansion raises the gold passage where it uses a name the question does not. Fo
 The gold lists changed twice, and each change was recorded in the code with its date. Running the same searches on each set of lists shows how much a figure depends on the lists rather than on the search.
 
 - **26 October 2026.** Four passages were added to four gold lists, after the reranker put them first (9.6.3); each was already gold for a neighbouring question.
-- **27 October 2026.** A first attempt to check the lists used **pooling**: the first three passages of each of the seven searches, 134 not yet gold, were judged. Only 6 were judged gold, and 123 of the 134 were already gold for another question. Pooling cannot offer a passage that no search ranks high, and it lets the searches decide what gets checked. So every passage was then judged against every question instead. q2-03 was reworded, because the corpus did not answer the old question.
+- **27 October 2026.** A first attempt to check the lists used **pooling**: the first three passages of each of the seven searches, 134 not yet gold, were judged. Only 6 were judged gold, and 123 of the 134 were already gold for another question. Pooling cannot offer a passage that no search ranks high, and it lets the search rankings set what gets checked. So every passage was then judged against every question instead. q2-03 was reworded, because the corpus did not answer the old question.
 - **28 October 2026.** Four judgements were revised (q2-03, q2-12, q2-17, q2-22), and sna25-11.238 was added to the corpus, so q2-03 has a gold passage the edition filter keeps (Chapter 8). Against the lists of 26 October, 12 gold lists changed: 12 passages left them and 3 joined. Three of the four additions of 26 October stayed only as supporting passages.
 
 | Question | Passage added on 26 October | 28 October |
