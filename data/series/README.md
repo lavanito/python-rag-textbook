@@ -17,3 +17,11 @@ The last year differs by measure too: hours worked (PWT 11.0) end in 2023, and p
 `revisions.csv`: every figure the NNI model gives in both WDI editions (latest, 8 October 2026; archive, `202403`), for the six economies, 1990 to 2022: the latest edition minus the archive edition, in log points for levels and percentage points for rates and shares. 985 rows. The euro area has no archive figures; Penn World Table measures have one edition.
 
 `revision_bands.csv`: the 16.5th, 33rd, 67th and 83.5th percentiles of the 778 revisions of 0.005 or more (smaller ones show as 0.00). Large: below the 16.5th or above the 83.5th; small: 33rd to 67th inclusive; medium: in between. The same bands judge changes over time and gaps between economies (the horizontal domain expert, 16 November 2026). Written by `tools/build_revision_bands.py`.
+
+## Series links (added 21 November 2026)
+
+`series_links.csv` gives each data series the measures use (the `series`
+column of `data/knowledge_graph/controlled_vocabulary.csv`), in each edition,
+a link and two dates: `document_date`, the edition's release date, and
+`date_read`, the download date. WDI series link to the World Bank's indicator
+page; PWT series to the PWT 11.0 DOI (published 7 October 2025).

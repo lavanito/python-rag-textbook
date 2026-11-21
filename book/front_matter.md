@@ -89,7 +89,10 @@ Apart from the user and escalations, all other tasks involve a high degree of au
 | Task | Done by |
 | --- | --- |
 | Produce and publish the data | Vertical domain expert |
-| Say what a measure means | Vertical domain expert |
+| Write each definition: measures, economies, input flags | Vertical domain expert |
+| Write each data quality rating and its reason | Vertical domain expert |
+| Check each definition and reason against the controlled vocabulary rules | Horizontal domain expert |
+| Maintain the controlled vocabulary | Horizontal domain expert |
 | Find candidate passages in published manuals | AI coding assistant |
 | Choose the passages for the corpus | Vertical domain expert |
 | Check each passage's licence and format | Horizontal domain expert |
@@ -111,6 +114,14 @@ Apart from the user and escalations, all other tasks involve a high degree of au
 | Monitor routing accuracy and token cost | Horizontal domain expert |
 
 Chapter 15 counts the language model's cost in tokens and seconds. The time people spend on these tasks is not counted.
+
+### Who writes the definitions
+
+The controlled vocabulary is the one list of approved names and definitions that code, search and the router read. Each idea has one preferred name, and the other names people use point to it.
+
+The vertical domain expert writes each definition and each rating reason; the horizontal domain expert checks each one against the vocabulary rules and maintains it. The person nearest the process that produces the data knows how far its figures may be over- or under-stated, and rules work only when the teams that produce the data write and practise them (Myers, *Data Quality Techniques*, 2026).
+
+Some will see this choice as controversial. Rules alone do not deliver it: it also needs a culture in which producers own their definitions and accept the horizontal domain expert's checks.
 
 ## Lessons for a production version
 
