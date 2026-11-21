@@ -47,7 +47,7 @@ to check. The hand-built graph is the answer key.
 
 ## Where a larger system would differ
 
-This graph has 51 things and 73 triplets, typed in by hand and read by plain
+This graph has 67 things and 131 triplets, typed in by hand and read by plain
 Python. A commercial system with millions of series would store the same kind
 of facts in a graph database such as Neo4j, or as RDF with an OWL ontology,
 extract many of them from documents with a language model and have people

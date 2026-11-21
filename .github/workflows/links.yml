@@ -1,0 +1,23 @@
+# Opens every source link (lesson L1). Run by hand before each release:
+# GitHub, Actions, "source links", Run workflow. Not run on every change,
+# because a publisher's site can be down for a day.
+
+name: source links
+
+on:
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repository
+        uses: actions/checkout@v4
+
+      - name: Install Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Every source link opens
+        run: python tools/check_source_links.py
