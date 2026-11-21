@@ -109,3 +109,14 @@ def test_graph_aliases_are_a_copy_of_the_vocabulary():
         assert t["id"] in THINGS, t["id"]
         assert THINGS[t["id"]]["label"] == t["prefLabel"], t["id"]
         assert THINGS[t["id"]]["aliases"] == aliases[t["id"]], t["id"]
+
+
+def test_measure_definitions_match_the_definition_lines():
+    # Until the definition lines read the vocabulary, the two copies must agree.
+    with open(ROOT / "data" / "definitions.csv", encoding="utf-8", newline="") as file:
+        lines = {row["measure"]: row for row in csv.DictReader(file)}
+    for t in scheme("measure"):
+        line = lines[t["notation"]]
+        assert t["definition"] == line["means"], t["id"]
+        leaves_out = f"What it leaves out: {line['leaves_out']}" if line["leaves_out"] else ""
+        assert t["scopeNote"] == leaves_out, t["id"]
