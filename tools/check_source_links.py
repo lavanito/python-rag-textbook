@@ -9,6 +9,11 @@ Outputs
     One line per distinct link: the HTTP status, or the error. Exit code 1
     if any link fails. Nothing is written.
 
+    Some sites refuse requests from scripts (HTTP 403) but open in a
+    browser. A World Bank indicator page is then checked through the World
+    Bank's data API instead; any other 403 is listed as "open by hand" and
+    does not count as a failure.
+
 Run
     python tools/check_source_links.py
 
@@ -18,6 +23,7 @@ Run
 """
 import csv
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -36,24 +42,55 @@ def links():
     return found
 
 
+HEADERS = {"User-Agent": "Mozilla/5.0 (python-rag-textbook link check)",
+           "Accept": "text/html,application/pdf,application/json,*/*"}
+WORLD_BANK = "https://data.worldbank.org/indicator/"
+
+
 def status(url):
-    """The HTTP status of a GET request, or the error as text."""
-    request = urllib.request.Request(url, headers={"User-Agent": "python-rag-textbook link check"})
+    """The HTTP status of a GET request (403 included), or the error as text."""
+    request = urllib.request.Request(url, headers=HEADERS)
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
             return response.status
+    except urllib.error.HTTPError as error:
+        return error.code
     except Exception as error:       # report every kind of failure, then go on
         return f"failed: {error}"
 
 
+def check(url):
+    """One line of the report and whether the link counts as failed.
+
+    A link that times out is tried once more.
+
+    Example:
+        check("https://doi.org/10.34894/FABVLR") returns ("200  https://doi.org/...", False)
+    """
+    result = status(url)
+    if isinstance(result, str) and "timed out" in result:
+        result = status(url)
+    if result == 200:
+        return f"200  {url}", False
+    if result == 403 and url.startswith(WORLD_BANK):
+        code = url[len(WORLD_BANK):]
+        api = status(f"https://api.worldbank.org/v2/indicator/{code}?format=json")
+        if api == 200:
+            return f"200 (World Bank API)  {url}", False
+    if result == 403:
+        return f"403, open by hand  {url}", False
+    return f"{result}  {url}", True
+
+
 def main():
     failures = 0
+    by_hand = 0
     for url in links():
-        result = status(url)
-        if result != 200:
-            failures += 1
-        print(f"{result}  {url}")
-    print(f"{failures} of {len(links())} links failed")
+        line, failed = check(url)
+        failures += failed
+        by_hand += line.startswith("403")
+        print(line)
+    print(f"{failures} of {len(links())} links failed; {by_hand} to open by hand")
     return 1 if failures else 0
 
 
