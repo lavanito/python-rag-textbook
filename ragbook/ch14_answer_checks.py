@@ -41,6 +41,10 @@ Run the worked example
     python -m ragbook.ch14_answer_checks --explain --review
         The same, after the vertical domain expert's review of 16 November 2026, saved
         to data/answers/ch14_explanations_review.jsonl.
+    python -m ragbook.ch14_answer_checks --explain --rerun
+        The same questions with the current code, before the demonstrator
+        build (decision 20, 22 November 2026), saved to
+        data/answers/a5_explanations.jsonl.
     python -m ragbook.ch14_answer_checks --explain
         Also asks the local language model (Ollama) for an explanation of
         each question routed to code (the bank's 14 and the fair test),
@@ -75,6 +79,9 @@ JUDGEMENTS_FILE = ANSWER_FOLDER / "ch14_support_judgements.csv"
 EXPLANATIONS_FILE = ANSWER_FOLDER / "ch14_explanations.jsonl"
 # The rerun after the vertical domain expert's review (16 November 2026): size bands, id protocol.
 REVIEW_FILE = ANSWER_FOLDER / "ch14_explanations_review.jsonl"
+# The rerun before the demonstrator build (decision 20, 22 November 2026): the same
+# questions with the current code, including the NNI model's "nowcast" flag.
+RERUN_FILE = ANSWER_FOLDER / "a5_explanations.jsonl"
 FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 
 
@@ -518,7 +525,7 @@ DIRECTION_WORDS = re.compile(
 
 # Words for flags, data quality and escalation, which only the locked block may state (fixes
 # failings F17 and F18).
-CODE_WORDS = re.compile(r"\b(passed to an analyst|dqr|data quality|proxy|stand-in|estimated|flagg?\w*)\b")
+CODE_WORDS = re.compile(r"\b(passed to an analyst|dqr|data quality|proxy|stand-in|estimated|nowcast|flagg?\w*)\b")
 
 # Remarks about the passages themselves (fix E): when the passages do not
 # explain a point, the model writes NO_EXPLANATION instead.
@@ -964,7 +971,11 @@ def main():
     bank = bank_model_questions()
     fair = fair_questions()
     fair_expected = {row["id"]: row for row in fair}
-    run_file = REVIEW_FILE if "--review" in sys.argv else EXPLANATIONS_FILE
+    run_file = EXPLANATIONS_FILE
+    if "--review" in sys.argv:
+        run_file = REVIEW_FILE
+    if "--rerun" in sys.argv:
+        run_file = RERUN_FILE
     if "--explain" in sys.argv:
         try:
             records = run_explanations(bank, expected) + run_explanations(fair, fair_expected)
