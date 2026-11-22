@@ -11,7 +11,7 @@ The canvas, from the saved runs:
 - The language model uses every token and almost all the time. For the 24 questions of Chapter 14, rerun on 22 November 2026, the language model's 36 calls took 34.9 minutes and 66,917 tokens; the steps in Python took under a tenth of a second.
 - Lookups, series titles, clarifying and escalation cost no tokens. They are answered by code.
 - A question with figures and an explanation (route R2) cost about 3,600 tokens in and 120 seconds on the laptop.
-- Retries were 15 of the 36 calls and 45 per cent of the tokens. They gave one more explanation with content (f-08).
+- Retries were 15 of the 36 calls and 45 per cent of the tokens. They gave one more explanation with content (f-08), which the vertical domain expert judged a fault.
 
 What the chapter builds:
 
@@ -347,7 +347,7 @@ The rerun of 22 November 2026 gives 107 rows.
 | Escalated | 2 | 2 |
 
 - Citation problems are most of the list: a sentence with no id, an id not given, a sentence its passage does not support, or a miscitation.
-- Retries: 15 questions were retried, for 30,087 tokens and 7.3 minutes. Five passed on retry; four of them wrote only the fixed sentence ("No explanation is available from the passages."). One retry gave an explanation with content: f-08.
+- Retries: 15 questions were retried, for 30,087 tokens and 7.3 minutes. Five passed on retry; four of them wrote only the fixed sentence ("No explanation is available from the passages."). One retry gave an explanation with content: f-08, judged a fault by the vertical domain expert.
 - The two escalations (q5-03, f-02) are written by code and cost no tokens.
 
 ## 15.6 The scores already measured
@@ -384,13 +384,13 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 1. Every figure is calculated by Python from WDI and PWT data. The JavaScript version gives the same numbers for all 147 economy-years tested.
 2. The template part gave an answer to all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
 3. The four kinds of mistake in the language model's output in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: each of those lines comes from a tested function.
-4. The checks dropped all 28 faulty explanations and showed none.
+4. In the run of 16 November, the checks dropped all 28 faulty explanations and showed none.
 5. The vertical domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
 6. Routing: 56 of 56 bank questions (training); 19 of 32 new questions in the first fair test.
 7. Definition questions: a correct passage in the top three for 31 of 32.
 8. The licence filter in the vector database kept the same passages as the hand-written filter on all 32 questions.
 9. Every score is labelled training or fair; fair tests were frozen in a commit before the questions were opened.
-10. After the review, two explanations with content passed (f-07, f-08), training scores.
+10. After the review, two explanations with content passed (f-07, f-08), training scores. In the rerun of 22 November, the vertical domain expert judged f-09 good.
 11. Only the steps that call the language model use tokens: the explanation and, for definition questions, the answer extracted from passages. Lookups, series titles, clarifying and escalation are answered by code at no cost in tokens, and the steps in Python took under a tenth of a second for 24 questions.
 
 ### What a production version needs
@@ -398,13 +398,13 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 1. A better reader for typed questions. Keyword rules gave the right figures for 2 of 20 new questions, the small language model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator matches questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
 2. A larger language model, with sentence and id requested as separate fields.
 3. Counts of both kinds of check error: good replies dropped and bad replies shown.
-4. A check that a reply is an answer to the question (f-09).
+4. A check that a reply answers the question and that its conclusion follows from the passages. On 16 November f-09's retry did not answer the question; on 22 November the checks showed f-08, whose last sentence draws a conclusion about Ireland that no passage given supports.
 5. A named horizontal domain expert who sets and reviews the size bands, consulting the vertical domain expert.
 6. New questions from real users, scored before any rule changes.
 7. More data and passages (a passage defining PPP; the production boundary for unpaid work at home).
 8. Explanations and their cited passages in a form the vertical domain expert can review quickly.
 9. The review list in a form the horizontal domain expert can read quickly.
-10. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,600 tokens in and 120 seconds; a retry added about 2,000 tokens and 29 seconds, and gave real content only once out of 15 retries.
+10. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,600 tokens in and 120 seconds; a retry added about 2,000 tokens and 29 seconds, and gave content only once out of 15 retries, an explanation judged a fault.
 
     Cost per route times the number of questions asked gives the total, so a team can price a rise in use.
 
