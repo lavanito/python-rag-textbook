@@ -66,7 +66,7 @@ CURRENT_TOTALS = [
     ("book/ch12_routing.md", r"The bank: (\d+) questions", "bank questions"),
     ("book/ch05_hybrid_search.md", r"`entities\.csv` lists (\d+) things", "things"),
     ("book/ch05_hybrid_search.md", r"With (\d+) triplets", "triplets"),
-    ("data/knowledge_graph/README.md", r"eight input flags \((\d+) terms\)", "vocabulary terms"),
+    ("data/knowledge_graph/README.md", r"seven input flags \((\d+) terms\)", "vocabulary terms"),
 ]
 
 GRAPH_WORDS = re.compile(r"\b(\d+|six|ten|twelve) (things|triplets|relations|kinds)\b")
@@ -105,4 +105,4 @@ def test_every_graph_count_in_the_text_matches_the_data():
 def test_counts_known_on_21_november_2026():
     # The counts the build spec and the handover quote; change them together.
     assert recompute() == {"passages": 57, "sources": 10, "bank questions": 56, "things": 67,
-                           "triplets": 131, "relations": 12, "kinds": 6, "vocabulary terms": 28}
+                           "triplets": 131, "relations": 12, "kinds": 6, "vocabulary terms": 27}

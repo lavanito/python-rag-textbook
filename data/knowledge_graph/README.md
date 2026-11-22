@@ -83,7 +83,7 @@ rather than matched to a whole banked question.
 `controlled_vocabulary.csv` is the governed list of terms: the first layer of
 Governed RAG's knowledge graph, kept apart from the book glossary. The first
 set is the 13 NNI model measures, the six economies and Ireland, and the
-eight input flags (28 terms).
+seven input flags (27 terms).
 
 - One row per term. Columns follow the import format of Talisman's SKOS
   editor (`id`, `prefLabel`, `altLabel`, `hiddenLabel`, `definition`,
@@ -94,7 +94,7 @@ eight input flags (28 terms).
   definition; the horizontal domain expert checks it against the vocabulary
   rules and maintains it. Status is `approved` or `draft`. The 13 measure
   definitions are the lines approved on 13 November (`data/definitions.csv`);
-  the economy and flag definitions are drafts.
+  the economy definitions were approved on 22 November; the flag definitions are drafts. On 22 November "nowcast" replaced the flags "estimated" and "backfilled", which stay as its alternative labels until the NNI model is renamed at A5.
 - Concept, series and figure are kept apart: a measure is a concept; the
   series codes it is calculated from are in `series`; figures stay in the data.
 - Aliases are written only here. `tools/sync_vocabulary_aliases.py` copies
