@@ -63,7 +63,13 @@ def test_first_set_is_complete():
     assert {t["scheme"] for t in TERMS} == {"measure", "economy", "input_flag"}
     assert sorted(t["notation"] for t in scheme("measure")) == sorted(MEASURES)
     assert {t["id"]: t["notation"] for t in scheme("economy")} == DATA_CODES
-    assert {t["notation"] for t in scheme("input_flag")} == set(FLAG_CAPS) | {"provisional", "proxy"}
+    # Flag words in code must each name a flag, as its notation or an alternative label.
+    # "nowcast" replaced "estimated" and "backfilled" on 22 Nov; nni-model renames it at A5.
+    flags = scheme("input_flag")
+    names = {t["notation"] for t in flags} | {a.strip() for t in flags for a in t["altLabel"].split("|") if a.strip()}
+    in_code = set(FLAG_CAPS) | {"provisional", "proxy"}
+    assert in_code <= names
+    assert {t["notation"] for t in flags} - in_code <= {"nowcast"}
 
 
 def test_every_term_has_definition_source_roles_and_status():
