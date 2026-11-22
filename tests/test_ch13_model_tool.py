@@ -49,9 +49,9 @@ def test_the_parts_add_up_to_the_total():
         assert abs(parts - reply.value) < 1e-9, economy
 
 
-def test_years_after_2021_are_flagged_estimated_and_at_most_medium():
+def test_years_after_2021_are_flagged_nowcast_and_at_most_medium():
     reply = call_model("Japan", 2024, "nni_growth")
-    assert any(flag.startswith("estimated") for flag in reply.flags)
+    assert any(flag.startswith("nowcast") for flag in reply.flags)
     assert reply.dqr_band in ("Medium", "Low")
 
 
