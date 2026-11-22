@@ -62,10 +62,14 @@ def status(url):
 def check(url):
     """One line of the report and whether the link counts as failed.
 
+    A link that times out is tried once more.
+
     Example:
         check("https://doi.org/10.34894/FABVLR") returns ("200  https://doi.org/...", False)
     """
     result = status(url)
+    if isinstance(result, str) and "timed out" in result:
+        result = status(url)
     if result == 200:
         return f"200  {url}", False
     if result == 403 and url.startswith(WORLD_BANK):
