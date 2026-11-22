@@ -94,7 +94,7 @@ seven input flags (27 terms).
   definition; the horizontal domain expert checks it against the vocabulary
   rules and maintains it. Status is `approved` or `draft`. The 13 measure
   definitions are the lines approved on 13 November (`data/definitions.csv`);
-  the economy definitions were approved on 22 November; the flag definitions are drafts. On 22 November "nowcast" replaced the flags "estimated" and "backfilled", which stay as its alternative labels until the NNI model is renamed at A5.
+  the economy definitions were approved on 22 November; the flag definitions are drafts. On 22 November "nowcast" replaced the flags "estimated" and "backfilled", which stay as its alternative labels because runs saved before 22 November use them. The NNI model writes "nowcast" since 22 November (A5).
 - Concept, series and figure are kept apart: a measure is a concept; the
   series codes it is calculated from are in `series`; figures stay in the data.
 - Aliases are written only here. `tools/sync_vocabulary_aliases.py` copies

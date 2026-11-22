@@ -54,7 +54,7 @@ from ragbook.ch11_prompts import ANSWER_FOLDER, ROLE_LENGTH, load_answers
 from ragbook.ch12_routing import (corpus_words, load_economies, load_last_years, load_titles,
                                   route_question_graph)
 from ragbook.ch13_model_tool import PARAMETER_FILE, load_edition
-from ragbook.ch14_answer_checks import (FAIR_TEST_FILE, REVIEW_FILE, evidence_for, fetch,
+from ragbook.ch14_answer_checks import (FAIR_TEST_FILE, RERUN_FILE, evidence_for, fetch,
                                         load_definitions, load_graph, locked_block)
 
 TRACE_FILE = Path(__file__).parent.parent / "data" / "traces" / "ch15_traces.jsonl"
@@ -74,7 +74,7 @@ def model_calls(records):
     each.
 
     Example:
-        model_calls(load_answers(REVIEW_FILE))[0]
+        model_calls(load_answers(RERUN_FILE))[0]
         returns {"id": "q6-01", "tokens_in": 1506, "tokens_out": 9, "seconds": 60.5...}
     """
     calls = []
@@ -153,6 +153,7 @@ RUNS = [
     ("ch13_parameter_replies_second.jsonl", "Chapter 13: reading the question by model (rounds 1 and 2)"),
     ("ch13_replies.jsonl", "Chapter 13: whole reply written by model (replaced in Chapter 14)"),
     ("ch14_explanations_review.jsonl", "Chapter 14: explanations with checks, after the review"),
+    ("a5_explanations.jsonl", "Chapter 14 questions rerun with the current code (22 November 2026)"),
 ]
 
 
@@ -424,6 +425,8 @@ SCORES = [
     ("14", "Explanations with content shown, first run, new questions", "0 of 10", "fair"),
     ("14", "Explanations with content shown, after the review, the vertical domain expert's 10",
      "2 of 10", "training"),
+    ("14", "Explanations with content shown, rerun of 22 November 2026, the vertical domain expert's 10",
+     "2 of 10", "training"),
 ]
 
 
@@ -443,9 +446,9 @@ def main():
               f"{row['in_per_question']:,.0f} in, {row['out_per_question']:,.0f} out, "
               f"{row['seconds_per_question']:.1f} seconds per record")
 
-    review = load_answers(REVIEW_FILE)
+    review = load_answers(RERUN_FILE)
     questions = questions_by_id()
-    print("15.2  By route, Chapter 14 run after the review")
+    print("15.2  By route, the rerun of 22 November 2026")
     for route, row in sorted(cost_by_route(review, questions).items()):
         print(f"      {route}: {row['questions']} questions; {row['in_per_question']:,.0f} in, "
               f"{row['out_per_question']:,.0f} out, {row['seconds_per_question']:.1f} seconds")

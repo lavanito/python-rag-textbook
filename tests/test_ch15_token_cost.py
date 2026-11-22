@@ -12,7 +12,7 @@ Chapter: 15. Decisions: the horizontal domain expert, 16 November 2026.
 import pytest
 
 from ragbook.ch11_prompts import ANSWER_FOLDER, load_answers
-from ragbook.ch14_answer_checks import REVIEW_FILE
+from ragbook.ch14_answer_checks import RERUN_FILE
 from ragbook.ch15_token_cost import (
     NO_MODEL, RUNS, cost, cost_by_role, cost_by_route, cost_of_runs, count_by_check,
     failed_checks, model_calls, questions_by_id, retry_cost, review_list, route_of,
@@ -21,7 +21,7 @@ from ragbook.ch15_token_cost import (
 
 @pytest.fixture(scope="module")
 def review():
-    return load_answers(REVIEW_FILE)
+    return load_answers(RERUN_FILE)
 
 
 @pytest.fixture(scope="module")
@@ -54,8 +54,8 @@ def test_every_saved_run_has_tokens_and_seconds():
 
 def test_review_run_totals(review):
     whole = cost(model_calls(review), len(review))
-    assert whole["calls"] == 34
-    assert round(whole["seconds"] / 60, 1) == 32.4
+    assert whole["calls"] == 36
+    assert round(whole["seconds"] / 60, 1) == 34.9
 
 
 def test_route_of_separates_lookups():
@@ -74,8 +74,8 @@ def test_lookups_cost_no_tokens(review):
 def test_retries_are_counted_apart(review):
     found = retry_cost(review)
     assert found["first"]["calls"] == 21
-    assert found["retry"]["calls"] == 13
-    assert found["first"]["calls"] + found["retry"]["calls"] == 34
+    assert found["retry"]["calls"] == 15
+    assert found["first"]["calls"] + found["retry"]["calls"] == 36
 
 
 def test_executive_answers_are_shorter():
