@@ -1,0 +1,59 @@
+{
+ "title": "What has changed",
+ "entries": [
+  {
+   "date": "2026-11-23",
+   "date_precision": "day",
+   "area": "method",
+   "change": "Fingerprints stored for every raw data file; the PPP benchmark recorded for each edition; agreement rates of the cross-checks published."
+  },
+  {
+   "date": "2026-11-22",
+   "date_precision": "day",
+   "area": "method",
+   "change": "Explanations rerun with the current code for the questions answered with figures."
+  },
+  {
+   "date": "2026-11-22",
+   "date_precision": "day",
+   "area": "vocabulary",
+   "change": "Controlled vocabulary of measures, economies and input flags, approved by the vertical domain expert. The flag 'nowcast' replaces 'estimated' and 'backfilled'."
+  },
+  {
+   "date": "2026-11-16",
+   "date_precision": "day",
+   "area": "knowledge graph",
+   "change": "Catalogue of measures added to the knowledge graph, so typed questions can be matched to a measure."
+  },
+  {
+   "date": "2026-10-28",
+   "date_precision": "day",
+   "area": "corpus",
+   "change": "Corpus of quoted passages settled for the demonstrator; every sentence checked word for word against its source."
+  },
+  {
+   "date": "2026-10-26",
+   "date_precision": "day",
+   "area": "data edition",
+   "change": "Both WDI editions and Penn World Table 11.0 read and stored; adjusted net national income after its last published year filled and flagged."
+  },
+  {
+   "date": "2026-10-08",
+   "date_precision": "day",
+   "area": "data edition",
+   "change": "WDI edition of 8 October 2026, used as the latest edition. Its purchasing power parities rest on ICP 2021."
+  },
+  {
+   "date": "2025-10-07",
+   "date_precision": "day",
+   "area": "data edition",
+   "change": "Penn World Table 11.0: hours worked and persons in work, to 2023."
+  },
+  {
+   "date": "2024-03",
+   "date_precision": "month",
+   "area": "data edition",
+   "change": "WDI March 2024 edition, used as the archive edition for revisions. Its purchasing power parities rest on ICP 2017."
+  }
+ ]
+}
