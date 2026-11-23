@@ -27,7 +27,7 @@ from nni_model.fingerprints import raw_files                         # noqa: E40
 
 from ragbook.ch01_python_basics import load_passages                 # noqa: E402
 from ragbook.ch11_prompts import load_answers                        # noqa: E402
-from ragbook.ch13_model_tool import GAPS, MEASURES                   # noqa: E402
+from ragbook.ch13_model_tool import GAPS, MEASURES, call_model       # noqa: E402
 from ragbook.ch14_answer_checks import EXPLAIN_SETTINGS, NO_EXPLANATION, RERUN_FILE  # noqa: E402
 
 DATA = REPO / "data"
@@ -75,6 +75,8 @@ def counts():
                          "judged_fault": judged["fault"], "shown_fixed_sentence": fixed,
                          "dropped": status["dropped"]},
         "level_gaps_percent": [round(g, 1) for g in sorted(gaps)],
+        "last_year_hours": {e: max(y for y in range(2000, 2030) if call_model(e, y, "average_hours").value is not None)
+                            for e in SIX},
         "raw_files_fingerprinted": len(raw_files()),
         "series_links": len(read_csv(DATA / "series" / "series_links.csv")),
         "agreement": [{"check": c, "agree": a, "total": n} for c, a, n in agreement_rates()],
@@ -94,8 +96,13 @@ def caveats(c):
     groups = collections.defaultdict(list)
     for economy, year in latest.items():
         groups[year].append(NAMES[economy])
-    edge = "; ".join(f"{', '.join(sorted(names))} {year}" for year, names in sorted(groups.items()))
+    def listed(names):
+        names = sorted(names)
+        return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+    edge = ", and ".join(f"{year} for {listed(names)}" for year, names in sorted(groups.items()))
     uk_last = max(NNI_EXCEPTIONS["GBR"][0])
+    hours_last = max(c["last_year_hours"].values())
+    assert min(c["last_year_hours"].values()) == hours_last
     links = read_csv(DATA / "series" / "series_links.csv")
     benchmarks = sorted({(r["edition"], r["ppp_benchmark"]) for r in links if r["ppp_benchmark"]})
     benchmark_text = " and ".join(f"{b} in {e.replace('WDI ', 'the ').replace('archive 202403', 'March 2024 edition').replace('latest', 'latest edition')}"
@@ -105,9 +112,11 @@ def caveats(c):
     e = c["explanations"]
     other_gaps = [g for g in c["level_gaps_percent"] if g >= 0.99]
     return [
-        {"title": "The last year differs by economy",
-         "text": f"In the latest edition the data end in different years: {edge}. "
-                 "\"Last year\" in a question means the last year for that economy."},
+        {"title": "The last year differs by economy and by measure",
+         "text": f"In the latest edition, the last year with every input for real net national income "
+                 f"per head is {edge}. Hours worked end in {hours_last} for all six economies. "
+                 "\"Last year\" in a question is read as the last year of real net national income per "
+                 "head for that economy, whatever the measure."},
         {"title": "Net national income after the last published year is a nowcast",
          "text": "WDI publishes adjusted net national income to 2021 (the United Kingdom to "
                  f"{uk_last}). Later years hold the last published ratio of net to gross national "
@@ -142,7 +151,8 @@ def caveats(c):
 
 def build():
     c = counts()
-    return {"title": "Method and caveats", "status": "approved by the vertical domain expert, 23 Nov 2026",
+    return {"title": "Method and caveats",
+            "status": "approved by the vertical domain expert, 23 Nov 2026; caveat 1 corrected, waiting for approval",
             "counts": c, "caveats": caveats(c)}
 
 

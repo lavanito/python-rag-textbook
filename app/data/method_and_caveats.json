@@ -1,6 +1,6 @@
 {
  "title": "Method and caveats",
- "status": "approved by the vertical domain expert, 23 Nov 2026",
+ "status": "approved by the vertical domain expert, 23 Nov 2026; caveat 1 corrected, waiting for approval",
  "counts": {
   "passages": 57,
   "sources": 10,
@@ -46,6 +46,14 @@
    4.8,
    7.5
   ],
+  "last_year_hours": {
+   "USA": 2023,
+   "EA21": 2023,
+   "GBR": 2023,
+   "JPN": 2023,
+   "CHN": 2023,
+   "IND": 2023
+  },
   "raw_files_fingerprinted": 6,
   "series_links": 26,
   "agreement": [
@@ -83,8 +91,8 @@
  },
  "caveats": [
   {
-   "title": "The last year differs by economy",
-   "text": "In the latest edition the data end in different years: China, Japan, the United States 2024; India, the United Kingdom, the euro area 2025. \"Last year\" in a question means the last year for that economy."
+   "title": "The last year differs by economy and by measure",
+   "text": "In the latest edition, the last year with every input for real net national income per head is 2024 for China, Japan and the United States, and 2025 for India, the United Kingdom and the euro area. Hours worked end in 2023 for all six economies. \"Last year\" in a question is read as the last year of real net national income per head for that economy, whatever the measure."
   },
   {
    "title": "Net national income after the last published year is a nowcast",
