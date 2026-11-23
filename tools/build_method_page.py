@@ -7,8 +7,8 @@ counted here from the data, the saved runs and the NNI model, never typed by
 hand, so the page cannot drift from the data (lesson L9; gate B3s). A test
 (tests/test_method_page.py) rebuilds the file and fails if it differs.
 
-The sentences are a draft for the vertical domain expert to approve
-("status": "draft" until then). Change the wording here, not in the JSON.
+The wording was approved by the vertical domain expert on 23 November 2026.
+Change the wording here, not in the JSON, and ask for approval again.
 """
 
 import collections
@@ -142,7 +142,8 @@ def caveats(c):
 
 def build():
     c = counts()
-    return {"title": "Method and caveats", "status": "draft", "counts": c, "caveats": caveats(c)}
+    return {"title": "Method and caveats", "status": "approved by the vertical domain expert, 23 Nov 2026",
+            "counts": c, "caveats": caveats(c)}
 
 
 if __name__ == "__main__":
