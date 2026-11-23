@@ -152,7 +152,7 @@ def caveats(c):
 def build():
     c = counts()
     return {"title": "Method and caveats",
-            "status": "approved by the vertical domain expert, 23 Nov 2026; caveat 1 corrected, waiting for approval",
+            "status": "approved by the vertical domain expert, 23 Nov 2026 (caveat 1 corrected and approved the same day)",
             "counts": c, "caveats": caveats(c)}
 
 
