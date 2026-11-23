@@ -3,7 +3,7 @@
  "rerun": {
   "file": "data/answers/a5_explanations.jsonl",
   "commercial_file": "data/answers/a5_explanations_commercial.jsonl",
-  "commercial_run_saved": false
+  "commercial_run_saved": true
  },
  "parameters_file": "data/question_bank/parameters_7_november.jsonl",
  "draft_wording": [
@@ -2537,10 +2537,10 @@
       "sna25-16.95"
      ],
      "explanation": {
-      "status": "awaiting the commercial run",
-      "text": null
+      "status": "passed",
+      "text": "Explanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
      },
-     "page": "Figures (calculated from the data)\n- Japan, Growth in real NNI per head from the year before, split into parts: 1.1 log points from 2023 to 2024; made up of income gap 0.3, deflator mix 0.6, real GDP per head 0.2. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: JPN gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- Japan, real NNI per head: grew from 2023 to 2024 (1.1 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145."
+     "page": "Figures (calculated from the data)\n- Japan, Growth in real NNI per head from the year before, split into parts: 1.1 log points from 2023 to 2024; made up of income gap 0.3, deflator mix 0.6, real GDP per head 0.2. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: JPN gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- Japan, real NNI per head: grew from 2023 to 2024 (1.1 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145.\n\nExplanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
     }
    }
   },
@@ -2600,10 +2600,10 @@
       "sna25-16.95"
      ],
      "explanation": {
-      "status": "awaiting the commercial run",
-      "text": null
+      "status": "dropped",
+      "text": "The written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more.\nDemonstrator note: this is a demonstration, not a product. A product would let you ask for the explanation to be refined, and would send your question to a named analyst. Here, no analyst receives it."
      },
-     "page": "Figures (calculated from the data)\n- India, Real GDP per hour worked, at constant 2021 PPPs: about 8 constant 2021 international dollars per hour in 2023. Source: World Bank WDI (NY.GDP.MKTP.PP.KD); PWT 11.0 hours and persons engaged; edition WDI 2026-10-08; PWT 11.0. DQR Low: IND real_gdp: C-time (Consistency: Temporal Consistency): base year changed from 2011-12 to 2022-23 (MoSPI, Feb 2026); nominal GDP about 3-4% lower; break in the series.\n\nWhat the measures mean\n- Real GDP per hour worked, at constant 2021 PPPs. What it means: GDP at 2021 prices, converted with 2021 purchasing power parities, divided by the total hours worked in the year (persons in work times their average annual hours). What it leaves out: Hours count paid work and self-employment, not unpaid work at home, such as caring, cooking and cleaning, most of it done by women; total hours are built from Penn World Table estimates; and the output of public services is often measured by what goes in, so output per hour there says little about productivity. See esa10-8.89, esa10-11.27, ppp23-1.13, ons-psp-1."
+     "page": "Figures (calculated from the data)\n- India, Real GDP per hour worked, at constant 2021 PPPs: about 8 constant 2021 international dollars per hour in 2023. Source: World Bank WDI (NY.GDP.MKTP.PP.KD); PWT 11.0 hours and persons engaged; edition WDI 2026-10-08; PWT 11.0. DQR Low: IND real_gdp: C-time (Consistency: Temporal Consistency): base year changed from 2011-12 to 2022-23 (MoSPI, Feb 2026); nominal GDP about 3-4% lower; break in the series.\n\nWhat the measures mean\n- Real GDP per hour worked, at constant 2021 PPPs. What it means: GDP at 2021 prices, converted with 2021 purchasing power parities, divided by the total hours worked in the year (persons in work times their average annual hours). What it leaves out: Hours count paid work and self-employment, not unpaid work at home, such as caring, cooking and cleaning, most of it done by women; total hours are built from Penn World Table estimates; and the output of public services is often measured by what goes in, so output per hour there says little about productivity. See esa10-8.89, esa10-11.27, ppp23-1.13, ons-psp-1.\n\nThe written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more.\nDemonstrator note: this is a demonstration, not a product. A product would let you ask for the explanation to be refined, and would send your question to a named analyst. Here, no analyst receives it."
     }
    }
   },
@@ -2662,10 +2662,10 @@
       "sna25-16.95"
      ],
      "explanation": {
-      "status": "awaiting the commercial run",
-      "text": null
+      "status": "dropped",
+      "text": "The written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more.\nDemonstrator note: this is a demonstration, not a product. A product would let you ask for the explanation to be refined, and would send your question to a named analyst. Here, no analyst receives it."
      },
-     "page": "Figures (calculated from the data)\n- the euro area, Growth in real NNI per head from the year before, split into parts: 1.6 log points from 2024 to 2025; made up of income gap -0.3, deflator mix 0.9, real GDP per head 1.1. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: EA21 gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- The euro area, real NNI per head: grew from 2024 to 2025 (1.6 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145."
+     "page": "Figures (calculated from the data)\n- the euro area, Growth in real NNI per head from the year before, split into parts: 1.6 log points from 2024 to 2025; made up of income gap -0.3, deflator mix 0.9, real GDP per head 1.1. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: EA21 gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- The euro area, real NNI per head: grew from 2024 to 2025 (1.6 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145.\n\nThe written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more.\nDemonstrator note: this is a demonstration, not a product. A product would let you ask for the explanation to be refined, and would send your question to a named analyst. Here, no analyst receives it."
     }
    }
   },
@@ -2883,10 +2883,10 @@
       "sna25-16.95"
      ],
      "explanation": {
-      "status": "awaiting the commercial run",
-      "text": null
+      "status": "passed",
+      "text": "Explanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
      },
-     "page": "Figures (calculated from the data)\n- Japan, Growth in real NNI per head from the year before, split into parts: 1.1 log points from 2023 to 2024; made up of income gap 0.3, deflator mix 0.6, real GDP per head 0.2. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: JPN gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- Japan, real NNI per head: grew from 2023 to 2024 (1.1 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145."
+     "page": "Figures (calculated from the data)\n- Japan, Growth in real NNI per head from the year before, split into parts: 1.1 log points from 2023 to 2024; made up of income gap 0.3, deflator mix 0.6, real GDP per head 0.2. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: JPN gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- Japan, real NNI per head: grew from 2023 to 2024 (1.1 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145.\n\nExplanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
     }
    }
   },
@@ -2937,10 +2937,10 @@
       "sna25-16.95"
      ],
      "explanation": {
-      "status": "awaiting the commercial run",
-      "text": null
+      "status": "passed",
+      "text": "Explanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
      },
-     "page": "Figures (calculated from the data)\n- the United Kingdom, Growth in real NNI per head from the year before, split into parts: 1.6 log points from 2024 to 2025; made up of income gap 0.4, deflator mix 0.2, real GDP per head 1.1. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: GBR gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- The United Kingdom, real NNI per head: grew from 2024 to 2025 (1.6 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145."
+     "page": "Figures (calculated from the data)\n- the United Kingdom, Growth in real NNI per head from the year before, split into parts: 1.6 log points from 2024 to 2025; made up of income gap 0.4, deflator mix 0.2, real GDP per head 1.1. Source: NNI model decomposition of World Bank WDI data; edition WDI 2026-10-08; PWT 11.0. DQR Medium: GBR gni_nni: C-measured (Lineage: Segment Documentation): depreciation and depletion are estimated, not observed; also nowcast. Flags: nowcast: NNI/GNI held at last published value.\n\nComparisons (calculated from the figures)\n- The United Kingdom, real NNI per head: grew from 2024 to 2025 (1.6 log points; a medium change: about one third of revisions are this large).\n\nWhat the measures mean\n- Growth in real NNI per head from the year before, split into parts. What it means: The change from the year before in real NNI (net national income) per head, in log points, in five parts that add up exactly: income gap, deflator mix, output per hour worked, hours per worker and workers per person. What it leaves out: It leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women. After the last year with published NNI (2021; United Kingdom 2018), the income gap is estimated, not measured. See sna08-2.144, sna25-3.145.\n\nExplanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
     }
    }
   },
@@ -3185,10 +3185,10 @@
       "sna25-16.95"
      ],
      "explanation": {
-      "status": "awaiting the commercial run",
-      "text": null
+      "status": "passed on retry",
+      "text": "Explanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
      },
-     "page": "Figures (calculated from the data)\n- the United States, Growth in real GDP (total, not per head) from the year before: 2.75 log points in 2024. Source: World Bank WDI, series NY.GDP.MKTP.KN; edition WDI 2026-10-08; PWT 11.0. DQR High: USA real_gdp: All criteria met.\n- the euro area, Growth in real GDP (total, not per head) from the year before: 0.92 log points in 2024. Source: World Bank WDI, series NY.GDP.MKTP.KN; edition WDI 2026-10-08; PWT 11.0. DQR High: EA21 real_gdp: All criteria met.\n\nComparisons (calculated from the figures)\n- The United States against the euro area, Growth in real GDP (total, not per head) from the year before: in 2024 the United States was higher than the euro area (1.84 log points; a large gap: about one third of revisions are this large).\n\nMissing\n- A comparison of how public services are measured is not in the data used here. Best data: a comparable study of how each statistical office measures the volume of public services, and a common method. Passed to an analyst.\n\nWhat the measures mean\n- Growth in real GDP (total, not per head) from the year before. What it means: The change from the year before in GDP at constant prices, in log points (100 times the change in the natural log); close to the percentage change for small changes. What it leaves out: It measures output, not income or well-being; it leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women; and growth in services whose prices are hard to measure, such as public services, is uncertain. See esa10-8.89, esa10-10.20, ons-psp-1.\n\nPassed to an analyst.\nDemonstrator note: in this demonstrator, no analyst receives it."
+     "page": "Figures (calculated from the data)\n- the United States, Growth in real GDP (total, not per head) from the year before: 2.75 log points in 2024. Source: World Bank WDI, series NY.GDP.MKTP.KN; edition WDI 2026-10-08; PWT 11.0. DQR High: USA real_gdp: All criteria met.\n- the euro area, Growth in real GDP (total, not per head) from the year before: 0.92 log points in 2024. Source: World Bank WDI, series NY.GDP.MKTP.KN; edition WDI 2026-10-08; PWT 11.0. DQR High: EA21 real_gdp: All criteria met.\n\nComparisons (calculated from the figures)\n- The United States against the euro area, Growth in real GDP (total, not per head) from the year before: in 2024 the United States was higher than the euro area (1.84 log points; a large gap: about one third of revisions are this large).\n\nMissing\n- A comparison of how public services are measured is not in the data used here. Best data: a comparable study of how each statistical office measures the volume of public services, and a common method. Passed to an analyst.\n\nWhat the measures mean\n- Growth in real GDP (total, not per head) from the year before. What it means: The change from the year before in GDP at constant prices, in log points (100 times the change in the natural log); close to the percentage change for small changes. What it leaves out: It measures output, not income or well-being; it leaves out unpaid work at home, such as caring, cooking and cleaning, most of it done by women; and growth in services whose prices are hard to measure, such as public services, is uncertain. See esa10-8.89, esa10-10.20, ons-psp-1.\n\nPassed to an analyst.\nDemonstrator note: in this demonstrator, no analyst receives it.\n\nExplanation (written by a language model and checked against the figures above)\nNo explanation is available from the passages."
     }
    }
   },
@@ -3366,10 +3366,10 @@
       "sna25-16.95"
      ],
      "explanation": {
-      "status": "awaiting the commercial run",
-      "text": null
+      "status": "passed on retry",
+      "text": "Explanation (written by a language model and checked against the figures above)\nDifferent price measurement can make US and euro area real growth hard to compare because real expenditures are adjusted to a uniform price level using purchasing power parities, which may not align across regions. [ppp23-ov.12] Chained-dollar measures in the US are not additive, limiting their use in share and contribution analysis. [bea-ch4-chained]"
      },
-     "page": "Figures (calculated from the data)\n- none"
+     "page": "Figures (calculated from the data)\n- none\n\nExplanation (written by a language model and checked against the figures above)\nDifferent price measurement can make US and euro area real growth hard to compare because real expenditures are adjusted to a uniform price level using purchasing power parities, which may not align across regions. [ppp23-ov.12] Chained-dollar measures in the US are not additive, limiting their use in share and contribution analysis. [bea-ch4-chained]"
     }
    }
   },
