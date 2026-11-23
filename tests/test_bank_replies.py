@@ -69,3 +69,14 @@ def test_commercial_run_covers_every_question_awaiting_it():
         assert awaiting == to_run
     else:
         assert not awaiting
+
+
+def test_every_commercial_explanation_with_content_is_judged():
+    import csv
+    path = ROOT / "data" / "answers" / "a5_judgements_commercial.csv"
+    judged = {row["id"] for row in csv.DictReader(open(path, encoding="utf-8"))}
+    shown = {r["id"] for r in BUILT["replies"]
+             if r["modes"]["commercial"]["explanation"]["status"] in ("passed", "passed on retry")
+             and "No explanation is available" not in r["modes"]["commercial"]["explanation"]["text"]
+             and r["modes"]["commercial"]["evidence"] != r["modes"]["non-commercial"]["evidence"]}
+    assert shown == judged

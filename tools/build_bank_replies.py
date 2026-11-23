@@ -25,8 +25,8 @@ Where each reply comes from:
 - q8-01 (R6): not built in this demonstrator (Lavan, 23 November 2026), and
   not among the suggested questions.
 
-Wording marked DRAFT below awaits the vertical domain expert's approval.
-Change the wording here, not in the JSON.
+The wording below was drafted by Claude and approved by the vertical domain
+expert on 23 November 2026. Change the wording here, not in the JSON.
 """
 
 import json
@@ -58,7 +58,7 @@ assert set(MODES) == set(USE_MODES)
 SUGGESTED = ["q1-01", "q2-05", "q3-01", "q4-02", "q5-01", "q6-03", "q7-01", "amb-01", "out-03"]
 
 # ---------------------------------------------------------------------------
-# DRAFT wording (Claude, 23 November 2026), for the vertical domain expert
+# Wording drafted by Claude, approved by the vertical domain expert (23 November 2026)
 # ---------------------------------------------------------------------------
 
 PASSAGES_HEADING = "Passages (quoted from the sources)"
@@ -74,7 +74,7 @@ AWAITING = "awaiting the commercial run"
 
 # Three sharper questions for each vague question: living standards, growth,
 # productivity (build spec v3, 9.4). Each is answered from labelled parameters,
-# with its locked block only. DRAFT.
+# with its locked block only.
 SHARPER = {
     "amb-01": [
         ("living standards", "How does real NNI per head in the euro area compare with the United States in 2024?",
@@ -102,7 +102,7 @@ SHARPER = {
     ],
 }
 
-DRAFT_WORDING = ["PASSAGES_HEADING", "NO_DQR", "NO_PASSAGES", "SERIES_HEADING", "CLARIFY_LINE",
+APPROVED_WORDING = ["PASSAGES_HEADING", "NO_DQR", "NO_PASSAGES", "SERIES_HEADING", "CLARIFY_LINE",
                  "NOT_BUILT", "DEMONSTRATOR_NOT_BUILT", "SHARPER"]
 
 
@@ -255,7 +255,7 @@ def build():
                       "commercial_file": f"data/answers/{COMMERCIAL_FILE.name}",
                       "commercial_run_saved": COMMERCIAL_FILE.exists()},
             "parameters_file": f"data/question_bank/{PARAMETER_FILE.name}",
-            "draft_wording": DRAFT_WORDING,
+            "wording_approved": {"date": "2026-11-23", "items": APPROVED_WORDING},
             "suggested": SUGGESTED,
             "replies": replies}
 

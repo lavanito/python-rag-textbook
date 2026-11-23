@@ -6,16 +6,19 @@
   "commercial_run_saved": true
  },
  "parameters_file": "data/question_bank/parameters_7_november.jsonl",
- "draft_wording": [
-  "PASSAGES_HEADING",
-  "NO_DQR",
-  "NO_PASSAGES",
-  "SERIES_HEADING",
-  "CLARIFY_LINE",
-  "NOT_BUILT",
-  "DEMONSTRATOR_NOT_BUILT",
-  "SHARPER"
- ],
+ "wording_approved": {
+  "date": "2026-11-23",
+  "items": [
+   "PASSAGES_HEADING",
+   "NO_DQR",
+   "NO_PASSAGES",
+   "SERIES_HEADING",
+   "CLARIFY_LINE",
+   "NOT_BUILT",
+   "DEMONSTRATOR_NOT_BUILT",
+   "SHARPER"
+  ]
+ },
  "suggested": [
   "q1-01",
   "q2-05",
