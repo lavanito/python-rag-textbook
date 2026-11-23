@@ -8,10 +8,10 @@ A **token** is a word or part of a word: the unit of a language model's input an
 
 The canvas, from the saved runs:
 
-- The language model uses every token and almost all the time. For the 24 questions of Chapter 14, the language model's 34 calls took 32.4 minutes and 59,674 tokens; the steps in Python took under a tenth of a second.
+- The language model uses every token and almost all the time. For the 24 questions of Chapter 14, rerun on 22 November 2026, the language model's 36 calls took 34.9 minutes and 66,917 tokens; the steps in Python took under a tenth of a second.
 - Lookups, series titles, clarifying and escalation cost no tokens. They are answered by code.
-- A question with figures and an explanation (route R2) cost about 3,100 tokens in and 108 seconds on the laptop.
-- Retries were 13 of the 34 calls and 39 per cent of the tokens. They gave one more explanation with content (f-08).
+- A question with figures and an explanation (route R2) cost about 3,600 tokens in and 120 seconds on the laptop.
+- Retries were 15 of the 36 calls and 45 per cent of the tokens. They gave one more explanation with content (f-08), which the vertical domain expert judged a fault.
 
 What the chapter builds:
 
@@ -22,7 +22,7 @@ What the chapter builds:
 5. **The scores already measured** (15.6), each labelled training or fair.
 6. **Lessons for a production version** (15.7).
 
-Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No new language model run was made: the lines of the trace are built from the saved runs (the horizontal domain expert, 16 November 2026).
+Cost is shown in tokens and laptop seconds only, with no hosted price (the horizontal domain expert, 16 November 2026). No language model is run in this chapter: the lines of the trace are built from the saved runs (the horizontal domain expert, 16 November 2026). The Chapter 14 questions were rerun on 22 November 2026 with the current code, before the demonstrator is built (decision 20); this chapter uses that run.
 
 Tokens and seconds measure one part of the cost: running the language model. People's time is not counted: building the system, maintaining the rules and data, reading the review list and answering escalations (see "Who does what" in the front matter).
 
@@ -47,7 +47,7 @@ def model_calls(records):
     each.
 
     Example:
-        model_calls(load_answers(REVIEW_FILE))[0]
+        model_calls(load_answers(RERUN_FILE))[0]
         returns {"id": "q6-01", "tokens_in": 1506, "tokens_out": 9, "seconds": 60.5...}
     """
     calls = []
@@ -116,16 +116,16 @@ def retry_cost(records):
 
 ### 15.2.4 Results
 
-By route, on the laptop (qwen3:4b-instruct). The rows for R2, R4+R2, R5>R2 and R4 with figures are the Chapter 14 run after the review (16 November 2026, 24 questions); the rows for answers from passages are Chapter 11's run (30 October 2026, 400-token limit).
+By route, on the laptop (qwen3:4b-instruct). The rows for R2, R4+R2, R5>R2 and R4 with figures are the rerun of the Chapter 14 questions (22 November 2026, 24 questions, a context of 8,192 tokens); the rows for answers from passages are Chapter 11's run (30 October 2026, 400-token limit).
 
 | Route | What answers it | Questions | Tokens in per question | Tokens out per question | Seconds per question |
 | --- | --- | --- | --- | --- | --- |
 | R1 | Code copies the published series title | — | 0 | 0 | 0 |
 | R2, lookup (class Q1) | Code calculates the figure; no explanation | 3 | 0 | 0 | 0 |
-| R2 | Code; the language model's explanation | 11 | 3,144 | 129 | 108.4 |
-| R4+R2 | Code and passages; the language model's explanation | 6 | 2,866 | 149 | 96.3 |
-| R5>R2 | Code; the language model's explanation | 1 | 278 | 9 | 3.4 |
-| R4, Chapter 14 | Passages; the language model's explanation | 3 | 1,597 | 169 | 56.8 |
+| R2 | Code; the language model's explanation | 11 | 3,573 | 150 | 119.7 |
+| R4+R2 | Code and passages; the language model's explanation | 6 | 3,286 | 165 | 99.1 |
+| R5>R2 | Code; the language model's explanation | 1 | 289 | 9 | 3.3 |
+| R4, Chapter 14 | Passages; the language model's explanation | 3 | 1,446 | 209 | 59.4 |
 | R4, full reply (Chapter 11) | Language model's answer from three passages | 32 | 779 | 307 | 69.3 |
 | R4, short reply (Chapter 11) | The same, at most two sentences | 32 | 772 | 80 | 30.2 |
 | clarify, escalate | Code fills in the message | — | 0 | 0 | 0 |
@@ -140,9 +140,9 @@ The trials of earlier chapters, per call:
 | Chapter 13: whole reply from the language model | 14 | 347 | 88 | 21.7 |
 
 - R2 sends the most tokens. The prompt contains the instructions, the template part and up to five passages, and a template part over a span lists every year (f-04, f-05).
-- Tokens in and tokens out both add seconds. With almost the same tokens in, the short reply's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). With 9 tokens out, f-05's 4,087 tokens in took 185 seconds.
+- Tokens in and tokens out both add seconds. With almost the same tokens in, the short reply's two-sentence limit cut tokens out from 307 to 80 and seconds from 69 to 30 (R4 answers). f-05's first attempt sent 4,114 tokens in and took 247 seconds for 145 tokens out. That prompt no longer fits the 4,096-token context of the earlier runs, which Ollama refuses, so the rerun uses 8,192.
 - The routing rules of Chapter 12 cost no tokens. The language model router sent 838 tokens per question to produce 5. The same study advises choosing the language model when the system is designed, because a choice made while it runs is hard to track.
-- Retries: 21 first attempts used 36,133 tokens and 26.2 minutes; 13 retries used 23,541 tokens and 6.2 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: there were fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
+- Retries: 21 first attempts used 36,830 tokens and 27.6 minutes; 15 retries used 30,087 tokens and 7.3 minutes. A retry sends the whole first conversation again, with the reply and the problems, so it has more tokens in than the first attempt. It took less time: there were fewer tokens out, and Ollama likely reused its work on the opening text it had just read (its prompt cache).
 
 ## 15.3 One line per step
 
@@ -226,22 +226,22 @@ def trace_question(question, parameters, saved, settings, context):
 
 ### 15.3.4 Results
 
-The trace of the 24 questions has 202 lines (`data/traces/ch15_traces.jsonl`). The lines for q4-01:
+The trace of the 24 questions has 204 lines (`data/traces/ch15_traces.jsonl`). The lines for q4-01:
 
 | Step | Output | Seconds | Tokens in | Tokens out |
 | --- | --- | --- | --- | --- |
 | route | Q4, R2, rule "vintage" | 0.0001 | 0 | 0 |
 | read question | India, 2016, GNI per head at PPP, latest and archive | 0 | 0 | 0 |
 | licence filter | 57 kept, none withheld | 0.0000 | 0 | 0 |
-| NNI model | 2 figures, no problems, no escalation | 0.0000 | 0 | 0 |
+| NNI model | 2 figures, no problems, no escalation | 0.0001 | 0 | 0 |
 | `locked block` (the template part) | same as the saved run | 0.0001 | 0 | 0 |
-| evidence | esa10-8.94, ppp23-1.13, esa10-11.05, ppp23-4.16 | 0.0003 | 0 | 0 |
-| explanation, attempt 1 | failed: directions, passage talk, citations | 90.2 | 1,683 | 133 |
-| explanation, attempt 2 | passed (the fixed sentence) | 16.7 | 2,111 | 9 |
-| status | passed on retry | 0 | 0 | 0 |
+| evidence | esa10-8.94, ppp23-1.13, esa10-11.05, ppp23-4.16 | 0.0004 | 0 | 0 |
+| explanation, attempt 1 | failed: directions, passage talk, citations | 93.1 | 1,706 | 128 |
+| explanation, attempt 2 | failed: passage talk, citations | 28.2 | 2,031 | 73 |
+| status | dropped | 0 | 0 | 0 |
 
 - The template part and the evidence are the same as in the saved run for all 24 questions.
-- Over the 24 questions, the steps in Python took under a tenth of a second here; the language model's 34 attempts took 1,944 seconds on the laptop. The NNI model's data load once, in about 0.02 seconds.
+- Over the 24 questions, the steps in Python took under a tenth of a second here; the language model's 36 attempts took 2,093 seconds on the laptop. The NNI model's data load once, in about 0.03 seconds.
 - The third-round routing rules (Chapter 12) gave 6 of the vertical domain expert's 10 questions a route other than the one the run used. Five went to R4, the default for definitions, because the rules did not know "USA", "Euroarea", "Chinese" or "Japanese" as economy names (f-02 to f-05, f-10); f-06 ("revised by in 2023") was escalated as beyond the data. The Chapter 14 run used the labelled routes, so its figures are right.
 - The fourth-round rules (12.5.7) read the economy names from the knowledge graph and route all 10 as labelled, a training score. The trace uses the fourth round.
 
@@ -335,19 +335,19 @@ def count_by_check(rows):
 
 ### 15.5.3 Results
 
-The Chapter 14 run after the review gives 96 rows.
+The rerun of 22 November 2026 gives 107 rows.
 
 | Check | Problems | Questions |
 | --- | --- | --- |
-| Citations | 61 | 13 |
-| Direction words | 13 | 4 |
-| Remarks about the passages | 9 | 7 |
-| Numbers | 2 | 1 |
-| Dropped | 9 | 9 |
+| Citations | 66 | 15 |
+| Direction words | 12 | 4 |
+| Remarks about the passages | 13 | 8 |
+| Numbers | 4 | 2 |
+| Dropped | 10 | 10 |
 | Escalated | 2 | 2 |
 
 - Citation problems are most of the list: a sentence with no id, an id not given, a sentence its passage does not support, or a miscitation.
-- Retries: 13 questions were retried, for 23,541 tokens and 6.2 minutes. Four passed on retry; three of them wrote only the fixed sentence ("No explanation is available from the passages."). One retry gave an explanation with content: f-08.
+- Retries: 15 questions were retried, for 30,087 tokens and 7.3 minutes. Five passed on retry; four of them wrote only the fixed sentence ("No explanation is available from the passages."). One retry gave an explanation with content: f-08, judged a fault by the vertical domain expert.
 - The two escalations (q5-03, f-02) are written by code and cost no tokens.
 
 ## 15.6 The scores already measured
@@ -372,6 +372,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 | 14 | The vertical domain expert's sentences judged supported; the check agreed on 17 | 19 of 20 | Training |
 | 14 | Explanations with content shown, first run, new questions | 0 of 10 | Fair |
 | 14 | Explanations with content shown, after the review, the vertical domain expert's 10 | 2 of 10 | Training |
+| 14 | Explanations with content shown, rerun of 22 November 2026, the vertical domain expert's 10 | 2 of 10 | Training |
 
 - The fair scores are lower than the training scores wherever both exist: routing 56 of 56 against 19 of 32; reading parameters 21 of 28 against 2 of 20 (keyword rules, Chapter 13).
 - Retrieval scores are training scores: the searches were chosen while reading the 32 definition questions.
@@ -383,13 +384,13 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 1. Every figure is calculated by Python from WDI and PWT data. The JavaScript version gives the same numbers for all 147 economy-years tested.
 2. The template part gave an answer to all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
 3. The four kinds of mistake in the language model's output in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: each of those lines comes from a tested function.
-4. The checks dropped all 28 faulty explanations and showed none.
+4. In the run of 16 November, the checks dropped all 28 faulty explanations and showed none.
 5. The vertical domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
 6. Routing: 56 of 56 bank questions (training); 19 of 32 new questions in the first fair test.
 7. Definition questions: a correct passage in the top three for 31 of 32.
 8. The licence filter in the vector database kept the same passages as the hand-written filter on all 32 questions.
 9. Every score is labelled training or fair; fair tests were frozen in a commit before the questions were opened.
-10. After the review, two explanations with content passed (f-07, f-08), training scores.
+10. After the review, two explanations with content passed (f-07, f-08), training scores. In the rerun of 22 November, the vertical domain expert judged f-09 good.
 11. Only the steps that call the language model use tokens: the explanation and, for definition questions, the answer extracted from passages. Lookups, series titles, clarifying and escalation are answered by code at no cost in tokens, and the steps in Python took under a tenth of a second for 24 questions.
 
 ### What a production version needs
@@ -397,21 +398,21 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 1. A better reader for typed questions. Keyword rules gave the right figures for 2 of 20 new questions, the small language model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator matches questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
 2. A larger language model, with sentence and id requested as separate fields.
 3. Counts of both kinds of check error: good replies dropped and bad replies shown.
-4. A check that a reply is an answer to the question (f-09).
+4. A check that a reply answers the question and that its conclusion follows from the passages. On 16 November f-09's retry did not answer the question; on 22 November the checks showed f-08, whose last sentence draws a conclusion about Ireland that no passage given supports.
 5. A named horizontal domain expert who sets and reviews the size bands, consulting the vertical domain expert.
 6. New questions from real users, scored before any rule changes.
 7. More data and passages (a passage defining PPP; the production boundary for unpaid work at home).
 8. Explanations and their cited passages in a form the vertical domain expert can review quickly.
 9. The review list in a form the horizontal domain expert can read quickly.
-10. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,100 tokens in and 108 seconds; a retry added about 1,800 tokens and 29 seconds, and gave real content only once out of 13 retries.
+10. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,600 tokens in and 120 seconds; a retry added about 2,000 tokens and 29 seconds, and gave content only once out of 15 retries, an explanation judged a fault.
 
     Cost per route times the number of questions asked gives the total, so a team can price a rise in use.
 
 ## Tests
 
-`tests/test_ch15_token_cost.py`, 19 tests; with the earlier chapters, 335 pass. No language model is called. They check:
+`tests/test_ch15_token_cost.py`, 19 tests; with the earlier chapters, 348 pass. No language model is called. They check:
 
-- tokens and seconds are counted from every saved run, retries counted apart, and the Chapter 14 run totals 34 calls and 32.4 minutes;
+- tokens and seconds are counted from every saved run, retries counted apart, and the rerun of the Chapter 14 questions totals 36 calls and 34.9 minutes;
 - lookups cost no tokens;
 - short replies have fewer than half the tokens out of full replies;
 - unknown settings stop with an error;
@@ -431,7 +432,7 @@ One table gathers the scores of Chapters 8 to 14. Nothing new is measured. A **t
 
 - Code: `ragbook/ch15_token_cost.py`; tests: `tests/test_ch15_token_cost.py`
 - Trace: `data/traces/ch15_traces.jsonl`
-- Saved runs: `data/answers/ch11_answers.jsonl`, `data/answers/ch12_router_replies.jsonl`, `data/answers/ch13_parameter_replies_second.jsonl`, `data/answers/ch13_replies.jsonl`, `data/answers/ch14_explanations_review.jsonl`
+- Saved runs: `data/answers/ch11_answers.jsonl`, `data/answers/ch12_router_replies.jsonl`, `data/answers/ch13_parameter_replies_second.jsonl`, `data/answers/ch13_replies.jsonl`, `data/answers/ch14_explanations_review.jsonl`, `data/answers/a5_explanations.jsonl`
 - Repository: [github.com/lavanito/python-rag-textbook](https://github.com/lavanito/python-rag-textbook), branch `ch15-token-cost`
 - [Ollama API: the counts each reply returns](https://github.com/ollama/ollama/blob/main/docs/api.md)
 - [Python `time.perf_counter`](https://docs.python.org/3/library/time.html#time.perf_counter)

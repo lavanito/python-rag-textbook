@@ -263,7 +263,7 @@ DIRECTION_WORDS = re.compile(
 
 # Words for flags, data quality and escalation, which only the locked block may state (fixes
 # failings F17 and F18).
-CODE_WORDS = re.compile(r"\b(passed to an analyst|dqr|data quality|proxy|stand-in|estimated|flagg?\w*)\b")
+CODE_WORDS = re.compile(r"\b(passed to an analyst|dqr|data quality|proxy|stand-in|estimated|nowcast|flagg?\w*)\b")
 
 # Remarks about the passages themselves (fix E): when the passages do not
 # explain a point, the model writes NO_EXPLANATION instead.

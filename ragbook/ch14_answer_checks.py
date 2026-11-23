@@ -41,6 +41,10 @@ Run the worked example
     python -m ragbook.ch14_answer_checks --explain --review
         The same, after the vertical domain expert's review of 16 November 2026, saved
         to data/answers/ch14_explanations_review.jsonl.
+    python -m ragbook.ch14_answer_checks --explain --rerun
+        The same questions with the current code, before the demonstrator
+        build (decision 20, 22 November 2026), saved to
+        data/answers/a5_explanations.jsonl.
     python -m ragbook.ch14_answer_checks --explain
         Also asks the local language model (Ollama) for an explanation of
         each question routed to code (the bank's 14 and the fair test),
@@ -75,6 +79,9 @@ JUDGEMENTS_FILE = ANSWER_FOLDER / "ch14_support_judgements.csv"
 EXPLANATIONS_FILE = ANSWER_FOLDER / "ch14_explanations.jsonl"
 # The rerun after the vertical domain expert's review (16 November 2026): size bands, id protocol.
 REVIEW_FILE = ANSWER_FOLDER / "ch14_explanations_review.jsonl"
+# The rerun before the demonstrator build (decision 20, 22 November 2026): the same
+# questions with the current code, including the NNI model's "nowcast" flag.
+RERUN_FILE = ANSWER_FOLDER / "a5_explanations.jsonl"
 FAIR_TEST_FILE = DATA_FOLDER / "question_bank" / "ch14_fair_test.jsonl"
 
 
@@ -518,7 +525,7 @@ DIRECTION_WORDS = re.compile(
 
 # Words for flags, data quality and escalation, which only the locked block may state (fixes
 # failings F17 and F18).
-CODE_WORDS = re.compile(r"\b(passed to an analyst|dqr|data quality|proxy|stand-in|estimated|flagg?\w*)\b")
+CODE_WORDS = re.compile(r"\b(passed to an analyst|dqr|data quality|proxy|stand-in|estimated|nowcast|flagg?\w*)\b")
 
 # Remarks about the passages themselves (fix E): when the passages do not
 # explain a point, the model writes NO_EXPLANATION instead.
@@ -771,7 +778,9 @@ EXPLAIN_INSTRUCTIONS = """You explain answers about national accounts statistics
 - Do not comment on the passages themselves. If they do not explain the point, write only: No explanation is available from the passages.
 - At most 120 words. No headings."""
 
-EXPLAIN_SETTINGS = dict(SETTINGS, temperature=0, num_predict=400)
+# num_ctx 8192 since 22 November 2026 (Lavan, decision-20 rerun): the longest prompt (f-05)
+# grew past 4096 tokens with the new DQR reasons, and Ollama refuses a prompt that does not fit.
+EXPLAIN_SETTINGS = dict(SETTINGS, temperature=0, num_predict=400, num_ctx=8192)
 
 
 def explanation_messages(question, locked, evidence, must_cite_first=()):
@@ -911,6 +920,7 @@ def run_explanations(questions, expected, ask=ask_model_with_details):
         record = answer(question["question"], expected[question["id"]], question["route"],
                         question["class"], ask, last_years, definitions, corpus, graph)
         record["id"] = question["id"]
+        record["settings"] = EXPLAIN_SETTINGS
         records.append(record)
     return records
 
@@ -964,14 +974,26 @@ def main():
     bank = bank_model_questions()
     fair = fair_questions()
     fair_expected = {row["id"]: row for row in fair}
-    run_file = REVIEW_FILE if "--review" in sys.argv else EXPLANATIONS_FILE
+    run_file = EXPLANATIONS_FILE
+    if "--review" in sys.argv:
+        run_file = REVIEW_FILE
+    if "--rerun" in sys.argv:
+        run_file = RERUN_FILE
     if "--explain" in sys.argv:
+        records = []
         try:
-            records = run_explanations(bank, expected) + run_explanations(fair, fair_expected)
+            for questions, rows in ((bank, expected), (fair, fair_expected)):
+                for question in questions:
+                    records = records + run_explanations([question], rows)
+                    save_answers(run_file, records)        # saved after each question
+                    print(f"      {question['id']} done ({len(records)} of {len(bank) + len(fair)})")
+        except urllib.error.HTTPError as error:
+            print(f"Ollama refused the request ({error.code}): {error.read().decode()}")
+            print(f"{len(records)} questions saved to {run_file.name} before the error.")
+            return
         except urllib.error.URLError as error:
             print(f"Could not reach Ollama ({error.reason}). Start Ollama and run again.")
             return
-        save_answers(run_file, records)
     if run_file.exists():
         records = load_answers(run_file)
         bank_ids = {q["id"] for q in bank}

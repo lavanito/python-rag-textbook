@@ -22,7 +22,7 @@ from ragbook.ch11_prompts import ANSWERS_800_FILE, load_answers
 from ragbook.ch12_routing import load_last_years
 from ragbook.ch13_model_tool import MEASURES, PARAMETER_FILE, ToolResult, bank_model_questions
 from ragbook.ch14_answer_checks import (
-    CODE_WORDS, DEMONSTRATOR_WITHHELD, DIRECTION_WORDS, EXPLANATION_HEADING, NO_EXPLANATION,
+    CODE_WORDS, DEMONSTRATOR_WITHHELD, EXPLAIN_SETTINGS, DIRECTION_WORDS, EXPLANATION_HEADING, NO_EXPLANATION,
     SIZE_CUTS, WITHHELD, between, check_explanation, check_sentences, comparisons,
     concepts_named, defining_passages, definition_line, direction, evidence_for, explain,
     invented_numbers, load_definitions, load_graph, load_judgements, locked_block, overlap,
@@ -339,3 +339,8 @@ def test_problems_in_words_for_the_retry():
                                "passage_talk": [], "citations": ["Sentence 1 has no passage id: 'x'"]})
     assert lines[0] == "It contains numbers not in the locked block: 140."
     assert lines[-1].startswith("Sentence 1")
+
+
+def test_explanation_settings_fit_the_longest_prompt():
+    # The longest prompt used 4087 tokens on 16 November 2026; the new DQR reasons made it longer.
+    assert EXPLAIN_SETTINGS["num_ctx"] == 8192 and EXPLAIN_SETTINGS["temperature"] == 0
