@@ -1,0 +1,114 @@
+{
+ "title": "Method and caveats",
+ "status": "draft",
+ "counts": {
+  "passages": 57,
+  "sources": 10,
+  "passages_by_licence": {
+   "non-commercial": 5,
+   "open": 41,
+   "quotation only": 11
+  },
+  "questions": 56,
+  "questions_by_route": {
+   "R4": 33,
+   "R2": 7,
+   "R4+R2": 6,
+   "escalate": 4,
+   "clarify": 3,
+   "R1": 1,
+   "R5>R2": 1,
+   "R6": 1
+  },
+  "measures": 16,
+  "measures_exact": 10,
+  "measures_proxy": 3,
+  "measures_no_figure": 3,
+  "figures_by_band": {
+   "High": 6,
+   "Medium": 20,
+   "Low": 8
+  },
+  "explanations": {
+   "questions": 24,
+   "lookup": 3,
+   "shown_with_content": 2,
+   "judged_good": 1,
+   "judged_fault": 1,
+   "shown_fixed_sentence": 9,
+   "dropped": 10
+  },
+  "level_gaps_percent": [
+   0.2,
+   2.7,
+   4.0,
+   4.3,
+   4.8,
+   7.5
+  ],
+  "raw_files_fingerprinted": 6,
+  "series_links": 26,
+  "agreement": [
+   {
+    "check": "growth, same sign",
+    "agree": 137,
+    "total": 138
+   },
+   {
+    "check": "growth, within 0.09 percentage points",
+    "agree": 99,
+    "total": 138
+   },
+   {
+    "check": "level in 2021, within 0.99 log points",
+    "agree": 1,
+    "total": 6
+   },
+   {
+    "check": "euro area hours, within 0.99 log points",
+    "agree": 22,
+    "total": 24
+   },
+   {
+    "check": "ranking on real GDP per hour, 2023, same order",
+    "agree": 1,
+    "total": 1
+   },
+   {
+    "check": "euro area growth in real GDP per hour, 2023, same sign",
+    "agree": 1,
+    "total": 1
+   }
+  ]
+ },
+ "caveats": [
+  {
+   "title": "The last year differs by economy",
+   "text": "In the latest edition the data end in different years: China, Japan, the United States 2024; India, the United Kingdom, the euro area 2025. \"Last year\" in a question means the last year for that economy."
+  },
+  {
+   "title": "Net national income after the last published year is a nowcast",
+   "text": "WDI publishes adjusted net national income to 2021 (the United Kingdom to 2018). Later years hold the last published ratio of net to gross national income and are flagged \"nowcast\", rated at most Medium."
+  },
+  {
+   "title": "The two editions use different PPP benchmarks",
+   "text": "Purchasing power parities rest on ICP 2017 in the March 2024 edition and ICP 2021 in the latest edition. A change between editions in a figure at PPP includes the change of benchmark."
+  },
+  {
+   "title": "First releases cannot be identified",
+   "text": "WDI republishes producers' figures, so comparing two WDI editions does not tell us which values are first releases. We can only mark a value as provisional if we know the producer's own release dates."
+  },
+  {
+   "title": "Sources disagree more on levels than editions do",
+   "text": "Real GDP in 2021 from WDI and from the Penn World Table agree within a typical revision for 1 of 6 economies; the others differ by 2.7 to 7.5 per cent. Growth rates agree within a typical revision in 99 of 138 economy-years."
+  },
+  {
+   "title": "Some measures have only a stand-in or no figure",
+   "text": "Of 16 measures, 10 have an exact figure, 3 a stand-in (proxy, rated at most Low) and 3 no figure. Questions that need a stand-in or a missing figure are passed to an analyst."
+  },
+  {
+   "title": "Explanations come from a small language model and are often dropped",
+   "text": "Of the 24 questions answered with figures from code, 3 are lookups and get no explanation. Of the rest, 2 showed an explanation with content (the vertical domain expert judged 1 good and 1 a fault), 9 showed only the sentence \"No explanation is available from the passages.\", and 10 were dropped because the explanation failed the checks twice. The explanations were written on a laptop by qwen3:4b-instruct (context 8,192 tokens, temperature 0)."
+  }
+ ]
+}
