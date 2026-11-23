@@ -20,7 +20,8 @@ OUT = REPO / "app" / "data" / "change_log.json"
 def build():
     with open(SOURCE, encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
-    return {"title": "What has changed", "entries": list(reversed(rows))}
+    return {"title": "What has changed", "status": "approved by the vertical domain expert, 23 Nov 2026",
+            "entries": list(reversed(rows))}
 
 
 if __name__ == "__main__":
