@@ -1,0 +1,735 @@
+{
+ "title": "Coverage: 16 measures by six economies",
+ "edition": "latest",
+ "economies": {
+  "USA": "United States",
+  "EA21": "euro area",
+  "GBR": "United Kingdom",
+  "JPN": "Japan",
+  "CHN": "China",
+  "IND": "India"
+ },
+ "rows": [
+  {
+   "measure": "gni_per_head_ppp",
+   "description": "GNI per head at purchasing power parities",
+   "unit": "current international dollars",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "population",
+   "description": "Population, total",
+   "unit": "people",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    }
+   }
+  },
+  {
+   "measure": "gdp_per_hour",
+   "description": "Real GDP per hour worked, at constant 2021 PPPs",
+   "unit": "constant 2021 international dollars per hour",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "nni_growth",
+   "description": "Growth in real NNI per head from the year before, split into parts",
+   "unit": "log points",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2024,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": 2019,
+     "dqr_last_year": "Medium"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2024,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2024,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "real_gdp_growth",
+   "description": "Growth in real GDP (total, not per head) from the year before",
+   "unit": "log points",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2001,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "gdp_per_head_ppp",
+   "description": "GDP per head at purchasing power parities",
+   "unit": "current international dollars",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "gni",
+   "description": "GNI, total",
+   "unit": "current US dollars",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    }
+   }
+  },
+  {
+   "measure": "average_hours",
+   "description": "Average annual hours worked per person engaged",
+   "unit": "hours a year",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "High"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "real_nni_per_head_ppp",
+   "description": "Real NNI per head, at constant 2021 household-consumption PPPs",
+   "unit": "constant 2021 international dollars",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2024,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": 2019,
+     "dqr_last_year": "Medium"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2024,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2024,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "real_nni_per_hour",
+   "description": "Real NNI per hour worked, at constant 2021 household-consumption PPPs",
+   "unit": "constant 2021 international dollars per hour",
+   "cells": {
+    "USA": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "EA21": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "GBR": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": 2019,
+     "dqr_last_year": "Medium"
+    },
+    "JPN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Medium"
+    },
+    "CHN": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "exact",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": 2022,
+     "dqr_last_year": "Low"
+    }
+   }
+  },
+  {
+   "measure": "employment_rate",
+   "description": "Employment rate",
+   "unit": "per cent of total population",
+   "cells": {
+    "USA": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "EA21": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "GBR": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "JPN": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "CHN": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2023,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   },
+   "how_it_differs": "persons engaged divided by total population; the usual rate divides by the population aged 15 to 64",
+   "best_data": "ILOSTAT employment-to-population ratio; OECD employment rate, 15 to 64"
+  },
+  {
+   "measure": "spending_components",
+   "description": "GDP by spending component",
+   "unit": "per cent of GDP",
+   "cells": {
+    "USA": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "EA21": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "GBR": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "JPN": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2024,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "CHN": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2024,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "proxy",
+     "first": 2000,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   },
+   "how_it_differs": "household consumption only; government consumption, investment and net trade are not in the data",
+   "best_data": "BEA NIPA Table 1.1.5 (Gross Domestic Product); World Bank WDI NE.CON.GOVT.CN, NE.GDI.TOTL.CN, NE.EXP.GNFS.CN, NE.IMP.GNFS.CN"
+  },
+  {
+   "measure": "trend_gap",
+   "description": "Real GDP per head compared with its 2000 to 2007 trend",
+   "unit": "per cent above (+) or below (-) the trend",
+   "cells": {
+    "USA": {
+     "kind": "proxy",
+     "first": 2008,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "EA21": {
+     "kind": "proxy",
+     "first": 2008,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "GBR": {
+     "kind": "proxy",
+     "first": 2008,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "JPN": {
+     "kind": "proxy",
+     "first": 2008,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "CHN": {
+     "kind": "proxy",
+     "first": 2008,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    },
+    "IND": {
+     "kind": "proxy",
+     "first": 2008,
+     "last": 2025,
+     "nowcast_from": null,
+     "dqr_last_year": "Low"
+    }
+   },
+   "how_it_differs": "the trend is growth from 2000 to 2007 only, because the data start in 2000; a study may use a longer period and another method",
+   "best_data": "the study the question cites"
+  },
+  {
+   "measure": "terms_of_trade",
+   "description": "The terms of trade effect",
+   "unit": null,
+   "cells": {
+    "USA": {
+     "kind": "no figure"
+    },
+    "EA21": {
+     "kind": "no figure"
+    },
+    "GBR": {
+     "kind": "no figure"
+    },
+    "JPN": {
+     "kind": "no figure"
+    },
+    "CHN": {
+     "kind": "no figure"
+    },
+    "IND": {
+     "kind": "no figure"
+    }
+   },
+   "best_data": "export and import deflators: World Bank WDI exports and imports of goods and services in current and constant local currency (NE.EXP.GNFS.CN and .KN, NE.IMP.GNFS.CN and .KN), or national accounts"
+  },
+  {
+   "measure": "net_trade",
+   "description": "Net trade as a share of GDP",
+   "unit": null,
+   "cells": {
+    "USA": {
+     "kind": "no figure"
+    },
+    "EA21": {
+     "kind": "no figure"
+    },
+    "GBR": {
+     "kind": "no figure"
+    },
+    "JPN": {
+     "kind": "no figure"
+    },
+    "CHN": {
+     "kind": "no figure"
+    },
+    "IND": {
+     "kind": "no figure"
+    }
+   },
+   "best_data": "World Bank WDI NE.RSB.GNFS.ZS (external balance on goods and services, % of GDP), or national accounts"
+  },
+  {
+   "measure": "public_service_measurement",
+   "description": "A comparison of how public services are measured",
+   "unit": null,
+   "cells": {
+    "USA": {
+     "kind": "no figure"
+    },
+    "EA21": {
+     "kind": "no figure"
+    },
+    "GBR": {
+     "kind": "no figure"
+    },
+    "JPN": {
+     "kind": "no figure"
+    },
+    "CHN": {
+     "kind": "no figure"
+    },
+    "IND": {
+     "kind": "no figure"
+    }
+   },
+   "best_data": "a comparable study of how each statistical office measures the volume of public services, and a common method"
+  }
+ ]
+}
