@@ -7,6 +7,9 @@ What this checks
     https link, the document's own date and the date it was read. The date
     read comes after the document date. "not stated" is allowed for a
     document date the publisher does not give, so the gap is visible.
+    Series rows also state how precise the document date is (day, month or
+    year) and, for series in purchasing power parities, the ICP benchmark
+    behind that edition (ICP 2021 for the latest, ICP 2017 for March 2024).
 
 Why it matters
     A link with only the date read hides an old document (lesson L1, from
@@ -62,3 +65,34 @@ def test_every_series_has_a_link_with_two_dates_per_edition():
             assert row["edition"] == "PWT 11.0"
         else:
             assert row["url"] == f"https://data.worldbank.org/indicator/{row['series']}"
+
+
+# The ICP benchmark behind each edition's PPPs (R1, from the real-time data
+# archives, 22 November 2026). The March 2024 edition came out before ICP 2021
+# was published (30 May 2024), so its PPPs rest on ICP 2017.
+PPP_BENCHMARK = {"WDI latest": "ICP 2021", "WDI archive 202403": "ICP 2017"}
+
+
+def test_ppp_series_state_their_benchmark_per_edition():
+    for row in read_csv(DATA / "series" / "series_links.csv"):
+        if ".PP" in row["series"]:
+            assert row["ppp_benchmark"] == PPP_BENCHMARK[row["edition"]], row
+        else:
+            assert row["ppp_benchmark"] == "", row
+
+
+def test_latest_benchmark_matches_the_nni_model_units():
+    from nni_model.contracts import CONTRACT_LIST
+    links = {(row["series"], row["edition"]): row for row in read_csv(DATA / "series" / "series_links.csv")}
+    with_base_year = [c for c in CONTRACT_LIST if c.ppp_base_year]
+    assert with_base_year
+    for contract in with_base_year:
+        assert links[(contract.series, "WDI latest")]["ppp_benchmark"] == f"ICP {contract.ppp_base_year}"
+
+
+def test_date_precision_matches_the_document_date():
+    # R4: a date known only to the month is stored as the month, not a made-up day.
+    lengths = {"day": 10, "month": 7, "year": 4}
+    for row in read_csv(DATA / "series" / "series_links.csv"):
+        assert row["date_precision"] in lengths, row
+        assert len(row["document_date"]) == lengths[row["date_precision"]], row

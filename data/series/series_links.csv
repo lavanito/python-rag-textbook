@@ -1,27 +1,27 @@
-series,edition,url,document_date,date_read
-NY.GNP.PCAP.PP.CD,WDI latest,https://data.worldbank.org/indicator/NY.GNP.PCAP.PP.CD,2026-10-08,2026-10-26
-NY.GNP.PCAP.PP.CD,WDI archive 202403,https://data.worldbank.org/indicator/NY.GNP.PCAP.PP.CD,2024-03,2026-10-26
-SP.POP.TOTL,WDI latest,https://data.worldbank.org/indicator/SP.POP.TOTL,2026-10-08,2026-10-26
-SP.POP.TOTL,WDI archive 202403,https://data.worldbank.org/indicator/SP.POP.TOTL,2024-03,2026-10-26
-NY.GDP.MKTP.PP.KD,WDI latest,https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD,2026-10-08,2026-10-26
-NY.GDP.MKTP.PP.KD,WDI archive 202403,https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD,2024-03,2026-10-26
-NY.GDP.MKTP.CN,WDI latest,https://data.worldbank.org/indicator/NY.GDP.MKTP.CN,2026-10-08,2026-10-26
-NY.GDP.MKTP.CN,WDI archive 202403,https://data.worldbank.org/indicator/NY.GDP.MKTP.CN,2024-03,2026-10-26
-NY.GDP.MKTP.KN,WDI latest,https://data.worldbank.org/indicator/NY.GDP.MKTP.KN,2026-10-08,2026-10-26
-NY.GDP.MKTP.KN,WDI archive 202403,https://data.worldbank.org/indicator/NY.GDP.MKTP.KN,2024-03,2026-10-26
-NE.CON.PRVT.CN,WDI latest,https://data.worldbank.org/indicator/NE.CON.PRVT.CN,2026-10-08,2026-10-26
-NE.CON.PRVT.CN,WDI archive 202403,https://data.worldbank.org/indicator/NE.CON.PRVT.CN,2024-03,2026-10-26
-NE.CON.PRVT.KD,WDI latest,https://data.worldbank.org/indicator/NE.CON.PRVT.KD,2026-10-08,2026-10-26
-NE.CON.PRVT.KD,WDI archive 202403,https://data.worldbank.org/indicator/NE.CON.PRVT.KD,2024-03,2026-10-26
-NY.GNP.MKTP.CN,WDI latest,https://data.worldbank.org/indicator/NY.GNP.MKTP.CN,2026-10-08,2026-10-26
-NY.GNP.MKTP.CN,WDI archive 202403,https://data.worldbank.org/indicator/NY.GNP.MKTP.CN,2024-03,2026-10-26
-NY.GNP.MKTP.CD,WDI latest,https://data.worldbank.org/indicator/NY.GNP.MKTP.CD,2026-10-08,2026-10-26
-NY.GNP.MKTP.CD,WDI archive 202403,https://data.worldbank.org/indicator/NY.GNP.MKTP.CD,2024-03,2026-10-26
-NY.ADJ.NNTY.CD,WDI latest,https://data.worldbank.org/indicator/NY.ADJ.NNTY.CD,2026-10-08,2026-10-26
-NY.ADJ.NNTY.CD,WDI archive 202403,https://data.worldbank.org/indicator/NY.ADJ.NNTY.CD,2024-03,2026-10-26
-PA.NUS.PPP,WDI latest,https://data.worldbank.org/indicator/PA.NUS.PPP,2026-10-08,2026-10-26
-PA.NUS.PPP,WDI archive 202403,https://data.worldbank.org/indicator/PA.NUS.PPP,2024-03,2026-10-26
-PA.NUS.PRVT.PP,WDI latest,https://data.worldbank.org/indicator/PA.NUS.PRVT.PP,2026-10-08,2026-10-26
-PA.NUS.PRVT.PP,WDI archive 202403,https://data.worldbank.org/indicator/PA.NUS.PRVT.PP,2024-03,2026-10-26
-PWT.EMP,PWT 11.0,https://doi.org/10.34894/FABVLR,2025-10-07,2026-10-26
-PWT.AVH,PWT 11.0,https://doi.org/10.34894/FABVLR,2025-10-07,2026-10-26
+series,edition,url,document_date,date_read,ppp_benchmark,date_precision
+NY.GNP.PCAP.PP.CD,WDI latest,https://data.worldbank.org/indicator/NY.GNP.PCAP.PP.CD,2026-10-08,2026-10-26,ICP 2021,day
+NY.GNP.PCAP.PP.CD,WDI archive 202403,https://data.worldbank.org/indicator/NY.GNP.PCAP.PP.CD,2024-03,2026-10-26,ICP 2017,month
+SP.POP.TOTL,WDI latest,https://data.worldbank.org/indicator/SP.POP.TOTL,2026-10-08,2026-10-26,,day
+SP.POP.TOTL,WDI archive 202403,https://data.worldbank.org/indicator/SP.POP.TOTL,2024-03,2026-10-26,,month
+NY.GDP.MKTP.PP.KD,WDI latest,https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD,2026-10-08,2026-10-26,ICP 2021,day
+NY.GDP.MKTP.PP.KD,WDI archive 202403,https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD,2024-03,2026-10-26,ICP 2017,month
+NY.GDP.MKTP.CN,WDI latest,https://data.worldbank.org/indicator/NY.GDP.MKTP.CN,2026-10-08,2026-10-26,,day
+NY.GDP.MKTP.CN,WDI archive 202403,https://data.worldbank.org/indicator/NY.GDP.MKTP.CN,2024-03,2026-10-26,,month
+NY.GDP.MKTP.KN,WDI latest,https://data.worldbank.org/indicator/NY.GDP.MKTP.KN,2026-10-08,2026-10-26,,day
+NY.GDP.MKTP.KN,WDI archive 202403,https://data.worldbank.org/indicator/NY.GDP.MKTP.KN,2024-03,2026-10-26,,month
+NE.CON.PRVT.CN,WDI latest,https://data.worldbank.org/indicator/NE.CON.PRVT.CN,2026-10-08,2026-10-26,,day
+NE.CON.PRVT.CN,WDI archive 202403,https://data.worldbank.org/indicator/NE.CON.PRVT.CN,2024-03,2026-10-26,,month
+NE.CON.PRVT.KD,WDI latest,https://data.worldbank.org/indicator/NE.CON.PRVT.KD,2026-10-08,2026-10-26,,day
+NE.CON.PRVT.KD,WDI archive 202403,https://data.worldbank.org/indicator/NE.CON.PRVT.KD,2024-03,2026-10-26,,month
+NY.GNP.MKTP.CN,WDI latest,https://data.worldbank.org/indicator/NY.GNP.MKTP.CN,2026-10-08,2026-10-26,,day
+NY.GNP.MKTP.CN,WDI archive 202403,https://data.worldbank.org/indicator/NY.GNP.MKTP.CN,2024-03,2026-10-26,,month
+NY.GNP.MKTP.CD,WDI latest,https://data.worldbank.org/indicator/NY.GNP.MKTP.CD,2026-10-08,2026-10-26,,day
+NY.GNP.MKTP.CD,WDI archive 202403,https://data.worldbank.org/indicator/NY.GNP.MKTP.CD,2024-03,2026-10-26,,month
+NY.ADJ.NNTY.CD,WDI latest,https://data.worldbank.org/indicator/NY.ADJ.NNTY.CD,2026-10-08,2026-10-26,,day
+NY.ADJ.NNTY.CD,WDI archive 202403,https://data.worldbank.org/indicator/NY.ADJ.NNTY.CD,2024-03,2026-10-26,,month
+PA.NUS.PPP,WDI latest,https://data.worldbank.org/indicator/PA.NUS.PPP,2026-10-08,2026-10-26,ICP 2021,day
+PA.NUS.PPP,WDI archive 202403,https://data.worldbank.org/indicator/PA.NUS.PPP,2024-03,2026-10-26,ICP 2017,month
+PA.NUS.PRVT.PP,WDI latest,https://data.worldbank.org/indicator/PA.NUS.PRVT.PP,2026-10-08,2026-10-26,ICP 2021,day
+PA.NUS.PRVT.PP,WDI archive 202403,https://data.worldbank.org/indicator/PA.NUS.PRVT.PP,2024-03,2026-10-26,ICP 2017,month
+PWT.EMP,PWT 11.0,https://doi.org/10.34894/FABVLR,2025-10-07,2026-10-26,,day
+PWT.AVH,PWT 11.0,https://doi.org/10.34894/FABVLR,2025-10-07,2026-10-26,,day

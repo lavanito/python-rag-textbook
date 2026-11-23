@@ -25,3 +25,20 @@ column of `data/knowledge_graph/controlled_vocabulary.csv`), in each edition,
 a link and two dates: `document_date`, the edition's release date, and
 `date_read`, the download date. WDI series link to the World Bank's indicator
 page; PWT series to the PWT 11.0 DOI (published 7 October 2025).
+
+Two columns added 23 November 2026 (A5, from the real-time data archives):
+
+- `ppp_benchmark`: for series in purchasing power parities (codes with `.PP`),
+  the International Comparison Program round behind that edition's PPPs: ICP 2021
+  for the latest edition, ICP 2017 for March 2024 (released before ICP 2021, on
+  30 May 2024). The two editions' PPP figures rest on different benchmarks, so a
+  change between them includes the change of benchmark. Empty for other series.
+- `date_precision`: day, month or year, as precise as the producer states the
+  document date. A date known only to the month is stored as the month.
+
+## Editions and first releases (added 23 November 2026)
+
+WDI republishes the figures of national producers, so comparing two WDI
+editions shows how a value changed between them, not whether either value
+was the producer's first release. Marking a value "provisional" needs the
+producer's own release dates, which this build does not hold.
