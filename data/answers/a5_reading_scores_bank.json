@@ -1,0 +1,715 @@
+{
+ "note": "Written by tools/score_reading.py; do not edit by hand.",
+ "set": "bank",
+ "reading_code_commit": "1e0a9800b2fb948d38c057b3efa7d456b817e68d",
+ "totals": {
+  "bank": {
+   "questions": 14,
+   "all_right": 7,
+   "economies": 13,
+   "years": 14,
+   "editions": 14,
+   "measures": 8
+  },
+  "all": {
+   "questions": 14,
+   "all_right": 7,
+   "economies": 13,
+   "years": 14,
+   "editions": 14,
+   "measures": 8
+  }
+ },
+ "questions": [
+  {
+   "set": "bank",
+   "id": "q6-01",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   },
+   "how": {
+    "economies": [
+     "\"japan\""
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [],
+    "measures": []
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q6-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2023"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_hour"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"india\""
+    ],
+    "years": [
+     "2023"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"output per hour\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2023"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q6-03",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"euro area\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.66"
+    ]
+   },
+   "label": {
+    "economies": [
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q1-01",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"united kingdom\""
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"gni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q1-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2022"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "population"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"india\""
+    ],
+    "years": [
+     "2022"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"population\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2022"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "population"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q3-01",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"japan\""
+    ],
+    "years": [
+     "\"last year\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"growth in real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q3-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth",
+     "nni_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"united kingdom\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.56",
+     "by meaning: 0.54"
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q4-01",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2016"
+    ],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "gni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"india\""
+    ],
+    "years": [
+     "2016"
+    ],
+    "editions": [
+     "\"vintage\""
+    ],
+    "measures": [
+     "by name: \"gni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2016"
+    ],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "gni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q5-01",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp",
+     "gdp_per_hour"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"united states\"",
+     "\"euro area\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gni per head\"",
+     "by name: \"gdp per hour worked\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "EA21",
+     "USA"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp",
+     "gdp_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q5-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "GBR"
+    ],
+    "years": [
+     "2007",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   },
+   "how": {
+    "economies": [
+     "\"united states\"",
+     "\"united kingdom\""
+    ],
+    "years": [
+     "2007",
+     "\"since\""
+    ],
+    "editions": [],
+    "measures": []
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "USA"
+    ],
+    "years": [
+     "2007",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q5-03",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"united states\"",
+     "\"euro area\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp growth\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth",
+     "public_service_measurement"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q4-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\"",
+     "\"india\""
+    ],
+    "years": [],
+    "editions": [
+     "\"icp\""
+    ],
+    "measures": [
+     "by name: \"gdp per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q5-05",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"us\"",
+     "\"euro area\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"real growth\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  },
+  {
+   "set": "bank",
+   "id": "q7-01",
+   "right": {
+    "economies": false,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   },
+   "how": {
+    "economies": [],
+    "years": [
+     "2024"
+    ],
+    "editions": [],
+    "measures": []
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  }
+ ]
+}
