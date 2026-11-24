@@ -69,6 +69,11 @@
    "in_this_build": "Tokens and seconds per route from saved runs",
    "at_full_scale": "Full tracing, a token and time limit per route",
    "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Two editions, each stored in full",
+   "at_full_scale": "Every edition kept, storing only the values that changed, as ALFRED and the UK Real-Time Data archive do",
+   "agreed": "2026-11-24"
   }
  ]
 }

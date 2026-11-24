@@ -12,3 +12,4 @@ order,in_this_build,at_full_scale,agreed
 11,Word-overlap checks; explanations dropped,Measured check error rates; analysts review dropped explanations,2026-11-17
 12,Near measure chosen in advance,"Nearest measure by meaning, stated openly",2026-11-17
 13,Tokens and seconds per route from saved runs,"Full tracing, a token and time limit per route",2026-11-17
+14,"Two editions, each stored in full","Every edition kept, storing only the values that changed, as ALFRED and the UK Real-Time Data archive do",2026-11-24

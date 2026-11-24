@@ -53,3 +53,28 @@ def test_every_source_has_a_link_and_two_dates():
         assert source["url"].startswith("http") and source["document_date"] and source["date_read"]
     for edition in sources["data"]:
         assert edition["licence"] == "CC BY 4.0" and edition["series"]
+
+
+def test_lessons_are_written_once():
+    """15.7 is the one source of truth (Lavan, 24 Nov): the front matter points to it."""
+    front = (ROOT / "book" / "front_matter.md").read_text(encoding="utf-8")
+    section = front.split("## Lessons for a production version", 1)[1].split("\n## ", 1)[0]
+    assert "15.7" in section
+    assert "### What worked" not in section and not re.search(r"^\d+\. ", section, re.M)
+
+
+def test_walkthrough_covers_every_task_and_row_once():
+    steps = page.walkthrough()["steps"]
+    assert [s["step"] for s in steps] == [1, 2, 3, 4, 5, 6]
+    tasks = [p["task"] for s in steps for p in s["people"]]
+    assert sorted(tasks) == sorted(page.answering_tasks())
+    rows = [r["in_this_build"] for s in steps for r in s["at_full_scale"]]
+    assert sorted(rows) == sorted(r["in_this_build"] for r in page.at_full_scale()["rows"])
+
+
+def test_process_sentences_do_not_make_code_the_actor():
+    """No personification of code (Lavan, 24 Nov): code is named only as the means ("using code")."""
+    for step in page.walkthrough()["steps"]:
+        assert not re.match(r"^(The )?code\b", step["process"], re.I)
+        assert not re.search(r"\bcode (reads|sends|keeps|finds|fills|checks|calculates|writes|decides)\b",
+                             step["process"], re.I)

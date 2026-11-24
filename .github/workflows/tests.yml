@@ -19,6 +19,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install Node.js 22 (the page's JavaScript is tested against Python)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Install the CPU-only build of torch (smaller; no graphics card needed)
         run: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
 

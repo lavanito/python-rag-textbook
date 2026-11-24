@@ -1,0 +1,210 @@
+{
+ "note": "Written by tools/build_page_text.py from data/walkthrough.csv, book/front_matter.md and data/at_full_scale.csv; do not edit by hand.",
+ "diagram": "The front matter's diagram \"Governed RAG · steps and tools\" (provenance sandwich, P2)",
+ "steps": [
+  {
+   "step": 1,
+   "title": "Take the question",
+   "process": "The economies, years and measures in the question are read using code, and the reading is shown so the user can correct it.",
+   "chapters": [
+    "12"
+   ],
+   "people": [
+    {
+     "task": "Ask the question",
+     "done_by": "User"
+    },
+    {
+     "task": "Choose the use mode and the reply length",
+     "done_by": "User"
+    },
+    {
+     "task": "Read the economies, years and measures in the question",
+     "done_by": "Code"
+    },
+    {
+     "task": "Confirm or correct that reading",
+     "done_by": "User"
+    }
+   ],
+   "at_full_scale": [
+    {
+     "in_this_build": "One question at a time, no memory",
+     "at_full_scale": "Conversation state carried into routing and retrieval"
+    }
+   ],
+   "approved": "2026-11-24"
+  },
+  {
+   "step": 2,
+   "title": "Route",
+   "process": "The question is sent, using code, to the cheapest route that can answer it: a series title, a calculation, passages, or a person.",
+   "chapters": [
+    "12"
+   ],
+   "people": [
+    {
+     "task": "Route the question",
+     "done_by": "Code"
+    },
+    {
+     "task": "Ask the user to clarify a vague question",
+     "done_by": "Code"
+    },
+    {
+     "task": "Escalate a question beyond the data",
+     "done_by": "Code"
+    }
+   ],
+   "at_full_scale": [
+    {
+     "in_this_build": "Question bank of 56",
+     "at_full_scale": "Governed query bank of hundreds, run on every change"
+    },
+    {
+     "in_this_build": "Keyword router; question read in parts and corrected by the user",
+     "at_full_scale": "Small-model or fine-tuned classifier with monitored routing accuracy; catalogue of measures kept by a named team"
+    }
+   ],
+   "approved": "2026-11-24"
+  },
+  {
+   "step": 3,
+   "title": "Fetch evidence",
+   "process": "Passages the use mode does not allow are removed, the matching passages are found, and the figures are calculated from the data, all using code.",
+   "chapters": [
+    "3-10",
+    "13"
+   ],
+   "people": [
+    {
+     "task": "Keep only the passages the use mode allows",
+     "done_by": "Code"
+    },
+    {
+     "task": "Find the passages that match the question",
+     "done_by": "Code"
+    },
+    {
+     "task": "Calculate the figures",
+     "done_by": "Code"
+    }
+   ],
+   "at_full_scale": [
+    {
+     "in_this_build": "Six economies; 16 measures",
+     "at_full_scale": "Catalogue of thousands of series"
+    },
+    {
+     "in_this_build": "JSON files, two editions",
+     "at_full_scale": "Warehouse with bitemporal tables"
+    },
+    {
+     "in_this_build": "One model class",
+     "at_full_scale": "Library of governed model classes and a semantic layer"
+    },
+    {
+     "in_this_build": "57 passages from 10 sources",
+     "at_full_scale": "Full document estate"
+    },
+    {
+     "in_this_build": "Hybrid search",
+     "at_full_scale": "Hybrid search over a vector index with reranking under a time limit"
+    },
+    {
+     "in_this_build": "Knowledge graph: 67 things, 131 triplets",
+     "at_full_scale": "Graph database with validation rules"
+    },
+    {
+     "in_this_build": "Two use modes",
+     "at_full_scale": "Entitlements per contract, at retrieval"
+    },
+    {
+     "in_this_build": "Near measure chosen in advance",
+     "at_full_scale": "Nearest measure by meaning, stated openly"
+    },
+    {
+     "in_this_build": "Two editions, each stored in full",
+     "at_full_scale": "Every edition kept, storing only the values that changed, as ALFRED and the UK Real-Time Data archive do"
+    }
+   ],
+   "approved": "2026-11-24"
+  },
+  {
+   "step": 4,
+   "title": "Assemble context",
+   "process": "The template part is filled using code with figures, comparisons and definitions, and is put in the prompt with the chosen passages.",
+   "chapters": [
+    "11",
+    "14"
+   ],
+   "people": [
+    {
+     "task": "Fill the template part",
+     "done_by": "Code"
+    }
+   ],
+   "at_full_scale": [],
+   "approved": "2026-11-24"
+  },
+  {
+   "step": 5,
+   "title": "Generate with citations",
+   "process": "The explanation is the language model's output: a few sentences, each ending with the id of the passage it cites.",
+   "chapters": [
+    "11",
+    "14"
+   ],
+   "people": [
+    {
+     "task": "Answer a definition question from passages",
+     "done_by": "Language model"
+    },
+    {
+     "task": "Explain the figures",
+     "done_by": "Language model"
+    }
+   ],
+   "at_full_scale": [],
+   "approved": "2026-11-24"
+  },
+  {
+   "step": 6,
+   "title": "Check, record, escalate",
+   "process": "Each sentence is checked using code; the explanation is retried once or dropped, every step is recorded, and questions beyond the data are passed to a person.",
+   "chapters": [
+    "14",
+    "15"
+   ],
+   "people": [
+    {
+     "task": "Check each sentence of the explanation",
+     "done_by": "Code"
+    },
+    {
+     "task": "Retry once, or drop the explanation",
+     "done_by": "Code"
+    },
+    {
+     "task": "Record each step in the trace",
+     "done_by": "Code"
+    },
+    {
+     "task": "Answer an escalated question",
+     "done_by": "Vertical domain expert"
+    }
+   ],
+   "at_full_scale": [
+    {
+     "in_this_build": "Word-overlap checks; explanations dropped",
+     "at_full_scale": "Measured check error rates; analysts review dropped explanations"
+    },
+    {
+     "in_this_build": "Tokens and seconds per route from saved runs",
+     "at_full_scale": "Full tracing, a token and time limit per route"
+    }
+   ],
+   "approved": "2026-11-24"
+  }
+ ]
+}
