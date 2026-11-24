@@ -125,36 +125,7 @@ Some will see this choice as controversial. Rules alone do not deliver it: it al
 
 ## Lessons for a production version
 
-The same list closes Chapter 15 (15.7).
-
-### What worked
-
-1. Every figure is calculated by Python from WDI and PWT data. The JavaScript version gives the same numbers for all 147 economy-years tested.
-2. The template part gave an answer to all 24 questions in the Chapter 14 run and corrected q4-02's false premise.
-3. The four kinds of mistake in the language model's output in Chapter 13 (wrong sign, false premise, added flags, escalation not called for; F15 to F18) cannot occur in the template part: each of those lines comes from a tested function.
-4. The checks dropped all 28 faulty explanations and showed none.
-5. The vertical domain expert judged 19 of 20 cited sentences supported; the word-overlap check agreed on 17.
-6. Routing: 56 of 56 bank questions (training); 19 of 32 new questions in the first fair test.
-7. Definition questions: a correct passage in the top three for 31 of 32.
-8. The licence filter in the vector database kept the same passages as the hand-written filter on all 32 questions.
-9. Every score is labelled training or fair; fair tests were frozen in a commit before the questions were opened.
-10. After the review, two explanations with content passed (f-07, f-08), training scores.
-11. Only the steps that call the language model use tokens: the explanation and, for definition questions, the answer extracted from passages. Lookups, series titles, clarifying and escalation are answered by code at no cost in tokens, and the steps in Python took under a tenth of a second for 24 questions.
-
-### What a production version needs
-
-1. A better reader for typed questions. Keyword rules gave the right figures for 2 of 20 new questions, the small language model for 9 of 20, and the routing rules sent 6 of the vertical domain expert's 10 questions to a route other than the labelled one: five because the rules did not know names such as USA and Japanese, one because a year of revision was read as a year of data. The demonstrator matches questions against a catalogue of measures in the knowledge graph (decision 25), which a production team keeps instead of a bank of questions.
-2. A larger language model, with sentence and id requested as separate fields.
-3. Counts of both kinds of check error: good replies dropped and bad replies shown.
-4. A check that a reply is an answer to the question (f-09).
-5. A named horizontal domain expert who sets and reviews the size bands, consulting the vertical domain expert.
-6. New questions from real users, scored before any rule changes.
-7. More data and passages (a passage defining PPP; the production boundary for unpaid work at home).
-8. Explanations and their cited passages in a form the vertical domain expert can review quickly.
-9. The review list in a form the horizontal domain expert can read quickly.
-10. A token and time limit for each route. On the laptop, an R2 question with an explanation took about 3,100 tokens in and 108 seconds; a retry added about 1,800 tokens and 29 seconds, and gave real content only once out of 13 retries.
-
-    Cost per route times the number of questions asked gives the total, so a team can price a rise in use.
+What worked and what a production version needs are listed once, at the end of Chapter 15 (15.7), and on the demonstrator's page.
 
 ## Chapter template
 
