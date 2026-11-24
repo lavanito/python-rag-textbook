@@ -1,0 +1,29 @@
+{
+ "note": "Written by tools/build_faq.py from data/faq.csv; do not edit by hand.",
+ "questions": [
+  {
+   "question": "Are the figures real?",
+   "answer": "Yes: WDI, PWT 11.0, ICP 2021, all CC BY 4.0. Two WDI editions, 8 October 2026 and March 2024. Every figure shows its source, edition and DQR.",
+   "written_by": "vertical domain expert",
+   "date": "2026-11-24"
+  },
+  {
+   "question": "Why these six economies?",
+   "answer": "They are enough to show the measurement problems that a production-level version would have to handle: PPPs and hours least certain for China and India; Ireland's multinational profits in the euro area; India's rebase (February 2026); hedonic US price indexes.",
+   "written_by": "vertical domain expert",
+   "date": "2026-11-24"
+  },
+  {
+   "question": "Can I ask a follow-up?",
+   "answer": "No. Each question is answered on its own; rephrase it as a complete question.",
+   "written_by": "vertical domain expert",
+   "date": "2026-11-24"
+  },
+  {
+   "question": "Why is the explanation often missing?",
+   "answer": "The explanation is written by a small language model on a laptop. Strict checks are used to drop any sentence not traced to a passage in the context. The figures above the explanation are calculated from the data and do not depend on the language model.",
+   "written_by": "vertical domain expert",
+   "date": "2026-11-24"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "note": "Written by tools/build_page_text.py from data/at_full_scale.csv; do not edit by hand.",
+ "columns": [
+  "In this build",
+  "At full scale"
+ ],
+ "rows": [
+  {
+   "in_this_build": "Six economies; 16 measures",
+   "at_full_scale": "Catalogue of thousands of series",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "JSON files, two editions",
+   "at_full_scale": "Warehouse with bitemporal tables",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "One model class",
+   "at_full_scale": "Library of governed model classes and a semantic layer",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "57 passages from 10 sources",
+   "at_full_scale": "Full document estate",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Hybrid search",
+   "at_full_scale": "Hybrid search over a vector index with reranking under a time limit",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Knowledge graph: 67 things, 131 triplets",
+   "at_full_scale": "Graph database with validation rules",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Two use modes",
+   "at_full_scale": "Entitlements per contract, at retrieval",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Question bank of 56",
+   "at_full_scale": "Governed query bank of hundreds, run on every change",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Keyword router; question read in parts and corrected by the user",
+   "at_full_scale": "Small-model or fine-tuned classifier with monitored routing accuracy; catalogue of measures kept by a named team",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "One question at a time, no memory",
+   "at_full_scale": "Conversation state carried into routing and retrieval",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Word-overlap checks; explanations dropped",
+   "at_full_scale": "Measured check error rates; analysts review dropped explanations",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Near measure chosen in advance",
+   "at_full_scale": "Nearest measure by meaning, stated openly",
+   "agreed": "2026-11-17"
+  },
+  {
+   "in_this_build": "Tokens and seconds per route from saved runs",
+   "at_full_scale": "Full tracing, a token and time limit per route",
+   "agreed": "2026-11-17"
+  }
+ ]
+}

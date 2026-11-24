@@ -72,6 +72,19 @@ DEMONSTRATOR_NOT_BUILT = ("Demonstrator note: a product would plan the steps its
                           "within a limit on steps, and show each one.")
 AWAITING = "awaiting the commercial run"
 
+# Approved by the vertical domain expert, 24 November 2026: a fixed line under
+# "What the measures mean" on every reply that compares economies.
+COMPARISON_LINE = ("People compare national accounts across economies to benchmark how each is doing. "
+                   "Check which measure is used and whether it is good enough for an international comparison.")
+DEFINITIONS_HEADING = "What the measures mean"
+COMPARING_CLASSES = {"Q5", "Q8"}
+
+# A language model explanation judged a fault and corrected by the vertical
+# domain expert (24 November 2026): shown in place of the model's text, under
+# its own label; the model's text stays in the reply's record.
+CORRECTED_HEADING = "Corrected by the vertical domain expert"
+CORRECTIONS_FILE = DATA / "answers" / "a5_corrections.csv"
+
 # Three sharper questions for each vague question: living standards, growth,
 # productivity (build spec v3, 9.4). Each is answered from labelled parameters,
 # with its locked block only.
@@ -137,6 +150,34 @@ def explanation_part(record):
     return {"status": record["status"], "text": None}
 
 
+def compares_economies(question_class, parameters):
+    """True when a reply compares economies: compare classes, or two or more economies."""
+    return question_class in COMPARING_CLASSES or len((parameters or {}).get("economies", [])) > 1
+
+
+def with_comparison_line(locked_text):
+    """Add the comparison line at the end of "What the measures mean", before any escalation;
+    add the heading when the block has no definitions."""
+    line = f"- {COMPARISON_LINE}"
+    parts = locked_text.split("\n\n")
+    for i, part in enumerate(parts):
+        if part.startswith(DEFINITIONS_HEADING):
+            parts[i] = part + "\n" + line
+            return "\n\n".join(parts)
+    escalation = [i for i, part in enumerate(parts) if part.startswith(ESCALATION_NOTE)]
+    at = escalation[0] if escalation else len(parts)
+    parts.insert(at, f"{DEFINITIONS_HEADING}\n{line}")
+    return "\n\n".join(parts)
+
+
+def load_corrections():
+    import csv
+    if not CORRECTIONS_FILE.exists():
+        return {}
+    with open(CORRECTIONS_FILE, encoding="utf-8", newline="") as f:
+        return {(row["id"], row["use_mode"]): row for row in csv.DictReader(f)}
+
+
 def page_text(*parts):
     return "\n\n".join(p for p in parts if p)
 
@@ -152,6 +193,9 @@ def withheld_ids(corpus, mode):
 def code_reply(question, saved, commercial, context):
     """R2 questions: the stored rerun; commercial evidence by code."""
     modes = {}
+    locked_text = saved["locked"]["text"]
+    if compares_economies(question["class"], context["parameters"].get(question["id"])):
+        locked_text = with_comparison_line(locked_text)
     for mode in MODES:
         record = saved
         evidence, _, _ = evidence_for(question["question"], saved["locked"], question["route"],
@@ -162,9 +206,13 @@ def code_reply(question, saved, commercial, context):
         if mode == "commercial" and ids != saved["evidence"] and saved["status"] != "lookup":
             record = commercial.get(question["id"])
             explanation = explanation_part(record) if record else {"status": AWAITING, "text": None}
-        modes[mode] = {"locked": saved["locked"]["text"], "evidence": ids,
+        correction = context["corrections"].get((question["id"], mode))
+        if correction:
+            explanation = {"status": "corrected", "text": f"{CORRECTED_HEADING}\n{correction['text']}",
+                           "model_text": explanation["text"], "judgement": correction["judgement_file"]}
+        modes[mode] = {"locked": locked_text, "evidence": ids,
                        "withheld": withheld_ids(context["corpus"], mode), "explanation": explanation,
-                       "page": page_text(saved["locked"]["text"], explanation["text"])}
+                       "page": page_text(locked_text, explanation["text"])}
     return modes
 
 
@@ -207,7 +255,10 @@ def clarify_reply(question, context):
     for aspect, text, labels in SHARPER[question["id"]]:
         parameters = dict(labels, editions=["latest"], change=False)
         locked = locked_block(text, parameters, context["last_years"], context["definitions"])
-        options.append({"aspect": aspect, "question": text, "parameters": parameters, "locked": locked["text"]})
+        locked_text = locked["text"]
+        if compares_economies(None, parameters):
+            locked_text = with_comparison_line(locked_text)
+        options.append({"aspect": aspect, "question": text, "parameters": parameters, "locked": locked_text})
     listing = "\n".join(f"- {o['aspect'].capitalize()}: {o['question']}" for o in options)
     reply = fixed_reply(f"{CLARIFY_LINE}\n{listing}", context)
     for mode in MODES:
@@ -223,7 +274,8 @@ def load_context():
     corpus = load_corpus()
     return {"corpus": corpus, "known_words": corpus_words(corpus), "titles": load_titles(),
             "last_years": load_last_years(), "economies": load_economies(),
-            "definitions": load_definitions(), "graph": load_graph()}
+            "definitions": load_definitions(), "graph": load_graph(), "corrections": load_corrections(),
+            "parameters": {p["id"]: p for p in load_passages(PARAMETER_FILE)}}
 
 
 def build():
@@ -255,7 +307,9 @@ def build():
                       "commercial_file": f"data/answers/{COMMERCIAL_FILE.name}",
                       "commercial_run_saved": COMMERCIAL_FILE.exists()},
             "parameters_file": f"data/question_bank/{PARAMETER_FILE.name}",
-            "wording_approved": {"date": "2026-11-23", "items": APPROVED_WORDING},
+            "wording_approved": [{"date": "2026-11-23", "items": APPROVED_WORDING},
+                                 {"date": "2026-11-24", "items": ["COMPARISON_LINE", "CORRECTED_HEADING"]}],
+            "corrections_file": f"data/answers/{CORRECTIONS_FILE.name}",
             "suggested": SUGGESTED,
             "replies": replies}
 
