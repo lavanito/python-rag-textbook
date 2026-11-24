@@ -16,3 +16,12 @@ hand, and a test rebuilds each file and fails if it differs.
 | `data/at_full_scale.json` | `tools/build_page_text.py` | The "In this build / At full scale" table, from `data/at_full_scale.csv` (agreed 17 Nov 2026) |
 | `data/sources.json` | `tools/build_page_text.py` | The sources page: ten corpus sources with terms for quoting and links with two dates; data sources by edition |
 | `data/walkthrough.json` | `tools/build_page_text.py` | The six lifecycle steps: process sentence (`data/walkthrough.csv`, approved 24 Nov 2026), tasks and who does them (front matter, "Who does what"), and the "At full scale" rows for each step |
+| `data/figures.json` | `tools/build_figures.py` | Every NNI model result the page can ask for (seven economies, 2000 to 2025, 12 measures, two editions) with value, flags, DQR band and reason; with the last years, measures, size cuts, approved definitions and approved wording the locked-block code needs |
+
+## JavaScript (`app/js/`)
+
+| File | Written by | What it does |
+| --- | --- | --- |
+| `js/locked_block.js` | by hand, from Chapters 13 and 14 | Builds the locked block for a typed question from `data/figures.json`: calls, digits, comparisons with size bands, premise line, definition lines, escalation, comparison line. `tests/test_locked_block_js.py` checks it equals the stored bank replies and Python's `locked_block` |
+| `js/nni.js` | `tools/copy_nni_js.py` | nni-model's `js/nni.js`, unchanged, at the commit `requirements.txt` pins (recorded in `js/nni_js_source.json`); gives the digits shown and changes in log points |
+| `js/run_locked_blocks.js` | by hand | Runs the locked-block code on a list of questions for the tests |

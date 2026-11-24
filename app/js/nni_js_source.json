@@ -1,0 +1,7 @@
+{
+ "note": "Written by tools/copy_nni_js.py; do not edit by hand.",
+ "repository": "lavanito/nni-model",
+ "file": "js/nni.js",
+ "commit": "7aa67ca068fc95f65ece7e6dbe70c6cd4f29efe0",
+ "sha256": "66b1503b978431a613c87fdb2e7979c25fb27a8e2ffd5eaf898285ad7d40242a"
+}
