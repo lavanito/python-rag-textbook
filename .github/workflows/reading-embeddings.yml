@@ -1,0 +1,53 @@
+# Makes the embeddings for reading the measure of a typed question by meaning,
+# and checks the browser's version ranks the measures as Python's does.
+# Run by hand (GitHub, Actions, "reading embeddings", Run workflow, on a branch):
+# Hugging Face cannot be reached from Claude's workspace. Commits the results to
+# the branch it ran on.
+
+name: reading embeddings
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  embeddings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repository
+        uses: actions/checkout@v4
+
+      - name: Install Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the CPU-only build of torch
+        run: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Install the packages listed in requirements.txt
+        run: pip install -r requirements.txt
+
+      - name: Embed the measures' names and the questions in Python (Chapter 4's model)
+        run: python tools/make_reading_embeddings.py
+
+      - name: Install Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install transformers.js
+        run: npm install --no-save @huggingface/transformers@3
+
+      - name: The browser's embeddings rank the measures as Python's do
+        run: node app/js/check_embeddings.mjs
+
+      - name: Commit the embeddings and the check
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898599+github-actions[bot]@users.noreply.github.com"
+          git add app/data/measure_embeddings.json data/embeddings/reading_questions.json data/answers/a5_embedding_check.json
+          git commit -m "Reading embeddings and browser check (workflow run)" || echo "No change"
+          git push
