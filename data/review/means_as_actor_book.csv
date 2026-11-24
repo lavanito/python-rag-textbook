@@ -1,0 +1,32 @@
+file,phrase,sentence
+book/ch01_python_basics.md,the language model can cite,"The layout puts the passage's id, source and reference on a heading line above its words, so the language model can cite them."
+book/ch01_python_basics.md,A language model reads,"A language model reads text, not dictionaries."
+book/ch02_minimal_pipeline.md,model reads,A chat model reads a list of messages.
+book/ch02_minimal_pipeline.md,code sends,The code sends the messages as **JSON** (Chapter 1) to Ollama's chat address and reads the reply from the JSON that comes back.
+book/ch02_minimal_pipeline.md,A language model produces,A language model produces its output one token at a time.
+book/ch02_minimal_pipeline.md,Language model answers,"**Language model answers.** A run of `qwen3:4b-instruct` on the 2015 test laptop, processor only, on 15 October 2026."
+book/ch04_semantic_search.md,embedding model gives,Some notes say this embedding model gives 768 numbers.
+book/ch05_hybrid_search.md,code reads,**The knowledge graph** (5.3): the code reads the knowledge graph built for this book and finds the concept that is named in a concept.
+book/ch05_hybrid_search.md,code drops,"- **A note in brackets is not part of a name.** The label ""gross domestic income (BEA)"" says whose term it is; the code drops ""(BEA)"" before matching."
+book/ch05_hybrid_search.md,code follows,"From a concept, the code follows:"
+book/ch06_chunking.md,the embedding model reads,Return the number of word pieces the embedding model reads in each
+book/ch06_chunking.md,The model reads,The model reads at most model.max_seq_length pieces (256 for
+book/ch07_vector_store.md,code makes,"To measure that without an embedding model, the code makes test embeddings."
+book/ch11_prompts.md,the language model gives,At each step the language model gives every token in its vocabulary a score.
+book/ch11_prompts.md,code finds,"- **The 40-token limit cut the reply inside its first citation.** Without the closing bracket the code finds no id, so a limit too small for the answer produces an answer with no citation."
+book/ch12_routing.md,A language model can route,A language model can route wording that no rule was written for.
+book/ch13_model_tool.md,The language model only reports,- **The language model only reports the number.** A language model's output is produced one token at a time; a figure in it is a guess unless it is copied from the prompt.
+book/ch13_model_tool.md,Code works out,Code works out every value and every rating.
+book/ch13_model_tool.md,code passes,"- **Code calls it from the router's labels.** This chapter does so: the router names R2, and code passes the economy, year and measure."
+book/ch13_model_tool.md,The NNI model builds,"- **The NNI model builds euro area GNI per head at PPP** (the horizontal domain expert, 6 November 2026)."
+book/ch13_model_tool.md,code checks,Years stay as text until code checks them.
+book/ch13_model_tool.md,code checks,Then code checks the reply against the data and lists the calls to `call_model`.
+book/ch13_model_tool.md,the model gives,"problems.append(f""That measure is not one the model gives."
+book/ch13_model_tool.md,code uses,"- **No year named means the latest year.** q5-01 asks how the euro area compares with the United States, with no year, so code uses 2024."
+book/ch13_model_tool.md,Code works out,"Code works out every figure and writes it as one line: the value, unit, year, source, edition, DQR band and reason, and flags."
+book/ch13_model_tool.md,Code then checks,Code then checks the reply.
+book/ch14_answer_checks.md,the model writes,"# explain a point, the model writes NO_EXPLANATION instead."
+book/ch15_token_cost.md,The language model uses,- The language model uses every token and almost all the time.
+book/ch15_token_cost.md,Code calculates,"| R2, lookup (class Q1) | Code calculates the figure; no explanation | 3 | 0 | 0 | 0 |"
+book/ch15_token_cost.md,Code fills,"| clarify, escalate | Code fills in the message | — | 0 | 0 | 0 |"
+book/ch15_token_cost.md,the language model uses,"- the trace has one line per step, the steps with no language model reproduce the saved template parts and evidence, and only the language model uses tokens;"
