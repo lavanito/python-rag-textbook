@@ -12,6 +12,7 @@ These scripts are for maintaining the data, not part of the book's code.
 | `doc_to_md.py` | Turns a full read of a chapter tab of the shared doc (saved as JSON) into `book/chNN_*.md`, without the status line |
 | `build_bank_replies.py` | Writes `app/data/bank_replies.json`, the replies to the 56 bank questions in both use modes (A5) |
 | `build_faq.py` | Writes `app/data/faq.json`, the page's questions and answers, from `data/faq.csv` (A5) |
+| `build_page_text.py` | Writes `app/data/lessons.json`, `at_full_scale.json` and `sources.json` from the book and the records (A5) |
 | `run_commercial_explanations.py` | Laptop only: asks for the explanations again in commercial use where the evidence changes; writes `data/answers/a5_explanations_commercial.jsonl` |
 
 ## Adding a passage

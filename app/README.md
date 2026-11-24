@@ -12,3 +12,6 @@ hand, and a test rebuilds each file and fails if it differs.
 | `data/change_log.json` | `tools/build_change_log.py` | The change log for readers (lesson L8), newest first, from `data/change_log.csv` (written and approved by people) |
 | `data/bank_replies.json` | `tools/build_bank_replies.py` | The reply to each of the 56 bank questions in both use modes: locked block, evidence, withheld passages, explanation and the page text; the sharper questions for the three vague questions; the suggested questions. Commercial explanations come from `data/answers/a5_explanations_commercial.jsonl`, written on the laptop by `tools/run_commercial_explanations.py` |
 | `data/faq.json` | `tools/build_faq.py` | The page's questions and answers, from `data/faq.csv` (written by the vertical domain expert, 24 Nov 2026) |
+| `data/lessons.json` | `tools/build_page_text.py` | Lessons for a production version (decision 26), read from Chapter 15, section 15.7 |
+| `data/at_full_scale.json` | `tools/build_page_text.py` | The "In this build / At full scale" table, from `data/at_full_scale.csv` (agreed 17 Nov 2026) |
+| `data/sources.json` | `tools/build_page_text.py` | The sources page: ten corpus sources with terms for quoting and links with two dates; data sources by edition |

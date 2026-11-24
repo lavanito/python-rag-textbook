@@ -1,0 +1,244 @@
+{
+ "note": "Written by tools/build_page_text.py from data/corpus/SOURCES.md, data/corpus/source_links.csv and data/series/series_links.csv; do not edit by hand.",
+ "corpus": [
+  {
+   "code": "SNA08",
+   "source": "United Nations, European Commission, IMF, OECD, World Bank: *System of National Accounts 2008*",
+   "edition": "2009",
+   "terms_for_quoting": "\"Copyright © 2009 European Communities, IMF, OECD, United Nations and World Bank. All rights reserved.\" No licence is published. un.org terms of use allow personal, non-commercial download only. Short quotation with full citation relies on the quotation exception in copyright law; anything more needs permission from UN Publications, Rights and Permissions (shop.un.org/rights-permissions)",
+   "status": "confirmed 14 Oct 2026 (PDF rights page; un.org copyright and terms of use)",
+   "url": "https://unstats.un.org/UNSD/nationalaccount/docs/SNA2008.pdf",
+   "document_date": "2009",
+   "date_read": "2026-10-14"
+  },
+  {
+   "code": "SNA25",
+   "source": "Same five organisations: *System of National Accounts 2025*",
+   "edition": "Pre-edit version, adopted by the UN Statistical Commission in March 2025",
+   "terms_for_quoting": "Same as SNA08: \"Copyright © 2025 … All rights reserved.\"",
+   "status": "confirmed 14 Oct 2026 (PDF rights page). The UNSD 2025 SNA page still links only the pre-edit version; no edited final version published. Text used: \"White Cover Version\", 1,260 pages, dated 15 Aug 2025",
+   "url": "https://unstats.un.org/unsd/nationalaccount/docs/2025_SNA_Pre-edit.pdf",
+   "document_date": "2025-08-15",
+   "date_read": "2026-10-14"
+  },
+  {
+   "code": "QNA17",
+   "source": "IMF: *Quarterly National Accounts Manual*, 2017 edition",
+   "edition": "2018",
+   "terms_for_quoting": "Fair use for non-commercial teaching, scholarship or research: up to 1,000 words or one quarter of the content from any one source, whichever is less, with a complete citation",
+   "status": "confirmed 12 Oct 2026, imf.org copyright and terms",
+   "url": "https://www.imf.org/external/pubs/ft/qna/pdf/2017/QNAManual2017text.pdf",
+   "document_date": "2018",
+   "date_read": "2026-10-12"
+  },
+  {
+   "code": "UNA14",
+   "source": "Derek Blades and others, OECD: *Understanding National Accounts*, second edition",
+   "edition": "2014",
+   "terms_for_quoting": "PDF rights notice (© OECD 2014): excerpts may be included in your own documents, presentations, blogs, websites and teaching materials with acknowledgement of source and copyright owner. Public or commercial use: request to rights@oecd.org",
+   "status": "confirmed 14 Oct 2026 (PDF rights page)",
+   "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/10/understanding-national-accounts_g1g43f55/9789264214637-en.pdf",
+   "document_date": "2014",
+   "date_read": "2026-10-14"
+  },
+  {
+   "code": "ESA10",
+   "source": "Eurostat: *European System of Accounts — ESA 2010*",
+   "edition": "2013",
+   "terms_for_quoting": "PDF rights notice (© European Union, 2013): reproduction authorised provided the source is acknowledged. Eurostat copyright page: commercial reuse allowed; changes must be stated",
+   "status": "confirmed 14 Oct 2026 (PDF rights page; Eurostat copyright page)",
+   "url": "https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-02-13-269",
+   "document_date": "2013",
+   "date_read": "2026-10-14"
+  },
+  {
+   "code": "BEA",
+   "source": "US Bureau of Economic Analysis: *NIPA Handbook: Concepts and Methods of the U.S. National Income and Product Accounts*",
+   "edition": "Chapters 1–14, December 2024",
+   "terms_for_quoting": "Public domain unless stated otherwise; may be reproduced without permission; credit to BEA requested; no suggestion of BEA endorsement",
+   "status": "confirmed 14 Oct 2026 (bea.gov FAQ and citation guidelines)",
+   "url": "https://www.bea.gov/resources/methodologies/nipa-handbook/pdf/all-chapters.pdf",
+   "document_date": "2024-12",
+   "date_read": "2026-10-14"
+  },
+  {
+   "code": "CSO",
+   "source": "Central Statistics Office, Ireland: *Modified GNI* (Statistics Explained)",
+   "edition": "web page",
+   "terms_for_quoting": "CC BY 4.0, source acknowledged",
+   "status": "confirmed 12 Oct 2026, cso.ie copyright policy",
+   "url": "https://www.cso.ie/en/interactivezone/statisticsexplained/nationalaccountsexplained/modifiedgni/",
+   "document_date": "not stated",
+   "date_read": "2026-10-12"
+  },
+  {
+   "code": "PPP23",
+   "source": "Eurostat and OECD: *Methodological Manual on Purchasing Power Parities*, 2023 edition",
+   "edition": "2024",
+   "terms_for_quoting": "PDF rights notice (© European Union/OECD 2024): CC BY 4.0; credit given, changes indicated. Cover image excluded",
+   "status": "confirmed 14 Oct 2026 (PDF rights page)",
+   "url": "https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/w/ks-gq-24-011",
+   "document_date": "2024",
+   "date_read": "2026-10-14"
+  },
+  {
+   "code": "WB13",
+   "source": "World Bank: *Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program (ICP)*, quoted from the Introduction (Angus Deaton) and Chapter 18 (Paul McCarthy)",
+   "edition": "2013",
+   "terms_for_quoting": "CC BY 3.0 (book's rights page; the World Bank repository record says CC BY 3.0 IGO): copy, adapt and use commercially, with attribution",
+   "status": "confirmed 23 Oct 2026 (rights page; repository record)",
+   "url": "https://doi.org/10.1596/978-0-8213-9728-2",
+   "document_date": "2013",
+   "date_read": "2026-10-23"
+  },
+  {
+   "code": "ONS",
+   "source": "Office for National Statistics (UK), blog: *The hardest part of productivity measurement*, Josh Martin",
+   "edition": "7 August 2019",
+   "terms_for_quoting": "Open Government Licence v3.0: all content, except where otherwise stated; attribute the source",
+   "status": "confirmed 23 Oct 2026 (licence statement on the blog page)",
+   "url": "https://blog.ons.gov.uk/2019/08/07/the-hardest-part-of-productivity-measurement/",
+   "document_date": "2019-08-07",
+   "date_read": "2026-10-23"
+  }
+ ],
+ "data": [
+  {
+   "edition": "WDI latest",
+   "name": "World Bank, World Development Indicators",
+   "licence": "CC BY 4.0",
+   "document_date": "2026-10-08",
+   "date_precision": "day",
+   "date_read": "2026-10-26",
+   "ppp_benchmark": "ICP 2021",
+   "series": [
+    {
+     "code": "NY.GNP.PCAP.PP.CD",
+     "url": "https://data.worldbank.org/indicator/NY.GNP.PCAP.PP.CD"
+    },
+    {
+     "code": "SP.POP.TOTL",
+     "url": "https://data.worldbank.org/indicator/SP.POP.TOTL"
+    },
+    {
+     "code": "NY.GDP.MKTP.PP.KD",
+     "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD"
+    },
+    {
+     "code": "NY.GDP.MKTP.CN",
+     "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CN"
+    },
+    {
+     "code": "NY.GDP.MKTP.KN",
+     "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KN"
+    },
+    {
+     "code": "NE.CON.PRVT.CN",
+     "url": "https://data.worldbank.org/indicator/NE.CON.PRVT.CN"
+    },
+    {
+     "code": "NE.CON.PRVT.KD",
+     "url": "https://data.worldbank.org/indicator/NE.CON.PRVT.KD"
+    },
+    {
+     "code": "NY.GNP.MKTP.CN",
+     "url": "https://data.worldbank.org/indicator/NY.GNP.MKTP.CN"
+    },
+    {
+     "code": "NY.GNP.MKTP.CD",
+     "url": "https://data.worldbank.org/indicator/NY.GNP.MKTP.CD"
+    },
+    {
+     "code": "NY.ADJ.NNTY.CD",
+     "url": "https://data.worldbank.org/indicator/NY.ADJ.NNTY.CD"
+    },
+    {
+     "code": "PA.NUS.PPP",
+     "url": "https://data.worldbank.org/indicator/PA.NUS.PPP"
+    },
+    {
+     "code": "PA.NUS.PRVT.PP",
+     "url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP"
+    }
+   ]
+  },
+  {
+   "edition": "WDI archive 202403",
+   "name": "World Bank, World Development Indicators",
+   "licence": "CC BY 4.0",
+   "document_date": "2024-03",
+   "date_precision": "month",
+   "date_read": "2026-10-26",
+   "ppp_benchmark": "ICP 2017",
+   "series": [
+    {
+     "code": "NY.GNP.PCAP.PP.CD",
+     "url": "https://data.worldbank.org/indicator/NY.GNP.PCAP.PP.CD"
+    },
+    {
+     "code": "SP.POP.TOTL",
+     "url": "https://data.worldbank.org/indicator/SP.POP.TOTL"
+    },
+    {
+     "code": "NY.GDP.MKTP.PP.KD",
+     "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD"
+    },
+    {
+     "code": "NY.GDP.MKTP.CN",
+     "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CN"
+    },
+    {
+     "code": "NY.GDP.MKTP.KN",
+     "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KN"
+    },
+    {
+     "code": "NE.CON.PRVT.CN",
+     "url": "https://data.worldbank.org/indicator/NE.CON.PRVT.CN"
+    },
+    {
+     "code": "NE.CON.PRVT.KD",
+     "url": "https://data.worldbank.org/indicator/NE.CON.PRVT.KD"
+    },
+    {
+     "code": "NY.GNP.MKTP.CN",
+     "url": "https://data.worldbank.org/indicator/NY.GNP.MKTP.CN"
+    },
+    {
+     "code": "NY.GNP.MKTP.CD",
+     "url": "https://data.worldbank.org/indicator/NY.GNP.MKTP.CD"
+    },
+    {
+     "code": "NY.ADJ.NNTY.CD",
+     "url": "https://data.worldbank.org/indicator/NY.ADJ.NNTY.CD"
+    },
+    {
+     "code": "PA.NUS.PPP",
+     "url": "https://data.worldbank.org/indicator/PA.NUS.PPP"
+    },
+    {
+     "code": "PA.NUS.PRVT.PP",
+     "url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP"
+    }
+   ]
+  },
+  {
+   "edition": "PWT 11.0",
+   "name": "Penn World Table 11.0 (Groningen Growth and Development Centre)",
+   "licence": "CC BY 4.0",
+   "document_date": "2025-10-07",
+   "date_precision": "day",
+   "date_read": "2026-10-26",
+   "ppp_benchmark": "",
+   "series": [
+    {
+     "code": "PWT.EMP",
+     "url": "https://doi.org/10.34894/FABVLR"
+    },
+    {
+     "code": "PWT.AVH",
+     "url": "https://doi.org/10.34894/FABVLR"
+    }
+   ]
+  }
+ ]
+}
