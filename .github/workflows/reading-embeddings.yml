@@ -1,13 +1,19 @@
 # Makes the embeddings for reading the measure of a typed question by meaning,
 # and checks the browser's version ranks the measures as Python's does.
-# Run by hand (GitHub, Actions, "reading embeddings", Run workflow, on a branch):
-# Hugging Face cannot be reached from Claude's workspace. Commits the results to
-# the branch it ran on.
+# Runs when the measures' names or the embedding code change, or by hand
+# (GitHub, Actions, "reading embeddings", Run workflow): Hugging Face cannot be
+# reached from Claude's workspace. Commits the results to the branch it ran on.
 
 name: reading embeddings
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - app/data/reading.json
+      - tools/make_reading_embeddings.py
+      - app/js/check_embeddings.mjs
+      - .github/workflows/reading-embeddings.yml
 
 permissions:
   contents: write
