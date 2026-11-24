@@ -8,6 +8,11 @@ It writes, in app/data/:
   book say the same thing.
 - at_full_scale.json: the "In this build / At full scale" table (build spec
   v3, component 13, agreed 17 November 2026), from data/at_full_scale.csv.
+- walkthrough.json: the six lifecycle steps (build spec v3, component 13).
+  For each step: the process sentence and chapters (data/walkthrough.csv,
+  approved 24 November 2026), the tasks and who does them (front matter,
+  "Who does what", table "Answering one question") and the "At full scale"
+  rows that belong to the step.
 - sources.json: the sources page (build spec v3, 17.8): the ten corpus
   sources with their terms for quoting (data/corpus/SOURCES.md) and links
   with two dates (data/corpus/source_links.csv), and the data sources by
@@ -122,7 +127,47 @@ def sources():
             "corpus": corpus_sources(), "data": data_sources()}
 
 
-FILES = {"lessons.json": lessons, "at_full_scale.json": at_full_scale, "sources.json": sources}
+# ---------------------------------------------------------------------------
+# Walkthrough
+# ---------------------------------------------------------------------------
+
+FRONT_MATTER = REPO / "book" / "front_matter.md"
+TASKS_HEADING = "### Answering one question"
+
+
+def answering_tasks():
+    """Task -> who does it, from the front matter's "Answering one question" table."""
+    text = FRONT_MATTER.read_text(encoding="utf-8")
+    table = text.split(TASKS_HEADING, 1)[1].split("\n### ", 1)[0]
+    tasks = {}
+    for line in table.splitlines():
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) == 2 and cells[0] not in ("Task", "---"):
+            tasks[cells[0]] = cells[1]
+    return tasks
+
+
+def walkthrough():
+    tasks = answering_tasks()
+    full_scale = {r["order"]: r for r in read_csv(DATA / "at_full_scale.csv")}
+    steps = []
+    for row in sorted(read_csv(DATA / "walkthrough.csv"), key=lambda r: int(r["step"])):
+        steps.append({
+            "step": int(row["step"]), "title": row["title"], "process": row["process"],
+            "chapters": row["chapters"].split(";"),
+            "people": [{"task": t, "done_by": tasks[t]} for t in row["tasks"].split(";")],
+            "at_full_scale": [{"in_this_build": full_scale[n]["in_this_build"],
+                               "at_full_scale": full_scale[n]["at_full_scale"]}
+                              for n in row["at_full_scale_rows"].split(";") if n],
+            "approved": row["approved"]})
+    return {"note": "Written by tools/build_page_text.py from data/walkthrough.csv, book/front_matter.md "
+                    "and data/at_full_scale.csv; do not edit by hand.",
+            "diagram": "The front matter's diagram \"Governed RAG · steps and tools\" (provenance sandwich, P2)",
+            "steps": steps}
+
+
+FILES = {"lessons.json": lessons, "at_full_scale.json": at_full_scale, "sources.json": sources,
+         "walkthrough.json": walkthrough}
 
 
 def main():

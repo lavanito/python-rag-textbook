@@ -15,3 +15,4 @@ hand, and a test rebuilds each file and fails if it differs.
 | `data/lessons.json` | `tools/build_page_text.py` | Lessons for a production version (decision 26), read from Chapter 15, section 15.7 |
 | `data/at_full_scale.json` | `tools/build_page_text.py` | The "In this build / At full scale" table, from `data/at_full_scale.csv` (agreed 17 Nov 2026) |
 | `data/sources.json` | `tools/build_page_text.py` | The sources page: ten corpus sources with terms for quoting and links with two dates; data sources by edition |
+| `data/walkthrough.json` | `tools/build_page_text.py` | The six lifecycle steps: process sentence (`data/walkthrough.csv`, approved 24 Nov 2026), tasks and who does them (front matter, "Who does what"), and the "At full scale" rows for each step |
