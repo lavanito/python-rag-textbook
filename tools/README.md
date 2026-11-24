@@ -11,6 +11,7 @@ These scripts are for maintaining the data, not part of the book's code.
 | `worst_chunks.py` | Prints the recursive chunks of one PDF that pass the model's 256-word-piece limit, with their longest word and share of letters, to find the cause (6.8; laptop only, output not committed) |
 | `doc_to_md.py` | Turns a full read of a chapter tab of the shared doc (saved as JSON) into `book/chNN_*.md`, without the status line |
 | `build_bank_replies.py` | Writes `app/data/bank_replies.json`, the replies to the 56 bank questions in both use modes (A5) |
+| `build_faq.py` | Writes `app/data/faq.json`, the page's questions and answers, from `data/faq.csv` (A5) |
 | `run_commercial_explanations.py` | Laptop only: asks for the explanations again in commercial use where the evidence changes; writes `data/answers/a5_explanations_commercial.jsonl` |
 
 ## Adding a passage

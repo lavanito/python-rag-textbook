@@ -76,7 +76,38 @@ def test_every_commercial_explanation_with_content_is_judged():
     path = ROOT / "data" / "answers" / "a5_judgements_commercial.csv"
     judged = {row["id"] for row in csv.DictReader(open(path, encoding="utf-8"))}
     shown = {r["id"] for r in BUILT["replies"]
-             if r["modes"]["commercial"]["explanation"]["status"] in ("passed", "passed on retry")
-             and "No explanation is available" not in r["modes"]["commercial"]["explanation"]["text"]
+             if r["modes"]["commercial"]["explanation"]["status"] in ("passed", "passed on retry", "corrected")
+             and "No explanation is available" not in (r["modes"]["commercial"]["explanation"].get("model_text")
+                                                       or r["modes"]["commercial"]["explanation"]["text"])
              and r["modes"]["commercial"]["evidence"] != r["modes"]["non-commercial"]["evidence"]}
     assert shown == judged
+
+
+def test_judgement_reasons_are_final():
+    """Reasons are written by the vertical domain expert: none may carry a draft mark (Lavan, 24 Nov)."""
+    import csv
+    for name in ("a5_judgements.csv", "a5_judgements_commercial.csv"):
+        with open(ROOT / "data" / "answers" / name, encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                assert row["reason"].strip() and not row["reason"].lower().startswith("draft")
+
+
+def test_corrected_explanation_keeps_the_model_text_and_a_fault_judgement():
+    import csv
+    with open(ROOT / "data" / "answers" / "a5_judgements_commercial.csv", encoding="utf-8") as f:
+        faults = {row["id"] for row in csv.DictReader(f) if row["judgement"] == "fault"}
+    for reply in BUILT["replies"]:
+        for mode in reply["modes"].values():
+            if mode["explanation"]["status"] == "corrected":
+                assert mode["explanation"]["text"].startswith(replies.CORRECTED_HEADING)
+                assert mode["explanation"]["model_text"]
+                assert reply["id"] in faults
+
+
+def test_comparison_line_on_every_reply_that_compares_economies():
+    for reply in BUILT["replies"]:
+        mode = reply["modes"]["non-commercial"]
+        if reply["class"] in replies.COMPARING_CLASSES and reply["built"]:
+            assert replies.COMPARISON_LINE in mode["locked"]
+        for option in mode.get("options", []):
+            assert replies.COMPARISON_LINE in option["locked"]
