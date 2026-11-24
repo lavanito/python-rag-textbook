@@ -45,7 +45,7 @@ jobs:
           node-version: "22"
 
       - name: Install transformers.js
-        run: npm install --no-save @huggingface/transformers@3
+        run: npm install --no-save --ignore-scripts @huggingface/transformers@3   # the CPU runtime is in the package; its script only fetches GPU files
 
       - name: The browser's embeddings rank the measures as Python's do
         run: node app/js/check_embeddings.mjs
