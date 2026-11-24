@@ -25,3 +25,5 @@ hand, and a test rebuilds each file and fails if it differs.
 | `js/locked_block.js` | by hand, from Chapters 13 and 14 | Builds the locked block for a typed question from `data/figures.json`: calls, digits, comparisons with size bands, premise line, definition lines, escalation, comparison line. `tests/test_locked_block_js.py` checks it equals the stored bank replies and Python's `locked_block` |
 | `js/nni.js` | `tools/copy_nni_js.py` | nni-model's `js/nni.js`, unchanged, at the commit `requirements.txt` pins (recorded in `js/nni_js_source.json`); gives the digits shown and changes in log points |
 | `js/run_locked_blocks.js` | by hand | Runs the locked-block code on a list of questions for the tests |
+| `js/read_question.js` | by hand | Reads a typed question in parts (economies, years, editions, measures) from `data/reading.json` and `data/measure_embeddings.json`; scored by `tools/score_reading.py` |
+| `js/outside_topics.js` | by hand | Gives the approved line for a topic none of the measures covers (unpaid household services) from `data/outside_topics.json`, and passes the question to an analyst |
