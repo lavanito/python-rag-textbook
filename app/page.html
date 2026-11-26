@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>National income questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a statistical office's reference page; plain, exact, calm.
+   IDEA: a printed data release: headed blocks, ruled tables, source lines.
+   PICTURE: the reply itself, built block by block, with the provenance sandwich in the walkthrough.
+   COLOUR and TYPE: black on white, aluminium greys; colour only for the DQR, always with its word (spec 17.4). Geist.
+   LAYOUT: header and settings, one row of section links, one view at a time; light mode only (spec 17.4). */
+:root{color-scheme:light;--bg:#fff;--ink:#141517;--soft:#5b5f66;--line:#d6d8dc;--panel:#f2f3f5;--alu:#e9eaec;
+ --high:#1d6b3a;--high-bg:#e3f1e8;--med:#8a5a00;--med-bg:#fbefd6;--low:#a3241b;--low-bg:#f9e1de}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Geist,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.band{padding:clamp(20px,3vw,40px) max(4vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+header.band{background:var(--alu);border-bottom:1px solid var(--line)}
+.mark{font-weight:600;letter-spacing:.01em;font-size:15px}
+h1{font-size:clamp(28px,4.2vw,44px);line-height:1.08;font-weight:600;margin:.35em 0 .3em;text-wrap:balance;max-width:24ch}
+h2{font-size:24px;line-height:1.2;font-weight:600;margin:0 0 .6em}
+h3{font-size:18px;margin:1.4em 0 .4em;font-weight:600}
+h4{font-size:15px;margin:1.1em 0 .3em;font-weight:600}
+p{margin:.4em 0;max-width:72ch}
+.sub{color:var(--soft);max-width:70ch}
+.size{font-size:14px;color:var(--soft);margin-top:.8em}
+.settings{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:18px;align-items:start}
+fieldset{border:0;margin:0;padding:0}
+legend,label.lab{font-size:13px;color:var(--soft);display:block;margin-bottom:4px}
+.seg{display:inline-flex;border:1px solid var(--ink);border-radius:6px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{padding:10px 14px;min-height:44px;cursor:pointer;font-size:15px;display:flex;align-items:center}
+.seg input:checked+label{background:var(--ink);color:#fff}
+.seg input:focus-visible+label{outline:3px solid var(--ink);outline-offset:-5px;box-shadow:inset 0 0 0 5px #fff}
+.hint{font-size:13px;color:var(--soft);max-width:44ch;margin:4px 0 0}
+nav{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:2px;overflow-x:auto;padding:0 max(4vw,16px)}
+nav a{flex:none;padding:12px 12px;text-decoration:none;font-size:15px;border-bottom:3px solid transparent;min-height:44px}
+nav a[aria-current=page]{border-color:var(--ink);font-weight:600}
+main section[hidden]{display:none}
+.askgrid{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:32px}
+@media(max-width:860px){.askgrid{grid-template-columns:minmax(0,1fr)}}
+textarea,select,input[type=text]{font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1px solid var(--soft);border-radius:6px;padding:10px;width:100%;min-height:44px}
+textarea{min-height:88px;resize:vertical}
+button{font:inherit;font-size:15px;min-height:44px;padding:8px 16px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+button.quiet{background:#fff;color:var(--ink);text-align:left}
+.chips{display:flex;flex-direction:column;gap:6px;margin:.4em 0 1em}
+.chips button{width:100%;font-size:14px;line-height:1.35}
+.chips button[aria-pressed=true]{background:var(--panel);border-width:2px}
+.reply{border:1px solid var(--line);border-radius:8px;padding:clamp(16px,2.4vw,28px);background:#fff}
+.q{font-size:20px;font-weight:600;line-height:1.3;margin:0 0 .3em}
+.meta{font-size:13px;color:var(--soft)}
+.block h4{border-top:1px solid var(--line);padding-top:.8em}
+.block ul{margin:.2em 0;padding-left:1.2em}
+.block li{margin:.35em 0}
+.block .cont{display:block;color:var(--soft);font-size:14px}
+.block blockquote{margin:.3em 0 0;padding-left:10px;border-left:3px solid var(--line);font-size:14px}
+.note{font-style:italic;color:var(--soft)}
+.dqr{display:inline-block;font-style:normal;font-weight:600;font-size:13px;padding:0 6px;border-radius:4px;white-space:nowrap}
+.dqr-High{color:var(--high);background:var(--high-bg)}.dqr-Medium{color:var(--med);background:var(--med-bg)}.dqr-Low{color:var(--low);background:var(--low-bg)}
+.readas{background:var(--panel);border-radius:6px;padding:12px 14px;margin:.8em 0}
+.readas strong{font-weight:600}
+.fix{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+details{border-top:1px solid var(--line);margin-top:1.2em;padding-top:.6em}
+summary{cursor:pointer;font-weight:600;min-height:32px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+@media(max-width:700px){.two{grid-template-columns:minmax(0,1fr)}}
+.pre{white-space:pre-wrap;font-size:14px;background:var(--panel);border-radius:6px;padding:12px;margin:0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600;border-bottom:2px solid var(--ink)}
+td.n,th.n{text-align:right;white-space:nowrap}
+.scroll{overflow-x:auto}
+.sandwich{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1fr);gap:0;align-items:stretch;margin:1em 0 1.6em}
+.sandwich div{padding:14px 16px;border:2px solid var(--ink)}
+.sandwich .model{background:var(--ink);color:#fff;display:flex;align-items:center;text-align:center;justify-content:center;font-weight:600}
+.sandwich ol{margin:0;padding-left:1.2em}
+@media(max-width:700px){.sandwich{grid-template-columns:minmax(0,1fr)}}
+.steps details{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:.6em 0}
+.grid2{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto;gap:6px;max-width:880px}
+.quad{border:1px solid var(--ink);border-radius:6px;padding:14px;min-height:130px}
+.quad b{display:block;margin-bottom:6px}
+.quad.mark2{border-width:3px}
+.axis{font-size:13px;color:var(--soft);display:flex;align-items:center;justify-content:center}
+.yaxis{writing-mode:vertical-rl;transform:rotate(180deg)}
+footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--soft)}.stack td:empty{display:none}}
+@media(prefers-reduced-motion:no-preference){.reply{transition:opacity .15s}.reply.busy{opacity:.5}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band"><div class="wrap">
+ <div class="mark" id="mark">Lavan Mahadeva Limited</div>
+ <h1 id="title"></h1>
+ <p class="sub" id="subtitle"></p>
+ <p class="size" id="size"></p>
+ <div class="settings">
+  <fieldset><legend id="l-mode"></legend><div class="seg" id="mode"></div><p class="hint" id="h-mode"></p></fieldset>
+  <fieldset><legend id="l-role"></legend><div class="seg" id="role"></div><p class="hint" id="h-role"></p></fieldset>
+ </div>
+</div></header>
+<nav aria-label="Sections"><div class="wrap" id="nav"></div></nav>
+<main>
+ <section id="ask" class="band"><div class="wrap askgrid">
+  <div>
+   <form id="typed-form">
+    <label class="lab" for="typed" id="l-typed"></label>
+    <textarea id="typed" maxlength="400"></textarea>
+    <p class="hint" id="h-typed"></p>
+    <p class="hint" id="model-state" aria-live="polite"></p>
+    <button type="submit" id="b-typed"></button>
+   </form>
+   <h3 id="l-suggested"></h3>
+   <div class="chips" id="suggested"></div>
+   <label class="lab" for="bank" id="l-bank"></label>
+   <select id="bank"></select>
+   <p class="hint" id="h-bank"></p>
+  </div>
+  <div class="reply" id="reply" aria-live="polite"></div>
+ </div></section>
+ <section id="walkthrough" class="band" hidden><div class="wrap" id="walk"></div></section>
+ <section id="lessons" class="band" hidden><div class="wrap" id="lessons-body"></div></section>
+ <section id="method" class="band" hidden><div class="wrap" id="method-body"></div></section>
+ <section id="coverage" class="band" hidden><div class="wrap" id="coverage-body"></div></section>
+ <section id="scores" class="band" hidden><div class="wrap" id="scores-body"></div></section>
+ <section id="changes" class="band" hidden><div class="wrap" id="changes-body"></div></section>
+ <section id="faq" class="band" hidden><div class="wrap" id="faq-body"></div></section>
+ <section id="sources" class="band" hidden><div class="wrap" id="sources-body"></div></section>
+ <section id="audit" class="band" hidden><div class="wrap" id="audit-body"></div></section>
+</main>
+<footer class="band"><div class="wrap" id="footer"></div></footer>
+<script id="page-data" type="application/json">/*DATA*/</script>
+/*SCRIPTS*/
+<script>
+{
+const D = JSON.parse(document.getElementById("page-data").textContent);
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const W = (id) => (D.page.wording[id] || { text: id }).text;
+const fill = (text, values) => text.replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
+const italics = (s) => esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+const state = { mode: "non-commercial", role: "analyst", shown: null, embed: null, model: "idle", vectors: {} };
+const typedData = { routing: D.routing, reading: D.reading, figures: D.figures, search: D.search, topics: D.outside_topics, page: D.page };
+const bankById = Object.fromEntries(D.bank_replies.replies.map((r) => [r.id, r]));
+const passageById = Object.fromEntries(D.search.passages.map((p) => [p.id, p]));
+const DEF = D.figures.wording.definitions_heading;
+
+// ---------- header, settings, navigation ----------
+$("title").textContent = W("title");
+$("subtitle").textContent = W("subtitle");
+const counts = D.method_and_caveats.counts;
+$("size").textContent = fill(W("size_line"), { passages: counts.passages, sources: counts.sources,
+  economies: Object.keys(D.coverage_grid.economies).length, questions: counts.questions });
+$("footer").textContent = W("footer");
+function segment(id, name, options, key) {
+  $(id).innerHTML = options.map(([value, label], i) =>
+    `<input type="radio" name="${name}" id="${name}-${i}" value="${esc(value)}"${value === state[key] ? " checked" : ""}><label for="${name}-${i}">${esc(label)}</label>`).join("");
+  $(id).addEventListener("change", (e) => { state[key] = e.target.value; rerender(); });
+}
+$("l-mode").textContent = W("use_mode"); $("h-mode").textContent = W("use_mode_note");
+$("l-role").textContent = W("role"); $("h-role").textContent = W("role_note");
+segment("mode", "mode", [["non-commercial", W("use_mode_non_commercial")], ["commercial", W("use_mode_commercial")]], "mode");
+segment("role", "role", [["analyst", W("role_analyst")], ["executive", W("role_executive")]], "role");
+const VIEWS = [["ask", "nav_ask"], ["walkthrough", "nav_walkthrough"], ["lessons", "nav_lessons"], ["method", "nav_method"],
+  ["coverage", "nav_coverage"], ["scores", "nav_scores"], ["changes", "nav_changes"], ["faq", "nav_faq"],
+  ["sources", "nav_sources"], ["audit", "nav_audit"]];
+$("nav").innerHTML = VIEWS.map(([id, w]) => `<a href="#${id}" data-view="${id}">${esc(W(w))}</a>`).join("");
+function route() {
+  const view = VIEWS.some(([id]) => "#" + id === location.hash) ? location.hash.slice(1) : "ask";
+  for (const [id] of VIEWS) $(id).hidden = id !== view;
+  for (const a of document.querySelectorAll("nav a")) {
+    if (a.dataset.view === view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  }
+}
+window.addEventListener("hashchange", route);
+
+// ---------- one block of reply text as HTML ----------
+function inline(s) {
+  return esc(s).replace(/DQR (High|Medium|Low)/g, '<span class="dqr dqr-$1">DQR $1</span>');
+}
+function blockHtml(text, executive) {
+  return text.split("\n\n").map((part) => {
+    const lines = part.split("\n");
+    let head = null, body = lines;
+    if (!lines[0].startsWith("- ") && lines.length > 1 && lines[1].startsWith("- ")) { head = lines[0]; body = lines.slice(1); }
+    if (executive && head && (head.startsWith(DEF) || head.startsWith(D.page.reply_wording.EXPLANATION_HEADING) ||
+        head.startsWith(D.page.reply_wording.CORRECTED_HEADING))) return "";
+    const items = [], plain = [];
+    for (const line of body) {
+      if (line.startsWith("- ")) items.push([line.slice(2)]);
+      else if (line.startsWith("  ") && items.length) items[items.length - 1].push(line.trim());
+      else plain.push(line);
+    }
+    const list = items.length ? "<ul>" + items.map(([first, ...more]) => "<li>" + inline(first) + more.map((m) =>
+      m.startsWith('"') ? `<blockquote>${esc(m)}</blockquote>` : `<span class="cont">${inline(m)}</span>`).join("") + "</li>").join("") + "</ul>" : "";
+    const para = plain.map((l) => l.startsWith("Demonstrator note") ? `<p class="note">${esc(l)}</p>` : `<p>${inline(l)}</p>`).join("");
+    return (head ? `<h4>${esc(head)}</h4>` : "") + para + list;
+  }).join("");
+}
+
+// ---------- trace, withheld, contrast ----------
+const outText = (o) => Object.entries(o).filter(([, v]) => v !== null && v !== undefined)
+  .map(([k, v]) => `${k}: ${Array.isArray(v) ? (v.length ? v.join(", ") : "none") : typeof v === "object" ? JSON.stringify(v) : v}`).join("; ");
+function traceHtml(steps, typed) {
+  const rows = steps.map((s) => `<tr><td>${esc(s.step)}</td><td>${esc(s.means)}</td><td>${esc(outText(s.outputs))}</td>` +
+    `<td class="n">${esc(s.tokens_in ?? 0)}</td><td class="n">${esc(s.tokens_out ?? 0)}</td><td class="n">${s.seconds == null ? "" : esc(s.seconds)}</td></tr>`).join("");
+  return `<details><summary>${esc(W("trace"))}</summary><p class="meta">${esc(fill(W("trace_context"), { use_mode: state.mode, role: state.role }))}</p>` +
+    (typed ? `<p class="meta">${esc(W("trace_typed"))}</p>` : "") +
+    `<div class="scroll"><table class="stack"><thead><tr><th>${esc(W("trace_step"))}</th><th>${esc(W("trace_means"))}</th><th>${esc(W("trace_output"))}</th>` +
+    `<th class="n">${esc(W("trace_tokens_in"))}</th><th class="n">${esc(W("trace_tokens_out"))}</th><th class="n">${esc(W("trace_seconds"))}</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
+}
+function withheldHtml(ids, reasons) {
+  const list = ids.length ? "<ul>" + ids.map((id) => `<li>[${esc(id)}] ${esc(reasons[id] || `licence: '${passageById[id].licence_class}' is not allowed in ${state.mode} use`)}</li>`).join("") + "</ul>"
+    : `<p>${esc(W("none_withheld"))}</p>`;
+  return `<details><summary>${esc(W("withheld"))} (${ids.length})</summary>${list}</details>`;
+}
+function contrastHtml(id, governed) {
+  const c = D.traces.contrast;
+  let left;
+  if (!id) left = `<p class="meta">${esc(W("contrast_typed"))}</p>`;
+  else if (!c || !c.replies[id]) left = `<p class="meta">${esc(W("contrast_pending"))}</p>`;
+  else left = `<p class="meta">${esc(fill(W("contrast_settings"), { date: c.date, model: c.model, ...c.settings }))}</p><p class="pre">${esc(c.replies[id].answer)}</p>` +
+    (c.replies[id].done_reason === "length" ? `<p class="meta">${esc(fill(W("contrast_cut"), c.settings))}</p>` : "");
+  return `<details><summary>${esc(W("contrast"))}</summary><p>${esc(W("contrast_lacks"))}</p><div class="two">` +
+    `<div><h4>${esc(W("contrast_left"))}</h4>${left}</div><div><h4>${esc(W("contrast_right"))}</h4><p class="pre">${esc(governed)}</p></div></div></details>`;
+}
+
+// ---------- bank replies ----------
+function showBank(id, option = null) {
+  state.shown = { kind: "bank", id, option };
+  const r = bankById[id], m = r.modes[state.mode], exec = state.role === "executive";
+  let html = `<p class="q">${esc(r.question)}</p><p class="meta">${esc(W("question_class"))}: ${esc(r.class)} · ${esc(r.route)} · ${esc(r.router.rule)}</p>`;
+  html += `<div class="block">${blockHtml(m.locked, exec)}</div>`;
+  if (m.options) {
+    html += `<div class="chips">` + m.options.map((o, i) => `<button class="quiet" data-option="${i}" aria-pressed="${option === i}">${esc(o.aspect[0].toUpperCase() + o.aspect.slice(1))}: ${esc(o.question)}</button>`).join("") + "</div>";
+    if (option !== null) html += `<div class="block">${blockHtml(m.options[option].locked, exec)}</div>`;
+  }
+  if (m.explanation.text) html += exec ? `<p class="meta">${esc(W("explanation_executive"))}</p>` : `<div class="block">${blockHtml(m.explanation.text, false)}</div>`;
+  if (!exec) {
+    html += withheldHtml(m.withheld, {});
+    html += contrastHtml(id, m.page);
+    html += traceHtml(D.traces.traces[id][state.mode], false);
+  }
+  $("reply").innerHTML = html;
+  for (const b of $("reply").querySelectorAll("[data-option]")) b.addEventListener("click", () => showBank(id, Number(b.dataset.option)));
+  markChips(id);
+}
+
+// ---------- typed questions ----------
+function meaningFor(question) {
+  const v = state.vectors[question];
+  return v ? { vector: v, measures: D.measure_embeddings } : null;
+}
+function modelNote() {
+  const ids = { idle: "", loading: "model_loading", ready: "model_ready", unavailable: "model_unavailable" };
+  $("model-state").textContent = ids[state.model] ? W(ids[state.model]) : "";
+  $("model-state").className = state.model === "unavailable" ? "hint note" : "hint";
+}
+async function loadModel() {
+  if (state.model !== "idle") return;
+  state.model = "loading"; modelNote();
+  try {
+    const t = await Promise.race([import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1"),
+      new Promise((_, no) => setTimeout(() => no(new Error("timeout")), 20000))]);
+    const embed = await t.pipeline("feature-extraction", D.reading.browser_model.name, { dtype: D.reading.browser_model.dtype });
+    state.embed = async (q) => Array.from((await embed(q, { pooling: "mean", normalize: true })).data);
+    state.model = "ready";
+  } catch (e) { state.model = "unavailable"; }
+  modelNote();
+}
+async function askTyped(question) {
+  if (state.embed && !state.vectors[question]) {
+    $("reply").classList.add("busy");
+    try { state.vectors[question] = await state.embed(question); } catch (e) { /* read by name only */ }
+    $("reply").classList.remove("busy");
+  }
+  showTyped(question, null);
+}
+function selectHtml(id, label, choices, value, extra = []) {
+  const opts = [...extra, ...choices].map((c) => `<option value="${esc(c.value)}"${c.value === value ? " selected" : ""}>${esc(c.label)}</option>`).join("");
+  return `<div><label class="lab" for="${id}">${esc(label)}</label><select id="${id}">${opts}</select></div>`;
+}
+function showTyped(question, corrected, aspect = null) {
+  state.shown = { kind: "typed", question, corrected, aspect };
+  const L = globalThis.lockedBlockCode;
+  let r = globalThis.answerTypedCode.answerTyped(typedData, question, state.mode, meaningFor(question), corrected);
+  let text = r.text, parameters = r.parameters, readAs = r.readAs;
+  if (r.kind === "clarify" && aspect !== null) {
+    const a = D.page.aspects[aspect];
+    parameters = { ...r.parameters, measures: [a.measure], years: r.parameters.years.length ? r.parameters.years : ["latest"], editions: ["latest"], change: false };
+    text = globalThis.outsideTopicsCode.withOutsideTopics(D.outside_topics, D.figures, question, L.reply(D.figures, question, parameters, r.route.class));
+    readAs = globalThis.readAsCode.readAs(D.reading, D.figures, parameters);
+  }
+  const exec = state.role === "executive";
+  let html = `<p class="q">${esc(question)}</p><p class="meta">${esc(W("question_class"))}: ${esc(r.route.class)} · ${esc(r.route.route)} · ${esc(r.route.rule)}</p>`;
+  if (readAs) {
+    const p = readAs.parts, first = parameters.economies[0] || "", second = parameters.economies[1] || "";
+    const yearValue = parameters.years.length > 1 ? "__keep" : parameters.years[0] || "latest";
+    html += `<div class="readas"><strong>${esc(readAs.line)}</strong><p class="note">${esc(D.reading.demonstrator_note)}</p>` +
+      `<details><summary>${esc(W("correct"))}</summary><div class="fix">` +
+      selectHtml("fx-e1", W("first_economy"), p.economies.choices, first, [{ value: "", label: W("none") }]) +
+      selectHtml("fx-e2", W("second_economy"), p.economies.choices, second, [{ value: "", label: W("none") }]) +
+      selectHtml("fx-m", W("measures"), p.measures.choices, parameters.measures[0] || "", [{ value: "", label: W("none") }]) +
+      selectHtml("fx-y", W("years"), p.years.choices, yearValue, parameters.years.length > 1 ? [{ value: "__keep", label: `${p.years.label} (${W("keep_years")})` }] : []) +
+      selectHtml("fx-ed", W("editions"), p.editions.choices, parameters.editions.join(",")) + `</div></details></div>`;
+  }
+  html += `<div class="block">${blockHtml(text, exec)}</div>`;
+  if (r.kind === "clarify") {
+    html += `<p>${esc(W("sharper_typed"))}</p><div class="chips">` + D.page.aspects.map((a, i) =>
+      `<button class="quiet" data-aspect="${i}" aria-pressed="${aspect === i}">${esc(a.aspect[0].toUpperCase() + a.aspect.slice(1))}: ${esc(globalThis.readAsCode.readAs(D.reading, D.figures, { ...r.parameters, measures: [a.measure], years: r.parameters.years.length ? r.parameters.years : ["latest"], editions: ["latest"] }).line)}</button>`).join("") + "</div>";
+  }
+  if (!exec) {
+    if (r.kind !== "passages" && r.found.passages.length) {
+      html += `<details><summary>${esc(W("passages_found"))}</summary><ul>` + r.found.passages.map((f) =>
+        `<li>[${esc(f.passage.id)}] ${esc(f.passage.source)}, ${esc(f.passage.reference)}<span class="cont">${esc(W("why_keyword"))}: ${esc(f.keyword.join(", ") || "none")}${f.expansion.length ? `; ${esc(W("why_expansion"))}: ${esc(f.expansion.join(", "))}` : ""}</span></li>`).join("") + "</ul></details>";
+    } else if (r.kind === "passages") {
+      html += `<p class="meta">` + r.found.passages.map((f) => `[${esc(f.passage.id)}] ${esc(W("why_keyword"))}: ${esc(f.keyword.join(", ") || "none")}${f.expansion.length ? `; ${esc(W("why_expansion"))}: ${esc(f.expansion.join(", "))}` : ""}`).join("<br>") + "</p>";
+    }
+    html += withheldHtml(r.found.withheld.map((w) => w.id), Object.fromEntries(r.found.withheld.map((w) => [w.id, w.reason])));
+    html += contrastHtml(null, text);
+    html += traceHtml(r.steps, true);
+  }
+  $("reply").innerHTML = html;
+  if (readAs) {
+    const apply = () => {
+      const econ = [$("fx-e1").value, $("fx-e2").value].filter((v, i, a) => v && a.indexOf(v) === i);
+      const y = $("fx-y").value;
+      const fixed = { economies: econ, years: y === "__keep" ? parameters.years : [y], measures: $("fx-m").value ? [$("fx-m").value] : [],
+                      editions: $("fx-ed").value.split(","), change: parameters.change || false };
+      showTyped(question, fixed);
+      const d = $("reply").querySelector(".readas details"); if (d) d.open = true;
+    };
+    for (const id of ["fx-e1", "fx-e2", "fx-m", "fx-y", "fx-ed"]) $(id).addEventListener("change", apply);
+  }
+  for (const b of $("reply").querySelectorAll("[data-aspect]")) b.addEventListener("click", () => showTyped(question, null, Number(b.dataset.aspect)));
+  markChips(null);
+}
+
+// ---------- the Ask view ----------
+$("l-typed").textContent = W("typed"); $("h-typed").textContent = W("typed_note"); $("b-typed").textContent = W("typed_button");
+$("l-suggested").textContent = W("suggested"); $("l-bank").textContent = W("bank"); $("h-bank").textContent = W("bank_note");
+$("suggested").innerHTML = D.bank_replies.suggested.map((id) => `<button class="quiet" data-id="${esc(id)}">${esc(bankById[id].question)}</button>`).join("");
+for (const b of $("suggested").querySelectorAll("button")) b.addEventListener("click", () => showBank(b.dataset.id));
+const classes = [...new Set(D.bank_replies.replies.map((r) => r.class))];
+$("bank").innerHTML = `<option value="">—</option>` + classes.map((c) => `<optgroup label="${esc(c)}">` +
+  D.bank_replies.replies.filter((r) => r.class === c).map((r) => `<option value="${esc(r.id)}">${esc(r.id)}: ${esc(r.question)}</option>`).join("") + "</optgroup>").join("");
+$("bank").addEventListener("change", () => { if ($("bank").value) showBank($("bank").value); });
+function markChips(id) { for (const b of $("suggested").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.id === id)); }
+$("typed").addEventListener("focus", loadModel, { once: true });
+$("typed-form").addEventListener("submit", (e) => { e.preventDefault(); const q = $("typed").value.trim(); if (q) askTyped(q); });
+$("typed").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("typed-form").requestSubmit(); } });
+function rerender() {
+  const s = state.shown;
+  if (!s) return;
+  if (s.kind === "bank") showBank(s.id, s.option); else showTyped(s.question, s.corrected, s.aspect);
+}
+
+// ---------- reference views ----------
+const table = (heads, rows, cls = "stack") => `<div class="scroll"><table class="${cls}"><thead><tr>${heads.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>` +
+  rows.map((r) => "<tr>" + r.map((c) => `<td>${c}</td>`).join("") + "</tr>").join("") + "</tbody></table></div>";
+const wt = D.walkthrough;
+$("walk").innerHTML = `<h2>${esc(W("nav_walkthrough"))}</h2><p>${esc(W("walkthrough_intro"))}</p>` +
+  `<div class="sandwich" role="img" aria-label="${esc(W("sandwich"))}"><div><ol>${W("sandwich_before").split(";").map((s) => `<li>${esc(s)}</li>`).join("")}</ol></div>` +
+  `<div class="model">${esc(W("sandwich_model"))}</div><div><ol>${W("sandwich_after").split(";").map((s) => `<li>${esc(s)}</li>`).join("")}</ol></div></div>` +
+  `<p class="meta">${esc(W("sandwich"))}</p><div class="steps">` + wt.steps.map((s) => `<details${s.step === 1 ? " open" : ""}><summary>${esc(W("step"))} ${s.step}: ${esc(s.title)}</summary>` +
+    `<p>${esc(s.process)}</p><p class="meta">${esc(W("chapters"))}: ${esc(s.chapters.join(", "))}</p>` +
+    `<h4>${esc(W("walkthrough_means"))}</h4>` + table([W("step"), W("walkthrough_means")], s.means.map((m) => [esc(m.step), esc(m.means)])) +
+    (s.at_full_scale.length ? `<h4>${esc(W("walkthrough_full_scale"))}</h4>` + table(D.at_full_scale.columns, s.at_full_scale.map((x) => [esc(x.in_this_build), esc(x.at_full_scale)])) : "") +
+    `</details>`).join("") + `</div><h3>${esc(W("walkthrough_full_scale"))}</h3>` +
+  table(D.at_full_scale.columns, D.at_full_scale.rows.map((x) => [esc(x.in_this_build), esc(x.at_full_scale)]));
+const ls = D.lessons;
+$("lessons-body").innerHTML = `<h2>${esc(W("nav_lessons"))}</h2><div class="two"><div><h3>${esc(W("lessons_worked"))}</h3><ul>${ls.what_worked.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` +
+  `<div><h3>${esc(W("lessons_needs"))}</h3><ul>${ls.what_a_production_version_needs.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div></div><p class="meta">${esc(ls.source)}</p>`;
+const mc = D.method_and_caveats;
+$("method-body").innerHTML = `<h2>${esc(mc.title)}</h2><p class="meta">${esc(mc.status)}</p><h3>${esc(W("caveats"))}</h3>` +
+  mc.caveats.map((c) => `<h4>${esc(c.title)}</h4><p>${esc(c.text)}</p>`).join("") + `<h3>${esc(W("method_counts"))}</h3>` +
+  table(["", ""], Object.entries(mc.counts).map(([k, v]) => [esc(k.replaceAll("_", " ")), esc(typeof v === "object" ? outText(Array.isArray(v) ? Object.fromEntries(v.map((x, i) => [x.check || i, x.agree !== undefined ? `${x.agree} of ${x.total}` : x])) : v) : v)]));
+const cg = D.coverage_grid, econ = Object.keys(cg.economies);
+const cell = (c) => c.kind === "no figure" ? esc(W("no_figure")) :
+  `${esc(W(c.kind === "proxy" ? "proxy" : "exact"))} ${esc(c.first)}–${esc(c.last)}${c.nowcast_from ? `; ${esc(W("nowcast_from"))} ${esc(c.nowcast_from)}` : ""}` +
+  (c.dqr_last_year ? ` <span class="dqr dqr-${esc(c.dqr_last_year)}">DQR ${esc(c.dqr_last_year)}</span>` : "");
+$("coverage-body").innerHTML = `<h2>${esc(cg.title)}</h2><p>${esc(W("coverage_intro"))} ${esc(cg.edition)}</p>` +
+  table(["", ...econ.map((e) => cg.economies[e])], cg.rows.map((r) => [`<strong>${esc(r.description)}</strong>${r.unit ? `<span class="cont">${esc(r.unit)}</span>` : ""}${r.best_data ? `<span class="cont">${esc(W("best_data"))}: ${esc(r.best_data)}</span>` : ""}`,
+    ...econ.map((e) => cell(r.cells[e]))]));
+const tr = D.traces;
+$("scores-body").innerHTML = `<h2>${esc(W("scores"))}</h2>` + table([W("chapters"), "", "", W("scores_label")], tr.scores.map((s) => [esc(s.chapter), esc(s.score), esc(s.result), esc(s.label)])) +
+  `<h3>${esc(W("cost"))}</h3>` + table([W("cost_step"), W("cost_in"), W("cost_out"), W("cost_seconds")], tr.cost.map((c) => [esc(c.step), esc(Math.round(c.in_per_question)), esc(Math.round(c.out_per_question)), esc(c.seconds_per_question)]));
+const cl = D.change_log;
+$("changes-body").innerHTML = `<h2>${esc(cl.title)}</h2>` + table(["", "", ""], cl.entries.map((e) => [esc(e.date), esc(e.area), esc(e.change)]));
+$("faq-body").innerHTML = `<h2>${esc(W("nav_faq"))}</h2>` + D.faq.questions.map((q) => `<h3>${esc(q.question)}</h3><p>${esc(q.answer)}</p>`).join("");
+const so = D.sources;
+$("sources-body").innerHTML = `<h2>${esc(W("nav_sources"))}</h2><h3>${esc(W("sources_corpus"))}</h3>` +
+  so.corpus.map((c) => `<h4>${italics(c.source)} (${esc(c.edition)})</h4><p><a href="${esc(c.url)}">${esc(c.url)}</a></p><p class="meta">${esc(c.terms_for_quoting)}</p><p class="meta">${esc(c.status)}</p>`).join("") +
+  `<h3>${esc(W("sources_data"))}</h3>` + so.data.map((d) => `<h4>${esc(d.name)}: ${esc(d.edition)}</h4><p>${esc(d.licence)} · ${esc(d.document_date)}${d.ppp_benchmark ? " · " + esc(d.ppp_benchmark) : ""}</p>` +
+    (d.series ? `<p class="meta">${d.series.map((s) => `<a href="${esc(s.url)}">${esc(s.code)}</a>`).join(" · ")}</p>` : "")).join("");
+const quad = (name, asset, strong) => `<div class="quad${strong ? " mark2" : ""}"><b>${esc(W(name))}</b>${asset ? `<span>${esc(W(asset))}</span>` : ""}</div>`;
+$("audit-body").innerHTML = `<h2>${esc(W("audit_heading"))}</h2><p>${esc(W("audit_source"))}</p><div class="grid2">` +
+  `<div class="axis yaxis" style="grid-row:1/3">${esc(W("audit_value"))}: ${esc(W("audit_low"))} → ${esc(W("audit_high"))}</div>` +
+  quad("audit_grow", "audit_nni", true) + quad("audit_milk") + quad("audit_continue") + quad("audit_stop", "audit_contrast", true) +
+  `<div></div><div class="axis" style="grid-column:2/4">${esc(W("audit_risk"))}: ${esc(W("audit_low"))} → ${esc(W("audit_high"))}</div></div>` +
+  `<p style="font-size:20px;font-weight:600;margin-top:1em">${esc(W("audit_action"))}</p>`;
+
+route();
+showBank(D.bank_replies.suggested[0]);
+}
+</script>
+</body>
+</html>

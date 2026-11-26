@@ -1,0 +1,38 @@
+{
+ "note": "Written by app/js/check_embeddings.mjs; do not edit by hand.",
+ "javascript_model": "Xenova/all-MiniLM-L6-v2",
+ "python_model": "sentence-transformers/all-MiniLM-L6-v2",
+ "versions": {
+  "q8": {
+   "questions": 134,
+   "same_best_measure": 125,
+   "same_top_three": 103,
+   "largest_cosine_difference": 0.0534,
+   "best_measure_differs": [
+    "q2-22",
+    "q3-02",
+    "out-02",
+    "t-14",
+    "t-20",
+    "u-04",
+    "u-15",
+    "u-16",
+    "n-03"
+   ]
+  },
+  "fp16": {
+   "questions": 134,
+   "same_best_measure": 134,
+   "same_top_three": 134,
+   "largest_cosine_difference": 0.0003,
+   "best_measure_differs": []
+  },
+  "fp32": {
+   "questions": 134,
+   "same_best_measure": 134,
+   "same_top_three": 134,
+   "largest_cosine_difference": 0,
+   "best_measure_differs": []
+  }
+ }
+}

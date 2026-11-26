@@ -66,15 +66,67 @@ def test_lessons_are_written_once():
 def test_walkthrough_covers_every_task_and_row_once():
     steps = page.walkthrough()["steps"]
     assert [s["step"] for s in steps] == [1, 2, 3, 4, 5, 6]
-    tasks = [p["task"] for s in steps for p in s["people"]]
+    tasks = [m["step"] for s in steps for m in s["means"]]
     assert sorted(tasks) == sorted(page.answering_tasks())
     rows = [r["in_this_build"] for s in steps for r in s["at_full_scale"]]
     assert sorted(rows) == sorted(r["in_this_build"] for r in page.at_full_scale()["rows"])
 
 
-def test_process_sentences_do_not_make_code_the_actor():
+# Code and the models are means, never actors (Lavan, 24 Nov): not the subject of
+# an action verb. "Calculated using code" and "the language model's output" are fine;
+# "code calculates" and "the language model writes" are not.
+ACTION_VERBS = (r"writes?|wrote|explains?|answers?|reads?|checks?|decides?|chooses?|finds?|calculates?|fills?|"
+                r"routes?|keeps?|says|states?|gives?|returns?|knows?|thinks?|understands?|invents?|makes?|"
+                r"adds?|drops?|retries|records?|sends?|picks?|follows?|restates?|cites?|groups?|draws?|"
+                r"works? out|produces?|generates?|uses?|builds?|reports?|shows?|passes|treats?|tries|"
+                r"learns?|assumes?|selects?")
+MEANS_AS_ACTOR = re.compile(
+    r"\b(code|(?:the |a )?(?:language |embedding |reranking |NNI )?model)\s+"
+    r"(?:then |also |only |never |must |can |cannot |should |will |does not |did not )?(" + ACTION_VERBS + r")\b",
+    re.I)
+# Matches where the subject is something else.
+NOT_AN_ACTOR = ["steps that call the language model use tokens"]
+PAGE_TEXT_FILES = ["method_and_caveats", "coverage_grid", "change_log", "faq", "lessons", "at_full_scale",
+                   "sources", "walkthrough"]
+
+
+def strings_in(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from strings_in(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from strings_in(item)
+
+
+def means_as_actor(text):
+    for phrase in NOT_AN_ACTOR:
+        text = text.replace(phrase, "")
+    return [m.group(0) for m in MEANS_AS_ACTOR.finditer(text)]
+
+
+def test_means_are_never_the_actor():
+    """In the front matter and in all page text, code and the models are never the
+    subject of an action verb."""
+    found = means_as_actor((ROOT / "book" / "front_matter.md").read_text(encoding="utf-8"))
+    for name in PAGE_TEXT_FILES:
+        page_data = json.loads((ROOT / "app" / "data" / f"{name}.json").read_text(encoding="utf-8"))
+        for text in strings_in(page_data):
+            found += means_as_actor(text)
+    figures = json.loads((ROOT / "app" / "data" / "figures.json").read_text(encoding="utf-8"))
+    for text in strings_in([figures["wording"], figures["definitions"]]):
+        found += means_as_actor(text)
+    page = json.loads((ROOT / "app" / "data" / "page.json").read_text(encoding="utf-8"))
+    for text in strings_in(page["wording"]):              # the page's own labels and notes (A5 page)
+        found += means_as_actor(text)
+    assert found == []
+    assert means_as_actor("Code calculates the figures.") == ["Code calculates"]
+    assert means_as_actor("The language model then writes a reply.") == ["The language model then writes"]
+
+
+def test_process_sentences_name_code_as_the_means():
     """No personification of code (Lavan, 24 Nov): code is named only as the means ("using code")."""
     for step in page.walkthrough()["steps"]:
         assert not re.match(r"^(The )?code\b", step["process"], re.I)
-        assert not re.search(r"\bcode (reads|sends|keeps|finds|fills|checks|calculates|writes|decides)\b",
-                             step["process"], re.I)

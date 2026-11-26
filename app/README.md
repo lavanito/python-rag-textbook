@@ -15,8 +15,11 @@ hand, and a test rebuilds each file and fails if it differs.
 | `data/lessons.json` | `tools/build_page_text.py` | Lessons for a production version (decision 26), read from Chapter 15, section 15.7 |
 | `data/at_full_scale.json` | `tools/build_page_text.py` | The "In this build / At full scale" table, from `data/at_full_scale.csv` (agreed 17 Nov 2026) |
 | `data/sources.json` | `tools/build_page_text.py` | The sources page: ten corpus sources with terms for quoting and links with two dates; data sources by edition |
-| `data/walkthrough.json` | `tools/build_page_text.py` | The six lifecycle steps: process sentence (`data/walkthrough.csv`, approved 24 Nov 2026), tasks and who does them (front matter, "Who does what"), and the "At full scale" rows for each step |
+| `data/walkthrough.json` | `tools/build_page_text.py` | The six lifecycle steps: process sentence (`data/walkthrough.csv`, approved 24 Nov 2026), steps and the means used for each (front matter, "Steps and the means used"), and the "At full scale" rows for each step |
 | `data/figures.json` | `tools/build_figures.py` | Every NNI model result the page can ask for (seven economies, 2000 to 2025, 12 measures, two editions) with value, flags, DQR band and reason; with the last years, measures, size cuts, approved definitions and approved wording the locked-block code needs |
+| `data/search.json` | `tools/build_search_data.py` | The 57 passages, the filters' use modes and editions, and every concept's names and `same_as` links, for finding passages for a typed question |
+| `data/page.json` | `tools/build_page_data.py` | The page's own wording from `data/page_wording.csv` (each with its approval date), the approved reply wording, series titles, and the three aspects of a vague question |
+| `data/traces.json` | `tools/build_traces.py` | The trace of each bank reply in each use mode, all scores (training or fair), tokens and laptop seconds per saved run, and the contrast run once `data/answers/a5_contrast.jsonl` is saved |
 
 ## JavaScript (`app/js/`)
 
@@ -25,3 +28,13 @@ hand, and a test rebuilds each file and fails if it differs.
 | `js/locked_block.js` | by hand, from Chapters 13 and 14 | Builds the locked block for a typed question from `data/figures.json`: calls, digits, comparisons with size bands, premise line, definition lines, escalation, comparison line. `tests/test_locked_block_js.py` checks it equals the stored bank replies and Python's `locked_block` |
 | `js/nni.js` | `tools/copy_nni_js.py` | nni-model's `js/nni.js`, unchanged, at the commit `requirements.txt` pins (recorded in `js/nni_js_source.json`); gives the digits shown and changes in log points |
 | `js/run_locked_blocks.js` | by hand | Runs the locked-block code on a list of questions for the tests |
+| `js/read_question.js` | by hand | Reads a typed question in parts (economies, years, editions, measures) from `data/reading.json` and `data/measure_embeddings.json`; scored by `tools/score_reading.py` |
+| `js/outside_topics.js` | by hand | Gives the approved line for a topic none of the measures covers (unpaid household services) from `data/outside_topics.json`, and passes the question to an analyst |
+| `js/route_question.js` | by hand, from Chapter 12 | The question's class, route and rule (Chapter 12's fourth-round rules) from `data/routing.json` (`tools/build_routing_data.py`), and the escalation message. `tests/test_route_question_js.py` checks it equals Python on every bank and test question |
+| `js/read_as.js` | by hand | The "Read as" line for a typed question and the choices for correcting each part; words from `data/read_as_wording.csv` through `data/reading.json` |
+| `js/search.js` | by hand, from Chapters 3, 5 and 8 | The passages for a typed question: filters, query expansion, BM25, top three, and why each was found. `tests/test_search_js.py` checks it equals Python |
+| `js/answer_typed.js` | by hand | Puts a typed question through the route's steps with the approved words; `tests/test_answer_typed_js.py` checks each route against the bank builder |
+
+## The page (`index.html`)
+
+`tools/build_page.py` writes `index.html` from `page.html`: every file above in one JSON script element, and each script inside its own function. It needs no server. The only thing it loads from outside is the 16-bit embedding model; where that cannot load (as in a published artifact), the measure is read by name only (Lavan, 26 Nov 2026). `tests/test_page.py` checks it equals a rebuild.

@@ -1,0 +1,2 @@
+id,text,written_by,approved,reason
+typed_questions,"Demonstrator note: In this page, your question is being read in parts and the interpretation is shown. In testing on 78 new questions, every part was read correctly for 32 of the 78, and the measure was correct for 39 of the 78. In a product version, we would measure how often each part is read right.",vertical domain expert,2026-11-26,"Claude's draft was AI speak: the page and the product were personified, ""product"" was shorthand that lost meaning, and the second sentence was garbled."

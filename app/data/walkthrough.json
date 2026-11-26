@@ -9,22 +9,22 @@
    "chapters": [
     "12"
    ],
-   "people": [
+   "means": [
     {
-     "task": "Ask the question",
-     "done_by": "User"
+     "step": "Ask the question",
+     "means": "User"
     },
     {
-     "task": "Choose the use mode and the reply length",
-     "done_by": "User"
+     "step": "Choose the use mode and the reply length",
+     "means": "User"
     },
     {
-     "task": "Read the economies, years and measures in the question",
-     "done_by": "Code"
+     "step": "Read the economies, years and measures in the question",
+     "means": "Code"
     },
     {
-     "task": "Confirm or correct that reading",
-     "done_by": "User"
+     "step": "Confirm or correct that reading",
+     "means": "User"
     }
    ],
    "at_full_scale": [
@@ -42,18 +42,18 @@
    "chapters": [
     "12"
    ],
-   "people": [
+   "means": [
     {
-     "task": "Route the question",
-     "done_by": "Code"
+     "step": "Route the question",
+     "means": "Code"
     },
     {
-     "task": "Ask the user to clarify a vague question",
-     "done_by": "Code"
+     "step": "Ask the user to clarify a vague question",
+     "means": "Code"
     },
     {
-     "task": "Escalate a question beyond the data",
-     "done_by": "Code"
+     "step": "Escalate a question beyond the data",
+     "means": "Code"
     }
    ],
    "at_full_scale": [
@@ -76,18 +76,18 @@
     "3-10",
     "13"
    ],
-   "people": [
+   "means": [
     {
-     "task": "Keep only the passages the use mode allows",
-     "done_by": "Code"
+     "step": "Keep only the passages the use mode allows",
+     "means": "Code"
     },
     {
-     "task": "Find the passages that match the question",
-     "done_by": "Code"
+     "step": "Find the passages that match the question",
+     "means": "Code"
     },
     {
-     "task": "Calculate the figures",
-     "done_by": "Code"
+     "step": "Calculate the figures",
+     "means": "Code"
     }
    ],
    "at_full_scale": [
@@ -138,10 +138,10 @@
     "11",
     "14"
    ],
-   "people": [
+   "means": [
     {
-     "task": "Fill the template part",
-     "done_by": "Code"
+     "step": "Fill the template part",
+     "means": "Code"
     }
    ],
    "at_full_scale": [],
@@ -155,14 +155,14 @@
     "11",
     "14"
    ],
-   "people": [
+   "means": [
     {
-     "task": "Answer a definition question from passages",
-     "done_by": "Language model"
+     "step": "Answer a definition question from passages",
+     "means": "Language model"
     },
     {
-     "task": "Explain the figures",
-     "done_by": "Language model"
+     "step": "Explain the figures",
+     "means": "Language model"
     }
    ],
    "at_full_scale": [],
@@ -176,22 +176,22 @@
     "14",
     "15"
    ],
-   "people": [
+   "means": [
     {
-     "task": "Check each sentence of the explanation",
-     "done_by": "Code"
+     "step": "Check each sentence of the explanation",
+     "means": "Code"
     },
     {
-     "task": "Retry once, or drop the explanation",
-     "done_by": "Code"
+     "step": "Retry once, or drop the explanation",
+     "means": "Code"
     },
     {
-     "task": "Record each step in the trace",
-     "done_by": "Code"
+     "step": "Record each step in the trace",
+     "means": "Code"
     },
     {
-     "task": "Answer an escalated question",
-     "done_by": "Vertical domain expert"
+     "step": "Answer an escalated question",
+     "means": "Vertical domain expert"
     }
    ],
    "at_full_scale": [

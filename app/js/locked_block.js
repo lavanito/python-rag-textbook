@@ -549,6 +549,6 @@ function reply(figures, question, parameters, questionClass = null) {
 }
 
 const api = { lockedBlock, reply, withComparisonLine, comparesEconomies, planCalls, callModel,
-              figureLine, premiseLine };
+              figureLine, premiseLine, beyondTheEdgeMessage };
 if (typeof module !== "undefined") module.exports = api;
 else globalThis.lockedBlockCode = api;

@@ -1,0 +1,472 @@
+{
+ "note": "Written by tools/build_page_data.py; do not edit by hand.",
+ "wording": {
+  "title": {
+   "text": "Questions on national income, answered from the data",
+   "approved": ""
+  },
+  "subtitle": {
+   "text": "A demonstrator of governed RAG: the passages are chosen and the figures calculated using code; a language model's output is used only for a short, checked explanation.",
+   "approved": ""
+  },
+  "size_line": {
+   "text": "{passages} passages from {sources} sources · {economies} economies · {questions} questions in the bank · one user · a 4-billion-parameter language model on a laptop",
+   "approved": ""
+  },
+  "nav_ask": {
+   "text": "Ask",
+   "approved": ""
+  },
+  "nav_walkthrough": {
+   "text": "Walkthrough",
+   "approved": ""
+  },
+  "nav_method": {
+   "text": "Method and caveats",
+   "approved": ""
+  },
+  "nav_coverage": {
+   "text": "Coverage",
+   "approved": ""
+  },
+  "nav_scores": {
+   "text": "Scores and cost",
+   "approved": ""
+  },
+  "nav_lessons": {
+   "text": "Lessons for a production version",
+   "approved": ""
+  },
+  "nav_changes": {
+   "text": "Change log",
+   "approved": ""
+  },
+  "nav_faq": {
+   "text": "Questions and answers",
+   "approved": ""
+  },
+  "nav_sources": {
+   "text": "Sources",
+   "approved": ""
+  },
+  "nav_audit": {
+   "text": "Next step",
+   "approved": ""
+  },
+  "use_mode": {
+   "text": "Use mode",
+   "approved": ""
+  },
+  "use_mode_non_commercial": {
+   "text": "Non-commercial",
+   "approved": ""
+  },
+  "use_mode_commercial": {
+   "text": "Commercial",
+   "approved": ""
+  },
+  "use_mode_note": {
+   "text": "Passages are kept or withheld by the licence filter according to the use mode.",
+   "approved": ""
+  },
+  "role": {
+   "text": "Role",
+   "approved": ""
+  },
+  "role_analyst": {
+   "text": "Analyst",
+   "approved": ""
+  },
+  "role_executive": {
+   "text": "Executive",
+   "approved": ""
+  },
+  "role_note": {
+   "text": "Only the length depends on the role: executives see the figures and their DQR; analysts see the full reply and the trace.",
+   "approved": ""
+  },
+  "suggested": {
+   "text": "Suggested questions",
+   "approved": ""
+  },
+  "bank": {
+   "text": "All 56 bank questions",
+   "approved": ""
+  },
+  "bank_note": {
+   "text": "Bank questions were answered offline; the stored reply is shown.",
+   "approved": ""
+  },
+  "typed": {
+   "text": "Your own question",
+   "approved": ""
+  },
+  "typed_button": {
+   "text": "Answer",
+   "approved": ""
+  },
+  "typed_note": {
+   "text": "For a typed question, the figures are calculated in this page using code, and no explanation is shown.",
+   "approved": ""
+  },
+  "model_loading": {
+   "text": "Loading the embedding model for reading the measure by meaning.",
+   "approved": ""
+  },
+  "model_ready": {
+   "text": "The embedding model is loaded: the measure is read by name, then by meaning.",
+   "approved": ""
+  },
+  "correct": {
+   "text": "Correct the reading",
+   "approved": ""
+  },
+  "measures": {
+   "text": "Measures",
+   "approved": ""
+  },
+  "years": {
+   "text": "Years",
+   "approved": ""
+  },
+  "editions": {
+   "text": "Editions",
+   "approved": ""
+  },
+  "sharper_typed": {
+   "text": "Pick the aspect you mean:",
+   "approved": ""
+  },
+  "passages_found": {
+   "text": "Passages found (keyword search with query expansion, after the filters)",
+   "approved": ""
+  },
+  "why_keyword": {
+   "text": "found by the words",
+   "approved": ""
+  },
+  "why_expansion": {
+   "text": "found by the added names",
+   "approved": ""
+  },
+  "withheld": {
+   "text": "Withheld by the filters",
+   "approved": ""
+  },
+  "none_withheld": {
+   "text": "None withheld.",
+   "approved": ""
+  },
+  "question_class": {
+   "text": "Question type",
+   "approved": ""
+  },
+  "contrast": {
+   "text": "Contrast: the same question to the same language model, with no passages and no data",
+   "approved": ""
+  },
+  "contrast_left": {
+   "text": "Language model alone",
+   "approved": ""
+  },
+  "contrast_right": {
+   "text": "This reply",
+   "approved": ""
+  },
+  "contrast_lacks": {
+   "text": "On the left there is no passage, no edition, no DQR and no definition line.",
+   "approved": ""
+  },
+  "contrast_pending": {
+   "text": "The run with no passages and no data is still to come from the laptop.",
+   "approved": ""
+  },
+  "contrast_typed": {
+   "text": "Typed questions have no contrast run: no language model is used in this page.",
+   "approved": ""
+  },
+  "contrast_settings": {
+   "text": "Asked on {date} of {model}, temperature {temperature}, at most {num_predict} tokens in the reply, context {num_ctx} tokens.",
+   "approved": ""
+  },
+  "trace": {
+   "text": "Trace",
+   "approved": ""
+  },
+  "trace_context": {
+   "text": "In force: use mode {use_mode}; role {role}.",
+   "approved": ""
+  },
+  "trace_step": {
+   "text": "Step",
+   "approved": ""
+  },
+  "trace_means": {
+   "text": "Means",
+   "approved": ""
+  },
+  "trace_output": {
+   "text": "Output",
+   "approved": ""
+  },
+  "trace_tokens_in": {
+   "text": "Tokens in",
+   "approved": ""
+  },
+  "trace_tokens_out": {
+   "text": "Tokens out",
+   "approved": ""
+  },
+  "trace_seconds": {
+   "text": "Laptop seconds",
+   "approved": ""
+  },
+  "trace_typed": {
+   "text": "Steps run in this page using code; no language model, no tokens.",
+   "approved": ""
+  },
+  "walkthrough_intro": {
+   "text": "One request, step by step, from the question to the checked reply.",
+   "approved": ""
+  },
+  "walkthrough_means": {
+   "text": "Means used",
+   "approved": ""
+  },
+  "walkthrough_full_scale": {
+   "text": "At full scale",
+   "approved": ""
+  },
+  "sandwich": {
+   "text": "Code before the language model: filters, routing, parameters, retrieval, figures, locked block. Code after it: checks, record, token count.",
+   "approved": ""
+  },
+  "coverage_intro": {
+   "text": "Each measure for each economy in the latest edition: exact, proxy or no figure.",
+   "approved": ""
+  },
+  "scores": {
+   "text": "All scores",
+   "approved": ""
+  },
+  "scores_label": {
+   "text": "Training or fair",
+   "approved": ""
+  },
+  "cost": {
+   "text": "Tokens and laptop seconds per saved run (no hosted price)",
+   "approved": ""
+  },
+  "cost_step": {
+   "text": "Saved run",
+   "approved": ""
+  },
+  "cost_in": {
+   "text": "Tokens in per question",
+   "approved": ""
+  },
+  "cost_out": {
+   "text": "Tokens out per question",
+   "approved": ""
+  },
+  "cost_seconds": {
+   "text": "Laptop seconds per question",
+   "approved": ""
+  },
+  "lessons_worked": {
+   "text": "What worked",
+   "approved": ""
+  },
+  "lessons_needs": {
+   "text": "What a production version needs",
+   "approved": ""
+  },
+  "audit_heading": {
+   "text": "Next step: an AI resilience audit of your data workflow",
+   "approved": ""
+  },
+  "audit_source": {
+   "text": "AI Resilience Audit (Centellic, Clare Bolton, July 2026): products placed by value and by AI risk, with a strategy for each quarter.",
+   "approved": ""
+  },
+  "audit_value": {
+   "text": "Value",
+   "approved": ""
+  },
+  "audit_risk": {
+   "text": "AI risk",
+   "approved": ""
+  },
+  "audit_grow": {
+   "text": "Grow",
+   "approved": ""
+  },
+  "audit_milk": {
+   "text": "Milk or transition",
+   "approved": ""
+  },
+  "audit_continue": {
+   "text": "Continue",
+   "approved": ""
+  },
+  "audit_stop": {
+   "text": "Stop or automate",
+   "approved": ""
+  },
+  "audit_nni": {
+   "text": "Figures calculated from governed data, with source, edition and DQR (this page)",
+   "approved": ""
+  },
+  "audit_contrast": {
+   "text": "Answers from a language model alone, with no passages and no data (the contrast panel)",
+   "approved": ""
+  },
+  "audit_action": {
+   "text": "Run a regular audit of data workflow as part of business as usual. Align to AI readiness.",
+   "approved": ""
+  },
+  "sources_corpus": {
+   "text": "Passages",
+   "approved": ""
+  },
+  "sources_data": {
+   "text": "Data",
+   "approved": ""
+  },
+  "footer": {
+   "text": "© 2026 Lavan Mahadeva Limited. Author: Lavan Mahadeva.",
+   "approved": ""
+  },
+  "sandwich_before": {
+   "text": "Filters;Routing;Parameters;Retrieval;Figures;Locked block",
+   "approved": ""
+  },
+  "sandwich_model": {
+   "text": "Language model: its output is used for the explanation only",
+   "approved": ""
+  },
+  "sandwich_after": {
+   "text": "Checks;Record;Token count",
+   "approved": ""
+  },
+  "audit_low": {
+   "text": "Low",
+   "approved": ""
+  },
+  "audit_high": {
+   "text": "High",
+   "approved": ""
+  },
+  "explanation_executive": {
+   "text": "The explanation and the definition lines are shown to analysts only.",
+   "approved": ""
+  },
+  "step": {
+   "text": "Step",
+   "approved": ""
+  },
+  "chapters": {
+   "text": "Chapters",
+   "approved": ""
+  },
+  "method_counts": {
+   "text": "Counts",
+   "approved": ""
+  },
+  "caveats": {
+   "text": "Caveats",
+   "approved": ""
+  },
+  "best_data": {
+   "text": "Best data",
+   "approved": ""
+  },
+  "nowcast_from": {
+   "text": "nowcast from",
+   "approved": ""
+  },
+  "no_figure": {
+   "text": "no figure",
+   "approved": ""
+  },
+  "first_economy": {
+   "text": "First economy",
+   "approved": ""
+  },
+  "second_economy": {
+   "text": "Second economy",
+   "approved": ""
+  },
+  "none": {
+   "text": "none",
+   "approved": ""
+  },
+  "keep_years": {
+   "text": "as read",
+   "approved": ""
+  },
+  "model_unavailable": {
+   "text": "Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. In a product version, the embedding model would be served with the page.",
+   "approved": ""
+  },
+  "exact": {
+   "text": "exact",
+   "approved": ""
+  },
+  "proxy": {
+   "text": "proxy",
+   "approved": ""
+  },
+  "contrast_cut": {
+   "text": "Cut off at {num_predict} tokens, the limit set for every reply of the language model in this build.",
+   "approved": ""
+  }
+ },
+ "reply_wording": {
+  "PASSAGES_HEADING": "Passages (quoted from the sources)",
+  "NO_DQR": "No DQR: this reply quotes passages only.",
+  "NO_PASSAGES": "No passage in this use mode answers this question.",
+  "SERIES_HEADING": "Series title (copied from the World Bank's list of series)",
+  "CLARIFY_LINE": "This question is too vague to answer from the data. Pick one of these sharper questions:",
+  "NOT_BUILT": "This question needs several steps planned in turn (route R6). That route is not built in this demonstrator.",
+  "DEMONSTRATOR_NOT_BUILT": "Demonstrator note: a product would plan the steps itself, within a limit on steps, and show each one.",
+  "COMPARISON_LINE": "People compare national accounts across economies to benchmark how each is doing. Check which measure is used and whether it is good enough for an international comparison.",
+  "EXPLANATION_HEADING": "Explanation (written by a language model and checked against the figures above)",
+  "WITHHELD": "The written explanation came from a language model and did not pass our quality checks, so it is not shown. Please contact our analyst if you want to know more.",
+  "DEMONSTRATOR_WITHHELD": "Demonstrator note: this is a demonstration, not a product. A product would let you ask for the explanation to be refined, and would send your question to a named analyst. Here, no analyst receives it.",
+  "CORRECTED_HEADING": "Corrected by the vertical domain expert"
+ },
+ "series_titles": {
+  "NE.CON.PRVT.CN": "Households and NPISHs Final consumption expenditure (current LCU)",
+  "NE.CON.PRVT.KD": "Households and NPISHs Final consumption expenditure (constant 2015 US$)",
+  "NY.ADJ.NNTY.CD": "Adjusted net national income (current US$)",
+  "NY.ADJ.NNTY.PC.CD": "Adjusted net national income per capita (current US$)",
+  "NY.GDP.DEFL.ZS": "GDP deflator (base year varies by country)",
+  "NY.GDP.MKTP.CD": "GDP (current US$)",
+  "NY.GDP.MKTP.CN": "GDP (current LCU)",
+  "NY.GDP.MKTP.KN": "GDP (constant LCU)",
+  "NY.GDP.MKTP.PP.KD": "GDP, PPP (constant 2021 international $)",
+  "NY.GDP.PCAP.KN": "GDP per capita (constant LCU)",
+  "NY.GNP.MKTP.CD": "GNI (current US$)",
+  "NY.GNP.MKTP.CN": "GNI (current LCU)",
+  "NY.GNP.PCAP.PP.CD": "GNI per capita, PPP (current international $)",
+  "PA.NUS.FCRF": "Official exchange rate (LCU per US$, period average)",
+  "PA.NUS.PPP": "PPP conversion factor, GDP (LCU per international $)",
+  "PA.NUS.PRVT.PP": "PPP conversion factor, households and NPISHs Final consumption expenditure (LCU per international $)",
+  "SP.POP.TOTL": "Population, total"
+ },
+ "aspects": [
+  {
+   "aspect": "living standards",
+   "measure": "real_nni_per_head_ppp"
+  },
+  {
+   "aspect": "growth",
+   "measure": "real_gdp_growth"
+  },
+  {
+   "aspect": "productivity",
+   "measure": "gdp_per_hour"
+  }
+ ]
+}

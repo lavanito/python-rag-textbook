@@ -1,0 +1,3839 @@
+{
+ "note": "Written by tools/score_reading.py; do not edit by hand.",
+ "set": "test",
+ "reading_code_commit": "1e0a9800b2fb948d38c057b3efa7d456b817e68d",
+ "totals": {
+  "routing test 5 Nov": {
+   "questions": 32,
+   "all_right": 14,
+   "economies": 30,
+   "years": 29,
+   "editions": 32,
+   "measures": 16
+  },
+  "all": {
+   "questions": 78,
+   "all_right": 32,
+   "economies": 74,
+   "years": 68,
+   "editions": 78,
+   "measures": 39
+  },
+  "routing test 6 Nov": {
+   "questions": 16,
+   "all_right": 8,
+   "economies": 16,
+   "years": 16,
+   "editions": 16,
+   "measures": 8
+  },
+  "parameters test": {
+   "questions": 20,
+   "all_right": 7,
+   "economies": 19,
+   "years": 17,
+   "editions": 20,
+   "measures": 10
+  },
+  "Chapter 14 fair test": {
+   "questions": 10,
+   "all_right": 3,
+   "economies": 9,
+   "years": 6,
+   "editions": 10,
+   "measures": 5
+  }
+ },
+ "questions": [
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-02",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2026",
+     "2008",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth",
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\""
+    ],
+    "years": [
+     "2026",
+     "2008",
+     "\"today\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"economic growth\"",
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2008",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "trend_gap"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-21",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "IRL"
+    ],
+    "years": [
+     "2008"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"irish\""
+    ],
+    "years": [
+     "2008"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"gni\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IRL"
+    ],
+    "years": [
+     "2008"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-22",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "CHN"
+    ],
+    "years": [
+     "latest-20",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"us\"",
+     "\"china\""
+    ],
+    "years": [
+     "\"last two decades\""
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.65"
+    ]
+   },
+   "label": {
+    "economies": [
+     "CHN",
+     "USA"
+    ],
+    "years": [
+     "latest-20",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-23",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "gdp_per_hour"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\""
+    ],
+    "years": [],
+    "editions": [
+     "\"revised\""
+    ],
+    "measures": [
+     "by meaning: 0.68"
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "gdp_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-24",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "GBR",
+     "IND"
+    ],
+    "years": [
+     "2025"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "net_trade"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\"",
+     "\"india\""
+    ],
+    "years": [
+     "2025"
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.68"
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "IND"
+    ],
+    "years": [
+     "2025"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "net_trade"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-25",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "2021",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"us\"",
+     "\"euro area\""
+    ],
+    "years": [
+     "2021",
+     "\"since\""
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.59"
+    ]
+   },
+   "label": {
+    "economies": [
+     "EA21",
+     "USA"
+    ],
+    "years": [
+     "2021",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-26",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA"
+    ],
+    "years": [
+     "2022",
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "spending_components"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"us\""
+    ],
+    "years": [
+     "2022",
+     "2024"
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.73"
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA"
+    ],
+    "years": [
+     "2022",
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "spending_components"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-30",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2021",
+     "2022"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "terms_of_trade"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"india\""
+    ],
+    "years": [
+     "2021",
+     "2022"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"the terms of trade effect\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2021",
+     "2022"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "terms_of_trade"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-01",
+   "right": {
+    "economies": false,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "GBR",
+     "other"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "trend_gap",
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"united kingdom\"",
+     "\"states of the usa\" (not in the data)"
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.56",
+     "by meaning: 0.55",
+     "by meaning: 0.53"
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "other"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-03",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "GBR",
+     "other"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\"",
+     "\"switzerland\" (not in the data)"
+    ],
+    "years": [
+     "\"current\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "other"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-04",
+   "right": {
+    "economies": false,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "GBR",
+     "other"
+    ],
+    "years": [
+     "2026"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"us\"",
+     "\"british\"",
+     "\"us states\" (not in the data)"
+    ],
+    "years": [
+     "2026"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "other"
+    ],
+    "years": [
+     "2026"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-05",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "GBR"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"us\"",
+     "\"uk\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "USA"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other",
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-06",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gni\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni",
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-07",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-08",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.61"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-09",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "CHN",
+     "other"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\"",
+     "\"switzerland\" (not in the data)"
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "CHN",
+     "other"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other",
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-10",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.58"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-11",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "spending_components"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.50"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-12",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "\"gross domestic product\" is not a measure here (gdp)"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other",
+     "gni"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-13",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "spending_components"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.70"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-14",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-15",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "trend_gap",
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.55",
+     "by meaning: 0.54"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-16",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp growth\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-17",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "\"GDP\" is not a measure here (gdp)"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-18",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth",
+     "spending_components"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [
+     "\"current\""
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.61",
+     "by meaning: 0.57"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-19",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp",
+     "gni"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.53",
+     "by meaning: 0.50"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-20",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "population"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"population\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-27",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   },
+   "how": {
+    "economies": [
+     "\"china\"",
+     "\"india\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": []
+   },
+   "label": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-28",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "population",
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"japan\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"population\"",
+     "by name: \"gdp growth\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "1991",
+     "2001"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "population",
+     "real_gdp_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-29",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "\"GDP\" is not a measure here (gdp)"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-31",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "EA21"
+    ],
+    "years": [
+     "2022",
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"euro area\""
+    ],
+    "years": [
+     "2022",
+     "2024"
+    ],
+    "editions": [],
+    "measures": [
+     "\"NNI\" is not a measure here (nni)"
+    ]
+   },
+   "label": {
+    "economies": [
+     "EA21"
+    ],
+    "years": [
+     "2022",
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 5 Nov",
+   "id": "t-32",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_gdp_growth",
+     "spending_components",
+     "trend_gap"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.57",
+     "by meaning: 0.54",
+     "by meaning: 0.53",
+     "by meaning: 0.53"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"japan\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"real net national income per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-05",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "latest-5",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_hour",
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"euroarea\""
+    ],
+    "years": [
+     "\"last five years\""
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.53",
+     "by meaning: 0.51"
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "latest-5",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-06",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21",
+     "GBR",
+     "CHN",
+     "IND"
+    ],
+    "years": [
+     "latest-4",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "employment_rate"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"euroarea\"",
+     "\"uk\"",
+     "\"china\"",
+     "\"india\""
+    ],
+    "years": [
+     "\"last 4 years\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"employment rate\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "USA",
+     "CHN",
+     "IND",
+     "EA21"
+    ],
+    "years": [
+     "latest-4",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "employment_rate"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-07",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"united states\"",
+     "\"euroarea\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per hour worked\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-09",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [
+     "2021"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_hour",
+     "average_hours"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\""
+    ],
+    "years": [
+     "2021"
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.60",
+     "by meaning: 0.60"
+    ]
+   },
+   "label": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [
+     "2021"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "average_hours"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-14",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2023"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"india\""
+    ],
+    "years": [
+     "2023"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND"
+    ],
+    "years": [
+     "2023"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-01",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp",
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"income per head\"",
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-03",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"japan\""
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real net national income per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-04",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"japan\""
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"income per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-08",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "average_hours"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.80"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "average_hours"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-10",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "IND"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"india\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.51"
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-11",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "spending_components",
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.65",
+     "by meaning: 0.61"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-12",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "spending_components"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.65"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-13",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "IRL"
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"ireland\""
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [
+     "\"revision\""
+    ],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IRL"
+    ],
+    "years": [
+     "2010",
+     "2025"
+    ],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-15",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"euroarea\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "routing test 6 Nov",
+   "id": "u-16",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "CHN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"china\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": []
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "CHN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-01",
+   "right": {
+    "economies": false,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [
+     "2015",
+     "\"since\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "DEU"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\""
+    ],
+    "years": [
+     "2015",
+     "\"since\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-03",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\""
+    ],
+    "years": [
+     "2015",
+     "\"since\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-04",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "IRL"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"ireland\""
+    ],
+    "years": [
+     "2015",
+     "\"since\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IRL"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-05",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\"",
+     "\"india\""
+    ],
+    "years": [
+     "\"latest\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND",
+     "CHN"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-06",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\""
+    ],
+    "years": [],
+    "editions": [
+     "\"revised\""
+    ],
+    "measures": [
+     "by meaning: 0.53"
+    ]
+   },
+   "label": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-07",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\"",
+     "\"india\""
+    ],
+    "years": [
+     "\"latest\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per hour worked\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND",
+     "CHN"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-08",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"euroarea\""
+    ],
+    "years": [
+     "\"latest\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-09",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "EA21",
+     "IRL"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"euro area\"",
+     "\"ireland\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per head\"",
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IRL",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-10",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"euro area\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per head\"",
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-11",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "EA21",
+     "GBR"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"euro area\"",
+     "\"uk\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per head\"",
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "EA21"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-12",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "GBR",
+     "JPN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\"",
+     "\"japan\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per head\"",
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "JPN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp",
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-13",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "GBR",
+     "JPN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\"",
+     "\"japan\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR",
+     "JPN"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-14",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\"",
+     "\"india\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND",
+     "CHN"
+    ],
+    "years": [
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-15",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"uk\""
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "GBR"
+    ],
+    "years": [
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp",
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-16",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per capita\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-17",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.70"
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-18",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "nni_growth"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-19",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_hour",
+     "real_gdp_growth"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\""
+    ],
+    "years": [
+     "2015",
+     "\"since\""
+    ],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.71",
+     "by meaning: 0.68"
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA"
+    ],
+    "years": [
+     "2015",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "parameters test",
+   "id": "n-20",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "latest-1",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"euroarea\""
+    ],
+    "years": [
+     "\"last fiive years\""
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per hour worked\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "EA21",
+     "USA"
+    ],
+    "years": [
+     "latest-5",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-01",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "CHN",
+     "IND"
+    ],
+    "years": [
+     "2024",
+     "2010"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"china\"",
+     "\"india\""
+    ],
+    "years": [
+     "2024",
+     "2010"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "IND",
+     "CHN"
+    ],
+    "years": [
+     "2010",
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-02",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "2024",
+     "2010"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"euroarea\""
+    ],
+    "years": [
+     "2024",
+     "2010"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per hour worked\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "EA21"
+    ],
+    "years": [
+     "2010",
+     "2024"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_hour"
+    ]
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-03",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA",
+     "GBR"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\"",
+     "\"uk\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"gdp per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA",
+     "GBR"
+    ],
+    "years": [
+     "2000",
+     "latest"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gdp_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-04",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "USA"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "real_gdp_growth",
+     "trend_gap",
+     "gdp_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"usa\""
+    ],
+    "years": [],
+    "editions": [
+     "\"revision\""
+    ],
+    "measures": [
+     "by meaning: 0.60",
+     "by meaning: 0.59",
+     "by meaning: 0.57"
+    ]
+   },
+   "label": {
+    "economies": [
+     "USA"
+    ],
+    "years": [
+     "2001",
+     "latest"
+    ],
+    "editions": [
+     "archive",
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-05",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"chinese\""
+    ],
+    "years": [],
+    "editions": [
+     "\"revised\""
+    ],
+    "measures": [
+     "by meaning: 0.51"
+    ]
+   },
+   "label": {
+    "economies": [
+     "CHN"
+    ],
+    "years": [
+     "2000",
+     "latest"
+    ],
+    "editions": [
+     "archive",
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-06",
+   "right": {
+    "economies": true,
+    "years": false,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2020",
+     "2023"
+    ],
+    "editions": [
+     "latest",
+     "archive"
+    ],
+    "measures": [
+     "real_gdp_growth",
+     "trend_gap",
+     "gdp_per_head_ppp",
+     "spending_components"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"japanese\""
+    ],
+    "years": [
+     "2020",
+     "2023"
+    ],
+    "editions": [
+     "\"revised\""
+    ],
+    "measures": [
+     "by meaning: 0.55",
+     "by meaning: 0.53",
+     "by meaning: 0.51",
+     "by meaning: 0.50"
+    ]
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2020"
+    ],
+    "editions": [
+     "archive",
+     "latest"
+    ],
+    "measures": [
+     "real_gdp_growth"
+    ]
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-07",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "other"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "\"depletion of natural resources\" is not a measure here (depletion)"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-08",
+   "right": {
+    "economies": false,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [
+     "IRL"
+    ],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp",
+     "gni",
+     "gni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"ireland\""
+    ],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by meaning: 0.64",
+     "by meaning: 0.61",
+     "by meaning: 0.59"
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-09",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": false
+   },
+   "all_right": false,
+   "read": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "gni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [],
+    "years": [],
+    "editions": [],
+    "measures": [
+     "by name: \"income per head\""
+    ]
+   },
+   "label": {
+    "economies": [],
+    "years": [],
+    "editions": [
+     "latest"
+    ],
+    "measures": []
+   }
+  },
+  {
+   "set": "Chapter 14 fair test",
+   "id": "f-10",
+   "right": {
+    "economies": true,
+    "years": true,
+    "editions": true,
+    "measures": true
+   },
+   "all_right": true,
+   "read": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2022"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   },
+   "how": {
+    "economies": [
+     "\"japanese\""
+    ],
+    "years": [
+     "2022"
+    ],
+    "editions": [],
+    "measures": [
+     "by name: \"real nni per head\""
+    ]
+   },
+   "label": {
+    "economies": [
+     "JPN"
+    ],
+    "years": [
+     "2022"
+    ],
+    "editions": [
+     "latest"
+    ],
+    "measures": [
+     "real_nni_per_head_ppp"
+    ]
+   }
+  }
+ ]
+}
