@@ -1,0 +1,9043 @@
+{
+ "note": "Written by tools/build_traces.py; do not edit by hand.",
+ "traces": {
+  "q2-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-3.139",
+       "sna08-2.144",
+       "sna25-A4.59"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-3.139",
+       "esa10-10.33",
+       "esa10-8.94"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "sna08-2.144",
+       "sna25-3.145",
+       "esa10-8.94",
+       "cso-gnistar-6"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "cso-gnistar-6",
+       "bea-ch2-ndp-gni"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-03": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "sna08-12.26",
+       "sna25-11.238",
+       "sna25-A4.59"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-18.53",
+       "esa10-11.05",
+       "wb13-mccarthy-ipd"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-04": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-8.89",
+       "cso-gnistar-6",
+       "esa10-10.32",
+       "cso-gnistar-3"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-8.89",
+       "cso-gnistar-6",
+       "esa10-10.32",
+       "cso-gnistar-3"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-05": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "bea-ch2-ndp-gni"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "bea-ch2-ndp-gni"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-06": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "sna08-15.187",
+       "esa10-10.47",
+       "esa10-10.32"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.47",
+       "esa10-10.32",
+       "esa10-10.33"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-07": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.47",
+       "bea-ch4-chained",
+       "wb13-deaton-revision"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.47",
+       "bea-ch4-chained",
+       "wb13-deaton-revision"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-08": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "una14-ch2-ppp",
+       "ppp23-1.13",
+       "ppp23-1.14"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-1.13",
+       "ppp23-1.14"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-09": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "ppp23-1.14",
+       "ppp23-ov.13",
+       "wb13-mccarthy-space-time"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "ppp23-1.14",
+       "ppp23-ov.13",
+       "wb13-mccarthy-space-time"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-10": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-ov.13",
+       "ppp23-ov.12",
+       "ppp23-1.17"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-ov.13",
+       "ppp23-ov.12",
+       "ppp23-1.17"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-11": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-1.31",
+       "wb13-mccarthy-space-time",
+       "wb13-mccarthy-ipd"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-1.31",
+       "wb13-mccarthy-space-time",
+       "wb13-mccarthy-ipd"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-12": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-8.2",
+       "ppp23-1.14",
+       "ppp23-8.4"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-8.2",
+       "ppp23-1.14",
+       "ppp23-8.4"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-13": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.32"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.32"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-14": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "bea-ch4-chained",
+       "esa10-10.20",
+       "esa10-10.47"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "bea-ch4-chained",
+       "esa10-10.20",
+       "esa10-10.47"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-15": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-ov.12",
+       "esa10-10.20",
+       "bea-ch4-fisher"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-ov.12",
+       "esa10-10.20",
+       "bea-ch4-fisher"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-16": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "una14-ch1-deflator",
+       "esa10-10.47",
+       "cso-gnistar-2"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.47",
+       "cso-gnistar-2",
+       "bea-ch4-chained"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-17": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "qna17-10.48",
+       "qna17-12.1",
+       "bea-ch4-chained"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "bea-ch4-chained",
+       "wb13-deaton-revision",
+       "ppp23-1.14"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-18": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "qna17-12.4",
+       "qna17-12.1",
+       "qna17-12.2"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "wb13-deaton-benchmark",
+       "wb13-mccarthy-space-time",
+       "cso-gnistar-4"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-19": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "qna17-7.2",
+       "esa10-18.53",
+       "esa10-2.10"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-18.53",
+       "esa10-2.10",
+       "ppp23-8.2"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-20": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "esa10-11.05",
+       "wb13-mccarthy-ipd",
+       "ppp23-ov.12"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "esa10-11.05",
+       "wb13-mccarthy-ipd",
+       "ppp23-ov.12"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-21": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-4.129",
+       "esa10-18.53",
+       "sna25-3.145"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-4.129",
+       "esa10-18.53",
+       "esa10-11.27"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-22": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "cso-gnistar-4",
+       "cso-gnistar-6",
+       "cso-gnistar-1"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "cso-gnistar-4",
+       "cso-gnistar-6",
+       "cso-gnistar-1"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-23": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "cso-gnistar-2",
+       "ppp23-1.17",
+       "wb13-deaton-revision"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "cso-gnistar-2",
+       "ppp23-1.17",
+       "wb13-deaton-revision"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-24": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "sna25-23.68",
+       "sna25-A4.10",
+       "cso-gnistar-2"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "cso-gnistar-2",
+       "bea-ch2-ndp-gni",
+       "cso-gnistar-3"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-25": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-10.47",
+       "sna25-23.68",
+       "bea-ch2-ndp-gni"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-10.47",
+       "bea-ch2-ndp-gni",
+       "cso-gnistar-2"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-26": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.32",
+       "esa10-10.33",
+       "ppp23-ov.12"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.32",
+       "esa10-10.33",
+       "ppp23-ov.12"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-27": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-1.17",
+       "ppp23-ov.12",
+       "ppp23-ov.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-1.17",
+       "ppp23-ov.12",
+       "ppp23-ov.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-28": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "cso-gnistar-2",
+       "bea-ch4-chained"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "cso-gnistar-2",
+       "bea-ch4-chained"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-29": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "wb13-deaton-updating",
+       "ppp23-ov.13",
+       "ppp23-ov.12"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "wb13-deaton-updating",
+       "ppp23-ov.12",
+       "ppp23-ov.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-30": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "wb13-deaton-revision",
+       "una14-ch1-deflator",
+       "bea-ch4-chained"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "wb13-deaton-revision",
+       "bea-ch4-chained",
+       "wb13-mccarthy-ipd"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-31": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-11.27",
+       "sna25-16.95",
+       "ons-psp-1"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-11.27",
+       "ppp23-4.16",
+       "ons-psp-1"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q2-32": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "sna25-16.95",
+       "esa10-11.27",
+       "ppp23-ov.12"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-11.27",
+       "ppp23-ov.12",
+       "ppp23-8.4"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "amb-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "AMB",
+      "route": "clarify",
+      "rule": "too vague",
+      "route_used": "clarify"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "AMB",
+      "route": "clarify",
+      "rule": "too vague",
+      "route_used": "clarify"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "amb-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "AMB",
+      "route": "clarify",
+      "rule": "too vague",
+      "route_used": "clarify"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "AMB",
+      "route": "clarify",
+      "rule": "too vague",
+      "route_used": "clarify"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "amb-03": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "AMB",
+      "route": "clarify",
+      "rule": "too vague",
+      "route_used": "clarify"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "AMB",
+      "route": "clarify",
+      "rule": "too vague",
+      "route_used": "clarify"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q6-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q6",
+      "route": "R4+R2",
+      "rule": "definition and a figure",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "JPN"
+      ],
+      "years": [
+       "2024"
+      ],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.47",
+       "bea-ch2-gnp",
+       "wb13-deaton-benchmark",
+       "sna08-2.144",
+       "sna25-3.145"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1524,
+     "tokens_out": 9,
+     "seconds": 61.1
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q6",
+      "route": "R4+R2",
+      "rule": "definition and a figure",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "JPN"
+      ],
+      "years": [
+       "2024"
+      ],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-10.47",
+       "bea-ch2-gnp",
+       "wb13-deaton-benchmark"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1332,
+     "tokens_out": 9,
+     "seconds": 54.5
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q6-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q6",
+      "route": "R4+R2",
+      "rule": "definition and a figure",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "IND"
+      ],
+      "years": [
+       "2023"
+      ],
+      "measures": [
+       "gdp_per_hour"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "sna25-16.95",
+       "wb13-deaton-revision",
+       "esa10-11.27",
+       "esa10-8.89",
+       "ppp23-1.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1687,
+     "tokens_out": 126,
+     "seconds": 79.5
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1982,
+     "tokens_out": 96,
+     "seconds": 30.3
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q6",
+      "route": "R4+R2",
+      "rule": "definition and a figure",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "IND"
+      ],
+      "years": [
+       "2023"
+      ],
+      "measures": [
+       "gdp_per_hour"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "wb13-deaton-revision",
+       "esa10-11.27",
+       "wb13-deaton-benchmark",
+       "esa10-8.89",
+       "ppp23-1.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "numbers",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1798,
+     "tokens_out": 150,
+     "seconds": 84.1
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2121,
+     "tokens_out": 92,
+     "seconds": 26.5
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q6-03": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q6",
+      "route": "R4+R2",
+      "rule": "definition and a figure",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "EA21"
+      ],
+      "years": [],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-8.89",
+       "sna25-23.68",
+       "bea-ch2-gnp",
+       "sna08-2.144"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "numbers",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1502,
+     "tokens_out": 134,
+     "seconds": 72.8
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "numbers",
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1729,
+     "tokens_out": 90,
+     "seconds": 23.4
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q6",
+      "route": "R4+R2",
+      "rule": "definition and a figure",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "EA21"
+      ],
+      "years": [],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-8.89",
+       "bea-ch2-gnp",
+       "cso-gnistar-6"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1423,
+     "tokens_out": 80,
+     "seconds": 48.9
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1603,
+     "tokens_out": 64,
+     "seconds": 15.4
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q1-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q1",
+      "route": "R2",
+      "rule": "value lookup",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "GBR"
+      ],
+      "years": [
+       "2024"
+      ],
+      "measures": [
+       "gni_per_head_ppp"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "lookup"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q1",
+      "route": "R2",
+      "rule": "value lookup",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "GBR"
+      ],
+      "years": [
+       "2024"
+      ],
+      "measures": [
+       "gni_per_head_ppp"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "lookup"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q1-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q1",
+      "route": "R2",
+      "rule": "value lookup",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "IND"
+      ],
+      "years": [
+       "2022"
+      ],
+      "measures": [
+       "population"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-11.05"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "lookup"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q1",
+      "route": "R2",
+      "rule": "value lookup",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "IND"
+      ],
+      "years": [
+       "2022"
+      ],
+      "measures": [
+       "population"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-11.05"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "lookup"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q1-03": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q1",
+      "route": "R1",
+      "rule": "series code",
+      "route_used": "R1"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q1",
+      "route": "R1",
+      "rule": "series code",
+      "route_used": "R1"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q3-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q3",
+      "route": "R2",
+      "rule": "compute",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "JPN"
+      ],
+      "years": [
+       "latest"
+      ],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "sna08-2.144",
+       "sna25-3.145"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 830,
+     "tokens_out": 124,
+     "seconds": 40.8
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1128,
+     "tokens_out": 9,
+     "seconds": 8.2
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed on retry"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q3",
+      "route": "R2",
+      "rule": "compute",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "JPN"
+      ],
+      "years": [
+       "latest"
+      ],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 638,
+     "tokens_out": 9,
+     "seconds": 12.3
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q3-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q3",
+      "route": "R2",
+      "rule": "compute",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "GBR"
+      ],
+      "years": [],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "sna08-2.144",
+       "sna25-3.145"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 835,
+     "tokens_out": 29,
+     "seconds": 25.1
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 968,
+     "tokens_out": 9,
+     "seconds": 5.6
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed on retry"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q3",
+      "route": "R2",
+      "rule": "compute",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "GBR"
+      ],
+      "years": [],
+      "measures": [
+       "nni_growth"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 643,
+     "tokens_out": 9,
+     "seconds": 11.8
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q4-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q4",
+      "route": "R2",
+      "rule": "vintage",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "IND"
+      ],
+      "years": [
+       "2016"
+      ],
+      "measures": [
+       "gni_per_head_ppp"
+      ],
+      "editions": [
+       "latest",
+       "archive"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1706,
+     "tokens_out": 128,
+     "seconds": 93.1
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2031,
+     "tokens_out": 73,
+     "seconds": 28.2
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q4",
+      "route": "R2",
+      "rule": "vintage",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "IND"
+      ],
+      "years": [
+       "2016"
+      ],
+      "measures": [
+       "gni_per_head_ppp"
+      ],
+      "editions": [
+       "latest",
+       "archive"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1706,
+     "tokens_out": 128,
+     "seconds": 93.1
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2031,
+     "tokens_out": 73,
+     "seconds": 28.2
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q5-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R2",
+      "rule": "two economies",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "EA21",
+       "USA"
+      ],
+      "years": [],
+      "measures": [
+       "gni_per_head_ppp",
+       "gdp_per_hour"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-8.89",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2418,
+     "tokens_out": 154,
+     "seconds": 130.7
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2848,
+     "tokens_out": 192,
+     "seconds": 72.8
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R2",
+      "rule": "two economies",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "EA21",
+       "USA"
+      ],
+      "years": [],
+      "measures": [
+       "gni_per_head_ppp",
+       "gdp_per_hour"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "esa10-8.89",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2418,
+     "tokens_out": 154,
+     "seconds": 130.7
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2848,
+     "tokens_out": 192,
+     "seconds": 72.8
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q5-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R2",
+      "rule": "two economies",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "GBR",
+       "USA"
+      ],
+      "years": [
+       "2007",
+       "latest"
+      ],
+      "measures": [
+       "gni_per_head_ppp"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1895,
+     "tokens_out": 145,
+     "seconds": 94.2
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2200,
+     "tokens_out": 69,
+     "seconds": 26.4
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R2",
+      "rule": "two economies",
+      "route_used": "R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "GBR",
+       "USA"
+      ],
+      "years": [
+       "2007",
+       "latest"
+      ],
+      "measures": [
+       "gni_per_head_ppp"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.94",
+       "ppp23-1.13",
+       "esa10-11.05",
+       "ppp23-4.16"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1895,
+     "tokens_out": 145,
+     "seconds": 94.2
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2200,
+     "tokens_out": 69,
+     "seconds": 26.4
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q5-03": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R4+R2",
+      "rule": "two economies",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "USA",
+       "EA21"
+      ],
+      "years": [],
+      "measures": [
+       "real_gdp_growth",
+       "public_service_measurement"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "bea-ch4-chained",
+       "wb13-mccarthy-ipd",
+       "una14-ch1-deflator",
+       "esa10-10.20"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1939,
+     "tokens_out": 131,
+     "seconds": 93.2
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2298,
+     "tokens_out": 9,
+     "seconds": 13.8
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed on retry"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R4+R2",
+      "rule": "two economies",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "USA",
+       "EA21"
+      ],
+      "years": [],
+      "measures": [
+       "real_gdp_growth",
+       "public_service_measurement"
+      ],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "bea-ch4-chained",
+       "wb13-mccarthy-ipd",
+       "ons-psp-1",
+       "esa10-10.20"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "passage_talk",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1913,
+     "tokens_out": 77,
+     "seconds": 71.7
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2160,
+     "tokens_out": 9,
+     "seconds": 8.9
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed on retry"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q4-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q4",
+      "route": "R4+R2",
+      "rule": "vintage",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "CHN",
+       "IND"
+      ],
+      "years": [],
+      "measures": [
+       "gdp_per_head_ppp"
+      ],
+      "editions": [
+       "latest",
+       "archive"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "wb13-deaton-revision",
+       "wb13-deaton-benchmark",
+       "wb13-deaton-updating",
+       "ppp23-1.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2400,
+     "tokens_out": 103,
+     "seconds": 118.3
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2647,
+     "tokens_out": 99,
+     "seconds": 38.7
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q4",
+      "route": "R4+R2",
+      "rule": "vintage",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "CHN",
+       "IND"
+      ],
+      "years": [],
+      "measures": [
+       "gdp_per_head_ppp"
+      ],
+      "editions": [
+       "latest",
+       "archive"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "esa10-8.89",
+       "wb13-deaton-revision",
+       "wb13-deaton-benchmark",
+       "wb13-deaton-updating",
+       "ppp23-1.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2400,
+     "tokens_out": 103,
+     "seconds": 118.3
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "directions",
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 2647,
+     "tokens_out": 99,
+     "seconds": 38.7
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q5-04": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "bea-ch4-chained",
+       "wb13-deaton-revision",
+       "wb13-mccarthy-ipd"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q2",
+      "route": "R4",
+      "rule": "definition (default)",
+      "route_used": "R4"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "bea-ch4-chained",
+       "wb13-deaton-revision",
+       "wb13-mccarthy-ipd"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q5-05": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R4+R2",
+      "rule": "two economies",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "USA",
+       "EA21"
+      ],
+      "years": [],
+      "measures": [],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-ov.12",
+       "una14-ch2-ppp",
+       "una14-ch1-deflator"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 895,
+     "tokens_out": 102,
+     "seconds": 42.3
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": [
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1114,
+     "tokens_out": 92,
+     "seconds": 21.2
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "dropped"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q5",
+      "route": "R4+R2",
+      "rule": "two economies",
+      "route_used": "R4+R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "USA",
+       "EA21"
+      ],
+      "years": [],
+      "measures": [],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "evidence",
+     "outputs": {
+      "ids": [
+       "ppp23-ov.12",
+       "bea-ch4-chained",
+       "ppp23-1.13"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": [
+       "citations"
+      ]
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 940,
+     "tokens_out": 110,
+     "seconds": 39.4
+    },
+    {
+     "step": "explanation, attempt 2",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 1151,
+     "tokens_out": 77,
+     "seconds": 16.6
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "corrected"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q7-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q7",
+      "route": "R5>R2",
+      "rule": "scenario (if ... had)",
+      "route_used": "R5>R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "JPN"
+      ],
+      "years": [
+       "2024"
+      ],
+      "measures": [],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 289,
+     "tokens_out": 9,
+     "seconds": 3.3
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q7",
+      "route": "R5>R2",
+      "rule": "scenario (if ... had)",
+      "route_used": "R5>R2"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "parameters",
+     "outputs": {
+      "economies": [
+       "JPN"
+      ],
+      "years": [
+       "2024"
+      ],
+      "measures": [],
+      "editions": [
+       "latest"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "explanation, attempt 1",
+     "outputs": {
+      "failed_checks": []
+     },
+     "means": "language model on the laptop, saved run",
+     "tokens_in": 289,
+     "tokens_out": 9,
+     "seconds": 3.3
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "passed"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "q8-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q8",
+      "route": "R6",
+      "rule": "two dates and an explanation",
+      "route_used": "R6"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "Q8",
+      "route": "R6",
+      "rule": "two dates and an explanation",
+      "route_used": "R6"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "out-01": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "judgement",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "judgement",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "out-02": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "policy advice",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "policy advice",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "out-03": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "beyond the data",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "beyond the data",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  },
+  "out-04": {
+   "non-commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "outside the corpus",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 57,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 55,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ],
+   "commercial": [
+    {
+     "step": "route",
+     "outputs": {
+      "class": "OUT",
+      "route": "escalate",
+      "rule": "outside the corpus",
+      "route_used": "escalate"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "licence filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": [
+       "sna08-2.144",
+       "sna08-12.26",
+       "qna17-12.1",
+       "qna17-12.2",
+       "qna17-12.4",
+       "qna17-10.48",
+       "qna17-7.2",
+       "una14-ch2-ppp",
+       "sna25-3.145",
+       "sna25-A4.10",
+       "sna25-A4.59",
+       "sna25-11.238",
+       "sna25-23.68",
+       "sna08-15.187",
+       "una14-ch1-deflator",
+       "sna25-16.95"
+      ]
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "edition filter",
+     "outputs": {
+      "kept": 41,
+      "withheld": []
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    },
+    {
+     "step": "status",
+     "outputs": {
+      "status": "none"
+     },
+     "means": "code; no language model",
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "seconds": null
+    }
+   ]
+  }
+ },
+ "scores": [
+  {
+   "chapter": "10",
+   "score": "Definition questions with a gold passage in the top three, filtered search",
+   "result": "31 of 32",
+   "label": "training"
+  },
+  {
+   "chapter": "8",
+   "score": "Chroma's filtered top three equal to the hand-written filter, both use modes",
+   "result": "32 of 32",
+   "label": "training"
+  },
+  {
+   "chapter": "12",
+   "score": "Questions routed as labelled, bank, ragged-edge rules",
+   "result": "56 of 56",
+   "label": "training"
+  },
+  {
+   "chapter": "12",
+   "score": "Questions routed as labelled, first test set, first-round rules",
+   "result": "19 of 32",
+   "label": "fair"
+  },
+  {
+   "chapter": "12",
+   "score": "Questions routed as labelled, second test set, revised rules",
+   "result": "6 of 16",
+   "label": "fair"
+  },
+  {
+   "chapter": "12",
+   "score": "Questions routed as labelled, Chapter 14 fair questions, fourth-round rules",
+   "result": "10 of 10",
+   "label": "training"
+  },
+  {
+   "chapter": "13",
+   "score": "Parameters read right (same figures), keyword rules, new questions",
+   "result": "2 of 20",
+   "label": "fair"
+  },
+  {
+   "chapter": "13",
+   "score": "Parameters read right (same figures), model round 2, new questions",
+   "result": "9 of 20",
+   "label": "fair"
+  },
+  {
+   "chapter": "13",
+   "score": "Replies with no unsupported number (language model output used as the whole reply)",
+   "result": "13 of 14",
+   "label": "training"
+  },
+  {
+   "chapter": "14",
+   "score": "The vertical domain expert's sentences judged supported; the check agreed on 17",
+   "result": "19 of 20",
+   "label": "training"
+  },
+  {
+   "chapter": "14",
+   "score": "Explanations with content shown, first run, new questions",
+   "result": "0 of 10",
+   "label": "fair"
+  },
+  {
+   "chapter": "14",
+   "score": "Explanations with content shown, after the review, the vertical domain expert's 10",
+   "result": "2 of 10",
+   "label": "training"
+  },
+  {
+   "chapter": "14",
+   "score": "Explanations with content shown, rerun of 22 November 2026, the vertical domain expert's 10",
+   "result": "2 of 10",
+   "label": "training"
+  },
+  {
+   "chapter": "A5",
+   "score": "Typed questions read in parts, all parts right (economies 74, years 68, editions 78, measures 39)",
+   "result": "32 of 78",
+   "label": "fair"
+  }
+ ],
+ "cost": [
+  {
+   "questions": 64,
+   "calls": 64,
+   "tokens_in": 49614,
+   "tokens_out": 12408,
+   "seconds": 3183.6,
+   "in_per_question": 775.2,
+   "out_per_question": 193.9,
+   "seconds_per_question": 49.7,
+   "step": "Chapter 11: answers from passages, analyst and executive"
+  },
+  {
+   "questions": 77,
+   "calls": 77,
+   "tokens_in": 64506,
+   "tokens_out": 370,
+   "seconds": 200.8,
+   "in_per_question": 837.7,
+   "out_per_question": 4.8,
+   "seconds_per_question": 2.6,
+   "step": "Chapter 12: routing by model (trial; the rules route at no cost)"
+  },
+  {
+   "questions": 68,
+   "calls": 68,
+   "tokens_in": 70083,
+   "tokens_out": 3147,
+   "seconds": 832.9,
+   "in_per_question": 1030.6,
+   "out_per_question": 46.3,
+   "seconds_per_question": 12.2,
+   "step": "Chapter 13: reading the question by model (rounds 1 and 2)"
+  },
+  {
+   "questions": 14,
+   "calls": 14,
+   "tokens_in": 4857,
+   "tokens_out": 1228,
+   "seconds": 303.8,
+   "in_per_question": 346.9,
+   "out_per_question": 87.7,
+   "seconds_per_question": 21.7,
+   "step": "Chapter 13: whole reply written by model (replaced in Chapter 14)"
+  },
+  {
+   "questions": 24,
+   "calls": 34,
+   "tokens_in": 56845,
+   "tokens_out": 2829,
+   "seconds": 1944.3,
+   "in_per_question": 2368.5,
+   "out_per_question": 117.9,
+   "seconds_per_question": 81.0,
+   "step": "Chapter 14: explanations with checks, after the review"
+  },
+  {
+   "questions": 24,
+   "calls": 36,
+   "tokens_in": 63643,
+   "tokens_out": 3274,
+   "seconds": 2092.6,
+   "in_per_question": 2651.8,
+   "out_per_question": 136.4,
+   "seconds_per_question": 87.2,
+   "step": "Chapter 14 questions rerun with the current code (22 November 2026)"
+  }
+ ],
+ "contrast": null
+}

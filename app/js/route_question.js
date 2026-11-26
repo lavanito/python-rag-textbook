@@ -138,6 +138,6 @@ function escalationMessage(routing, rule) {
   return [reason, message];
 }
 
-const api = { routeQuestion, escalationMessage, splitIntoWords, topicWords };
+const api = { routeQuestion, escalationMessage, beyondTheEdgeGraph, splitIntoWords, topicWords };
 if (typeof module !== "undefined") module.exports = api;
 else globalThis.routeQuestionCode = api;
