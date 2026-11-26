@@ -79,7 +79,7 @@ ACTION_VERBS = (r"writes?|wrote|explains?|answers?|reads?|checks?|decides?|choos
                 r"routes?|keeps?|says|states?|gives?|returns?|knows?|thinks?|understands?|invents?|makes?|"
                 r"adds?|drops?|retries|records?|sends?|picks?|follows?|restates?|cites?|groups?|draws?|"
                 r"works? out|produces?|generates?|uses?|builds?|reports?|shows?|passes|treats?|tries|"
-                r"learns?|assumes?")
+                r"learns?|assumes?|selects?")
 MEANS_AS_ACTOR = re.compile(
     r"\b(code|(?:the |a )?(?:language |embedding |reranking |NNI )?model)\s+"
     r"(?:then |also |only |never |must |can |cannot |should |will |does not |did not )?(" + ACTION_VERBS + r")\b",
@@ -117,6 +117,9 @@ def test_means_are_never_the_actor():
             found += means_as_actor(text)
     figures = json.loads((ROOT / "app" / "data" / "figures.json").read_text(encoding="utf-8"))
     for text in strings_in([figures["wording"], figures["definitions"]]):
+        found += means_as_actor(text)
+    page = json.loads((ROOT / "app" / "data" / "page.json").read_text(encoding="utf-8"))
+    for text in strings_in(page["wording"]):              # the page's own labels and notes (A5 page)
         found += means_as_actor(text)
     assert found == []
     assert means_as_actor("Code calculates the figures.") == ["Code calculates"]

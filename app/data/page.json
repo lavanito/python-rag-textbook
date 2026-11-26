@@ -6,7 +6,7 @@
    "approved": ""
   },
   "subtitle": {
-   "text": "A demonstrator of governed RAG: code selects the passages and calculates the figures; a language model only writes an explanation of them.",
+   "text": "A demonstrator of governed RAG: the passages are chosen and the figures calculated using code; a language model's output is used only for a short, checked explanation.",
    "approved": ""
   },
   "size_line": {
@@ -66,7 +66,7 @@
    "approved": ""
   },
   "use_mode_note": {
-   "text": "The use mode decides which passages the licence filter keeps.",
+   "text": "Passages are kept or withheld by the licence filter according to the use mode.",
    "approved": ""
   },
   "role": {
@@ -82,7 +82,7 @@
    "approved": ""
   },
   "role_note": {
-   "text": "The role changes the length only: an executive sees the figures and their DQR; an analyst sees the full reply and the trace.",
+   "text": "Only the length depends on the role: executives see the figures and their DQR; analysts see the full reply and the trace.",
    "approved": ""
   },
   "suggested": {
@@ -94,7 +94,7 @@
    "approved": ""
   },
   "bank_note": {
-   "text": "Bank questions were answered offline; the page shows the stored reply.",
+   "text": "Bank questions were answered offline; the stored reply is shown.",
    "approved": ""
   },
   "typed": {
@@ -106,7 +106,7 @@
    "approved": ""
   },
   "typed_note": {
-   "text": "Typed questions get the figures calculated in this page and no explanation.",
+   "text": "For a typed question, the figures are calculated in this page using code, and no explanation is shown.",
    "approved": ""
   },
   "model_loading": {
@@ -117,16 +117,8 @@
    "text": "The embedding model is loaded: the measure is read by name, then by meaning.",
    "approved": ""
   },
-  "model_unavailable": {
-   "text": "Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. A product would serve the model with the page.",
-   "approved": ""
-  },
   "correct": {
    "text": "Correct the reading",
-   "approved": ""
-  },
-  "economies": {
-   "text": "Economies",
    "approved": ""
   },
   "measures": {
@@ -182,7 +174,7 @@
    "approved": ""
   },
   "contrast_lacks": {
-   "text": "The reply on the left gives no passage, no edition, no DQR and no definition line.",
+   "text": "On the left there is no passage, no edition, no DQR and no definition line.",
    "approved": ""
   },
   "contrast_pending": {
@@ -190,7 +182,7 @@
    "approved": ""
   },
   "contrast_typed": {
-   "text": "Typed questions have no contrast run: the language model is not called from this page.",
+   "text": "Typed questions have no contrast run: no language model is used in this page.",
    "approved": ""
   },
   "contrast_settings": {
@@ -230,7 +222,7 @@
    "approved": ""
   },
   "trace_typed": {
-   "text": "Steps run in this page with code; no language model, no tokens.",
+   "text": "Steps run in this page using code; no language model, no tokens.",
    "approved": ""
   },
   "walkthrough_intro": {
@@ -345,24 +337,12 @@
    "text": "© 2026 Lavan Mahadeva Limited. Author: Lavan Mahadeva.",
    "approved": ""
   },
-  "dqr_high": {
-   "text": "High",
-   "approved": ""
-  },
-  "dqr_medium": {
-   "text": "Medium",
-   "approved": ""
-  },
-  "dqr_low": {
-   "text": "Low",
-   "approved": ""
-  },
   "sandwich_before": {
    "text": "Filters;Routing;Parameters;Retrieval;Figures;Locked block",
    "approved": ""
   },
   "sandwich_model": {
-   "text": "Language model: writes the explanation only",
+   "text": "Language model: its output is used for the explanation only",
    "approved": ""
   },
   "sandwich_after": {
@@ -378,11 +358,7 @@
    "approved": ""
   },
   "explanation_executive": {
-   "text": "The explanation and the definition lines are shown to analysts.",
-   "approved": ""
-  },
-  "view_all": {
-   "text": "Open",
+   "text": "The explanation and the definition lines are shown to analysts only.",
    "approved": ""
   },
   "step": {
@@ -409,14 +385,6 @@
    "text": "nowcast from",
    "approved": ""
   },
-  "exact": {
-   "text": "exact",
-   "approved": ""
-  },
-  "proxy": {
-   "text": "proxy",
-   "approved": ""
-  },
   "no_figure": {
    "text": "no figure",
    "approved": ""
@@ -437,8 +405,16 @@
    "text": "as read",
    "approved": ""
   },
-  "sharper_pick": {
-   "text": "Answer this one",
+  "model_unavailable": {
+   "text": "Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. In a product version, the embedding model would be served with the page.",
+   "approved": ""
+  },
+  "exact": {
+   "text": "exact",
+   "approved": ""
+  },
+  "proxy": {
+   "text": "proxy",
    "approved": ""
   }
  },
