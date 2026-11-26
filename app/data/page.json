@@ -418,7 +418,7 @@
    "approved": ""
   },
   "contrast_cut": {
-   "text": "Cut off at {num_predict} tokens, the limit set for every reply of the language model in this build.",
+   "text": "Cut off at {num_predict} tokens, the limit set for this run.",
    "approved": ""
   }
  },
