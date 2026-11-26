@@ -12,7 +12,9 @@ It writes app/data/reading.json, read by app/js/read_question.js:
 - other_concepts: names of concepts in the knowledge graph that are not
   measures here (GDP, investment, depreciation ...): a question naming one is
   read as asking for a measure not in the data ("other");
-- revision words (Chapter 12), the first year of the data and the last years.
+- revision words (Chapter 12), the first year of the data and the last years;
+- the browser model and the demonstrator note for typed questions (approved
+  by the vertical domain expert, data/demonstrator_notes.csv).
 The texts embedded for reading the measure by meaning are the measures'
 names listed here (tools/make_reading_embeddings.py). A test rebuilds this
 file and fails if it differs.
@@ -30,6 +32,12 @@ from ragbook.ch12_routing import NOT_IN_DATA_FOURTH, REVISION_WORDS, load_econom
 from ragbook.ch13_model_tool import FIRST_YEAR, GAPS, MEASURES                      # noqa: E402
 
 OUT = REPO / "app" / "data" / "reading.json"
+NOTES = REPO / "data" / "demonstrator_notes.csv"
+# The model the page loads to read the measure by meaning (Lavan, 26 Nov 2026,
+# option (a)): 16-bit ranks the measures as Python's model does on all 134
+# questions; the 8-bit model (about 23 MB) disagrees on 9
+# (data/answers/a5_embedding_check.json).
+BROWSER_MODEL = {"name": "Xenova/all-MiniLM-L6-v2", "dtype": "fp16"}
 GRAPH = REPO / "data" / "knowledge_graph"
 
 
@@ -100,7 +108,9 @@ def build():
             "economies": economies["names"], "members": economies["members"],
             "not_in_data": NOT_IN_DATA_FOURTH,
             "measures": measures, "other_concepts": other_concepts(measures),
-            "revision_words": REVISION_WORDS, "first_year": FIRST_YEAR, "last_years": last_years}
+            "revision_words": REVISION_WORDS, "first_year": FIRST_YEAR, "last_years": last_years,
+            "browser_model": BROWSER_MODEL,
+            "demonstrator_note": next(r["text"] for r in read_csv(NOTES) if r["id"] == "typed_questions")}
 
 
 def main():

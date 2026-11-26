@@ -468,5 +468,10 @@
   "IND|archive": 2022,
   "JPN|archive": 2022,
   "IRL|archive": null
- }
+ },
+ "browser_model": {
+  "name": "Xenova/all-MiniLM-L6-v2",
+  "dtype": "fp16"
+ },
+ "demonstrator_note": "Demonstrator note: In this page, your question is being read in parts and the interpretation is shown. In testing on 78 new questions, every part was read correctly for 32 of the 78, and the measure was correct for 39 of the 78. In a product version, we would measure how often each part is read right."
 }

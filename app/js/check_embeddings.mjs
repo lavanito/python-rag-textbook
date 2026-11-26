@@ -27,7 +27,7 @@ for (const f of ["questions", "routing_test_5_november", "routing_test_6_novembe
 // Each version of the browser model: 8-bit (about 23 MB), 16-bit and full precision.
 const versions = {};
 for (const dtype of ["q8", "fp16", "fp32"]) {
-  const embed = await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2", { dtype });
+  const embed = await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2", { dtype });  // the page loads fp16 (reading.json)
   let sameBest = 0, sameTop3 = 0, worst = 0, n = 0;
   const differ = [];
   for (const [id, pythonVector] of Object.entries(stored)) {

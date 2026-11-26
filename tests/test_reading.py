@@ -86,3 +86,17 @@ def test_embeddings_cover_every_name_and_question():
     for dtype in ("fp16", "fp32"):       # the 8-bit model disagrees on some questions
         check = versions[dtype]
         assert check["same_best_measure"] == check["same_top_three"] == check["questions"], dtype
+
+
+def test_demonstrator_note_counts_match_the_score():
+    """The note's numbers are the scored ones (data/answers/a5_reading_scores_test.json)."""
+    import csv
+    import re
+    with open(build.NOTES, encoding="utf-8", newline="") as file:
+        note = next(r for r in csv.DictReader(file) if r["id"] == "typed_questions")
+    assert note["approved"] and note["reason"]
+    totals = json.loads((ROOT / "data" / "answers" / "a5_reading_scores_test.json").read_text(
+        encoding="utf-8"))["totals"]["all"]
+    numbers = [int(n) for n in re.findall(r"\b\d+\b", note["text"])]
+    assert numbers == [totals["questions"], totals["all_right"], totals["questions"],
+                       totals["measures"], totals["questions"]]
