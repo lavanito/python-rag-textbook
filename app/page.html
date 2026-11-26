@@ -225,7 +225,8 @@ function contrastHtml(id, governed) {
   let left;
   if (!id) left = `<p class="meta">${esc(W("contrast_typed"))}</p>`;
   else if (!c || !c.replies[id]) left = `<p class="meta">${esc(W("contrast_pending"))}</p>`;
-  else left = `<p class="meta">${esc(fill(W("contrast_settings"), { date: c.date, model: c.model, ...c.settings }))}</p><p class="pre">${esc(c.replies[id].answer)}</p>`;
+  else left = `<p class="meta">${esc(fill(W("contrast_settings"), { date: c.date, model: c.model, ...c.settings }))}</p><p class="pre">${esc(c.replies[id].answer)}</p>` +
+    (c.replies[id].done_reason === "length" ? `<p class="meta">${esc(fill(W("contrast_cut"), c.settings))}</p>` : "");
   return `<details><summary>${esc(W("contrast"))}</summary><p>${esc(W("contrast_lacks"))}</p><div class="two">` +
     `<div><h4>${esc(W("contrast_left"))}</h4>${left}</div><div><h4>${esc(W("contrast_right"))}</h4><p class="pre">${esc(governed)}</p></div></div></details>`;
 }

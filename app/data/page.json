@@ -416,6 +416,10 @@
   "proxy": {
    "text": "proxy",
    "approved": ""
+  },
+  "contrast_cut": {
+   "text": "Cut off at {num_predict} tokens, the limit set for every reply of the language model in this build.",
+   "approved": ""
   }
  },
  "reply_wording": {
