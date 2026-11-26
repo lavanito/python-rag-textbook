@@ -130,3 +130,9 @@ def test_read_as_line():
     assert len(out[0]["parts"]["measures"]["choices"]) == 16
     assert out[0]["parts"]["years"]["choices"][1]["label"] == str(max(
         y for y in figures["last_years"].values() if y))
+
+
+def test_read_as_wording_is_approved():
+    """Every phrase of the "Read as" line has the vertical domain expert's approval date."""
+    wording = json.loads(build.OUT.read_text(encoding="utf-8"))["read_as_wording"]
+    assert len(wording) == 7 and all(item["approved"] for item in wording.values())

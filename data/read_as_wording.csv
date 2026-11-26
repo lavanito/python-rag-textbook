@@ -1,8 +1,8 @@
 id,text,approved
 label,Read as,"2026-11-17 (build spec v3, decision 24)"
-no_economy,no economy found,
-other_economy,an economy not in the data,
-no_measure,no measure found,
-other_measure,a measure not in the data,
-latest_year,the latest year,
-both_editions,the latest and earlier editions,
+no_economy,no economy found,2026-11-26
+other_economy,an economy not in the data,2026-11-26
+no_measure,no measure found,2026-11-26
+other_measure,a measure not in the data,2026-11-26
+latest_year,the latest year,2026-11-26
+both_editions,the latest and earlier editions,2026-11-26

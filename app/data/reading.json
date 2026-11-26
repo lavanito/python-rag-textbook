@@ -481,27 +481,27 @@
   },
   "no_economy": {
    "text": "no economy found",
-   "approved": ""
+   "approved": "2026-11-26"
   },
   "other_economy": {
    "text": "an economy not in the data",
-   "approved": ""
+   "approved": "2026-11-26"
   },
   "no_measure": {
    "text": "no measure found",
-   "approved": ""
+   "approved": "2026-11-26"
   },
   "other_measure": {
    "text": "a measure not in the data",
-   "approved": ""
+   "approved": "2026-11-26"
   },
   "latest_year": {
    "text": "the latest year",
-   "approved": ""
+   "approved": "2026-11-26"
   },
   "both_editions": {
    "text": "the latest and earlier editions",
-   "approved": ""
+   "approved": "2026-11-26"
   }
  }
 }
