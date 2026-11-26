@@ -56,15 +56,15 @@ One role and one practice keep the lineage useful. A data steward is the person 
 
 This matters outside economics. Banks must show how each reported figure was derived (BCBS 239), and the EU AI Act sets data governance rules for high-risk AI systems (Article 10).
 
-## Who does what
+## Steps and the means used
 
-Human work is listed here task by task, not by job title. A job is a bundle of tasks; taken apart, each task goes to code, the language model or one named person.
+Each step is listed here with the means used for it, not by job title. A job is a bundle of steps; taken apart, each step is done with one means: code, the language model, or one named person.
 
 Apart from the user and escalations, all other tasks involve a high degree of automation. Humans build, maintain and monitor the automation, as well as being the user and the escalated vertical domain expert.
 
 ### Answering one question
 
-| Task | Done by |
+| Step | Means |
 | --- | --- |
 | Ask the question | User |
 | Choose the use mode and the reply length | User |
@@ -86,7 +86,7 @@ Apart from the user and escalations, all other tasks involve a high degree of au
 
 ### Building, maintaining and monitoring the system
 
-| Task | Done by |
+| Step | Means |
 | --- | --- |
 | Produce and publish the data | Vertical domain expert |
 | Write each definition: measures, economies, input flags | Vertical domain expert |

@@ -15,7 +15,7 @@ hand, and a test rebuilds each file and fails if it differs.
 | `data/lessons.json` | `tools/build_page_text.py` | Lessons for a production version (decision 26), read from Chapter 15, section 15.7 |
 | `data/at_full_scale.json` | `tools/build_page_text.py` | The "In this build / At full scale" table, from `data/at_full_scale.csv` (agreed 17 Nov 2026) |
 | `data/sources.json` | `tools/build_page_text.py` | The sources page: ten corpus sources with terms for quoting and links with two dates; data sources by edition |
-| `data/walkthrough.json` | `tools/build_page_text.py` | The six lifecycle steps: process sentence (`data/walkthrough.csv`, approved 24 Nov 2026), tasks and who does them (front matter, "Who does what"), and the "At full scale" rows for each step |
+| `data/walkthrough.json` | `tools/build_page_text.py` | The six lifecycle steps: process sentence (`data/walkthrough.csv`, approved 24 Nov 2026), steps and the means used for each (front matter, "Steps and the means used"), and the "At full scale" rows for each step |
 | `data/figures.json` | `tools/build_figures.py` | Every NNI model result the page can ask for (seven economies, 2000 to 2025, 12 measures, two editions) with value, flags, DQR band and reason; with the last years, measures, size cuts, approved definitions and approved wording the locked-block code needs |
 
 ## JavaScript (`app/js/`)
