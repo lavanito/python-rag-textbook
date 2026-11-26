@@ -14,7 +14,9 @@ It writes app/data/reading.json, read by app/js/read_question.js:
   read as asking for a measure not in the data ("other");
 - revision words (Chapter 12), the first year of the data and the last years;
 - the browser model and the demonstrator note for typed questions (approved
-  by the vertical domain expert, data/demonstrator_notes.csv).
+  by the vertical domain expert, data/demonstrator_notes.csv);
+- the words of the "Read as" line (data/read_as_wording.csv), each with the
+  date the vertical domain expert approved it, or blank while a draft.
 The texts embedded for reading the measure by meaning are the measures'
 names listed here (tools/make_reading_embeddings.py). A test rebuilds this
 file and fails if it differs.
@@ -33,6 +35,7 @@ from ragbook.ch13_model_tool import FIRST_YEAR, GAPS, MEASURES                  
 
 OUT = REPO / "app" / "data" / "reading.json"
 NOTES = REPO / "data" / "demonstrator_notes.csv"
+READ_AS = REPO / "data" / "read_as_wording.csv"
 # The model the page loads to read the measure by meaning (Lavan, 26 Nov 2026,
 # option (a)): 16-bit ranks the measures as Python's model does on all 134
 # questions; the 8-bit model (about 23 MB) disagrees on 9
@@ -110,7 +113,8 @@ def build():
             "measures": measures, "other_concepts": other_concepts(measures),
             "revision_words": REVISION_WORDS, "first_year": FIRST_YEAR, "last_years": last_years,
             "browser_model": BROWSER_MODEL,
-            "demonstrator_note": next(r["text"] for r in read_csv(NOTES) if r["id"] == "typed_questions")}
+            "demonstrator_note": next(r["text"] for r in read_csv(NOTES) if r["id"] == "typed_questions"),
+            "read_as_wording": {r["id"]: {"text": r["text"], "approved": r["approved"]} for r in read_csv(READ_AS)}}
 
 
 def main():

@@ -473,5 +473,35 @@
   "name": "Xenova/all-MiniLM-L6-v2",
   "dtype": "fp16"
  },
- "demonstrator_note": "Demonstrator note: In this page, your question is being read in parts and the interpretation is shown. In testing on 78 new questions, every part was read correctly for 32 of the 78, and the measure was correct for 39 of the 78. In a product version, we would measure how often each part is read right."
+ "demonstrator_note": "Demonstrator note: In this page, your question is being read in parts and the interpretation is shown. In testing on 78 new questions, every part was read correctly for 32 of the 78, and the measure was correct for 39 of the 78. In a product version, we would measure how often each part is read right.",
+ "read_as_wording": {
+  "label": {
+   "text": "Read as",
+   "approved": "2026-11-17 (build spec v3, decision 24)"
+  },
+  "no_economy": {
+   "text": "no economy found",
+   "approved": ""
+  },
+  "other_economy": {
+   "text": "an economy not in the data",
+   "approved": ""
+  },
+  "no_measure": {
+   "text": "no measure found",
+   "approved": ""
+  },
+  "other_measure": {
+   "text": "a measure not in the data",
+   "approved": ""
+  },
+  "latest_year": {
+   "text": "the latest year",
+   "approved": ""
+  },
+  "both_editions": {
+   "text": "the latest and earlier editions",
+   "approved": ""
+  }
+ }
 }

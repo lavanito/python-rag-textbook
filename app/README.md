@@ -28,3 +28,4 @@ hand, and a test rebuilds each file and fails if it differs.
 | `js/read_question.js` | by hand | Reads a typed question in parts (economies, years, editions, measures) from `data/reading.json` and `data/measure_embeddings.json`; scored by `tools/score_reading.py` |
 | `js/outside_topics.js` | by hand | Gives the approved line for a topic none of the measures covers (unpaid household services) from `data/outside_topics.json`, and passes the question to an analyst |
 | `js/route_question.js` | by hand, from Chapter 12 | The question's class, route and rule (Chapter 12's fourth-round rules) from `data/routing.json` (`tools/build_routing_data.py`), and the escalation message. `tests/test_route_question_js.py` checks it equals Python on every bank and test question |
+| `js/read_as.js` | by hand | The "Read as" line for a typed question and the choices for correcting each part; words from `data/read_as_wording.csv` through `data/reading.json` |

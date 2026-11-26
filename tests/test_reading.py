@@ -100,3 +100,33 @@ def test_demonstrator_note_counts_match_the_score():
     numbers = [int(n) for n in re.findall(r"\b\d+\b", note["text"])]
     assert numbers == [totals["questions"], totals["all_right"], totals["questions"],
                        totals["measures"], totals["questions"]]
+
+
+@NEEDS_NODE
+def test_read_as_line():
+    script = ("const fs=require('fs');const {readAs}=require(process.argv[1]);"
+              "const r=JSON.parse(fs.readFileSync(process.argv[2],'utf-8'));"
+              "const f=JSON.parse(fs.readFileSync(process.argv[3],'utf-8'));"
+              "const ps=JSON.parse(fs.readFileSync(0,'utf-8'));"
+              "process.stdout.write(JSON.stringify(ps.map(p=>readAs(r,f,p))));")
+    cases = [{"economies": ["JPN"], "years": ["latest"], "measures": ["gni_per_head_ppp"], "editions": ["latest"]},
+             {"economies": ["GBR", "other"], "years": ["latest-5", "latest"], "measures": [],
+              "editions": ["latest", "archive"]},
+             {"economies": [], "years": [], "measures": ["other"], "editions": ["latest"]},
+             {"economies": ["JPN", "USA"], "years": ["2010"], "measures": ["gdp_per_hour", "average_hours"],
+              "editions": ["latest"]}]
+    out = json.loads(subprocess.run(
+        ["node", "-e", script, str(ROOT / "app" / "js" / "read_as.js"), str(build.OUT),
+         str(ROOT / "app" / "data" / "figures.json")], input=json.dumps(cases),
+        capture_output=True, text=True, encoding="utf-8", check=True).stdout)
+    figures = json.loads((ROOT / "app" / "data" / "figures.json").read_text(encoding="utf-8"))
+    japan, uk = figures["last_years"]["JPN|latest"], figures["last_years"]["GBR|latest"]
+    assert out[0]["line"] == f"Read as: Japan · GNI per head at purchasing power parities · {japan}"
+    assert out[1]["line"] == (f"Read as: The United Kingdom and an economy not in the data · no measure found · "
+                              f"{uk - 5} to {uk} · the latest and earlier editions")
+    assert out[2]["line"] == "Read as: no economy found · a measure not in the data · the latest year"
+    assert out[3]["line"].startswith("Read as: Japan and the United States · Real GDP per hour worked")
+    assert out[0]["parts"]["economies"]["choices"][0]["label"][0].isupper()
+    assert len(out[0]["parts"]["measures"]["choices"]) == 16
+    assert out[0]["parts"]["years"]["choices"][1]["label"] == str(max(
+        y for y in figures["last_years"].values() if y))
