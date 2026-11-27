@@ -24,7 +24,7 @@
    "term": "Agreement rate (of a cross-check)",
    "preferred_label": "Agreement rate",
    "alternative_labels": [],
-   "definition": "How often two sources give the same figure within a set tolerance. The tolerance is the typical size of a revision between our two editions. It shows how far another source confirms our figures.",
+   "definition": "How often two sources give the same figure within a set tolerance. The tolerance is the typical size of a revision between our two editions. Used to judge how far our figures are confirmed by another source.",
    "cite": "",
    "link_forms": [
     "Agreement rate"
@@ -124,7 +124,7 @@
    "term": "Bitemporal (table)",
    "preferred_label": "Bitemporal",
    "alternative_labels": [],
-   "definition": "A table that stores two dates for each value: the period it describes and the edition it came from, so that any past edition can be rebuilt.",
+   "definition": "A table in which two dates are recorded for each value: the period it describes and the edition it came from, so that any past edition can be rebuilt.",
    "cite": "",
    "link_forms": [
     "Bitemporal",
@@ -309,7 +309,7 @@
    "term": "Controlled vocabulary",
    "preferred_label": "Controlled vocabulary",
    "alternative_labels": [],
-   "definition": "A governed list of approved terms. Each concept gets one preferred label, with a definition, a stable identifier and guidance on how to write it; the other words people use are kept as alternative labels pointing to it, and can only be changed by the owner of the list. Its purpose is that people, search and code use the same word for the same thing. The first stage of Talisman's ontology pipeline: deliberately small and pragmatic.",
+   "definition": "A governed list of approved terms. Each concept gets one preferred label, with a definition, a stable identifier and guidance on how to write it; the other words people use are kept as alternative labels pointing to it, and can only be changed by the owner of the list. Its purpose is that the same word is used for the same concept by people, in search and in code. The first stage of Talisman's ontology pipeline: deliberately small and pragmatic.",
    "cite": "",
    "link_forms": [
     "Controlled vocabulary"
@@ -554,7 +554,7 @@
    "alternative_labels": [
     "escalation"
    ],
-   "definition": "Mark a question as passed to the vertical domain expert, with the reason: what was missing, or the decision that needs a person. Used when code cannot give a reliable answer.",
+   "definition": "Mark a question as passed to the vertical domain expert, with the reason: what was missing, or the decision that needs a person. Used when no reliable answer can be given using code.",
    "cite": "",
    "link_forms": [
     "Escalate",
@@ -598,7 +598,7 @@
    "term": "Fair score",
    "preferred_label": "Fair score",
    "alternative_labels": [],
-   "definition": "A score on questions written after the rules or instructions being tested were fixed, and scored once. It shows how well the rules work on questions they were not built from; nothing is changed because of it.",
+   "definition": "A score on questions written after the rules or instructions being tested were fixed, and scored once. Used to judge how well the rules work on questions they were not built from; but then does not affect the model.",
    "cite": "",
    "link_forms": [
     "Fair score"
@@ -654,7 +654,7 @@
    "term": "Fingerprint (of a file)",
    "preferred_label": "Fingerprint",
    "alternative_labels": [],
-   "definition": "A short code calculated from every byte of a file. If any byte changes, the code changes, so a stored code shows whether a data file is still the one used.",
+   "definition": "A short code calculated from every byte of a file. If any byte changes, the code changes, so a file whose code matches the stored code is still the one used.",
    "cite": "",
    "link_forms": [
     "Fingerprint"
@@ -711,7 +711,7 @@
    "term": "Genus–differentia definition",
    "preferred_label": "Genus–differentia definition",
    "alternative_labels": [],
-   "definition": "A definition of the form 'X is a [broader kind] that [what sets it apart]'. It places each term under a broader one and says what makes it different, so that definitions do not overlap.",
+   "definition": "A definition of the form 'X is a [broader kind] that [what sets it apart]'. Each term is placed under a broader one, with what makes it different, so that definitions do not overlap.",
    "cite": "After Talisman (2026)",
    "link_forms": [
     "Genus–differentia definition"
@@ -770,7 +770,7 @@
    "term": "Graph database",
    "preferred_label": "Graph database",
    "alternative_labels": [],
-   "definition": "A database that stores entities and the relations between them, built for following chains of relations quickly. A triple store is one kind, holding RDF triples.",
+   "definition": "A database in which entities and the relations between them are recorded, built for following chains of relations quickly. A triple store is one kind, holding RDF triples.",
    "cite": "",
    "link_forms": [
     "Graph database"
@@ -784,7 +784,7 @@
    "term": "GraphRAG",
    "preferred_label": "GraphRAG",
    "alternative_labels": [],
-   "definition": "A version of retrieval-augmented generation (RAG) in which code follows the relations between entities in a knowledge graph, and the facts found are sent to the language model with the question. Used for questions that follow chains of relations.",
+   "definition": "A version of retrieval-augmented generation (RAG) in which the relations between entities in a knowledge graph are followed using code, and the facts found are sent to the language model with the question. Used for questions that follow chains of relations such as mathematical logic.",
    "cite": "Microsoft GraphRAG, https://microsoft.github.io/graphrag/",
    "link_forms": [
     "GraphRAG"
@@ -899,7 +899,7 @@
    "term": "Is-a test",
    "preferred_label": "Is-a test",
    "alternative_labels": [],
-   "definition": "The check on a taxonomy: a narrower concept must be a type of its broader concept. GNI per head is not a type of GNI, so it fails. It keeps the hierarchy true at every level.",
+   "definition": "The check on a taxonomy: a narrower concept must be a type of its broader concept. GNI per head is not a type of GNI, so it fails this check. Used to keep the hierarchy true at every level.",
    "cite": "After Talisman (2026)",
    "link_forms": [
     "Is-a test"
@@ -1130,7 +1130,7 @@
    "term": "nowcast (flag)",
    "preferred_label": "nowcast",
    "alternative_labels": [],
-   "definition": "A value for the current period or a past period (zero or negative horizon) that the producer has not measured, filled in from other data by a stated method. The NNI model makes some: it fills in adjusted NNI after its last published year because we cannot find the producer's data. A producer may make others, for example by linking an older series to a newer one. Rated at most Medium.",
+   "definition": "A value for the current period or a past period (zero or negative horizon) that the producer has not measured, filled in from other data by a stated method. Some are made with the NNI model: adjusted NNI after the last published year is filled in, because we cannot find the producer's data. A producer may make others, for example by linking an older series to a newer one. Rated at most Medium.",
    "cite": "",
    "link_forms": [
     "nowcast"
