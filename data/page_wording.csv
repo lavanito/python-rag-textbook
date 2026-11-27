@@ -112,5 +112,5 @@ score_result,Result,2026-11-27
 change_date,Date,2026-11-27
 change_area,Area,2026-11-27
 change_text,Change,2026-11-27
-nav_glossary,Glossary,
-glossary_intro,"Each term once, with what it means and what it is for. A term is linked from the text where it first appears in each section.",
+nav_glossary,Glossary,2026-11-27
+glossary_intro,"The purpose of this glossary is one meaning for each word: each term is used on this page, in the book and in the code in the sense defined here, and its first use in each section is linked to that definition.",2026-11-27

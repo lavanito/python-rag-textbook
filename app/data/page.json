@@ -455,11 +455,11 @@
   },
   "nav_glossary": {
    "text": "Glossary",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "glossary_intro": {
-   "text": "Each term once, with what it means and what it is for. A term is linked from the text where it first appears in each section.",
-   "approved": ""
+   "text": "The purpose of this glossary is one meaning for each word: each term is used on this page, in the book and in the code in the sense defined here, and its first use in each section is linked to that definition.",
+   "approved": "2026-11-27"
   }
  },
  "reply_wording": {
