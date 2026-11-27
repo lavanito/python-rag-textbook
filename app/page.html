@@ -142,7 +142,8 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
 const D = JSON.parse(document.getElementById("page-data").textContent);
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const W = (id) => (D.page.wording[id] || { text: id }).text;
+const REVIEW = /*REVIEW*/false;   // true only in the copy built for reviewing the page's wording
+const W = (id) => (D.page.wording[id] || { text: id }).text + (REVIEW && D.page.wording[id] ? ` ⟦${id}⟧` : "");
 const fill = (text, values) => text.replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
 const italics = (s) => esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>");
 const state = { mode: "non-commercial", role: "analyst", shown: null, embed: null, model: "idle", vectors: {} };

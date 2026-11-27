@@ -52,3 +52,9 @@ def test_traces_match_rebuild():
         json.dumps(traces.build(), ensure_ascii=False))
     assert set(json.loads(traces.OUT.read_text(encoding="utf-8"))["traces"]) == {
         r["id"] for r in json.loads((ROOT / "app" / "data" / "bank_replies.json").read_text(encoding="utf-8"))["replies"]}
+
+
+def test_published_page_is_not_the_review_copy():
+    built = page.OUT.read_text(encoding="utf-8")
+    assert "const REVIEW = false;" in built
+    assert "const REVIEW = true;" in page.build(review=True)
