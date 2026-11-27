@@ -211,7 +211,7 @@ const outText = (o) => Object.entries(o).filter(([, v]) => v !== null && v !== u
 function traceHtml(steps, typed) {
   const rows = steps.map((s) => `<tr><td>${esc(s.step)}</td><td>${esc(s.means)}</td><td>${esc(outText(s.outputs))}</td>` +
     `<td class="n">${esc(s.tokens_in ?? 0)}</td><td class="n">${esc(s.tokens_out ?? 0)}</td><td class="n">${s.seconds == null ? "" : esc(s.seconds)}</td></tr>`).join("");
-  return `<details><summary>${esc(W("trace"))}</summary><p class="meta">${esc(fill(W("trace_context"), { use_mode: state.mode, role: state.role }))}</p>` +
+  return `<details><summary>${esc(W("trace"))}</summary><p class="meta">${esc(fill(W("trace_context"), { use_mode: state.mode, role: W(state.role === "executive" ? "role_executive" : "role_analyst") }))}</p>` +
     (typed ? `<p class="meta">${esc(W("trace_typed"))}</p>` : "") +
     `<div class="scroll"><table class="stack"><thead><tr><th>${esc(W("trace_step"))}</th><th>${esc(W("trace_means"))}</th><th>${esc(W("trace_output"))}</th>` +
     `<th class="n">${esc(W("trace_tokens_in"))}</th><th class="n">${esc(W("trace_tokens_out"))}</th><th class="n">${esc(W("trace_seconds"))}</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;

@@ -1,79 +1,79 @@
 {
  "note": "Written by tools/build_page_text.py from data/at_full_scale.csv; do not edit by hand.",
  "columns": [
-  "In this build",
-  "At full scale"
+  "In this demonstration version",
+  "In a full-scale production version"
  ],
  "rows": [
   {
-   "in_this_build": "Six economies; 16 measures",
-   "at_full_scale": "Catalogue of thousands of series",
-   "agreed": "2026-11-17"
+   "in_this_build": "Six economies and 16 measures.",
+   "at_full_scale": "A catalogue of thousands of series, each with its definition, source and owner.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "JSON files, two editions",
-   "at_full_scale": "Warehouse with bitemporal tables",
-   "agreed": "2026-11-17"
+   "in_this_build": "Two editions of the data, stored in files.",
+   "at_full_scale": "A data warehouse with bitemporal tables: each value stored with the year it describes and the edition it came from.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "One model class",
-   "at_full_scale": "Library of governed model classes and a semantic layer",
-   "agreed": "2026-11-17"
+   "in_this_build": "One method for calculating the figures (the NNI model).",
+   "at_full_scale": "A library of approved calculation methods, and a semantic layer: one shared set of definitions used by every query.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "57 passages from 10 sources",
-   "at_full_scale": "Full document estate",
-   "agreed": "2026-11-17"
+   "in_this_build": "57 passages from 10 sources.",
+   "at_full_scale": "The full document estate: every report, manual and note held by the organisation.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Hybrid search",
-   "at_full_scale": "Hybrid search over a vector index with reranking under a time limit",
-   "agreed": "2026-11-17"
+   "in_this_build": "Hybrid search: keyword search and search by meaning, combined.",
+   "at_full_scale": "Hybrid search over a vector index, with reranking within a set time limit.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Knowledge graph: 67 things, 131 triplets",
-   "at_full_scale": "Graph database with validation rules",
-   "agreed": "2026-11-17"
+   "in_this_build": "A knowledge graph of 67 entities and 131 triples.",
+   "at_full_scale": "A graph database, in which each new triple is checked against rules on entry.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Two use modes",
-   "at_full_scale": "Entitlements per contract, at retrieval",
-   "agreed": "2026-11-17"
+   "in_this_build": "Two use modes, non-commercial and commercial, chosen by the user.",
+   "at_full_scale": "Entitlements: access rights set by each customer's contract, checked at retrieval.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Question bank of 56",
-   "at_full_scale": "Governed query bank of hundreds, run on every change",
-   "agreed": "2026-11-17"
+   "in_this_build": "A question bank of 56 questions.",
+   "at_full_scale": "A governed bank of hundreds of test questions, run again after every change to the data or the code.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Keyword router; question read in parts and corrected by the user",
-   "at_full_scale": "Small-model or fine-tuned classifier with monitored routing accuracy; catalogue of measures kept by a named team",
-   "agreed": "2026-11-17"
+   "in_this_build": "Questions sorted into question types by keyword rules; a typed question read in parts, with each part open to correction by the user.",
+   "at_full_scale": "Questions sorted into question types by a small or fine-tuned language model, with routing accuracy measured all the time; the catalogue of measures kept by the vertical domain expert for each subject.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "One question at a time, no memory",
-   "at_full_scale": "Conversation state carried into routing and retrieval",
-   "agreed": "2026-11-17"
+   "in_this_build": "Each question answered on its own, with no memory of earlier questions.",
+   "at_full_scale": "Earlier questions in the conversation used in routing and in finding passages.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Word-overlap checks; explanations dropped",
-   "at_full_scale": "Measured check error rates; analysts review dropped explanations",
-   "agreed": "2026-11-17"
+   "in_this_build": "Explanations checked by word overlap; an explanation that fails the checks is dropped.",
+   "at_full_scale": "The error rate of each check measured; every dropped explanation read by the vertical domain expert, who corrects it or records the fault.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Near measure chosen in advance",
-   "at_full_scale": "Nearest measure by meaning, stated openly",
-   "agreed": "2026-11-17"
+   "in_this_build": "The nearest measure to the one asked for, chosen in advance.",
+   "at_full_scale": "The nearest measure found by meaning, with how near it is stated in the reply.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Tokens and seconds per route from saved runs",
-   "at_full_scale": "Full tracing, a token and time limit per route",
-   "agreed": "2026-11-17"
+   "in_this_build": "Tokens and seconds for each route, from saved runs.",
+   "at_full_scale": "A trace of every question, and a limit on tokens and time for each route.",
+   "agreed": "2026-11-27"
   },
   {
-   "in_this_build": "Two editions, each stored in full",
-   "at_full_scale": "Every edition kept, storing only the values that changed, as ALFRED and the UK Real-Time Data archive do",
-   "agreed": "2026-11-24"
+   "in_this_build": "Two editions, each stored in full.",
+   "at_full_scale": "Every edition kept, storing only the values that changed, as in ALFRED and the UK Real-Time Data archive.",
+   "agreed": "2026-11-27"
   }
  ]
 }

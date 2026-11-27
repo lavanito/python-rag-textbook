@@ -1,114 +1,114 @@
 id,text,approved
-title,"Questions on national income, answered from the data",
-subtitle,"A demonstrator of governed RAG: the passages are chosen and the figures calculated using code; a language model's output is used only for a short, checked explanation.",
-size_line,{passages} passages from {sources} sources · {economies} economies · {questions} questions in the bank · one user · a 4-billion-parameter language model on a laptop,
-nav_ask,Ask,
-nav_walkthrough,Walkthrough,
-nav_method,Method and caveats,
-nav_coverage,Coverage,
-nav_scores,Scores and cost,
-nav_lessons,Lessons for a production version,
-nav_changes,Change log,
-nav_faq,Questions and answers,
-nav_sources,Sources,
-nav_audit,Next step,
-use_mode,Use mode,
-use_mode_non_commercial,Non-commercial,
-use_mode_commercial,Commercial,
-use_mode_note,Passages are kept or withheld by the licence filter according to the use mode.,
-role,Role,
-role_analyst,Analyst,
-role_executive,Executive,
-role_note,Only the length depends on the role: executives see the figures and their DQR; analysts see the full reply and the trace.,
-suggested,Suggested questions,
-bank,All 56 bank questions,
-bank_note,Bank questions were answered offline; the stored reply is shown.,
-typed,Your own question,
-typed_button,Answer,
-typed_note,"For a typed question, the figures are calculated in this page using code, and no explanation is shown.",
-model_loading,Loading the embedding model for reading the measure by meaning.,
-model_ready,"The embedding model is loaded: the measure is read by name, then by meaning.",
-correct,Correct the reading,
-measures,Measures,
-years,Years,
-editions,Editions,
-sharper_typed,Pick the aspect you mean:,
-passages_found,"Passages found (keyword search with query expansion, after the filters)",
-why_keyword,found by the words,
-why_expansion,found by the added names,
-withheld,Withheld by the filters,
-none_withheld,None withheld.,
-question_class,Question type,
-contrast,"Contrast: the same question to the same language model, with no passages and no data",
-contrast_left,Language model alone,
-contrast_right,This reply,
-contrast_lacks,"On the left there is no passage, no edition, no DQR and no definition line.",
-contrast_pending,The run with no passages and no data is still to come from the laptop.,
-contrast_typed,Typed questions have no contrast run: no language model is used in this page.,
-contrast_settings,"Asked on {date} of {model}, temperature {temperature}, at most {num_predict} tokens in the reply, context {num_ctx} tokens.",
-trace,Trace,
-trace_context,In force: use mode {use_mode}; role {role}.,
-trace_step,Step,
-trace_means,Means,
-trace_output,Output,
-trace_tokens_in,Tokens in,
-trace_tokens_out,Tokens out,
-trace_seconds,Laptop seconds,
-trace_typed,"Steps run in this page using code; no language model, no tokens.",
-walkthrough_intro,"One request, step by step, from the question to the checked reply.",
-walkthrough_means,Means used,
-walkthrough_full_scale,At full scale,
-sandwich,"Code before the language model: filters, routing, parameters, retrieval, figures, locked block. Code after it: checks, record, token count.",
-coverage_intro,"Each measure for each economy in the latest edition: exact, proxy or no figure.",
-scores,All scores,
-scores_label,Training or fair,
-cost,Tokens and laptop seconds per saved run (no hosted price),
-cost_step,Saved run,
-cost_in,Tokens in per question,
-cost_out,Tokens out per question,
-cost_seconds,Laptop seconds per question,
-lessons_worked,What worked,
-lessons_needs,What a production version needs,
-audit_heading,Next step: an AI resilience audit of your data workflow,
-audit_source,"AI Resilience Audit (Centellic, Clare Bolton, July 2026): products placed by value and by AI risk, with a strategy for each quarter.",
-audit_value,Value,
-audit_risk,AI risk,
-audit_grow,Grow,
-audit_milk,Milk or transition,
-audit_continue,Continue,
-audit_stop,Stop or automate,
-audit_nni,"Figures calculated from governed data, with source, edition and DQR (this page)",
-audit_contrast,"Answers from a language model alone, with no passages and no data (the contrast panel)",
-audit_action,Run a regular audit of data workflow as part of business as usual. Align to AI readiness.,
-sources_corpus,Passages,
-sources_data,Data,
-footer,© 2026 Lavan Mahadeva Limited. Author: Lavan Mahadeva.,
-sandwich_before,Filters;Routing;Parameters;Retrieval;Figures;Locked block,
-sandwich_model,Language model: its output is used for the explanation only,
-sandwich_after,Checks;Record;Token count,
-audit_low,Low,
-audit_high,High,
-explanation_executive,The explanation and the definition lines are shown to analysts only.,
-step,Step,
-chapters,Chapters,
-method_counts,Counts,
-caveats,Caveats,
-best_data,Best data,
-nowcast_from,nowcast from,
-no_figure,no figure,
-first_economy,First economy,
-second_economy,Second economy,
-none,none,
-keep_years,as read,
-model_unavailable,"Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. In a product version, the embedding model would be served with the page.",
-exact,exact,
-proxy,proxy,
-contrast_cut,"Cut off at {num_predict} tokens, the limit set for this run.",
-coverage_measure,Measure,
-count_item,What is counted,
-count_value,Count,
-score_name,Score,
-score_result,Result,
-change_date,Date,
-change_area,Area,
-change_text,Change,
+title,"Questions on national income, answered from a governed source",2026-11-27
+subtitle,"This is a demonstration version of Governed RAG: the user asks a question, the passages are chosen and the figures supplied using code, and a language model's output is used only for a short, checked explanation.",2026-11-27
+size_line,{passages} passages from {sources} sources · {economies} economies · {questions} questions in the bank · one user · a 4-billion-parameter language model on a laptop,2026-11-27
+nav_ask,Ask,2026-11-27
+nav_walkthrough,Walkthrough,2026-11-27
+nav_method,Method and caveats,2026-11-27
+nav_coverage,Coverage,2026-11-27
+nav_scores,Scores and cost,2026-11-27
+nav_lessons,Lessons for a production version,2026-11-27
+nav_changes,Change log,2026-11-27
+nav_faq,Questions and answers,2026-11-27
+nav_sources,Sources,2026-11-27
+nav_audit,Next step,2026-11-27
+use_mode,Use mode,2026-11-27
+use_mode_non_commercial,Non-commercial,2026-11-27
+use_mode_commercial,Commercial,2026-11-27
+use_mode_note,Passages are kept or withheld by the licence filter according to the use mode.,2026-11-27
+role,Reply length,2026-11-27
+role_analyst,Full,2026-11-27
+role_executive,Short,2026-11-27
+role_note,"A short reply shows the figures and their data quality rating (DQR); a full reply also shows the definitions, the explanation and the trace.",2026-11-27
+suggested,Suggested questions,2026-11-27
+bank,All 56 bank questions,2026-11-27
+bank_note,Bank questions were answered offline; this is the stored reply.,2026-11-27
+typed,Your own question,2026-11-27
+typed_button,Answer,2026-11-27
+typed_note,"For a typed question, the figures are supplied in this page using code, with no explanation.",2026-11-27
+model_loading,Loading the embedding model for reading the measure by meaning.,2026-11-27
+model_ready,"The embedding model is loaded: the measure is read by name, then by meaning.",2026-11-27
+correct,Correct the reading,2026-11-27
+measures,Measures,2026-11-27
+years,Years,2026-11-27
+editions,Editions,2026-11-27
+sharper_typed,Pick the aspect you mean:,2026-11-27
+passages_found,"Passages found (keyword search with query expansion, after the filters)",2026-11-27
+why_keyword,found by the question's own words,2026-11-27
+why_expansion,found by the aliases added in query expansion,2026-11-27
+withheld,Withheld by the filters,2026-11-27
+none_withheld,None withheld.,2026-11-27
+question_class,Question type,2026-11-27
+contrast,"Contrast: the same question to the same language model, with no passages and no data",2026-11-27
+contrast_left,Language model alone,2026-11-27
+contrast_right,This reply,2026-11-27
+contrast_lacks,"On the left there is no passage, no edition, no DQR and no definition line.",2026-11-27
+contrast_pending,The run with no passages and no data is still to come from the laptop.,2026-11-27
+contrast_typed,Typed questions have no contrast run: no language model is used in this page.,2026-11-27
+contrast_settings,"Asked on {date} of {model}, temperature {temperature}, at most {num_predict} tokens in the reply, context {num_ctx} tokens.",2026-11-27
+trace,"Trace: each step of this reply, the means used, and its tokens and seconds",2026-11-27
+trace_context,In force: use mode {use_mode}; reply length {role}.,2026-11-27
+trace_step,Step,2026-11-27
+trace_means,Means,2026-11-27
+trace_output,Output,2026-11-27
+trace_tokens_in,Tokens in,2026-11-27
+trace_tokens_out,Tokens out,2026-11-27
+trace_seconds,Laptop seconds,2026-11-27
+trace_typed,"Steps run in this page using code; no language model, no tokens.",2026-11-27
+walkthrough_intro,"The walkthrough shows how Governed RAG works. You can follow one request, step by step, from the question to the checked reply. The language model's step comes between two layers of code and data built for this subject: the language model is sandwiched.",2026-11-27
+walkthrough_means,Means used,2026-11-27
+walkthrough_full_scale,In a full-scale production version,2026-11-27
+sandwich,"Code before the language model: filters, routing, parameters, retrieval, figures, template part. Code after it: checks, record, token count.",2026-11-27
+coverage_intro,"Each measure for each economy in the latest edition: exact, proxy or no figure.",2026-11-27
+scores,All scores,2026-11-27
+scores_label,Training or fair,2026-11-27
+cost,Tokens and laptop seconds per saved run (no hosted price),2026-11-27
+cost_step,Saved run,2026-11-27
+cost_in,Tokens in per question,2026-11-27
+cost_out,Tokens out per question,2026-11-27
+cost_seconds,Laptop seconds per question,2026-11-27
+lessons_worked,What worked,2026-11-27
+lessons_needs,What a production version needs,2026-11-27
+audit_heading,Next step: an AI resilience audit of your data workflow,2026-11-27
+audit_source,"AI Resilience Audit (Centellic, Clare Bolton, July 2026): products placed by value and by AI risk, with a strategy for each quarter.",2026-11-27
+audit_value,Value,2026-11-27
+audit_risk,AI risk,2026-11-27
+audit_grow,Grow,2026-11-27
+audit_milk,Milk or transition,2026-11-27
+audit_continue,Continue,2026-11-27
+audit_stop,Stop or automate,2026-11-27
+audit_nni,"Figures calculated from governed data, with source, edition and DQR (this page)",2026-11-27
+audit_contrast,"Answers from a language model alone, with no passages and no data (the contrast panel)",2026-11-27
+audit_action,Run a regular audit of data workflow as part of business as usual. Align to AI readiness.,2026-11-27
+sources_corpus,Passages,2026-11-27
+sources_data,Data,2026-11-27
+footer,© 2026 Lavan Mahadeva Limited. Author: Lavan Mahadeva.,2026-11-27
+sandwich_before,Filters;Routing;Parameters;Retrieval;Figures;Template part,2026-11-27
+sandwich_model,Language model: its output is used for the explanation only,2026-11-27
+sandwich_after,Checks;Record;Token count,2026-11-27
+audit_low,Low,2026-11-27
+audit_high,High,2026-11-27
+explanation_executive,The explanation and the definition lines are shown in full replies only.,2026-11-27
+step,Step,2026-11-27
+chapters,Chapters,2026-11-27
+method_counts,Counts,2026-11-27
+caveats,Caveats,2026-11-27
+best_data,Best data,2026-11-27
+nowcast_from,nowcast from,2026-11-27
+no_figure,no figure,2026-11-27
+first_economy,First economy,2026-11-27
+second_economy,Second economy,2026-11-27
+none,none,2026-11-27
+keep_years,as read,2026-11-27
+model_unavailable,"Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. In a full-scale production version, the embedding model would be served with the page.",2026-11-27
+exact,exact,2026-11-27
+proxy,proxy,2026-11-27
+contrast_cut,"Cut off at {num_predict} tokens, the limit set for this run.",2026-11-27
+coverage_measure,Measure,2026-11-27
+count_item,What is counted,2026-11-27
+count_value,Count,2026-11-27
+score_name,Score,2026-11-27
+score_result,Result,2026-11-27
+change_date,Date,2026-11-27
+change_area,Area,2026-11-27
+change_text,Change,2026-11-27

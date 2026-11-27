@@ -6,8 +6,9 @@ It writes, in app/data/:
 - lessons.json: "Lessons for a production version" (decision 26), read from
   Chapter 15, section 15.7 (book/ch15_token_cost.md), so the page and the
   book say the same thing.
-- at_full_scale.json: the "In this build / At full scale" table (build spec
-  v3, component 13, agreed 17 November 2026), from data/at_full_scale.csv.
+- at_full_scale.json: the "In this demonstration version / In a full-scale
+  production version" table (build spec v3, component 13, agreed 17 November
+  2026; rows rewritten and approved 27 November 2026), from data/at_full_scale.csv.
 - walkthrough.json: the six lifecycle steps (build spec v3, component 13).
   For each step: the process sentence and chapters (data/walkthrough.csv,
   approved 24 November 2026), the steps and the means used for each (front
@@ -81,7 +82,7 @@ def lessons():
 def at_full_scale():
     rows = read_csv(DATA / "at_full_scale.csv")
     return {"note": "Written by tools/build_page_text.py from data/at_full_scale.csv; do not edit by hand.",
-            "columns": ["In this build", "At full scale"],
+            "columns": ["In this demonstration version", "In a full-scale production version"],
             "rows": [{"in_this_build": r["in_this_build"], "at_full_scale": r["at_full_scale"],
                       "agreed": r["agreed"]} for r in sorted(rows, key=lambda r: int(r["order"]))]}
 
