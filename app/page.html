@@ -58,7 +58,7 @@ button.quiet{background:#fff;color:var(--ink);text-align:left}
 .block h4{border-top:1px solid var(--line);padding-top:.8em}
 .block ul{margin:.2em 0;padding-left:1.2em}
 .block li{margin:.35em 0}
-.block .cont{display:block;color:var(--soft);font-size:14px}
+.cont{display:block;color:var(--soft);font-size:14px}
 .block blockquote{margin:.3em 0 0;padding-left:10px;border-left:3px solid var(--line);font-size:14px}
 .note{font-style:italic;color:var(--soft)}
 .dqr{display:inline-block;font-style:normal;font-weight:600;font-size:13px;padding:0 6px;border-radius:4px;white-space:nowrap}
@@ -381,19 +381,19 @@ $("lessons-body").innerHTML = `<h2>${esc(W("nav_lessons"))}</h2><div class="two"
 const mc = D.method_and_caveats;
 $("method-body").innerHTML = `<h2>${esc(mc.title)}</h2><p class="meta">${esc(mc.status)}</p><h3>${esc(W("caveats"))}</h3>` +
   mc.caveats.map((c) => `<h4>${esc(c.title)}</h4><p>${esc(c.text)}</p>`).join("") + `<h3>${esc(W("method_counts"))}</h3>` +
-  table(["", ""], Object.entries(mc.counts).map(([k, v]) => [esc(k.replaceAll("_", " ")), esc(typeof v === "object" ? outText(Array.isArray(v) ? Object.fromEntries(v.map((x, i) => [x.check || i, x.agree !== undefined ? `${x.agree} of ${x.total}` : x])) : v) : v)]));
+  table([W("count_item"), W("count_value")], Object.entries(mc.counts).map(([k, v]) => [esc(k.replaceAll("_", " ")), esc(typeof v === "object" ? outText(Array.isArray(v) ? Object.fromEntries(v.map((x, i) => [x.check || i, x.agree !== undefined ? `${x.agree} of ${x.total}` : x])) : v) : v)]));
 const cg = D.coverage_grid, econ = Object.keys(cg.economies);
 const cell = (c) => c.kind === "no figure" ? esc(W("no_figure")) :
   `${esc(W(c.kind === "proxy" ? "proxy" : "exact"))} ${esc(c.first)}–${esc(c.last)}${c.nowcast_from ? `; ${esc(W("nowcast_from"))} ${esc(c.nowcast_from)}` : ""}` +
   (c.dqr_last_year ? ` <span class="dqr dqr-${esc(c.dqr_last_year)}">DQR ${esc(c.dqr_last_year)}</span>` : "");
 $("coverage-body").innerHTML = `<h2>${esc(cg.title)}</h2><p>${esc(W("coverage_intro"))} ${esc(cg.edition)}</p>` +
-  table(["", ...econ.map((e) => cg.economies[e])], cg.rows.map((r) => [`<strong>${esc(r.description)}</strong>${r.unit ? `<span class="cont">${esc(r.unit)}</span>` : ""}${r.best_data ? `<span class="cont">${esc(W("best_data"))}: ${esc(r.best_data)}</span>` : ""}`,
+  table([W("coverage_measure"), ...econ.map((e) => cg.economies[e])], cg.rows.map((r) => [`<strong>${esc(r.description)}</strong>${r.unit ? `, ${esc(r.unit)}` : ""}${r.best_data ? `<span class="cont">${esc(W("best_data"))}: ${esc(r.best_data)}</span>` : ""}`,
     ...econ.map((e) => cell(r.cells[e]))]));
 const tr = D.traces;
-$("scores-body").innerHTML = `<h2>${esc(W("scores"))}</h2>` + table([W("chapters"), "", "", W("scores_label")], tr.scores.map((s) => [esc(s.chapter), esc(s.score), esc(s.result), esc(s.label)])) +
+$("scores-body").innerHTML = `<h2>${esc(W("scores"))}</h2>` + table([W("chapters"), W("score_name"), W("score_result"), W("scores_label")], tr.scores.map((s) => [esc(s.chapter), esc(s.score), esc(s.result), esc(s.label)])) +
   `<h3>${esc(W("cost"))}</h3>` + table([W("cost_step"), W("cost_in"), W("cost_out"), W("cost_seconds")], tr.cost.map((c) => [esc(c.step), esc(Math.round(c.in_per_question)), esc(Math.round(c.out_per_question)), esc(c.seconds_per_question)]));
 const cl = D.change_log;
-$("changes-body").innerHTML = `<h2>${esc(cl.title)}</h2>` + table(["", "", ""], cl.entries.map((e) => [esc(e.date), esc(e.area), esc(e.change)]));
+$("changes-body").innerHTML = `<h2>${esc(cl.title)}</h2>` + table([W("change_date"), W("change_area"), W("change_text")], cl.entries.map((e) => [esc(e.date), esc(e.area), esc(e.change)]));
 $("faq-body").innerHTML = `<h2>${esc(W("nav_faq"))}</h2>` + D.faq.questions.map((q) => `<h3>${esc(q.question)}</h3><p>${esc(q.answer)}</p>`).join("");
 const so = D.sources;
 $("sources-body").innerHTML = `<h2>${esc(W("nav_sources"))}</h2><h3>${esc(W("sources_corpus"))}</h3>` +

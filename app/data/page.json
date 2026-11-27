@@ -420,6 +420,38 @@
   "contrast_cut": {
    "text": "Cut off at {num_predict} tokens, the limit set for every reply of the language model in this build.",
    "approved": ""
+  },
+  "coverage_measure": {
+   "text": "Measure",
+   "approved": ""
+  },
+  "count_item": {
+   "text": "What is counted",
+   "approved": ""
+  },
+  "count_value": {
+   "text": "Count",
+   "approved": ""
+  },
+  "score_name": {
+   "text": "Score",
+   "approved": ""
+  },
+  "score_result": {
+   "text": "Result",
+   "approved": ""
+  },
+  "change_date": {
+   "text": "Date",
+   "approved": ""
+  },
+  "change_area": {
+   "text": "Area",
+   "approved": ""
+  },
+  "change_text": {
+   "text": "Change",
+   "approved": ""
   }
  },
  "reply_wording": {
