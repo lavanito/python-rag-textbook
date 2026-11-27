@@ -20,7 +20,7 @@ def test_run_saves_every_bank_question_and_restarts(tmp_path):
 
     def counting_ask(messages, options):
         asked.append(messages[0]["content"])
-        assert options["temperature"] == 0 and options["num_ctx"] == 8192
+        assert options["temperature"] == 0 and options["num_ctx"] == 8192 and options["num_predict"] == 1500
         return fake_ask(messages, options)
 
     records = run_contrast.run(counting_ask, out)
