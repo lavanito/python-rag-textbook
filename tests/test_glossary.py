@@ -36,12 +36,13 @@ def test_stored_file_equals_the_rebuilt_file():
     assert stored == json.loads(json.dumps(glossary.build(), ensure_ascii=False))
 
 
-def test_every_term_is_approved_and_written_by_the_vertical_domain_expert():
+def test_every_term_is_approved_written_and_checked():
     rows = glossary.load()
     assert len(rows) == 144
     for row in rows:
         assert row["approved"], row["term"]
         assert row["written_by"] == "vertical domain expert", row["term"]
+        assert row["checked_by"] == "horizontal domain expert", row["term"]   # Lavan's approval of all rows, 27 Nov
         assert row["definition"] == row["definition"].strip(), row["term"]
 
 
