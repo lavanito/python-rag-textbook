@@ -452,6 +452,14 @@
   "change_text": {
    "text": "Change",
    "approved": "2026-11-27"
+  },
+  "nav_glossary": {
+   "text": "Glossary",
+   "approved": ""
+  },
+  "glossary_intro": {
+   "text": "Each term once, with what it means and what it is for. A term is linked from the text where it first appears in each section.",
+   "approved": ""
   }
  },
  "reply_wording": {

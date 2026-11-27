@@ -89,6 +89,10 @@ td.n,th.n{text-align:right;white-space:nowrap}
 .axis{font-size:13px;color:var(--soft);display:flex;align-items:center;justify-content:center}
 .yaxis{writing-mode:vertical-rl;transform:rotate(180deg)}
 footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
+a.gl{color:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:help}
+dl.gloss dt{font-weight:600;margin-top:1em;scroll-margin-top:72px}
+dl.gloss dd{margin:.2em 0 0;max-width:72ch}
+dl.gloss dt.hit{background:var(--panel)}
 @media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--soft)}.stack td:empty{display:none}}
 @media(prefers-reduced-motion:no-preference){.reply{transition:opacity .15s}.reply.busy{opacity:.5}}
 </style>
@@ -133,6 +137,7 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
  <section id="faq" class="band" hidden><div class="wrap" id="faq-body"></div></section>
  <section id="sources" class="band" hidden><div class="wrap" id="sources-body"></div></section>
  <section id="audit" class="band" hidden><div class="wrap" id="audit-body"></div></section>
+ <section id="glossary" class="band" hidden><div class="wrap" id="glossary-body"></div></section>
 </main>
 <footer class="band"><div class="wrap" id="footer"></div></footer>
 <script id="page-data" type="application/json">/*DATA*/</script>
@@ -170,7 +175,7 @@ segment("mode", "mode", [["non-commercial", W("use_mode_non_commercial")], ["com
 segment("role", "role", [["analyst", W("role_analyst")], ["executive", W("role_executive")]], "role");
 const VIEWS = [["ask", "nav_ask"], ["walkthrough", "nav_walkthrough"], ["lessons", "nav_lessons"], ["method", "nav_method"],
   ["coverage", "nav_coverage"], ["scores", "nav_scores"], ["changes", "nav_changes"], ["faq", "nav_faq"],
-  ["sources", "nav_sources"], ["audit", "nav_audit"]];
+  ["sources", "nav_sources"], ["glossary", "nav_glossary"], ["audit", "nav_audit"]];
 $("nav").innerHTML = VIEWS.map(([id, w]) => `<a href="#${id}" data-view="${id}">${esc(W(w))}</a>`).join("");
 function route() {
   const view = VIEWS.some(([id]) => "#" + id === location.hash) ? location.hash.slice(1) : "ask";
@@ -180,6 +185,43 @@ function route() {
   }
 }
 window.addEventListener("hashchange", route);
+
+// ---------- glossary links: the first use of each term in a section ----------
+const GLOSS = D.glossary.entries;
+const glossById = Object.fromEntries(GLOSS.map((e) => [e.id, e]));
+const linkWords = GLOSS.flatMap((e) => e.links.map((w) => [w, e.id])).sort((a, b) => b[0].length - a[0].length);
+const reEsc = (w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const linkRe = new RegExp("(?<![\\w-])(" + linkWords.map(([w]) => reEsc(w)).join("|") + ")(?:s|es)?(?![\\w-])", "gi");
+const wordId = new Map(linkWords.map(([w, id]) => [w.toLowerCase(), [w, id]]));
+const SKIP = new Set(["A", "BUTTON", "SELECT", "OPTION", "TEXTAREA", "LABEL", "H1", "H2", "H3", "H4", "DT", "CODE", "SCRIPT", "STYLE"]);
+function linkGlossary(root, exclude = null) {
+  if (!root) return;
+  const used = new Set(exclude ? [exclude] : []);
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => {
+    for (let p = n.parentElement; p && p !== root.parentElement; p = p.parentElement) if (SKIP.has(p.tagName)) return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT; } });
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const text = node.nodeValue; let last = 0, changed = false; const frag = document.createDocumentFragment();
+    for (const m of text.matchAll(linkRe)) {
+      const hit = wordId.get(m[1].toLowerCase()); if (!hit) continue;
+      const [word, id] = hit;
+      if (used.has(id)) continue;
+      if (/[A-Z].*[A-Z]/.test(word) && m[1] !== word) continue;   // acronyms match their exact capitals only
+      used.add(id); changed = true;
+      frag.append(text.slice(last, m.index));
+      const a = document.createElement("a"); a.className = "gl"; a.href = "#glossary"; a.dataset.g = id;
+      a.title = glossById[id].definition; a.textContent = m[0]; frag.append(a); last = m.index + m[0].length;
+    }
+    if (changed) { frag.append(text.slice(last)); node.replaceWith(frag); }
+  }
+}
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a.gl"); if (!a) return;
+  e.preventDefault(); location.hash = "glossary"; route();
+  const dt = document.getElementById("g-" + a.dataset.g);
+  if (dt) { for (const x of document.querySelectorAll("dt.hit")) x.classList.remove("hit"); dt.classList.add("hit"); dt.scrollIntoView(); }
+});
 
 // ---------- one block of reply text as HTML ----------
 function inline(s) {
@@ -250,6 +292,7 @@ function showBank(id, option = null) {
   }
   $("reply").innerHTML = html;
   for (const b of $("reply").querySelectorAll("[data-option]")) b.addEventListener("click", () => showBank(id, Number(b.dataset.option)));
+  linkGlossary($("reply"));
   markChips(id);
 }
 
@@ -340,6 +383,7 @@ function showTyped(question, corrected, aspect = null) {
     for (const id of ["fx-e1", "fx-e2", "fx-m", "fx-y", "fx-ed"]) $(id).addEventListener("change", apply);
   }
   for (const b of $("reply").querySelectorAll("[data-aspect]")) b.addEventListener("click", () => showTyped(question, null, Number(b.dataset.aspect)));
+  linkGlossary($("reply"));
   markChips(null);
 }
 
@@ -406,6 +450,11 @@ $("audit-body").innerHTML = `<h2>${esc(W("audit_heading"))}</h2><p>${esc(W("audi
   quad("audit_grow", "audit_nni", true) + quad("audit_milk") + quad("audit_continue") + quad("audit_stop", "audit_contrast", true) +
   `<div></div><div class="axis" style="grid-column:2/4">${esc(W("audit_risk"))}: ${esc(W("audit_low"))} → ${esc(W("audit_high"))}</div></div>` +
   `<p style="font-size:20px;font-weight:600;margin-top:1em">${esc(W("audit_action"))}</p>`;
+
+$("glossary-body").innerHTML = `<h2>${esc(W("nav_glossary"))}</h2><p>${esc(W("glossary_intro"))}</p><dl class="gloss">` +
+  GLOSS.map((e) => `<dt id="g-${esc(e.id)}">${esc(e.term)}</dt><dd>${esc(e.definition)}<span class="cont">${e.aliases.length ? esc(e.aliases.join("; ")) + " · " : ""}${esc(e.source)}</span></dd>`).join("") + "</dl>";
+for (const dd of document.querySelectorAll("#glossary-body dd")) linkGlossary(dd, dd.previousElementSibling.id.slice(2));
+for (const id of ["subtitle", "walk", "lessons-body", "method-body", "coverage-body", "scores-body", "changes-body", "faq-body", "sources-body", "audit-body"]) linkGlossary($(id));
 
 route();
 showBank(D.bank_replies.suggested[0]);
