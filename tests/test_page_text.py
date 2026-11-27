@@ -39,11 +39,12 @@ def test_lessons_are_chapter_15s():
 def test_counts_in_the_at_full_scale_table_match_the_data():
     totals = recompute()
     text = " ".join(r["in_this_build"] for r in page.at_full_scale()["rows"])
-    expected = {"passages": "passages", "sources": "sources", "things": "things", "triplets": "triplets"}
+    expected = {"passages": "passages", "sources": "sources", "entities": "things", "triples": "triplets"}
     for word, total in expected.items():
         for number in re.findall(rf"(\d+) {word}", text):
             assert int(number) == totals[total], word
-    assert re.search(rf"Question bank of {totals['bank questions']}\b", text)
+    assert re.search(rf"question bank of {totals['bank questions']} questions", text)
+    assert re.search(rf"{totals['things']} entities and {totals['triplets']} triples", text)
 
 
 def test_every_source_has_a_link_and_two_dates():
@@ -87,7 +88,7 @@ MEANS_AS_ACTOR = re.compile(
 # Matches where the subject is something else.
 NOT_AN_ACTOR = ["steps that call the language model use tokens"]
 PAGE_TEXT_FILES = ["method_and_caveats", "coverage_grid", "change_log", "faq", "lessons", "at_full_scale",
-                   "sources", "walkthrough"]
+                   "sources", "walkthrough", "glossary"]
 
 
 def strings_in(value):

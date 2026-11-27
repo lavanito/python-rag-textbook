@@ -14,9 +14,13 @@ It writes app/data/traces.json (build spec v3, component 15):
 - tokens and laptop seconds per saved run (Chapter 15.2), no hosted price
   (decision 28);
 - the contrast run (component 12) when data/answers/a5_contrast.jsonl exists.
+Scores and saved runs keep the book's name (`name_in_book`); the page shows
+the plain page-only name from data/score_names.csv once the vertical domain
+expert has approved it (decision 1a, 27 Nov 2026), the book's name until then.
 A test rebuilds this file and fails if it differs.
 """
 
+import csv
 import json
 import sys
 from pathlib import Path
@@ -39,6 +43,19 @@ MODES = ["non-commercial", "commercial"]
 NO_MODEL = "code; no language model"
 LAPTOP = "language model on the laptop, saved run"
 READ_PARTS = ["economies", "years", "editions", "measures"]
+SCORE_NAMES = REPO / "data" / "score_names.csv"
+
+
+def page_names():
+    """(table, name in the book) -> the name shown on the page: the approved page name, else the book's."""
+    with open(SCORE_NAMES, encoding="utf-8", newline="") as f:
+        return {(r["table"], r["name_in_book"]): (r["page_name"] if r["approved"] else r["name_in_book"])
+                for r in csv.DictReader(f)}
+
+
+def named(rows, table, key, names):
+    """Each row with the page's name in `key` and the book's in `name_in_book`."""
+    return [dict(row, name_in_book=row[key], **{key: names[(table, row[key])]}) for row in rows]
 
 
 def step(name, outputs, means=NO_MODEL, tokens_in=0, tokens_out=0, seconds=None):
@@ -94,13 +111,14 @@ def contrast():
 def build():
     replies = json.loads((REPO / "app" / "data" / "bank_replies.json").read_text(encoding="utf-8"))["replies"]
     parameters = {p["id"]: p for p in load_passages(PARAMETER_FILE)}
-    corpus, runs = load_corpus(), saved_runs()
+    corpus, runs, names = load_corpus(), saved_runs(), page_names()
     return {
         "note": "Written by tools/build_traces.py; do not edit by hand.",
         "traces": {r["id"]: {m: trace(r, m, parameters.get(r["id"]), corpus, runs) for m in MODES}
                    for r in replies},
-        "scores": score_table() + [reading_score()],
-        "cost": [{k: (round(v, 1) if isinstance(v, float) else v) for k, v in row.items()} for row in cost_of_runs()],
+        "scores": named(score_table() + [reading_score()], "scores", "score", names),
+        "cost": named([{k: (round(v, 1) if isinstance(v, float) else v) for k, v in row.items()}
+                       for row in cost_of_runs()], "cost", "step", names),
         "contrast": contrast(),
     }
 

@@ -2,424 +2,476 @@
  "note": "Written by tools/build_page_data.py; do not edit by hand.",
  "wording": {
   "title": {
-   "text": "Questions on national income, answered from the data",
-   "approved": ""
+   "text": "Questions on national income, answered from a governed source",
+   "approved": "2026-11-27"
   },
   "subtitle": {
-   "text": "A demonstrator of governed RAG: the passages are chosen and the figures calculated using code; a language model's output is used only for a short, checked explanation.",
-   "approved": ""
+   "text": "This is a demonstration version of Governed RAG: the user asks a question, the passages are chosen and the figures supplied using code, and a language model's output is used only for a short, checked explanation.",
+   "approved": "2026-11-27"
   },
   "size_line": {
    "text": "{passages} passages from {sources} sources · {economies} economies · {questions} questions in the bank · one user · a 4-billion-parameter language model on a laptop",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_ask": {
    "text": "Ask",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_walkthrough": {
    "text": "Walkthrough",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_method": {
    "text": "Method and caveats",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_coverage": {
    "text": "Coverage",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_scores": {
    "text": "Scores and cost",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_lessons": {
    "text": "Lessons for a production version",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_changes": {
    "text": "Change log",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_faq": {
    "text": "Questions and answers",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_sources": {
    "text": "Sources",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nav_audit": {
    "text": "Next step",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "use_mode": {
    "text": "Use mode",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "use_mode_non_commercial": {
    "text": "Non-commercial",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "use_mode_commercial": {
    "text": "Commercial",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "use_mode_note": {
    "text": "Passages are kept or withheld by the licence filter according to the use mode.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "role": {
-   "text": "Role",
-   "approved": ""
+   "text": "Reply length",
+   "approved": "2026-11-27"
   },
   "role_analyst": {
-   "text": "Analyst",
-   "approved": ""
+   "text": "Full",
+   "approved": "2026-11-27"
   },
   "role_executive": {
-   "text": "Executive",
-   "approved": ""
+   "text": "Short",
+   "approved": "2026-11-27"
   },
   "role_note": {
-   "text": "Only the length depends on the role: executives see the figures and their DQR; analysts see the full reply and the trace.",
-   "approved": ""
+   "text": "A short reply shows the figures and their data quality rating (DQR); a full reply also shows the definitions, the explanation and the trace.",
+   "approved": "2026-11-27"
   },
   "suggested": {
    "text": "Suggested questions",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "bank": {
    "text": "All 56 bank questions",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "bank_note": {
-   "text": "Bank questions were answered offline; the stored reply is shown.",
-   "approved": ""
+   "text": "Bank questions were answered offline; this is the stored reply.",
+   "approved": "2026-11-27"
   },
   "typed": {
    "text": "Your own question",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "typed_button": {
    "text": "Answer",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "typed_note": {
-   "text": "For a typed question, the figures are calculated in this page using code, and no explanation is shown.",
-   "approved": ""
+   "text": "For a typed question, the figures are supplied in this page using code, with no explanation.",
+   "approved": "2026-11-27"
   },
   "model_loading": {
    "text": "Loading the embedding model for reading the measure by meaning.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "model_ready": {
    "text": "The embedding model is loaded: the measure is read by name, then by meaning.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "correct": {
    "text": "Correct the reading",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "measures": {
    "text": "Measures",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "years": {
    "text": "Years",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "editions": {
    "text": "Editions",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "sharper_typed": {
    "text": "Pick the aspect you mean:",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "passages_found": {
    "text": "Passages found (keyword search with query expansion, after the filters)",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "why_keyword": {
-   "text": "found by the words",
-   "approved": ""
+   "text": "found by the question's own words",
+   "approved": "2026-11-27"
   },
   "why_expansion": {
-   "text": "found by the added names",
-   "approved": ""
+   "text": "found by the aliases added in query expansion",
+   "approved": "2026-11-27"
   },
   "withheld": {
    "text": "Withheld by the filters",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "none_withheld": {
    "text": "None withheld.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "question_class": {
    "text": "Question type",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast": {
    "text": "Contrast: the same question to the same language model, with no passages and no data",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast_left": {
    "text": "Language model alone",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast_right": {
    "text": "This reply",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast_lacks": {
    "text": "On the left there is no passage, no edition, no DQR and no definition line.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast_pending": {
    "text": "The run with no passages and no data is still to come from the laptop.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast_typed": {
    "text": "Typed questions have no contrast run: no language model is used in this page.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast_settings": {
    "text": "Asked on {date} of {model}, temperature {temperature}, at most {num_predict} tokens in the reply, context {num_ctx} tokens.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "trace": {
-   "text": "Trace",
-   "approved": ""
+   "text": "Trace: each step of this reply, the means used, and its tokens and seconds",
+   "approved": "2026-11-27"
   },
   "trace_context": {
-   "text": "In force: use mode {use_mode}; role {role}.",
-   "approved": ""
+   "text": "In force: use mode {use_mode}; reply length {role}.",
+   "approved": "2026-11-27"
   },
   "trace_step": {
    "text": "Step",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "trace_means": {
    "text": "Means",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "trace_output": {
    "text": "Output",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "trace_tokens_in": {
    "text": "Tokens in",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "trace_tokens_out": {
    "text": "Tokens out",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "trace_seconds": {
    "text": "Laptop seconds",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "trace_typed": {
    "text": "Steps run in this page using code; no language model, no tokens.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "walkthrough_intro": {
-   "text": "One request, step by step, from the question to the checked reply.",
-   "approved": ""
+   "text": "The walkthrough shows how Governed RAG works. You can follow one request, step by step, from the question to the checked reply. The language model's step comes between two layers of code and data built for this subject: the language model is sandwiched.",
+   "approved": "2026-11-27"
   },
   "walkthrough_means": {
    "text": "Means used",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "walkthrough_full_scale": {
-   "text": "At full scale",
-   "approved": ""
+   "text": "In a full-scale production version",
+   "approved": "2026-11-27"
   },
   "sandwich": {
-   "text": "Code before the language model: filters, routing, parameters, retrieval, figures, locked block. Code after it: checks, record, token count.",
-   "approved": ""
+   "text": "Code before the language model: filters, routing, parameters, retrieval, figures, template part. Code after it: checks, record, token count.",
+   "approved": "2026-11-27"
   },
   "coverage_intro": {
    "text": "Each measure for each economy in the latest edition: exact, proxy or no figure.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "scores": {
    "text": "All scores",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "scores_label": {
    "text": "Training or fair",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "cost": {
    "text": "Tokens and laptop seconds per saved run (no hosted price)",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "cost_step": {
    "text": "Saved run",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "cost_in": {
    "text": "Tokens in per question",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "cost_out": {
    "text": "Tokens out per question",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "cost_seconds": {
    "text": "Laptop seconds per question",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "lessons_worked": {
    "text": "What worked",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "lessons_needs": {
    "text": "What a production version needs",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_heading": {
    "text": "Next step: an AI resilience audit of your data workflow",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_source": {
    "text": "AI Resilience Audit (Centellic, Clare Bolton, July 2026): products placed by value and by AI risk, with a strategy for each quarter.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_value": {
    "text": "Value",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_risk": {
    "text": "AI risk",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_grow": {
    "text": "Grow",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_milk": {
    "text": "Milk or transition",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_continue": {
    "text": "Continue",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_stop": {
    "text": "Stop or automate",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_nni": {
    "text": "Figures calculated from governed data, with source, edition and DQR (this page)",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_contrast": {
    "text": "Answers from a language model alone, with no passages and no data (the contrast panel)",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_action": {
    "text": "Run a regular audit of data workflow as part of business as usual. Align to AI readiness.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "sources_corpus": {
    "text": "Passages",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "sources_data": {
    "text": "Data",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "footer": {
    "text": "© 2026 Lavan Mahadeva Limited. Author: Lavan Mahadeva.",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "sandwich_before": {
-   "text": "Filters;Routing;Parameters;Retrieval;Figures;Locked block",
-   "approved": ""
+   "text": "Filters;Routing;Parameters;Retrieval;Figures;Template part",
+   "approved": "2026-11-27"
   },
   "sandwich_model": {
    "text": "Language model: its output is used for the explanation only",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "sandwich_after": {
    "text": "Checks;Record;Token count",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_low": {
    "text": "Low",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "audit_high": {
    "text": "High",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "explanation_executive": {
-   "text": "The explanation and the definition lines are shown to analysts only.",
-   "approved": ""
+   "text": "The explanation and the definition lines are shown in full replies only.",
+   "approved": "2026-11-27"
   },
   "step": {
    "text": "Step",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "chapters": {
    "text": "Chapters",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "method_counts": {
    "text": "Counts",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "caveats": {
    "text": "Caveats",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "best_data": {
    "text": "Best data",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "nowcast_from": {
    "text": "nowcast from",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "no_figure": {
    "text": "no figure",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "first_economy": {
    "text": "First economy",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "second_economy": {
    "text": "Second economy",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "none": {
    "text": "none",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "keep_years": {
    "text": "as read",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "model_unavailable": {
-   "text": "Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. In a product version, the embedding model would be served with the page.",
-   "approved": ""
+   "text": "Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. In a full-scale production version, the embedding model would be served with the page.",
+   "approved": "2026-11-27"
   },
   "exact": {
    "text": "exact",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "proxy": {
    "text": "proxy",
-   "approved": ""
+   "approved": "2026-11-27"
   },
   "contrast_cut": {
    "text": "Cut off at {num_predict} tokens, the limit set for this run.",
-   "approved": ""
+   "approved": "2026-11-27"
+  },
+  "coverage_measure": {
+   "text": "Measure",
+   "approved": "2026-11-27"
+  },
+  "count_item": {
+   "text": "What is counted",
+   "approved": "2026-11-27"
+  },
+  "count_value": {
+   "text": "Count",
+   "approved": "2026-11-27"
+  },
+  "score_name": {
+   "text": "Score",
+   "approved": "2026-11-27"
+  },
+  "score_result": {
+   "text": "Result",
+   "approved": "2026-11-27"
+  },
+  "change_date": {
+   "text": "Date",
+   "approved": "2026-11-27"
+  },
+  "change_area": {
+   "text": "Area",
+   "approved": "2026-11-27"
+  },
+  "change_text": {
+   "text": "Change",
+   "approved": "2026-11-27"
+  },
+  "nav_glossary": {
+   "text": "Glossary",
+   "approved": "2026-11-27"
+  },
+  "glossary_intro": {
+   "text": "The terms used on this page, with their definitions. The first use of a term in each section is underlined with dots: hover over it, or tap it, for its definition.",
+   "approved": "2026-11-27"
+  },
+  "glossary_also": {
+   "text": "Alternative labels",
+   "approved": "2026-11-27"
+  },
+  "glossary_open": {
+   "text": "See the glossary",
+   "approved": "2026-11-27"
+  },
+  "glossary_reference": {
+   "text": "Definitions marked 'After Talisman (2026)' are paraphrased, in plain words, from: {reference}",
+   "approved": "2026-11-27"
   }
  },
  "reply_wording": {

@@ -1,15 +1,15 @@
 order,in_this_build,at_full_scale,agreed
-1,Six economies; 16 measures,Catalogue of thousands of series,2026-11-17
-2,"JSON files, two editions",Warehouse with bitemporal tables,2026-11-17
-3,One model class,Library of governed model classes and a semantic layer,2026-11-17
-4,57 passages from 10 sources,Full document estate,2026-11-17
-5,Hybrid search,Hybrid search over a vector index with reranking under a time limit,2026-11-17
-6,"Knowledge graph: 67 things, 131 triplets",Graph database with validation rules,2026-11-17
-7,Two use modes,"Entitlements per contract, at retrieval",2026-11-17
-8,Question bank of 56,"Governed query bank of hundreds, run on every change",2026-11-17
-9,Keyword router; question read in parts and corrected by the user,Small-model or fine-tuned classifier with monitored routing accuracy; catalogue of measures kept by a named team,2026-11-17
-10,"One question at a time, no memory",Conversation state carried into routing and retrieval,2026-11-17
-11,Word-overlap checks; explanations dropped,Measured check error rates; analysts review dropped explanations,2026-11-17
-12,Near measure chosen in advance,"Nearest measure by meaning, stated openly",2026-11-17
-13,Tokens and seconds per route from saved runs,"Full tracing, a token and time limit per route",2026-11-17
-14,"Two editions, each stored in full","Every edition kept, storing only the values that changed, as ALFRED and the UK Real-Time Data archive do",2026-11-24
+1,Six economies and 16 measures.,"A catalogue of thousands of series, each with its definition, source and owner.",2026-11-27
+2,"Two editions of the data, stored in files.",A data warehouse with bitemporal tables: each value stored with the year it describes and the edition it came from.,2026-11-27
+3,One method for calculating the figures (the NNI model).,"A library of approved calculation methods, and a semantic layer: one shared set of definitions used by every query.",2026-11-27
+4,57 passages from 10 sources.,"The full document estate: every report, manual and note held by the organisation.",2026-11-27
+5,"Hybrid search: keyword search and search by meaning, combined.","Hybrid search over a vector index, with reranking within a set time limit.",2026-11-27
+6,A knowledge graph of 67 entities and 131 triples.,"A graph database, in which each new triple is checked against rules on entry.",2026-11-27
+7,"Two use modes, non-commercial and commercial, chosen by the user.","Entitlements: access rights set by each customer's contract, checked at retrieval.",2026-11-27
+8,A question bank of 56 questions.,"A governed bank of hundreds of test questions, run again after every change to the data or the code.",2026-11-27
+9,"Questions sorted into question types by keyword rules; a typed question read in parts, with each part open to correction by the user.","Questions sorted into question types by a small or fine-tuned language model, with routing accuracy measured all the time; the catalogue of measures kept by the vertical domain expert for each subject.",2026-11-27
+10,"Each question answered on its own, with no memory of earlier questions.",Earlier questions in the conversation used in routing and in finding passages.,2026-11-27
+11,Explanations checked by word overlap; an explanation that fails the checks is dropped.,"The error rate of each check measured; every dropped explanation read by the vertical domain expert, who corrects it or records the fault.",2026-11-27
+12,"The nearest measure to the one asked for, chosen in advance.","The nearest measure found by meaning, with how near it is stated in the reply.",2026-11-27
+13,"Tokens and seconds for each route, from saved runs.","A trace of every question, and a limit on tokens and time for each route.",2026-11-27
+14,"Two editions, each stored in full.","Every edition kept, storing only the values that changed, as in ALFRED and the UK Real-Time Data archive.",2026-11-27

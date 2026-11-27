@@ -58,7 +58,7 @@ button.quiet{background:#fff;color:var(--ink);text-align:left}
 .block h4{border-top:1px solid var(--line);padding-top:.8em}
 .block ul{margin:.2em 0;padding-left:1.2em}
 .block li{margin:.35em 0}
-.block .cont{display:block;color:var(--soft);font-size:14px}
+.cont{display:block;color:var(--soft);font-size:14px}
 .block blockquote{margin:.3em 0 0;padding-left:10px;border-left:3px solid var(--line);font-size:14px}
 .note{font-style:italic;color:var(--soft)}
 .dqr{display:inline-block;font-style:normal;font-weight:600;font-size:13px;padding:0 6px;border-radius:4px;white-space:nowrap}
@@ -88,6 +88,16 @@ td.n,th.n{text-align:right;white-space:nowrap}
 .quad.mark2{border-width:3px}
 .axis{font-size:13px;color:var(--soft);display:flex;align-items:center;justify-content:center}
 .yaxis{writing-mode:vertical-rl;transform:rotate(180deg)}
+.gl{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:3px;cursor:help}
+.gl:hover,.gl[aria-expanded=true]{text-decoration-style:solid}
+#gl-tip{position:absolute;z-index:5;max-width:min(380px,calc(100vw - 24px));background:#fff;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.45;box-shadow:0 4px 18px rgba(20,21,23,.14)}
+#gl-tip[hidden]{display:none}
+#gl-tip b{display:block;margin-bottom:2px}
+#gl-tip a{display:block;width:max-content;margin-top:6px;min-height:24px}
+dl.glossary{margin:0;max-width:80ch}
+dl.glossary dt{font-weight:600;margin-top:1.1em;scroll-margin-top:64px}
+dl.glossary dd{margin:.15em 0 0}
+dl.glossary dt:target{background:var(--panel)}
 footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
 @media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--soft)}.stack td:empty{display:none}}
 @media(prefers-reduced-motion:no-preference){.reply{transition:opacity .15s}.reply.busy{opacity:.5}}
@@ -133,7 +143,9 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
  <section id="faq" class="band" hidden><div class="wrap" id="faq-body"></div></section>
  <section id="sources" class="band" hidden><div class="wrap" id="sources-body"></div></section>
  <section id="audit" class="band" hidden><div class="wrap" id="audit-body"></div></section>
+ <section id="glossary" class="band" hidden><div class="wrap" id="glossary-body"></div></section>
 </main>
+<div id="gl-tip" role="tooltip" hidden></div>
 <footer class="band"><div class="wrap" id="footer"></div></footer>
 <script id="page-data" type="application/json">/*DATA*/</script>
 /*SCRIPTS*/
@@ -142,7 +154,8 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
 const D = JSON.parse(document.getElementById("page-data").textContent);
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const W = (id) => (D.page.wording[id] || { text: id }).text;
+const REVIEW = /*REVIEW*/false;   // true only in the copy built for reviewing the page's wording
+const W = (id) => (D.page.wording[id] || { text: id }).text + (REVIEW && D.page.wording[id] ? ` ⟦${id}⟧` : "");
 const fill = (text, values) => text.replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
 const italics = (s) => esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>");
 const state = { mode: "non-commercial", role: "analyst", shown: null, embed: null, model: "idle", vectors: {} };
@@ -169,7 +182,7 @@ segment("mode", "mode", [["non-commercial", W("use_mode_non_commercial")], ["com
 segment("role", "role", [["analyst", W("role_analyst")], ["executive", W("role_executive")]], "role");
 const VIEWS = [["ask", "nav_ask"], ["walkthrough", "nav_walkthrough"], ["lessons", "nav_lessons"], ["method", "nav_method"],
   ["coverage", "nav_coverage"], ["scores", "nav_scores"], ["changes", "nav_changes"], ["faq", "nav_faq"],
-  ["sources", "nav_sources"], ["audit", "nav_audit"]];
+  ["sources", "nav_sources"], ["glossary", "nav_glossary"], ["audit", "nav_audit"]];
 $("nav").innerHTML = VIEWS.map(([id, w]) => `<a href="#${id}" data-view="${id}">${esc(W(w))}</a>`).join("");
 function route() {
   const view = VIEWS.some(([id]) => "#" + id === location.hash) ? location.hash.slice(1) : "ask";
@@ -179,6 +192,77 @@ function route() {
   }
 }
 window.addEventListener("hashchange", route);
+
+// ---------- glossary links: the first use of each term in each section (decision 2a) ----------
+const GL = globalThis.glossaryCode, glMatcher = GL.compile(D.glossary.terms);
+const glById = Object.fromEntries(D.glossary.terms.map((t) => [t.id, t]));
+const GL_SKIP = "a,button,label,legend,option,select,textarea,summary,h1,h2,th,nav,code,.pre,.dqr,.gl,.seg,#glossary,#gl-tip";
+function linkTerms(root) {
+  if (!root) return;
+  const seen = new Set(), nodes = [];
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) =>
+    n.parentElement.closest(GL_SKIP) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const parts = GL.linkText(node.nodeValue, glMatcher, seen);
+    if (!parts.some((p) => p.id)) continue;
+    const frag = document.createDocumentFragment();
+    for (const p of parts) {
+      if (!p.id) { frag.append(p.text); continue; }
+      const span = document.createElement("span");
+      Object.assign(span, { className: "gl", tabIndex: 0, textContent: p.text });
+      span.dataset.g = p.id;
+      span.setAttribute("aria-describedby", "g-" + p.id);
+      span.setAttribute("aria-expanded", "false");
+      frag.append(span);
+    }
+    node.replaceWith(frag);
+  }
+}
+const linkify = (s) => esc(s).replace(/https?:\/\/[^\s<]+[^\s<.,;)]/g, (u) => `<a href="${u}">${u}</a>`);
+const tip = $("gl-tip");
+let tipFor = null, tipPinned = false, tipTimer = null;
+function showTip(span, pin) {
+  clearTimeout(tipTimer);
+  if (tipFor && tipFor !== span) tipFor.setAttribute("aria-expanded", "false");
+  const t = glById[span.dataset.g];
+  tip.innerHTML = `<b>${esc(t.term)}</b>${linkify(t.definition)}${t.cite ? `<span class="meta" style="display:block">${esc(t.cite)}</span>` : ""}` +
+    `<a href="#glossary" data-g="${esc(t.id)}">${esc(W("glossary_open"))}</a>`;
+  tip.hidden = false;
+  const r = span.getBoundingClientRect(), w = tip.offsetWidth;
+  tip.style.left = Math.max(12, Math.min(r.left + scrollX, scrollX + document.documentElement.clientWidth - w - 12)) + "px";
+  tip.style.top = r.bottom + scrollY + 6 + "px";
+  tipFor = span; tipPinned = pin || tipPinned;
+  span.setAttribute("aria-expanded", "true");
+}
+function hideTip() {
+  tip.hidden = true; tipPinned = false;
+  if (tipFor) tipFor.setAttribute("aria-expanded", "false");
+  tipFor = null;
+}
+const laterHide = () => { if (!tipPinned) { clearTimeout(tipTimer); tipTimer = setTimeout(hideTip, 250); } };
+document.addEventListener("mouseover", (e) => {
+  const g = e.target.closest(".gl");
+  if (g) showTip(g, false); else if (e.target.closest("#gl-tip")) clearTimeout(tipTimer);
+});
+document.addEventListener("mouseout", (e) => { if (e.target.closest(".gl,#gl-tip")) laterHide(); });
+document.addEventListener("focusin", (e) => { const g = e.target.closest(".gl"); if (g) showTip(g, false); });
+document.addEventListener("focusout", (e) => { if (e.target.closest(".gl") && !(e.relatedTarget && e.relatedTarget.closest("#gl-tip"))) laterHide(); });
+document.addEventListener("click", (e) => {
+  const g = e.target.closest(".gl"), open = e.target.closest("#gl-tip a[data-g]");
+  if (g) { if (tipFor === g && tipPinned) hideTip(); else showTip(g, true); return; }
+  if (open) {
+    e.preventDefault(); hideTip();
+    history.pushState(null, "", "#glossary"); route();
+    const dt = $("g-" + open.dataset.g); dt.scrollIntoView({ block: "start" }); dt.focus({ preventScroll: true });
+    return;
+  }
+  if (!e.target.closest("#gl-tip")) hideTip();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !tip.hidden) { const f = tipFor; hideTip(); if (f) f.focus(); }
+  if ((e.key === "Enter" || e.key === " ") && e.target.classList && e.target.classList.contains("gl")) { e.preventDefault(); e.target.click(); }
+});
 
 // ---------- one block of reply text as HTML ----------
 function inline(s) {
@@ -210,7 +294,7 @@ const outText = (o) => Object.entries(o).filter(([, v]) => v !== null && v !== u
 function traceHtml(steps, typed) {
   const rows = steps.map((s) => `<tr><td>${esc(s.step)}</td><td>${esc(s.means)}</td><td>${esc(outText(s.outputs))}</td>` +
     `<td class="n">${esc(s.tokens_in ?? 0)}</td><td class="n">${esc(s.tokens_out ?? 0)}</td><td class="n">${s.seconds == null ? "" : esc(s.seconds)}</td></tr>`).join("");
-  return `<details><summary>${esc(W("trace"))}</summary><p class="meta">${esc(fill(W("trace_context"), { use_mode: state.mode, role: state.role }))}</p>` +
+  return `<details><summary>${esc(W("trace"))}</summary><p class="meta">${esc(fill(W("trace_context"), { use_mode: state.mode, role: W(state.role === "executive" ? "role_executive" : "role_analyst") }))}</p>` +
     (typed ? `<p class="meta">${esc(W("trace_typed"))}</p>` : "") +
     `<div class="scroll"><table class="stack"><thead><tr><th>${esc(W("trace_step"))}</th><th>${esc(W("trace_means"))}</th><th>${esc(W("trace_output"))}</th>` +
     `<th class="n">${esc(W("trace_tokens_in"))}</th><th class="n">${esc(W("trace_tokens_out"))}</th><th class="n">${esc(W("trace_seconds"))}</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
@@ -248,6 +332,7 @@ function showBank(id, option = null) {
     html += traceHtml(D.traces.traces[id][state.mode], false);
   }
   $("reply").innerHTML = html;
+  linkTerms($("reply"));
   for (const b of $("reply").querySelectorAll("[data-option]")) b.addEventListener("click", () => showBank(id, Number(b.dataset.option)));
   markChips(id);
 }
@@ -327,6 +412,7 @@ function showTyped(question, corrected, aspect = null) {
     html += traceHtml(r.steps, true);
   }
   $("reply").innerHTML = html;
+  linkTerms($("reply"));
   if (readAs) {
     const apply = () => {
       const econ = [$("fx-e1").value, $("fx-e2").value].filter((v, i, a) => v && a.indexOf(v) === i);
@@ -380,19 +466,19 @@ $("lessons-body").innerHTML = `<h2>${esc(W("nav_lessons"))}</h2><div class="two"
 const mc = D.method_and_caveats;
 $("method-body").innerHTML = `<h2>${esc(mc.title)}</h2><p class="meta">${esc(mc.status)}</p><h3>${esc(W("caveats"))}</h3>` +
   mc.caveats.map((c) => `<h4>${esc(c.title)}</h4><p>${esc(c.text)}</p>`).join("") + `<h3>${esc(W("method_counts"))}</h3>` +
-  table(["", ""], Object.entries(mc.counts).map(([k, v]) => [esc(k.replaceAll("_", " ")), esc(typeof v === "object" ? outText(Array.isArray(v) ? Object.fromEntries(v.map((x, i) => [x.check || i, x.agree !== undefined ? `${x.agree} of ${x.total}` : x])) : v) : v)]));
+  table([W("count_item"), W("count_value")], Object.entries(mc.counts).map(([k, v]) => [esc(k.replaceAll("_", " ")), esc(typeof v === "object" ? outText(Array.isArray(v) ? Object.fromEntries(v.map((x, i) => [x.check || i, x.agree !== undefined ? `${x.agree} of ${x.total}` : x])) : v) : v)]));
 const cg = D.coverage_grid, econ = Object.keys(cg.economies);
 const cell = (c) => c.kind === "no figure" ? esc(W("no_figure")) :
   `${esc(W(c.kind === "proxy" ? "proxy" : "exact"))} ${esc(c.first)}–${esc(c.last)}${c.nowcast_from ? `; ${esc(W("nowcast_from"))} ${esc(c.nowcast_from)}` : ""}` +
   (c.dqr_last_year ? ` <span class="dqr dqr-${esc(c.dqr_last_year)}">DQR ${esc(c.dqr_last_year)}</span>` : "");
 $("coverage-body").innerHTML = `<h2>${esc(cg.title)}</h2><p>${esc(W("coverage_intro"))} ${esc(cg.edition)}</p>` +
-  table(["", ...econ.map((e) => cg.economies[e])], cg.rows.map((r) => [`<strong>${esc(r.description)}</strong>${r.unit ? `<span class="cont">${esc(r.unit)}</span>` : ""}${r.best_data ? `<span class="cont">${esc(W("best_data"))}: ${esc(r.best_data)}</span>` : ""}`,
+  table([W("coverage_measure"), ...econ.map((e) => cg.economies[e])], cg.rows.map((r) => [`<strong>${esc(r.description)}</strong>${r.unit ? `, ${esc(r.unit)}` : ""}${r.best_data ? `<span class="cont">${esc(W("best_data"))}: ${esc(r.best_data)}</span>` : ""}`,
     ...econ.map((e) => cell(r.cells[e]))]));
 const tr = D.traces;
-$("scores-body").innerHTML = `<h2>${esc(W("scores"))}</h2>` + table([W("chapters"), "", "", W("scores_label")], tr.scores.map((s) => [esc(s.chapter), esc(s.score), esc(s.result), esc(s.label)])) +
+$("scores-body").innerHTML = `<h2>${esc(W("scores"))}</h2>` + table([W("chapters"), W("score_name"), W("score_result"), W("scores_label")], tr.scores.map((s) => [esc(s.chapter), esc(s.score), esc(s.result), esc(s.label)])) +
   `<h3>${esc(W("cost"))}</h3>` + table([W("cost_step"), W("cost_in"), W("cost_out"), W("cost_seconds")], tr.cost.map((c) => [esc(c.step), esc(Math.round(c.in_per_question)), esc(Math.round(c.out_per_question)), esc(c.seconds_per_question)]));
 const cl = D.change_log;
-$("changes-body").innerHTML = `<h2>${esc(cl.title)}</h2>` + table(["", "", ""], cl.entries.map((e) => [esc(e.date), esc(e.area), esc(e.change)]));
+$("changes-body").innerHTML = `<h2>${esc(cl.title)}</h2>` + table([W("change_date"), W("change_area"), W("change_text")], cl.entries.map((e) => [esc(e.date), esc(e.area), esc(e.change)]));
 $("faq-body").innerHTML = `<h2>${esc(W("nav_faq"))}</h2>` + D.faq.questions.map((q) => `<h3>${esc(q.question)}</h3><p>${esc(q.answer)}</p>`).join("");
 const so = D.sources;
 $("sources-body").innerHTML = `<h2>${esc(W("nav_sources"))}</h2><h3>${esc(W("sources_corpus"))}</h3>` +
@@ -405,6 +491,16 @@ $("audit-body").innerHTML = `<h2>${esc(W("audit_heading"))}</h2><p>${esc(W("audi
   quad("audit_grow", "audit_nni", true) + quad("audit_milk") + quad("audit_continue") + quad("audit_stop", "audit_contrast", true) +
   `<div></div><div class="axis" style="grid-column:2/4">${esc(W("audit_risk"))}: ${esc(W("audit_low"))} → ${esc(W("audit_high"))}</div></div>` +
   `<p style="font-size:20px;font-weight:600;margin-top:1em">${esc(W("audit_action"))}</p>`;
+
+const gd = D.glossary;
+$("glossary-body").innerHTML = `<h2>${esc(W("nav_glossary"))}</h2><p>${esc(W("glossary_intro"))}</p><dl class="glossary">` +
+  gd.terms.map((t) => `<dt id="g-${esc(t.id)}" tabindex="-1">${esc(t.term)}</dt><dd>${linkify(t.definition)}</dd>` +
+    (t.alternative_labels.length ? `<dd class="meta">${esc(W("glossary_also"))}: ${esc(t.alternative_labels.join("; "))}</dd>` : "") +
+    (t.cite ? `<dd class="meta">${esc(t.cite)}</dd>` : "")).join("") +
+  `</dl><p class="meta">${esc(fill(W("glossary_reference"), { reference: gd.reference }))}</p>`;
+linkTerms(document.querySelector("header .wrap"));
+linkTerms(document.querySelector("#ask .askgrid > div"));
+for (const section of document.querySelectorAll("main section:not(#ask):not(#glossary)")) linkTerms(section);
 
 route();
 showBank(D.bank_replies.suggested[0]);

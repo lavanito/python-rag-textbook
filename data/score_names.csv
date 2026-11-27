@@ -1,0 +1,21 @@
+table,name_in_book,page_name,approved
+scores,"Definition questions with a gold passage in the top three, filtered search","Definition questions with a gold passage among the first three passages found, after the filters",2026-11-27
+scores,"Chroma's filtered top three equal to the hand-written filter, both use modes","First three passages found after the filters the same in the vector database (Chroma) as with the filters written by hand, in both use modes",2026-11-27
+scores,"Questions routed as labelled, bank, ragged-edge rules","Bank questions given the question type and route in their label, with the keyword rules for the ragged edge",2026-11-27
+scores,"Questions routed as labelled, first test set, first-round rules","First test set: questions given the question type and route in their label, with the first round of keyword rules",2026-11-27
+scores,"Questions routed as labelled, second test set, revised rules","Second test set: questions given the question type and route in their label, with the revised keyword rules",2026-11-27
+scores,"Questions routed as labelled, Chapter 14 fair questions, fourth-round rules","Chapter 14's ten fair-test questions given the question type and route in their label, with the fourth round of keyword rules",2026-11-27
+scores,"Parameters read right (same figures), keyword rules, new questions","New questions read right in every part (economy, measure, year and edition giving the same figures), with keyword rules",2026-11-27
+scores,"Parameters read right (same figures), model round 2, new questions","New questions read right in every part (economy, measure, year and edition giving the same figures), with a small language model, second round",2026-11-27
+scores,Replies with no unsupported number (language model output used as the whole reply),"Replies with no unsupported number, when the language model's output was used as the whole reply",2026-11-27
+scores,The vertical domain expert's sentences judged supported; the check agreed on 17,Sentences judged supported by the vertical domain expert (the check gave the same verdict for 17 of the 20),2026-11-27
+scores,"Explanations with content shown, first run, new questions","Explanations shown with their content, first run, new questions",2026-11-27
+scores,"Explanations with content shown, after the review, the vertical domain expert's 10","Explanations shown with their content, after the review of the checks, the vertical domain expert's ten questions",2026-11-27
+scores,"Explanations with content shown, rerun of 22 November 2026, the vertical domain expert's 10","Explanations shown with their content, run again on 22 November 2026 with the current code, the vertical domain expert's ten questions",2026-11-27
+scores,"Typed questions read in parts, all parts right (economies 74, years 68, editions 78, measures 39)","Typed questions with every part read right (of the 78: economies right for 74, years for 68, editions for 78, measures for 39)",2026-11-27
+cost,"Chapter 11: answers from passages, analyst and executive","Chapter 11: replies written from passages, full and short",2026-11-27
+cost,Chapter 12: routing by model (trial; the rules route at no cost),Chapter 12: questions routed with a language model (a trial; routing with keyword rules uses no tokens),2026-11-27
+cost,Chapter 13: reading the question by model (rounds 1 and 2),Chapter 13: questions read in parts with a language model (rounds 1 and 2),2026-11-27
+cost,Chapter 13: whole reply written by model (replaced in Chapter 14),Chapter 13: the language model's output used as the whole reply (replaced in Chapter 14),2026-11-27
+cost,"Chapter 14: explanations with checks, after the review","Chapter 14: explanations, with checks, after the review of the checks",2026-11-27
+cost,Chapter 14 questions rerun with the current code (22 November 2026),Chapter 14's 24 questions run again with the current code (22 November 2026),2026-11-27
