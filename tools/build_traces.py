@@ -13,6 +13,10 @@ It writes app/data/traces.json (build spec v3, component 15):
   the score for reading typed questions in parts;
 - tokens and laptop seconds per saved run (Chapter 15.2), no hosted price
   (decision 28);
+- definition questions with a gold passage at depths 1, 3 and 10 in each use
+  mode (Chapter 8.5.4; component 15.2), recomputed from the saved embeddings;
+- explanations by status for each saved run (Chapters 14.7, 14.8 and the
+  rerun of 22 November 2026; component 15.3), counted from the saved runs;
 - the contrast run (component 12) when data/answers/a5_contrast.jsonl exists.
 Scores and saved runs keep the book's name (`name_in_book`); the page shows
 the plain page-only name from data/score_names.csv once the vertical domain
@@ -30,8 +34,12 @@ sys.path.insert(0, str(REPO))
 
 from ragbook.ch01_python_basics import load_passages                  # noqa: E402
 from ragbook.ch02_minimal_pipeline import load_corpus                  # noqa: E402
-from ragbook.ch08_filters import edition_filter, licence_filter        # noqa: E402
+from ragbook.ch03_keyword_search import load_questions                 # noqa: E402
+from ragbook.ch04_semantic_search import load_embeddings               # noqa: E402
+from ragbook.ch05_hybrid_search import hits_at, saved_question_embedder  # noqa: E402
+from ragbook.ch08_filters import FilteredSearch, edition_filter, licence_filter, reachable  # noqa: E402
 from ragbook.ch11_prompts import load_answers                          # noqa: E402
+from ragbook.ch14_answer_checks import NO_EXPLANATION                  # noqa: E402
 from ragbook.ch13_model_tool import PARAMETER_FILE                     # noqa: E402
 from ragbook.ch15_token_cost import cost_of_runs, failed_checks, score_table  # noqa: E402
 
@@ -98,6 +106,59 @@ def reading_score():
             "result": f"{totals['all_right']} of {totals['questions']}", "label": "fair"}
 
 
+def retrieval():
+    """Definition questions with a gold passage found, by use mode (Chapter 8.5.4; build spec v3, 15.2).
+
+    Hybrid search with query expansion after both filters, recomputed with
+    Chapter 8's code from the saved embeddings; "passages kept" is for a
+    question that names no edition, as in the book. Training scores: the
+    search was built while reading these questions.
+    """
+    passages, questions, saved = load_corpus(), load_questions(), load_embeddings()
+    search = FilteredSearch(passages, saved, saved_question_embedder(questions, saved))
+    rows = []
+    for mode in MODES:
+        kept, _ = licence_filter(passages, mode)
+        kept, _ = edition_filter(kept, "")
+        hits = [hits_at(lambda q: search.rank(q, mode, how_many=10)[0], questions, depth) for depth in (1, 3, 10)]
+        rows.append({"use_mode": mode, "passages_kept": len(kept), "questions": len(questions),
+                     "answerable": len(reachable(questions, passages, mode)),
+                     "hits_at_1": hits[0], "hits_at_3": hits[1], "hits_at_10": hits[2], "label": "training"})
+    return rows
+
+
+EXPLANATION_RUNS = [
+    ("ch14_explanations.jsonl", "Chapter 14.7", {"bank": "training", "fair": "fair"}),
+    ("ch14_explanations_review.jsonl", "Chapter 14.8", {"bank": "training", "fair": "training"}),
+    ("a5_explanations.jsonl", "Chapter 15", {"bank": "training", "fair": "training"}),
+]
+
+
+def explanation_runs():
+    """Explanations by status for each saved run and question set (Chapters 14.7, 14.8, 15; build spec v3, 15.3).
+
+    Counted from the saved runs: lookups get no explanation; "with content"
+    is an explanation shown that is not the fixed sentence. The fair label
+    holds only for the first run on the vertical domain expert's questions;
+    the later runs are training scores, because the checks were changed with
+    those questions in view.
+    """
+    rows = []
+    for file_name, chapter, labels in EXPLANATION_RUNS:
+        records = load_answers(ANSWERS / file_name)
+        for question_set in ("bank", "fair"):
+            chosen = [r for r in records if r["id"].startswith("f-") == (question_set == "fair")]
+            status = [r["status"] for r in chosen]
+            content = [r["id"] for r in chosen if r["status"].startswith("passed")
+                       and r["attempts"][-1]["reply"].strip() != NO_EXPLANATION]
+            rows.append({"chapter": chapter, "date": records[0]["date"][:10], "set": question_set,
+                         "questions": len(chosen), "lookup": status.count("lookup"),
+                         "passed": status.count("passed"), "passed_on_retry": status.count("passed on retry"),
+                         "dropped": status.count("dropped"), "with_content": len(content),
+                         "with_content_ids": content, "label": labels[question_set]})
+    return rows
+
+
 def contrast():
     if not CONTRAST.exists():
         return None
@@ -119,6 +180,8 @@ def build():
         "scores": named(score_table() + [reading_score()], "scores", "score", names),
         "cost": named([{k: (round(v, 1) if isinstance(v, float) else v) for k, v in row.items()}
                        for row in cost_of_runs()], "cost", "step", names),
+        "retrieval": retrieval(),
+        "explanation_runs": explanation_runs(),
         "contrast": contrast(),
     }
 

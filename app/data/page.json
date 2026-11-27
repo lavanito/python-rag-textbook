@@ -472,6 +472,78 @@
   "glossary_reference": {
    "text": "Definitions marked 'After Talisman (2026)' are paraphrased, in plain words, from: {reference}",
    "approved": "2026-11-27"
+  },
+  "retrieval": {
+   "text": "Gold passages found for the 32 definition questions, by use mode",
+   "approved": ""
+  },
+  "retrieval_intro": {
+   "text": "Hybrid search with query expansion, after the licence and edition filters. The passages kept are those for a question that names no edition.",
+   "approved": ""
+  },
+  "retrieval_kept": {
+   "text": "Passages kept",
+   "approved": ""
+  },
+  "retrieval_answerable": {
+   "text": "Answerable questions",
+   "approved": ""
+  },
+  "retrieval_at_1": {
+   "text": "Gold passage first",
+   "approved": ""
+  },
+  "retrieval_at_3": {
+   "text": "Gold passage in the first 3",
+   "approved": ""
+  },
+  "retrieval_at_10": {
+   "text": "Gold passage in the first 10",
+   "approved": ""
+  },
+  "runs": {
+   "text": "Explanations in each saved run, by status",
+   "approved": ""
+  },
+  "runs_intro": {
+   "text": "A lookup has no explanation. An explanation with content is one other than the fixed sentence \"No explanation is available from the passages.\"",
+   "approved": ""
+  },
+  "runs_set": {
+   "text": "Questions asked",
+   "approved": ""
+  },
+  "runs_set_bank": {
+   "text": "Question bank",
+   "approved": ""
+  },
+  "runs_set_fair": {
+   "text": "The vertical domain expert's 10",
+   "approved": ""
+  },
+  "runs_questions": {
+   "text": "Questions",
+   "approved": ""
+  },
+  "runs_lookup": {
+   "text": "Lookup",
+   "approved": ""
+  },
+  "runs_passed": {
+   "text": "Passed",
+   "approved": ""
+  },
+  "runs_retry": {
+   "text": "Passed on retry",
+   "approved": ""
+  },
+  "runs_dropped": {
+   "text": "Dropped",
+   "approved": ""
+  },
+  "runs_content": {
+   "text": "Shown with content",
+   "approved": ""
   }
  },
  "reply_wording": {

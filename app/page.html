@@ -476,6 +476,14 @@ $("coverage-body").innerHTML = `<h2>${esc(cg.title)}</h2><p>${esc(W("coverage_in
     ...econ.map((e) => cell(r.cells[e]))]));
 const tr = D.traces;
 $("scores-body").innerHTML = `<h2>${esc(W("scores"))}</h2>` + table([W("chapters"), W("score_name"), W("score_result"), W("scores_label")], tr.scores.map((s) => [esc(s.chapter), esc(s.score), esc(s.result), esc(s.label)])) +
+  `<h3>${esc(W("retrieval"))}</h3><p>${esc(W("retrieval_intro"))}</p>` +
+  table([W("use_mode"), W("retrieval_kept"), W("retrieval_answerable"), W("retrieval_at_1"), W("retrieval_at_3"), W("retrieval_at_10"), W("scores_label")],
+    tr.retrieval.map((r) => [esc(r.use_mode), esc(r.passages_kept), esc(`${r.answerable} of ${r.questions}`), esc(`${r.hits_at_1} of ${r.answerable}`),
+      esc(`${r.hits_at_3} of ${r.answerable}`), esc(`${r.hits_at_10} of ${r.answerable}`), esc(r.label)])) +
+  `<h3>${esc(W("runs"))}</h3><p>${esc(W("runs_intro"))}</p>` +
+  table([W("cost_step"), W("runs_set"), W("runs_questions"), W("runs_lookup"), W("runs_passed"), W("runs_retry"), W("runs_dropped"), W("runs_content"), W("scores_label")],
+    tr.explanation_runs.map((r) => [esc(`${r.chapter}, ${r.date}`), esc(W(r.set === "fair" ? "runs_set_fair" : "runs_set_bank")), esc(r.questions), esc(r.lookup),
+      esc(r.passed), esc(r.passed_on_retry), esc(r.dropped), esc(r.with_content + (r.with_content_ids.length ? ` (${r.with_content_ids.join(", ")})` : "")), esc(r.label)])) +
   `<h3>${esc(W("cost"))}</h3>` + table([W("cost_step"), W("cost_in"), W("cost_out"), W("cost_seconds")], tr.cost.map((c) => [esc(c.step), esc(Math.round(c.in_per_question)), esc(Math.round(c.out_per_question)), esc(c.seconds_per_question)]));
 const cl = D.change_log;
 $("changes-body").innerHTML = `<h2>${esc(cl.title)}</h2>` + table([W("change_date"), W("change_area"), W("change_text")], cl.entries.map((e) => [esc(e.date), esc(e.area), esc(e.change)]));

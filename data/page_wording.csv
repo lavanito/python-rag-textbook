@@ -117,3 +117,21 @@ glossary_intro,"The terms used on this page, with their definitions. The first u
 glossary_also,Alternative labels,2026-11-27
 glossary_open,See the glossary,2026-11-27
 glossary_reference,"Definitions marked 'After Talisman (2026)' are paraphrased, in plain words, from: {reference}",2026-11-27
+retrieval,"Gold passages found for the 32 definition questions, by use mode",
+retrieval_intro,"Hybrid search with query expansion, after the licence and edition filters. The passages kept are those for a question that names no edition.",
+retrieval_kept,Passages kept,
+retrieval_answerable,Answerable questions,
+retrieval_at_1,Gold passage first,
+retrieval_at_3,Gold passage in the first 3,
+retrieval_at_10,Gold passage in the first 10,
+runs,"Explanations in each saved run, by status",
+runs_intro,"A lookup has no explanation. An explanation with content is one other than the fixed sentence ""No explanation is available from the passages.""",
+runs_set,Questions asked,
+runs_set_bank,Question bank,
+runs_set_fair,The vertical domain expert's 10,
+runs_questions,Questions,
+runs_lookup,Lookup,
+runs_passed,Passed,
+runs_retry,Passed on retry,
+runs_dropped,Dropped,
+runs_content,Shown with content,
