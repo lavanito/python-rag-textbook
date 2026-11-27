@@ -8890,85 +8890,99 @@
    "chapter": "10",
    "score": "Definition questions with a gold passage in the top three, filtered search",
    "result": "31 of 32",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "Definition questions with a gold passage in the top three, filtered search"
   },
   {
    "chapter": "8",
    "score": "Chroma's filtered top three equal to the hand-written filter, both use modes",
    "result": "32 of 32",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "Chroma's filtered top three equal to the hand-written filter, both use modes"
   },
   {
    "chapter": "12",
    "score": "Questions routed as labelled, bank, ragged-edge rules",
    "result": "56 of 56",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "Questions routed as labelled, bank, ragged-edge rules"
   },
   {
    "chapter": "12",
    "score": "Questions routed as labelled, first test set, first-round rules",
    "result": "19 of 32",
-   "label": "fair"
+   "label": "fair",
+   "name_in_book": "Questions routed as labelled, first test set, first-round rules"
   },
   {
    "chapter": "12",
    "score": "Questions routed as labelled, second test set, revised rules",
    "result": "6 of 16",
-   "label": "fair"
+   "label": "fair",
+   "name_in_book": "Questions routed as labelled, second test set, revised rules"
   },
   {
    "chapter": "12",
    "score": "Questions routed as labelled, Chapter 14 fair questions, fourth-round rules",
    "result": "10 of 10",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "Questions routed as labelled, Chapter 14 fair questions, fourth-round rules"
   },
   {
    "chapter": "13",
    "score": "Parameters read right (same figures), keyword rules, new questions",
    "result": "2 of 20",
-   "label": "fair"
+   "label": "fair",
+   "name_in_book": "Parameters read right (same figures), keyword rules, new questions"
   },
   {
    "chapter": "13",
    "score": "Parameters read right (same figures), model round 2, new questions",
    "result": "9 of 20",
-   "label": "fair"
+   "label": "fair",
+   "name_in_book": "Parameters read right (same figures), model round 2, new questions"
   },
   {
    "chapter": "13",
    "score": "Replies with no unsupported number (language model output used as the whole reply)",
    "result": "13 of 14",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "Replies with no unsupported number (language model output used as the whole reply)"
   },
   {
    "chapter": "14",
    "score": "The vertical domain expert's sentences judged supported; the check agreed on 17",
    "result": "19 of 20",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "The vertical domain expert's sentences judged supported; the check agreed on 17"
   },
   {
    "chapter": "14",
    "score": "Explanations with content shown, first run, new questions",
    "result": "0 of 10",
-   "label": "fair"
+   "label": "fair",
+   "name_in_book": "Explanations with content shown, first run, new questions"
   },
   {
    "chapter": "14",
    "score": "Explanations with content shown, after the review, the vertical domain expert's 10",
    "result": "2 of 10",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "Explanations with content shown, after the review, the vertical domain expert's 10"
   },
   {
    "chapter": "14",
    "score": "Explanations with content shown, rerun of 22 November 2026, the vertical domain expert's 10",
    "result": "2 of 10",
-   "label": "training"
+   "label": "training",
+   "name_in_book": "Explanations with content shown, rerun of 22 November 2026, the vertical domain expert's 10"
   },
   {
    "chapter": "A5",
    "score": "Typed questions read in parts, all parts right (economies 74, years 68, editions 78, measures 39)",
    "result": "32 of 78",
-   "label": "fair"
+   "label": "fair",
+   "name_in_book": "Typed questions read in parts, all parts right (economies 74, years 68, editions 78, measures 39)"
   }
  ],
  "cost": [
@@ -8981,7 +8995,8 @@
    "in_per_question": 775.2,
    "out_per_question": 193.9,
    "seconds_per_question": 49.7,
-   "step": "Chapter 11: answers from passages, analyst and executive"
+   "step": "Chapter 11: answers from passages, analyst and executive",
+   "name_in_book": "Chapter 11: answers from passages, analyst and executive"
   },
   {
    "questions": 77,
@@ -8992,7 +9007,8 @@
    "in_per_question": 837.7,
    "out_per_question": 4.8,
    "seconds_per_question": 2.6,
-   "step": "Chapter 12: routing by model (trial; the rules route at no cost)"
+   "step": "Chapter 12: routing by model (trial; the rules route at no cost)",
+   "name_in_book": "Chapter 12: routing by model (trial; the rules route at no cost)"
   },
   {
    "questions": 68,
@@ -9003,7 +9019,8 @@
    "in_per_question": 1030.6,
    "out_per_question": 46.3,
    "seconds_per_question": 12.2,
-   "step": "Chapter 13: reading the question by model (rounds 1 and 2)"
+   "step": "Chapter 13: reading the question by model (rounds 1 and 2)",
+   "name_in_book": "Chapter 13: reading the question by model (rounds 1 and 2)"
   },
   {
    "questions": 14,
@@ -9014,7 +9031,8 @@
    "in_per_question": 346.9,
    "out_per_question": 87.7,
    "seconds_per_question": 21.7,
-   "step": "Chapter 13: whole reply written by model (replaced in Chapter 14)"
+   "step": "Chapter 13: whole reply written by model (replaced in Chapter 14)",
+   "name_in_book": "Chapter 13: whole reply written by model (replaced in Chapter 14)"
   },
   {
    "questions": 24,
@@ -9025,7 +9043,8 @@
    "in_per_question": 2368.5,
    "out_per_question": 117.9,
    "seconds_per_question": 81.0,
-   "step": "Chapter 14: explanations with checks, after the review"
+   "step": "Chapter 14: explanations with checks, after the review",
+   "name_in_book": "Chapter 14: explanations with checks, after the review"
   },
   {
    "questions": 24,
@@ -9036,7 +9055,8 @@
    "in_per_question": 2651.8,
    "out_per_question": 136.4,
    "seconds_per_question": 87.2,
-   "step": "Chapter 14 questions rerun with the current code (22 November 2026)"
+   "step": "Chapter 14 questions rerun with the current code (22 November 2026)",
+   "name_in_book": "Chapter 14 questions rerun with the current code (22 November 2026)"
   }
  ],
  "contrast": {

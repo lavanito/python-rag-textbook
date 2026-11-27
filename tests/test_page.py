@@ -58,3 +58,15 @@ def test_published_page_is_not_the_review_copy():
     built = page.OUT.read_text(encoding="utf-8")
     assert "const REVIEW = false;" in built
     assert "const REVIEW = true;" in page.build(review=True)
+
+
+def test_every_score_and_saved_run_has_one_page_name():
+    """Decision 1a (27 Nov 2026): a plain page-only name for each score row and saved run,
+    shown once approved. A new or renamed row in Chapter 15 fails here until it has a name."""
+    import csv
+    with open(traces.SCORE_NAMES, encoding="utf-8", newline="") as f:
+        rows = [(r["table"], r["name_in_book"]) for r in csv.DictReader(f)]
+    built = json.loads(traces.OUT.read_text(encoding="utf-8"))
+    in_book = [("scores", s["name_in_book"]) for s in built["scores"]] + [
+        ("cost", c["name_in_book"]) for c in built["cost"]]
+    assert sorted(rows) == sorted(in_book)
