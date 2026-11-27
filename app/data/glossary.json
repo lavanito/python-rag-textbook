@@ -1,0 +1,2098 @@
+{
+ "note": "Written by tools/build_glossary.py from data/glossary.csv; do not edit by hand.",
+ "reference": "Talisman, J. (2026). Ontology Pipeline: A Framework for Knowledge Engineering. Technics Publications.",
+ "terms": [
+  {
+   "id": "abox-assertional-box",
+   "term": "ABox (assertional box)",
+   "preferred_label": "ABox",
+   "alternative_labels": [
+    "assertional box"
+   ],
+   "definition": "The part of a knowledge graph in which the facts about individual entities are recorded, such as 'Ireland is a member of the euro area'. Kept apart from the ontology so that facts can be added or changed without changing the rules.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "ABox",
+    "assertional box"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "agreement-rate-of-a-cross-check",
+   "term": "Agreement rate (of a cross-check)",
+   "preferred_label": "Agreement rate",
+   "alternative_labels": [],
+   "definition": "How often two sources give the same figure within a set tolerance. The tolerance is the typical size of a revision between our two editions. It shows how far another source confirms our figures.",
+   "cite": "",
+   "link_forms": [
+    "Agreement rate"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "alfred",
+   "term": "ALFRED",
+   "preferred_label": "ALFRED",
+   "alternative_labels": [],
+   "definition": "Archival Federal Reserve Economic Data, from the Federal Reserve Bank of St. Louis: every published edition of each US series, kept so that any past edition can be read again. https://alfred.stlouisfed.org/",
+   "cite": "",
+   "link_forms": [
+    "ALFRED"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "alias",
+   "term": "Alias",
+   "preferred_label": "Alias",
+   "alternative_labels": [],
+   "definition": "Another name for an entity, such as a synonym, an acronym or an older name: \"GNI\" for gross national income, \"USA\" for the United States. Many names are in use for the same entity, and not all can be reduced to one. Recorded so that a question using any of the names finds the same entity; stored in the controlled vocabulary as an alternative label.",
+   "cite": "",
+   "link_forms": [
+    "Alias"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "alternative-label",
+   "term": "Alternative label",
+   "preferred_label": "Alternative label",
+   "alternative_labels": [],
+   "definition": "The field in a controlled vocabulary in which an alias is recorded (skos:altLabel). The alias is the name itself, such as \"USA\"; the alternative label is the record that ties that name to the entity it names, the United States. In our controlled vocabulary, each entry has one preferred label and any number of alternative labels, whether the entry is a concept, such as a measure, or another kind of entity, such as an economy.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Alternative label"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "answerable-question",
+   "term": "Answerable question",
+   "preferred_label": "Answerable question",
+   "alternative_labels": [
+    "reachable question"
+   ],
+   "definition": "A question with at least one of its gold passages still among the passages left after the licence and edition filters. In the code it is called \"reachable\". The scores of a search are calculated on answerable questions only, so that they measure how well the search ranks the passages it may use, separately from the effect of the filters.",
+   "cite": "",
+   "link_forms": [
+    "Answerable question"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "axiom",
+   "term": "Axiom",
+   "preferred_label": "Axiom",
+   "alternative_labels": [],
+   "definition": "A formal statement in an ontology, such as a rule that two classes share no instances, from which new facts can be drawn.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Axiom"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "benchmark-year",
+   "term": "Benchmark year",
+   "preferred_label": "Benchmark year",
+   "alternative_labels": [],
+   "definition": "A year in which the International Comparison Program (ICP) collects prices and measures PPPs directly. PPPs are estimated by extrapolation between benchmark years.",
+   "cite": "",
+   "link_forms": [
+    "Benchmark year"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "bitemporal-table",
+   "term": "Bitemporal (table)",
+   "preferred_label": "Bitemporal",
+   "alternative_labels": [],
+   "definition": "A table that stores two dates for each value: the period it describes and the edition it came from, so that any past edition can be rebuilt.",
+   "cite": "",
+   "link_forms": [
+    "Bitemporal",
+    "bitemporal tables"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "bm25",
+   "term": "BM25",
+   "preferred_label": "BM25",
+   "alternative_labels": [],
+   "definition": "A keyword score for a passage: a word counts more if few passages contain it, repeats count for less and less, and long passages are marked down. Used to rank passages by how well their words match the question. BM stands for 'best matching'.",
+   "cite": "",
+   "link_forms": [
+    "BM25"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "break-flag",
+   "term": "break (flag)",
+   "preferred_label": "break",
+   "alternative_labels": [],
+   "definition": "A value after a change of source or base year, so it cannot be compared directly with the period before, such as India's GDP in 2022. Flagged so that a change caused by the break is not read as a real change. Rated at most Low.",
+   "cite": "",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "broader-and-narrower",
+   "term": "Broader and narrower",
+   "preferred_label": "Broader and narrower",
+   "alternative_labels": [],
+   "definition": "The parent and child relation between two concepts in a taxonomy (skos:broader, skos:narrower). Used to move from general to specific, and to widen or narrow a search.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Broader and narrower"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "cascade",
+   "term": "Cascade",
+   "preferred_label": "Cascade",
+   "alternative_labels": [
+    "routing ladder",
+    "language model cascade"
+   ],
+   "definition": "The routes ordered from cheapest and most certain to most costly; each question goes to the cheapest route that can answer it. It keeps cost and errors down, because most questions never reach the language model. Also called a routing ladder, or a language model cascade (Chen, Zaharia and Zou, FrugalGPT, 2023).",
+   "cite": "",
+   "link_forms": [
+    "Cascade",
+    "routing ladder",
+    "language model cascade"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "cbox-concept-box",
+   "term": "CBox (concept box)",
+   "preferred_label": "CBox",
+   "alternative_labels": [
+    "concept box"
+   ],
+   "definition": "The part of a knowledge graph in which the controlled vocabularies, taxonomies and thesauri are recorded, usually in SKOS. Built first, as the governance layer, so that the terms are agreed before any class or fact is written with them.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "CBox",
+    "concept box"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "class",
+   "term": "Class",
+   "preferred_label": "Class",
+   "alternative_labels": [],
+   "definition": "A kind of entity, defined by what its members share, such as Economy or Measure.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "classifier",
+   "term": "Classifier",
+   "preferred_label": "Classifier",
+   "alternative_labels": [],
+   "definition": "A program by which each input is put into one of a fixed set of classes, such as a question into a question type, so that each input can be handled in the right way.",
+   "cite": "",
+   "link_forms": [
+    "Classifier"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "closed-world-assumption",
+   "term": "Closed world assumption",
+   "preferred_label": "Closed world assumption",
+   "alternative_labels": [],
+   "definition": "The rule that a fact not found in the data is false. Used by databases and by SHACL, and by our checks on explanations.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Closed world assumption"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "closed-world-check",
+   "term": "Closed-world check",
+   "preferred_label": "Closed-world check",
+   "alternative_labels": [],
+   "definition": "A check made under the closed world assumption: anything that cannot be matched to the template part or a passage counts as false. Used so that a statement with no support is treated as wrong, not as possibly right.",
+   "cite": "",
+   "link_forms": [
+    "Closed-world check"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "competency-question",
+   "term": "Competency question",
+   "preferred_label": "Competency question",
+   "alternative_labels": [],
+   "definition": "A question in plain language with a definite answer that the knowledge graph must be able to return; used to test the ontology. Not a business objective or a target.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Competency question"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "concept",
+   "term": "Concept",
+   "preferred_label": "Concept",
+   "alternative_labels": [],
+   "definition": "A unit of thought: an idea, kept apart from the words used to name it. In a controlled vocabulary each concept has one preferred label and may have alternative labels.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "concept-scheme",
+   "term": "Concept scheme",
+   "preferred_label": "Concept scheme",
+   "alternative_labels": [],
+   "definition": "One named vocabulary or taxonomy: the container for a set of concepts (skos:ConceptScheme).",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Concept scheme"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "controlled-vocabulary",
+   "term": "Controlled vocabulary",
+   "preferred_label": "Controlled vocabulary",
+   "alternative_labels": [],
+   "definition": "A governed list of approved terms. Each concept gets one preferred label, with a definition, a stable identifier and guidance on how to write it; the other words people use are kept as alternative labels pointing to it, and can only be changed by the owner of the list. Its purpose is that people, search and code use the same word for the same thing. The first stage of Talisman's ontology pipeline: deliberately small and pragmatic.",
+   "cite": "",
+   "link_forms": [
+    "Controlled vocabulary"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "corpus",
+   "term": "Corpus",
+   "preferred_label": "Corpus",
+   "alternative_labels": [],
+   "definition": "The full set of passages a system searches.",
+   "cite": "",
+   "link_forms": [
+    "Corpus"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "cross-check",
+   "term": "Cross-check",
+   "preferred_label": "Cross-check",
+   "alternative_labels": [],
+   "definition": "A comparison of a figure with the same figure from another source. Reported on the page, but not used in the rating.",
+   "cite": "",
+   "link_forms": [
+    "Cross-check"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "crosswalk",
+   "term": "Crosswalk",
+   "preferred_label": "Crosswalk",
+   "alternative_labels": [],
+   "definition": "A table showing which field in each system is used for the same metadata element. Used to match or move records between systems.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Crosswalk"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "data-warehouse",
+   "term": "Data warehouse",
+   "preferred_label": "Data warehouse",
+   "alternative_labels": [],
+   "definition": "A central database holding an organisation's data in tables, cleaned and kept for analysis.",
+   "cite": "",
+   "link_forms": [
+    "Data warehouse"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "datatype-property",
+   "term": "Datatype property",
+   "preferred_label": "Datatype property",
+   "alternative_labels": [
+    "attribute"
+   ],
+   "definition": "A property that links an entity to a value such as a number, a date or text, such as a measure's unit. Also called an attribute.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Datatype property"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "definition-line",
+   "term": "Definition line",
+   "preferred_label": "Definition line",
+   "alternative_labels": [],
+   "definition": "What a measure means and what it leaves out, approved by the vertical domain expert, citing passage ids. Shown with every figure so that the reader knows what is counted and what is not.",
+   "cite": "",
+   "link_forms": [
+    "Definition line"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "demonstrator-note",
+   "term": "Demonstrator note",
+   "preferred_label": "Demonstrator note",
+   "alternative_labels": [],
+   "definition": "An italic line saying what this demonstration version lacks and what a full-scale production version would do. It stops readers taking the demonstration version for a production version.",
+   "cite": "",
+   "link_forms": [
+    "Demonstrator note"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "document-estate",
+   "term": "Document estate",
+   "preferred_label": "Document estate",
+   "alternative_labels": [],
+   "definition": "Every document an organisation holds that could answer a question: reports, manuals, notes and their past versions.",
+   "cite": "",
+   "link_forms": [
+    "Document estate"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "domain-of-a-property",
+   "term": "Domain (of a property)",
+   "preferred_label": "Domain",
+   "alternative_labels": [],
+   "definition": "The class whose instances may be the subject of a property. Used to check that relations link the right kinds of entity.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "dqr-data-quality-rating",
+   "term": "DQR (data quality rating)",
+   "preferred_label": "DQR",
+   "alternative_labels": [
+    "data quality rating"
+   ],
+   "definition": "A rating of High, Medium or Low for how far a figure can be trusted for a stated purpose, with the reason. It is worked out by fixed rules from the quality of each input, and shown with every figure so the reader can judge how far to rely on it.",
+   "cite": "",
+   "link_forms": [
+    "DQR",
+    "data quality rating"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "dublin-core",
+   "term": "Dublin Core",
+   "preferred_label": "Dublin Core",
+   "alternative_labels": [],
+   "definition": "A standard set of fields for describing a resource, such as title, creator, date created and identifier. Used so that records from different systems describe resources in the same fields.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Dublin Core"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "edition",
+   "term": "Edition",
+   "preferred_label": "Edition",
+   "alternative_labels": [],
+   "definition": "The dated data release that is the source of a figure. Recorded because figures are revised between editions, so the same question can have different answers in different editions.",
+   "cite": "",
+   "link_forms": [
+    "Edition"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "edition-filter",
+   "term": "Edition filter",
+   "preferred_label": "Edition filter",
+   "alternative_labels": [],
+   "definition": "The filter by which the edition of the System of National Accounts (SNA) named in a question is kept, or the latest edition on each topic. Used so that a reply quotes the edition the question is about, not an older text by mistake.",
+   "cite": "",
+   "link_forms": [
+    "Edition filter"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "embedding",
+   "term": "Embedding",
+   "preferred_label": "Embedding",
+   "alternative_labels": [],
+   "definition": "A fixed-length list of numbers that stands for a text; similar meanings give similar lists. Used to find passages by meaning when they share few words with the question.",
+   "cite": "",
+   "link_forms": [
+    "Embedding"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "entitlements",
+   "term": "Entitlements",
+   "preferred_label": "Entitlements",
+   "alternative_labels": [],
+   "definition": "The access rights of each user or customer, set by contract, which decide the documents allowed in their answers. In this demonstration version the use mode plays this part.",
+   "cite": "",
+   "link_forms": [
+    "Entitlements"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "entity",
+   "term": "Entity",
+   "preferred_label": "Entity",
+   "alternative_labels": [
+    "thing"
+   ],
+   "definition": "Anything that can be identified and described: a person, an organisation, an economy, a measure, a document, an event or an idea. In RDF the same as a resource.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Entity"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "escalate",
+   "term": "Escalate",
+   "preferred_label": "Escalate",
+   "alternative_labels": [
+    "escalation"
+   ],
+   "definition": "Mark a question as passed to the vertical domain expert, with the reason: what was missing, or the decision that needs a person. Used when code cannot give a reliable answer.",
+   "cite": "",
+   "link_forms": [
+    "Escalate",
+    "escalation",
+    "escalated"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "explanation",
+   "term": "Explanation",
+   "preferred_label": "Explanation",
+   "alternative_labels": [],
+   "definition": "The reasons, as text generated by the language model, shown under the template part only if it passes every check.",
+   "cite": "",
+   "link_forms": [
+    "Explanation"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "extrapolation-of-ppps",
+   "term": "Extrapolation of PPPs",
+   "preferred_label": "Extrapolation of PPPs",
+   "alternative_labels": [],
+   "definition": "Estimating PPPs for years between benchmark years: the benchmark PPP is moved by the country's GDP deflator relative to the reference country's.",
+   "cite": "",
+   "link_forms": [
+    "Extrapolation of PPPs"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "fair-score",
+   "term": "Fair score",
+   "preferred_label": "Fair score",
+   "alternative_labels": [],
+   "definition": "A score on questions written after the rules or instructions being tested were fixed, and scored once. It shows how well the rules work on questions they were not built from; nothing is changed because of it.",
+   "cite": "",
+   "link_forms": [
+    "Fair score"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "fall-back-reply",
+   "term": "Fall-back (reply)",
+   "preferred_label": "Fall-back",
+   "alternative_labels": [],
+   "definition": "The template part alone, with a line saying no explanation passed, after the retry fails.",
+   "cite": "",
+   "link_forms": [
+    "Fall-back"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "false-premise-correction",
+   "term": "False-premise correction",
+   "preferred_label": "False-premise correction",
+   "alternative_labels": [],
+   "definition": "The line that opens the template part when the question assumes a direction the figures contradict, for example \"fell\" when the figures rose. Shown first so that the reader does not take the wrong premise as confirmed. Such a question is called a false-premise question.",
+   "cite": "",
+   "link_forms": [
+    "False-premise correction"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "fine-tuned-language-model",
+   "term": "Fine-tuned (language model)",
+   "preferred_label": "Fine-tuned",
+   "alternative_labels": [],
+   "definition": "A language model trained further on examples of one task, for better results on that task.",
+   "cite": "",
+   "link_forms": [
+    "Fine-tuned"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "fingerprint-of-a-file",
+   "term": "Fingerprint (of a file)",
+   "preferred_label": "Fingerprint",
+   "alternative_labels": [],
+   "definition": "A short code calculated from every byte of a file. If any byte changes, the code changes, so a stored code shows whether a data file is still the one used.",
+   "cite": "",
+   "link_forms": [
+    "Fingerprint"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "forecast-flag",
+   "term": "forecast (flag)",
+   "preferred_label": "forecast",
+   "alternative_labels": [],
+   "definition": "A value for a period after the current time (positive horizon). In this version neither the NNI model nor the producers supply forecasts. Rated at most Medium.",
+   "cite": "",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "functional-property",
+   "term": "Functional property",
+   "preferred_label": "Functional property",
+   "alternative_labels": [],
+   "definition": "A property with at most one value for each subject.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Functional property"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "gdp-gross-domestic-product",
+   "term": "GDP (gross domestic product)",
+   "preferred_label": "GDP",
+   "alternative_labels": [
+    "gross domestic product"
+   ],
+   "definition": "The value added by all production in an economy in a year.",
+   "cite": "",
+   "link_forms": [
+    "GDP",
+    "gross domestic product"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "genus-differentia-definition",
+   "term": "Genus–differentia definition",
+   "preferred_label": "Genus–differentia definition",
+   "alternative_labels": [],
+   "definition": "A definition of the form 'X is a [broader kind] that [what sets it apart]'. It places each term under a broader one and says what makes it different, so that definitions do not overlap.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Genus–differentia definition"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "gni-gross-national-income",
+   "term": "GNI (gross national income)",
+   "preferred_label": "GNI",
+   "alternative_labels": [
+    "gross national income"
+   ],
+   "definition": "GDP plus the income residents earn from abroad, less the income paid to people and firms abroad.",
+   "cite": "",
+   "link_forms": [
+    "GNI",
+    "gross national income"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "gold-passage",
+   "term": "Gold passage",
+   "preferred_label": "Gold passage",
+   "alternative_labels": [],
+   "definition": "A passage containing the facts of the expected answer to a question. Used to score how well a search finds the right passages.",
+   "cite": "",
+   "link_forms": [
+    "Gold passage"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "governed-rag",
+   "term": "Governed RAG",
+   "preferred_label": "Governed RAG",
+   "alternative_labels": [],
+   "definition": "A version of retrieval-augmented generation (RAG) in which the passages are chosen and every figure is supplied with fixed rules before the language model is called; the language model's output is used only for an explanation, which is checked. Suited to questions whose answers need data and calculation logic as well as text. The figures are not calculated in the RAG step: they are results stored from a model run beforehand, such as the NNI model's split of growth into five parts, and the relations between them, such as which inputs each measure is built from, are recorded in a knowledge graph. Its purpose is that every figure can be traced and checked, and cannot be changed by the language model.",
+   "cite": "",
+   "link_forms": [
+    "Governed RAG"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "graph-database",
+   "term": "Graph database",
+   "preferred_label": "Graph database",
+   "alternative_labels": [],
+   "definition": "A database that stores entities and the relations between them, built for following chains of relations quickly. A triple store is one kind, holding RDF triples.",
+   "cite": "",
+   "link_forms": [
+    "Graph database"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "graphrag",
+   "term": "GraphRAG",
+   "preferred_label": "GraphRAG",
+   "alternative_labels": [],
+   "definition": "A version of retrieval-augmented generation (RAG) in which code follows the relations between entities in a knowledge graph, and the facts found are sent to the language model with the question. Used for questions that follow chains of relations.",
+   "cite": "Microsoft GraphRAG, https://microsoft.github.io/graphrag/",
+   "link_forms": [
+    "GraphRAG"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "hedonic-price-index",
+   "term": "Hedonic price index",
+   "preferred_label": "Hedonic price index",
+   "alternative_labels": [],
+   "definition": "A price index that allows for changes in quality: a faster computer at the same price counts partly as more product, not only as a lower price. Used widely in national accounts.",
+   "cite": "",
+   "link_forms": [
+    "Hedonic price index"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "hidden-label",
+   "term": "Hidden label",
+   "preferred_label": "Hidden label",
+   "alternative_labels": [],
+   "definition": "A name kept only so that searches find the concept, such as a common misspelling; never shown (skos:hiddenLabel).",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Hidden label"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "horizontal-domain-expert",
+   "term": "Horizontal domain expert",
+   "preferred_label": "Horizontal domain expert",
+   "alternative_labels": [],
+   "definition": "A specialist who works across subjects, turning knowledge into rules and code with maths, statistics and language; builds, maintains and monitors the automated steps. Not a developer, even though the work spans subjects: the role needs a deep understanding of the product, its context and the business's needs (others call it data scientist, business analyst or modeller).",
+   "cite": "",
+   "link_forms": [
+    "Horizontal domain expert"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "household-consumption-ppp",
+   "term": "Household-consumption PPP",
+   "preferred_label": "Household-consumption PPP",
+   "alternative_labels": [],
+   "definition": "A currency converter based on the prices of what households buy. Used to compare living standards, because it reflects what households can buy.",
+   "cite": "",
+   "link_forms": [
+    "Household-consumption PPP"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "hybrid-search",
+   "term": "Hybrid search",
+   "preferred_label": "Hybrid search",
+   "alternative_labels": [],
+   "definition": "Ranking passages with keyword and semantic search together and combining the results. Exact terms are matched by keyword search and meanings by semantic search; with both, fewer relevant passages are missed.",
+   "cite": "",
+   "link_forms": [
+    "Hybrid search"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "icp-international-comparison-program",
+   "term": "ICP (International Comparison Program)",
+   "preferred_label": "ICP",
+   "alternative_labels": [
+    "International Comparison Program"
+   ],
+   "definition": "The programme, led by the World Bank, that collects prices across economies to measure PPPs. Rounds used here: 2017 and 2021.",
+   "cite": "",
+   "link_forms": [
+    "ICP",
+    "International Comparison Program"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "instance",
+   "term": "Instance",
+   "preferred_label": "Instance",
+   "alternative_labels": [
+    "individual"
+   ],
+   "definition": "One member of a class, such as the United States as an instance of Economy. Also called an individual.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "is-a-test",
+   "term": "Is-a test",
+   "preferred_label": "Is-a test",
+   "alternative_labels": [],
+   "definition": "The check on a taxonomy: a narrower concept must be a type of its broader concept. GNI per head is not a type of GNI, so it fails. It keeps the hierarchy true at every level.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Is-a test"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "join",
+   "term": "Join",
+   "preferred_label": "Join",
+   "alternative_labels": [],
+   "definition": "Matching the rows of two tables by a shared value, such as an economy's code. Each step along a chain of relations takes one join.",
+   "cite": "",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "keyword-rule",
+   "term": "Keyword rule",
+   "preferred_label": "Keyword rule",
+   "alternative_labels": [],
+   "definition": "A test of a question's text for a word, phrase or pattern. Used by the router to sort questions without calling a language model.",
+   "cite": "",
+   "link_forms": [
+    "Keyword rule"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "knowledge-graph",
+   "term": "Knowledge graph",
+   "preferred_label": "Knowledge graph",
+   "alternative_labels": [],
+   "definition": "Facts stored as triples about entities, following an ontology. In Talisman's terms it is made of the controlled vocabularies and taxonomies (CBox), the ontology (TBox) and the facts (ABox), with a reasoner for drawing new facts. Used to answer questions about how entities are connected. This demonstration version has 67 entities, 131 triples and no reasoner.",
+   "cite": "",
+   "link_forms": [
+    "Knowledge graph"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "knowledge-organization-system",
+   "term": "Knowledge organization system",
+   "preferred_label": "Knowledge organization system",
+   "alternative_labels": [],
+   "definition": "A general name for controlled vocabularies, taxonomies and thesauri: systems that name and arrange concepts.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Knowledge organization system"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "language-model",
+   "term": "Language model",
+   "preferred_label": "Language model",
+   "alternative_labels": [
+    "large language model",
+    "LLM"
+   ],
+   "definition": "A program with which text is produced one word or part of a word at a time, each chosen from the likely next words. Also called a large language model (LLM). One kind of generative artificial intelligence (generative AI), which also covers images, sound and video.",
+   "cite": "",
+   "link_forms": [
+    "Language model",
+    "large language model",
+    "LLM"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "licence-class",
+   "term": "Licence class",
+   "preferred_label": "Licence class",
+   "alternative_labels": [],
+   "definition": "A passage's terms of reuse in one of three words: open, non-commercial, quotation only.",
+   "cite": "",
+   "link_forms": [
+    "Licence class"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "licence-filter",
+   "term": "Licence filter",
+   "preferred_label": "Licence filter",
+   "alternative_labels": [],
+   "definition": "The filter by which only the licence classes allowed in the use mode are kept. Used so that no passage is quoted against its licence.",
+   "cite": "",
+   "link_forms": [
+    "Licence filter"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "linked-data",
+   "term": "Linked data",
+   "preferred_label": "Linked data",
+   "alternative_labels": [],
+   "definition": "Data published on the web in RDF with links to other datasets, so that programs can follow the links and combine the sources.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Linked data"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "log-point",
+   "term": "Log point",
+   "preferred_label": "Log point",
+   "alternative_labels": [],
+   "definition": "100 times the difference between the natural logarithms of two values. Close to the percentage change for small changes. Used because changes in log points add up exactly across years and across parts, which percentages do not.",
+   "cite": "",
+   "link_forms": [
+    "Log point"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "mapping-to-another-vocabulary",
+   "term": "Mapping (to another vocabulary)",
+   "preferred_label": "Mapping",
+   "alternative_labels": [],
+   "definition": "A link from a concept to a concept in another vocabulary: exact match when they mean the same, close match when nearly so (skos:exactMatch, skos:closeMatch). Exact matches are rare. Used to connect our terms to standard vocabularies, so that other systems can use our data.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "metadata",
+   "term": "Metadata",
+   "preferred_label": "Metadata",
+   "alternative_labels": [],
+   "definition": "Facts about a figure or a document rather than the figure itself, such as its source, unit, edition and date.",
+   "cite": "",
+   "link_forms": [
+    "Metadata"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "metadata-application-profile-map",
+   "term": "Metadata application profile (MAP)",
+   "preferred_label": "Metadata application profile",
+   "alternative_labels": [
+    "MAP"
+   ],
+   "definition": "A record of the metadata fields an organisation uses, how it uses each, and its rules in a given setting: whether a field is required, how many times it may appear and how it is written. Used so that every system fills the same fields in the same way.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Metadata application profile",
+    "MAP"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "namespace",
+   "term": "Namespace",
+   "preferred_label": "Namespace",
+   "alternative_labels": [],
+   "definition": "A shared base address under which a group of terms is named, shortened to a prefix: skos:Concept stands for the full address of SKOS's 'Concept'. Used so that terms from different vocabularies never clash.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Namespace"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "nni-net-national-income",
+   "term": "NNI (net national income)",
+   "preferred_label": "NNI",
+   "alternative_labels": [
+    "net national income"
+   ],
+   "definition": "GNI less the wear and tear of buildings and machinery. The World Bank's adjusted NNI also takes off the using-up of natural resources.",
+   "cite": "",
+   "link_forms": [
+    "NNI",
+    "net national income"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "nni-model",
+   "term": "NNI model",
+   "preferred_label": "NNI model",
+   "alternative_labels": [],
+   "definition": "The method that calculates real NNI per head at constant 2021 PPPs and splits its growth exactly into five parts.",
+   "cite": "",
+   "link_forms": [
+    "NNI model"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "nowcast-flag",
+   "term": "nowcast (flag)",
+   "preferred_label": "nowcast",
+   "alternative_labels": [],
+   "definition": "A value for the current period or a past period (zero or negative horizon) that the producer has not measured, filled in from other data by a stated method. The NNI model makes some: it fills in adjusted NNI after its last published year because we cannot find the producer's data. A producer may make others, for example by linking an older series to a newer one. Rated at most Medium.",
+   "cite": "",
+   "link_forms": [
+    "nowcast"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "object-property",
+   "term": "Object property",
+   "preferred_label": "Object property",
+   "alternative_labels": [],
+   "definition": "A property that links one entity to another, such as 'member of' from Ireland to the euro area.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Object property"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "ontology",
+   "term": "Ontology",
+   "preferred_label": "Ontology",
+   "alternative_labels": [],
+   "definition": "A formal, explicit description of a subject: the kinds of entity in it (classes), how they may relate (properties) and the rules for both, written so that a computer can reason over it. Used to state what can be true, so that data can be checked and new facts drawn.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Ontology"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "ontology-pipeline",
+   "term": "Ontology pipeline",
+   "preferred_label": "Ontology pipeline",
+   "alternative_labels": [],
+   "definition": "Talisman's six stages, each built on the one before: controlled vocabulary, metadata application profile, taxonomy, thesaurus, ontology and knowledge graph.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Ontology pipeline"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "open-world-assumption",
+   "term": "Open world assumption",
+   "preferred_label": "Open world assumption",
+   "alternative_labels": [],
+   "definition": "The rule that a fact not found in the data is unknown, not false, because the data may exist elsewhere. Used by OWL and SKOS.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Open world assumption"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "outlier-suspect-flag",
+   "term": "outlier-suspect (flag)",
+   "preferred_label": "outlier-suspect",
+   "alternative_labels": [],
+   "definition": "A value whose change from the period before lies outside the range expected from past changes (Validity: Values in Specified Range). Rated at most Low.",
+   "cite": "",
+   "link_forms": [
+    "outlier-suspect"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "owl-web-ontology-language",
+   "term": "OWL (Web Ontology Language)",
+   "preferred_label": "OWL",
+   "alternative_labels": [
+    "Web Ontology Language"
+   ],
+   "definition": "The W3C standard for writing ontologies. It adds to RDFS the rules a reasoner needs to find contradictions in the data.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "OWL",
+    "Web Ontology Language"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "passage",
+   "term": "Passage",
+   "preferred_label": "Passage",
+   "alternative_labels": [],
+   "definition": "One short piece of text, stored with its id, source and reference.",
+   "cite": "",
+   "link_forms": [
+    "Passage"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "ppp-purchasing-power-parity",
+   "term": "PPP (purchasing power parity)",
+   "preferred_label": "PPP",
+   "alternative_labels": [
+    "purchasing power parity"
+   ],
+   "definition": "A rate that converts one currency into another so that the same amount buys the same goods and services in both. Used to compare incomes across economies without the swings of exchange rates.",
+   "cite": "",
+   "link_forms": [
+    "PPP",
+    "purchasing power parity"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "ppp-benchmark",
+   "term": "PPP benchmark",
+   "preferred_label": "PPP benchmark",
+   "alternative_labels": [],
+   "definition": "The International Comparison Program (ICP) round whose prices set the PPP levels in an edition: ICP 2021 for the latest edition, ICP 2017 for the March 2024 edition.",
+   "cite": "",
+   "link_forms": [
+    "PPP benchmark"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "preferred-label",
+   "term": "Preferred label",
+   "preferred_label": "Preferred label",
+   "alternative_labels": [],
+   "definition": "The one approved name of a concept (skos:prefLabel). Used wherever the concept is shown, so that readers see one name.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Preferred label"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "price-level-index-pli",
+   "term": "Price level index (PLI)",
+   "preferred_label": "Price level index",
+   "alternative_labels": [
+    "PLI"
+   ],
+   "definition": "The ratio of a PPP to the exchange rate; shows whether an economy is expensive relative to others.",
+   "cite": "",
+   "link_forms": [
+    "Price level index",
+    "PLI"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "property",
+   "term": "Property",
+   "preferred_label": "Property",
+   "alternative_labels": [
+    "predicate"
+   ],
+   "definition": "A characteristic of an entity, or a relation between two entities, stated in a triple; the middle part (predicate) of a triple.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "provenance",
+   "term": "Provenance",
+   "preferred_label": "Provenance",
+   "alternative_labels": [],
+   "definition": "A record of where something came from: its source, who made it, when, and what it was made from. Used to trace a figure or a text back to its origin and check it. PROV-O is the W3C standard for writing it.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Provenance"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "provisional-flag",
+   "term": "provisional (flag)",
+   "preferred_label": "provisional",
+   "alternative_labels": [],
+   "definition": "The producer's first release for a past period, which later releases may revise. Rated one band below the settled rating.",
+   "cite": "",
+   "link_forms": [
+    "provisional"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "proxy",
+   "term": "Proxy",
+   "preferred_label": "Proxy",
+   "alternative_labels": [],
+   "definition": "A near figure given in place of the one asked for, flagged, with its data quality rating (DQR) at most Low. Given so that the reader gets the nearest available answer, clearly marked.",
+   "cite": "",
+   "link_forms": [
+    "Proxy"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "published-flag",
+   "term": "published (flag)",
+   "preferred_label": "published",
+   "alternative_labels": [],
+   "definition": "A value the producer has measured for a past period (negative horizon), as published and unchanged by us. No change to the rating.",
+   "cite": "",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "query-expansion",
+   "term": "Query expansion",
+   "preferred_label": "Query expansion",
+   "alternative_labels": [],
+   "definition": "Adding words to a question before searching, so that passages using other words for the same idea are found. The words added are usually synonyms, acronyms spelled out, alternative labels, or narrower and related terms; some systems ask a language model to suggest them. Here the words added are the alternative labels of each concept the question names, and of the concepts mapped to it as exact matches.",
+   "cite": "",
+   "link_forms": [
+    "Query expansion"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "question-type",
+   "term": "Question type",
+   "preferred_label": "Question type",
+   "alternative_labels": [
+    "class of a question",
+    "question class"
+   ],
+   "definition": "The kind of question: in our demonstration version, one of Q1 to Q8, AMB (too vague to answer as asked) or OUT (outside what the demonstration version answers). It decides which route answers the question.",
+   "cite": "",
+   "link_forms": [
+    "Question type",
+    "class of a question",
+    "question class"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "rag-retrieval-augmented-generation",
+   "term": "RAG (retrieval-augmented generation)",
+   "preferred_label": "RAG",
+   "alternative_labels": [
+    "retrieval-augmented generation"
+   ],
+   "definition": "A search finds passages that match the question, usually from a set of documents chosen for the subject (the corpus), and they are sent to a language model with the question; the answer is then the language model's final output. Used so that answers draw on stored passages, not only on what the language model learned in training.",
+   "cite": "",
+   "link_forms": [
+    "RAG",
+    "retrieval-augmented generation"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "ragged-edge",
+   "term": "Ragged edge",
+   "preferred_label": "Ragged edge",
+   "alternative_labels": [],
+   "definition": "The last year with data, which differs by economy, by edition and by measure. Shown so that the reader knows why the latest year differs between figures.",
+   "cite": "",
+   "link_forms": [
+    "Ragged edge"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "range-of-a-property",
+   "term": "Range (of a property)",
+   "preferred_label": "Range",
+   "alternative_labels": [],
+   "definition": "The class, or kind of value, that may be the object of a property. Used to check that relations link the right kinds of entity.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "rdf-resource-description-framework",
+   "term": "RDF (Resource Description Framework)",
+   "preferred_label": "RDF",
+   "alternative_labels": [
+    "Resource Description Framework"
+   ],
+   "definition": "The W3C standard for writing information about entities as triples, so that programs can exchange and process it.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "RDF",
+    "Resource Description Framework"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "rdf-graph",
+   "term": "RDF graph",
+   "preferred_label": "RDF graph",
+   "alternative_labels": [],
+   "definition": "A set of triples, drawn as a network: subjects and objects are the points, properties the arrows between them.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "RDF graph"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "rdfs-rdf-schema",
+   "term": "RDFS (RDF Schema)",
+   "preferred_label": "RDFS",
+   "alternative_labels": [
+    "RDF Schema"
+   ],
+   "definition": "The basic W3C vocabulary for describing classes and properties in RDF, including domain and range.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "RDFS",
+    "RDF Schema"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "reasoner",
+   "term": "Reasoner",
+   "preferred_label": "Reasoner",
+   "alternative_labels": [],
+   "definition": "A program with which an ontology's rules are applied to the facts, to draw new facts that must also be true and to flag facts that break the rules. This demonstration version has none: the 'requires' relations are followed with code instead.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Reasoner"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "rebase",
+   "term": "Rebase",
+   "preferred_label": "Rebase",
+   "alternative_labels": [],
+   "definition": "A change in the base year of a country's national accounts, usually with new sources and methods, which moves the levels of past figures. It matters because figures before and after a rebase are not directly comparable. India rebased its GDP in February 2026.",
+   "cite": "",
+   "link_forms": [
+    "Rebase"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "related-associative-relation",
+   "term": "Related (associative relation)",
+   "preferred_label": "Related",
+   "alternative_labels": [],
+   "definition": "A link between two concepts that are connected but neither is a type of the other (skos:related).",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "relation",
+   "term": "Relation",
+   "preferred_label": "Relation",
+   "alternative_labels": [],
+   "definition": "A connection between two entities, stated as a property in a triple. Our knowledge graph has twelve kinds of relation. Questions that follow chains of relations can be answered from tables of structured data, one join per step, but the query grows with every step and becomes hard to write and maintain: one reason for GraphRAG.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Relation"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "reply-length",
+   "term": "Reply length",
+   "preferred_label": "Reply length",
+   "alternative_labels": [
+    "role"
+   ],
+   "definition": "How much of a reply is shown: full, or short (the figures and their DQR only). Called role in the code, with the values analyst and executive.",
+   "cite": "",
+   "link_forms": [
+    "Reply length"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "reranking",
+   "term": "Reranking",
+   "preferred_label": "Reranking",
+   "alternative_labels": [],
+   "definition": "Sorting a short list from a first search again, with a slower and more careful scorer. Used to improve the order of the best few results, at extra cost.",
+   "cite": "",
+   "link_forms": [
+    "Reranking"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "retry",
+   "term": "Retry",
+   "preferred_label": "Retry",
+   "alternative_labels": [],
+   "definition": "A second call to the language model, with the problems the checks found added to the prompt.",
+   "cite": "",
+   "link_forms": [
+    "Retry"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "review-list",
+   "term": "Review list",
+   "preferred_label": "Review list",
+   "alternative_labels": [],
+   "definition": "Every failed check, retry, dropped explanation and escalation, one row each, for the horizontal domain expert. Used to find and fix failures that recur.",
+   "cite": "",
+   "link_forms": [
+    "Review list"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "route",
+   "term": "Route",
+   "preferred_label": "Route",
+   "alternative_labels": [],
+   "definition": "How a question is answered: R1 to R6, clarify or escalate. Each route uses the cheapest means that can answer that kind of question.",
+   "cite": "",
+   "link_forms": [
+    "Route"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "router",
+   "term": "Router",
+   "preferred_label": "Router",
+   "alternative_labels": [],
+   "definition": "The step, done with code, in which a question is given a class and a route before it is answered, so that each question goes the cheapest way that can answer it.",
+   "cite": "",
+   "link_forms": [
+    "Router"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "routing-accuracy",
+   "term": "Routing accuracy",
+   "preferred_label": "Routing accuracy",
+   "alternative_labels": [],
+   "definition": "The share of questions sent to the right route.",
+   "cite": "",
+   "link_forms": [
+    "Routing accuracy"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "scope-note",
+   "term": "Scope note",
+   "preferred_label": "Scope note",
+   "alternative_labels": [],
+   "definition": "A note saying where a concept's boundaries lie, written only where the boundary could be misread (skos:scopeNote).",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Scope note"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "semantic-debt",
+   "term": "Semantic debt",
+   "preferred_label": "Semantic debt",
+   "alternative_labels": [],
+   "definition": "The growing cost of terms that are used inconsistently or left undefined, paid later in wrong answers and rework.",
+   "cite": "After Talisman (Ontology Pipeline, Substack)",
+   "link_forms": [
+    "Semantic debt"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "semantic-layer",
+   "term": "Semantic layer",
+   "preferred_label": "Semantic layer",
+   "alternative_labels": [],
+   "definition": "One shared set of definitions of measures and of how to calculate them, used by every query and report, so that the same name always gives the same number. In Talisman's terms, built from the controlled vocabulary, the taxonomy and the ontology.",
+   "cite": "",
+   "link_forms": [
+    "Semantic layer"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "shacl-shapes-constraint-language",
+   "term": "SHACL (Shapes Constraint Language)",
+   "preferred_label": "SHACL",
+   "alternative_labels": [
+    "Shapes Constraint Language"
+   ],
+   "definition": "The W3C standard for checking that RDF data has the expected structure, such as a required field being present. Errors are reported; no facts are added.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "SHACL",
+    "Shapes Constraint Language"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "size-band",
+   "term": "Size band",
+   "preferred_label": "Size band",
+   "alternative_labels": [],
+   "definition": "Large, medium or small: where a change falls among the revisions between the two editions; each band has about a third of them. Used to say in plain words whether a change is large or small. Statisticians call three equal groups like these terciles.",
+   "cite": "",
+   "link_forms": [
+    "Size band"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "skos-simple-knowledge-organization-system",
+   "term": "SKOS (Simple Knowledge Organization System)",
+   "preferred_label": "SKOS",
+   "alternative_labels": [
+    "Simple Knowledge Organization System"
+   ],
+   "definition": "The W3C standard for writing controlled vocabularies, taxonomies and thesauri in RDF, so that they can be shared and read by programs.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "SKOS",
+    "Simple Knowledge Organization System"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "sna-system-of-national-accounts",
+   "term": "SNA (System of National Accounts)",
+   "preferred_label": "SNA",
+   "alternative_labels": [
+    "System of National Accounts"
+   ],
+   "definition": "The international standard for measuring GDP and related figures, agreed by the United Nations and other bodies. This build uses the 2008 and 2025 editions.",
+   "cite": "",
+   "link_forms": [
+    "SNA",
+    "System of National Accounts"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "sparql",
+   "term": "SPARQL",
+   "preferred_label": "SPARQL",
+   "alternative_labels": [],
+   "definition": "The standard language for asking questions of RDF data, as SQL (structured query language) is for database tables. The name is a recursive acronym: SPARQL Protocol and RDF Query Language.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "SPARQL"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "support",
+   "term": "Support",
+   "preferred_label": "Support",
+   "alternative_labels": [],
+   "definition": "The match between a sentence of an explanation and the passage cited for it: the passage contains the facts in the sentence. Here measured by word overlap. Checked so that each sentence of an explanation can be traced to a passage with the same content.",
+   "cite": "",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "taxonomy",
+   "term": "Taxonomy",
+   "preferred_label": "Taxonomy",
+   "alternative_labels": [],
+   "definition": "A hierarchy of concepts in which each step down, from a broader concept to a narrower one, passes the is-a test. Usually written in SKOS. Used to browse, group and filter by kind.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Taxonomy"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "tbox-terminological-box",
+   "term": "TBox (terminological box)",
+   "preferred_label": "TBox",
+   "alternative_labels": [
+    "terminological box"
+   ],
+   "definition": "The part of a knowledge graph in which the ontology is recorded: classes, properties and their rules.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "TBox",
+    "terminological box"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "template-part-of-the-reply",
+   "term": "Template part (of the reply)",
+   "preferred_label": "Template part",
+   "alternative_labels": [
+    "locked block"
+   ],
+   "definition": "The part of a reply made by filling fixed templates with the calculated figures and approved passages; the same question always gives the same text. Used so that figures and directions never depend on the language model. Called the locked block in the code.",
+   "cite": "",
+   "link_forms": [
+    "Template part",
+    "locked block"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "test-set",
+   "term": "Test set",
+   "preferred_label": "Test set",
+   "alternative_labels": [],
+   "definition": "Questions written after the rules being tested were fixed, kept unchanged and used only to score them. Its score is a fair score.",
+   "cite": "",
+   "link_forms": [
+    "Test set"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "thesaurus",
+   "term": "Thesaurus",
+   "preferred_label": "Thesaurus",
+   "alternative_labels": [],
+   "definition": "A taxonomy with three extensions that cannot be recorded in a hierarchy: which concepts are related, notes on their scope, and mappings to concepts in other vocabularies, such as international standards. Used to connect concepts across branches of the taxonomy and to the vocabularies other organisations use.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Thesaurus"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "token",
+   "term": "Token",
+   "preferred_label": "Token",
+   "alternative_labels": [],
+   "definition": "A word or part of a word: the unit of a language model's input and output.",
+   "cite": "",
+   "link_forms": [
+    "Token"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "token-cost",
+   "term": "Token cost",
+   "preferred_label": "Token cost",
+   "alternative_labels": [],
+   "definition": "The tokens a step or a route uses per question; on a hosted model it is paid in money, on the laptop in time.",
+   "cite": "",
+   "link_forms": [
+    "Token cost"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "trace",
+   "term": "Trace",
+   "preferred_label": "Trace",
+   "alternative_labels": [],
+   "definition": "A file with one line for each step of each question, with its output, seconds and tokens. Used to check how each reply was built and what it cost.",
+   "cite": "",
+   "link_forms": [
+    "Trace"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "training-score",
+   "term": "Training score",
+   "preferred_label": "Training score",
+   "alternative_labels": [],
+   "definition": "A score on questions the code or rules were written or chosen while reading; it overstates the score on new questions.",
+   "cite": "",
+   "link_forms": [
+    "Training score"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "triple",
+   "term": "Triple",
+   "preferred_label": "Triple",
+   "alternative_labels": [
+    "triplet"
+   ],
+   "definition": "One statement in three parts: subject, property and object, such as 'Ireland – member of – euro area'. Also called a triplet; 'triple' is the W3C standard term. The property is sometimes called relation or predicate.",
+   "cite": "",
+   "link_forms": [
+    "Triple",
+    "triplet"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "turtle",
+   "term": "Turtle",
+   "preferred_label": "Turtle",
+   "alternative_labels": [],
+   "definition": "A way of writing RDF triples as text that people can read; files end in .ttl.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "Turtle"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "type",
+   "term": "Type",
+   "preferred_label": "Type",
+   "alternative_labels": [],
+   "definition": "The class or classes an instance belongs to (rdf:type).",
+   "cite": "After Talisman (2026)",
+   "link_forms": [],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "uk-real-time-data-archive",
+   "term": "UK Real-Time Data archive",
+   "preferred_label": "UK Real-Time Data archive",
+   "alternative_labels": [],
+   "definition": "Past editions of UK national statistics, collected in one place by Arthur Turrell. https://aeturrell.github.io/real-time-data/",
+   "cite": "",
+   "link_forms": [
+    "UK Real-Time Data archive"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "unsupported-number",
+   "term": "Unsupported number",
+   "preferred_label": "Unsupported number",
+   "alternative_labels": [
+    "hallucinated number"
+   ],
+   "definition": "A number in a reply that is in neither the question nor the figures. Also called a hallucinated number. Preventing it is a main aim of Governed RAG: every figure is supplied before the language model is called, and the explanation is checked so that no invented figure is shown to the reader.",
+   "cite": "",
+   "link_forms": [
+    "Unsupported number",
+    "hallucinated number"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "uri-uniform-resource-identifier",
+   "term": "URI (uniform resource identifier)",
+   "preferred_label": "URI",
+   "alternative_labels": [
+    "uniform resource identifier"
+   ],
+   "definition": "A string of characters that identifies one resource and no other, such as a web address. An IRI (internationalized resource identifier) is the same but allows any alphabet.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "URI",
+    "uniform resource identifier"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "use-mode",
+   "term": "Use mode",
+   "preferred_label": "Use mode",
+   "alternative_labels": [],
+   "definition": "How the answers will be used. The licence classes allowed depend on it.",
+   "cite": "",
+   "link_forms": [
+    "Use mode"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "vector-database",
+   "term": "Vector database",
+   "preferred_label": "Vector database",
+   "alternative_labels": [],
+   "definition": "A store of embeddings with their text and metadata, in which the closest embeddings can be found without comparing every one. Used for search by meaning over large collections.",
+   "cite": "",
+   "link_forms": [
+    "Vector database"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "vector-index",
+   "term": "Vector index",
+   "preferred_label": "Vector index",
+   "alternative_labels": [],
+   "definition": "A structure inside a vector database for finding the nearest embeddings quickly, without comparing every one.",
+   "cite": "",
+   "link_forms": [
+    "Vector index"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "vertical-domain-expert",
+   "term": "Vertical domain expert",
+   "preferred_label": "Vertical domain expert",
+   "alternative_labels": [
+    "subject matter expert"
+   ],
+   "definition": "A specialist inside one subject, such as national accounts, who produces the data; also called a subject matter expert. Consulted on the formulae, quality rules and wording, and answers escalated questions.",
+   "cite": "",
+   "link_forms": [
+    "Vertical domain expert",
+    "subject matter expert"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "w3c-world-wide-web-consortium",
+   "term": "W3C (World Wide Web Consortium)",
+   "preferred_label": "W3C",
+   "alternative_labels": [
+    "World Wide Web Consortium"
+   ],
+   "definition": "The international body that sets the standards of the web, including RDF, OWL, SKOS, SHACL and SPARQL.",
+   "cite": "After Talisman (2026)",
+   "link_forms": [
+    "W3C",
+    "World Wide Web Consortium"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  },
+  {
+   "id": "withheld-passage",
+   "term": "Withheld passage",
+   "preferred_label": "Withheld passage",
+   "alternative_labels": [],
+   "definition": "A passage a filter removed for one question, recorded with the reason, so that the reader can see what was left out and why.",
+   "cite": "",
+   "link_forms": [
+    "Withheld passage"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "",
+   "approved": "2026-11-27"
+  }
+ ]
+}

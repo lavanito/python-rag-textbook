@@ -452,6 +452,26 @@
   "change_text": {
    "text": "Change",
    "approved": "2026-11-27"
+  },
+  "nav_glossary": {
+   "text": "Glossary",
+   "approved": ""
+  },
+  "glossary_intro": {
+   "text": "The terms used on this page, with their definitions. The first use of a term in each section is underlined with dots: hover over it, or tap it, for its definition.",
+   "approved": ""
+  },
+  "glossary_also": {
+   "text": "Alternative labels",
+   "approved": ""
+  },
+  "glossary_open": {
+   "text": "See the glossary",
+   "approved": ""
+  },
+  "glossary_reference": {
+   "text": "Definitions marked 'After Talisman (2026)' are paraphrased, in plain words, from: {reference}",
+   "approved": ""
   }
  },
  "reply_wording": {

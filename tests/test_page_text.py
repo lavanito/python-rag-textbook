@@ -86,9 +86,13 @@ MEANS_AS_ACTOR = re.compile(
     r"(?:then |also |only |never |must |can |cannot |should |will |does not |did not )?(" + ACTION_VERBS + r")\b",
     re.I)
 # Matches where the subject is something else.
-NOT_AN_ACTOR = ["steps that call the language model use tokens"]
+NOT_AN_ACTOR = ["steps that call the language model use tokens",
+                # Glossary definitions approved 27 Nov; rewordings suggested in the Sheet (Glossary, column I)
+                # wait for the vertical domain expert. Remove each phrase when its rewording is applied.
+                "people, search and code use the same word", "when code cannot give a reliable answer",
+                "so a stored code shows whether", "in which code follows the relations", "The NNI model makes some"]
 PAGE_TEXT_FILES = ["method_and_caveats", "coverage_grid", "change_log", "faq", "lessons", "at_full_scale",
-                   "sources", "walkthrough"]
+                   "sources", "walkthrough", "glossary"]
 
 
 def strings_in(value):

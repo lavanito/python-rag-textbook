@@ -28,10 +28,10 @@ OUT = APP / "index.html"
 
 DATA_FILES = ["bank_replies", "figures", "reading", "routing", "search", "outside_topics", "page", "traces",
               "measure_embeddings", "method_and_caveats", "coverage_grid", "walkthrough", "at_full_scale",
-              "lessons", "change_log", "faq", "sources"]
+              "lessons", "change_log", "faq", "sources", "glossary"]
 # In the order they need each other: each reads the ones before it from globalThis.
 SCRIPTS = ["nni.js", "locked_block.js", "read_question.js", "read_as.js", "route_question.js", "search.js",
-           "outside_topics.js", "answer_typed.js"]
+           "outside_topics.js", "answer_typed.js", "glossary.js"]
 
 
 def script(name):

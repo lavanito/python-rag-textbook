@@ -88,6 +88,16 @@ td.n,th.n{text-align:right;white-space:nowrap}
 .quad.mark2{border-width:3px}
 .axis{font-size:13px;color:var(--soft);display:flex;align-items:center;justify-content:center}
 .yaxis{writing-mode:vertical-rl;transform:rotate(180deg)}
+.gl{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:3px;cursor:help}
+.gl:hover,.gl[aria-expanded=true]{text-decoration-style:solid}
+#gl-tip{position:absolute;z-index:5;max-width:min(380px,calc(100vw - 24px));background:#fff;border:1px solid var(--ink);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.45;box-shadow:0 4px 18px rgba(20,21,23,.14)}
+#gl-tip[hidden]{display:none}
+#gl-tip b{display:block;margin-bottom:2px}
+#gl-tip a{display:block;width:max-content;margin-top:6px;min-height:24px}
+dl.glossary{margin:0;max-width:80ch}
+dl.glossary dt{font-weight:600;margin-top:1.1em;scroll-margin-top:64px}
+dl.glossary dd{margin:.15em 0 0}
+dl.glossary dt:target{background:var(--panel)}
 footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
 @media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--soft)}.stack td:empty{display:none}}
 @media(prefers-reduced-motion:no-preference){.reply{transition:opacity .15s}.reply.busy{opacity:.5}}
@@ -133,7 +143,9 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
  <section id="faq" class="band" hidden><div class="wrap" id="faq-body"></div></section>
  <section id="sources" class="band" hidden><div class="wrap" id="sources-body"></div></section>
  <section id="audit" class="band" hidden><div class="wrap" id="audit-body"></div></section>
+ <section id="glossary" class="band" hidden><div class="wrap" id="glossary-body"></div></section>
 </main>
+<div id="gl-tip" role="tooltip" hidden></div>
 <footer class="band"><div class="wrap" id="footer"></div></footer>
 <script id="page-data" type="application/json">/*DATA*/</script>
 /*SCRIPTS*/
@@ -170,7 +182,7 @@ segment("mode", "mode", [["non-commercial", W("use_mode_non_commercial")], ["com
 segment("role", "role", [["analyst", W("role_analyst")], ["executive", W("role_executive")]], "role");
 const VIEWS = [["ask", "nav_ask"], ["walkthrough", "nav_walkthrough"], ["lessons", "nav_lessons"], ["method", "nav_method"],
   ["coverage", "nav_coverage"], ["scores", "nav_scores"], ["changes", "nav_changes"], ["faq", "nav_faq"],
-  ["sources", "nav_sources"], ["audit", "nav_audit"]];
+  ["sources", "nav_sources"], ["glossary", "nav_glossary"], ["audit", "nav_audit"]];
 $("nav").innerHTML = VIEWS.map(([id, w]) => `<a href="#${id}" data-view="${id}">${esc(W(w))}</a>`).join("");
 function route() {
   const view = VIEWS.some(([id]) => "#" + id === location.hash) ? location.hash.slice(1) : "ask";
@@ -180,6 +192,77 @@ function route() {
   }
 }
 window.addEventListener("hashchange", route);
+
+// ---------- glossary links: the first use of each term in each section (decision 2a) ----------
+const GL = globalThis.glossaryCode, glMatcher = GL.compile(D.glossary.terms);
+const glById = Object.fromEntries(D.glossary.terms.map((t) => [t.id, t]));
+const GL_SKIP = "a,button,label,legend,option,select,textarea,summary,h1,h2,th,nav,code,.pre,.dqr,.gl,.seg,#glossary,#gl-tip";
+function linkTerms(root) {
+  if (!root) return;
+  const seen = new Set(), nodes = [];
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) =>
+    n.parentElement.closest(GL_SKIP) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const parts = GL.linkText(node.nodeValue, glMatcher, seen);
+    if (!parts.some((p) => p.id)) continue;
+    const frag = document.createDocumentFragment();
+    for (const p of parts) {
+      if (!p.id) { frag.append(p.text); continue; }
+      const span = document.createElement("span");
+      Object.assign(span, { className: "gl", tabIndex: 0, textContent: p.text });
+      span.dataset.g = p.id;
+      span.setAttribute("aria-describedby", "g-" + p.id);
+      span.setAttribute("aria-expanded", "false");
+      frag.append(span);
+    }
+    node.replaceWith(frag);
+  }
+}
+const linkify = (s) => esc(s).replace(/https?:\/\/[^\s<]+[^\s<.,;)]/g, (u) => `<a href="${u}">${u}</a>`);
+const tip = $("gl-tip");
+let tipFor = null, tipPinned = false, tipTimer = null;
+function showTip(span, pin) {
+  clearTimeout(tipTimer);
+  if (tipFor && tipFor !== span) tipFor.setAttribute("aria-expanded", "false");
+  const t = glById[span.dataset.g];
+  tip.innerHTML = `<b>${esc(t.term)}</b>${linkify(t.definition)}${t.cite ? `<span class="meta" style="display:block">${esc(t.cite)}</span>` : ""}` +
+    `<a href="#glossary" data-g="${esc(t.id)}">${esc(W("glossary_open"))}</a>`;
+  tip.hidden = false;
+  const r = span.getBoundingClientRect(), w = tip.offsetWidth;
+  tip.style.left = Math.max(12, Math.min(r.left + scrollX, scrollX + document.documentElement.clientWidth - w - 12)) + "px";
+  tip.style.top = r.bottom + scrollY + 6 + "px";
+  tipFor = span; tipPinned = pin || tipPinned;
+  span.setAttribute("aria-expanded", "true");
+}
+function hideTip() {
+  tip.hidden = true; tipPinned = false;
+  if (tipFor) tipFor.setAttribute("aria-expanded", "false");
+  tipFor = null;
+}
+const laterHide = () => { if (!tipPinned) { clearTimeout(tipTimer); tipTimer = setTimeout(hideTip, 250); } };
+document.addEventListener("mouseover", (e) => {
+  const g = e.target.closest(".gl");
+  if (g) showTip(g, false); else if (e.target.closest("#gl-tip")) clearTimeout(tipTimer);
+});
+document.addEventListener("mouseout", (e) => { if (e.target.closest(".gl,#gl-tip")) laterHide(); });
+document.addEventListener("focusin", (e) => { const g = e.target.closest(".gl"); if (g) showTip(g, false); });
+document.addEventListener("focusout", (e) => { if (e.target.closest(".gl") && !(e.relatedTarget && e.relatedTarget.closest("#gl-tip"))) laterHide(); });
+document.addEventListener("click", (e) => {
+  const g = e.target.closest(".gl"), open = e.target.closest("#gl-tip a[data-g]");
+  if (g) { if (tipFor === g && tipPinned) hideTip(); else showTip(g, true); return; }
+  if (open) {
+    e.preventDefault(); hideTip();
+    history.pushState(null, "", "#glossary"); route();
+    const dt = $("g-" + open.dataset.g); dt.scrollIntoView({ block: "start" }); dt.focus({ preventScroll: true });
+    return;
+  }
+  if (!e.target.closest("#gl-tip")) hideTip();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !tip.hidden) { const f = tipFor; hideTip(); if (f) f.focus(); }
+  if ((e.key === "Enter" || e.key === " ") && e.target.classList && e.target.classList.contains("gl")) { e.preventDefault(); e.target.click(); }
+});
 
 // ---------- one block of reply text as HTML ----------
 function inline(s) {
@@ -249,6 +332,7 @@ function showBank(id, option = null) {
     html += traceHtml(D.traces.traces[id][state.mode], false);
   }
   $("reply").innerHTML = html;
+  linkTerms($("reply"));
   for (const b of $("reply").querySelectorAll("[data-option]")) b.addEventListener("click", () => showBank(id, Number(b.dataset.option)));
   markChips(id);
 }
@@ -328,6 +412,7 @@ function showTyped(question, corrected, aspect = null) {
     html += traceHtml(r.steps, true);
   }
   $("reply").innerHTML = html;
+  linkTerms($("reply"));
   if (readAs) {
     const apply = () => {
       const econ = [$("fx-e1").value, $("fx-e2").value].filter((v, i, a) => v && a.indexOf(v) === i);
@@ -406,6 +491,16 @@ $("audit-body").innerHTML = `<h2>${esc(W("audit_heading"))}</h2><p>${esc(W("audi
   quad("audit_grow", "audit_nni", true) + quad("audit_milk") + quad("audit_continue") + quad("audit_stop", "audit_contrast", true) +
   `<div></div><div class="axis" style="grid-column:2/4">${esc(W("audit_risk"))}: ${esc(W("audit_low"))} → ${esc(W("audit_high"))}</div></div>` +
   `<p style="font-size:20px;font-weight:600;margin-top:1em">${esc(W("audit_action"))}</p>`;
+
+const gd = D.glossary;
+$("glossary-body").innerHTML = `<h2>${esc(W("nav_glossary"))}</h2><p>${esc(W("glossary_intro"))}</p><dl class="glossary">` +
+  gd.terms.map((t) => `<dt id="g-${esc(t.id)}" tabindex="-1">${esc(t.term)}</dt><dd>${linkify(t.definition)}</dd>` +
+    (t.alternative_labels.length ? `<dd class="meta">${esc(W("glossary_also"))}: ${esc(t.alternative_labels.join("; "))}</dd>` : "") +
+    (t.cite ? `<dd class="meta">${esc(t.cite)}</dd>` : "")).join("") +
+  `</dl><p class="meta">${esc(fill(W("glossary_reference"), { reference: gd.reference }))}</p>`;
+linkTerms(document.querySelector("header .wrap"));
+linkTerms(document.querySelector("#ask .askgrid > div"));
+for (const section of document.querySelectorAll("main section:not(#ask):not(#glossary)")) linkTerms(section);
 
 route();
 showBank(D.bank_replies.suggested[0]);
