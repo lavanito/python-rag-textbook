@@ -81,7 +81,7 @@ def lessons():
 def at_full_scale():
     rows = read_csv(DATA / "at_full_scale.csv")
     return {"note": "Written by tools/build_page_text.py from data/at_full_scale.csv; do not edit by hand.",
-            "columns": ["In this build", "At full scale"],
+            "columns": ["In this demonstration version", "In a full-scale production version"],
             "rows": [{"in_this_build": r["in_this_build"], "at_full_scale": r["at_full_scale"],
                       "agreed": r["agreed"]} for r in sorted(rows, key=lambda r: int(r["order"]))]}
 
