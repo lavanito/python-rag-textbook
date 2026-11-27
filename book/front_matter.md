@@ -46,6 +46,8 @@ In agentic RAG, the language model's output sets which search or tool to call ne
 
 In Governed RAG, figures are fetched and calculated with fixed rules before the language model is called. Its output is used only for an explanation, which is checked; vectors are used in one step, the embedding search.
 
+**Governed RAG and GraphRAG.** GraphRAG is RAG in which the material for an answer is found by following relations in a knowledge graph (Peng et al., 2024, https://arxiv.org/abs/2408.08921). The demonstration version has three elements of it: the alternative labels and exact matches added to a question come from the knowledge graph; the passage that defines each concept is found through its defined_in relation; and the inputs of each measure are found through its requires relations. The figures themselves are read from the NNI model's stored results. The design can be extended to a full GraphRAG, in which figures and the parts they are built from are found by following relations in a graph database: for example, every published figure affected by a revision to India's GNI.
+
 ### Every figure has its lineage
 
 Data lineage is the recorded history of a figure: where it came from, every change made to it, and what used it ([DAMA UK](https://www.linkedin.com/pulse/data-lineage-tracing-path-trusted-dama-uk-ltd-krxwe/)). In Governed RAG, every figure in the template part of the reply comes with its lineage: series code, source, edition and data quality rating.
