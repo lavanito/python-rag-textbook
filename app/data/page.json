@@ -10,8 +10,8 @@
    "approved": "2026-11-27"
   },
   "size_line": {
-   "text": "{passages} passages from {sources} sources · {economies} economies · {questions} questions in the bank · one user · a 4-billion-parameter language model on a laptop",
-   "approved": "2026-11-27"
+   "text": "{passages} passages from {sources} sources · {economies} economies · {questions} questions in the question bank · one user · a language model with 4 billion parameters, run on a laptop",
+   "approved": "2026-11-28"
   },
   "nav_ask": {
    "text": "Ask",
@@ -50,8 +50,8 @@
    "approved": "2026-11-27"
   },
   "nav_audit": {
-   "text": "Next step",
-   "approved": "2026-11-27"
+   "text": "AI resilience audit",
+   "approved": "2026-11-28"
   },
   "use_mode": {
    "text": "Use mode",
@@ -66,8 +66,8 @@
    "approved": "2026-11-27"
   },
   "use_mode_note": {
-   "text": "Passages are kept or withheld by the licence filter according to the use mode.",
-   "approved": "2026-11-27"
+   "text": "A passage whose licence class is not allowed in the use mode is withheld by the licence filter.",
+   "approved": "2026-11-28"
   },
   "role": {
    "text": "Reply length",
@@ -90,12 +90,12 @@
    "approved": "2026-11-27"
   },
   "bank": {
-   "text": "All 56 bank questions",
-   "approved": "2026-11-27"
+   "text": "All 56 questions in the question bank",
+   "approved": "2026-11-28"
   },
   "bank_note": {
-   "text": "Bank questions were answered offline; this is the stored reply.",
-   "approved": "2026-11-27"
+   "text": "Questions in the question bank were answered on a laptop before this page was built; this is the reply saved from that run.",
+   "approved": "2026-11-28"
   },
   "typed": {
    "text": "Your own question",
@@ -110,16 +110,16 @@
    "approved": "2026-11-27"
   },
   "model_loading": {
-   "text": "Loading the embedding model for reading the measure by meaning.",
-   "approved": "2026-11-27"
+   "text": "Loading the embedding model for semantic search on the names of the measures.",
+   "approved": "2026-11-28"
   },
   "model_ready": {
-   "text": "The embedding model is loaded: the measure is read by name, then by meaning.",
-   "approved": "2026-11-27"
+   "text": "The embedding model is loaded: the measure is looked for first by its name, then by semantic search.",
+   "approved": "2026-11-28"
   },
   "correct": {
-   "text": "Correct the reading",
-   "approved": "2026-11-27"
+   "text": "Correct how the question was read",
+   "approved": "2026-11-28"
   },
   "measures": {
    "text": "Measures",
@@ -138,8 +138,8 @@
    "approved": "2026-11-27"
   },
   "passages_found": {
-   "text": "Passages found (keyword search with query expansion, after the filters)",
-   "approved": "2026-11-27"
+   "text": "Passages found by keyword search (BM25) with query expansion, after the licence and edition filters",
+   "approved": "2026-11-28"
   },
   "why_keyword": {
    "text": "found by the question's own words",
@@ -162,8 +162,8 @@
    "approved": "2026-11-27"
   },
   "contrast": {
-   "text": "Contrast: the same question to the same language model, with no passages and no data",
-   "approved": "2026-11-27"
+   "text": "The same question sent to the same language model, with no passages and no data",
+   "approved": "2026-11-28"
   },
   "contrast_left": {
    "text": "Language model alone",
@@ -175,10 +175,6 @@
   },
   "contrast_lacks": {
    "text": "On the left there is no passage, no edition, no DQR and no definition line.",
-   "approved": "2026-11-27"
-  },
-  "contrast_pending": {
-   "text": "The run with no passages and no data is still to come from the laptop.",
    "approved": "2026-11-27"
   },
   "contrast_typed": {
@@ -194,8 +190,8 @@
    "approved": "2026-11-27"
   },
   "trace_context": {
-   "text": "In force: use mode {use_mode}; reply length {role}.",
-   "approved": "2026-11-27"
+   "text": "Settings for this reply: use mode {use_mode}; reply length {role}.",
+   "approved": "2026-11-28"
   },
   "trace_step": {
    "text": "Step",
@@ -222,12 +218,12 @@
    "approved": "2026-11-27"
   },
   "trace_typed": {
-   "text": "Steps run in this page using code; no language model, no tokens.",
-   "approved": "2026-11-27"
+   "text": "Each step was run in this page using code; no language model was used, so no tokens were counted.",
+   "approved": "2026-11-28"
   },
   "walkthrough_intro": {
-   "text": "The walkthrough shows how Governed RAG works. You can follow one request, step by step, from the question to the checked reply. The language model's step comes between two layers of code and data built for this subject: the language model is sandwiched.",
-   "approved": "2026-11-27"
+   "text": "The walkthrough shows how Governed RAG works. You can follow one request, step by step, from the question to the checked reply. The step that uses the language model comes after code and data built for this subject, and before the code that checks the language model's output.",
+   "approved": "2026-11-28"
   },
   "walkthrough_means": {
    "text": "Means used",
@@ -238,8 +234,8 @@
    "approved": "2026-11-27"
   },
   "sandwich": {
-   "text": "Code before the language model: filters, routing, parameters, retrieval, figures, template part. Code after it: checks, record, token count.",
-   "approved": "2026-11-27"
+   "text": "Before the language model, code is used for the filters, the routing, reading the parameters from the question, finding the passages, supplying the figures and filling the template part. After it, code is used to check the explanation, record each step in the trace and count the tokens.",
+   "approved": "2026-11-28"
   },
   "coverage_intro": {
    "text": "Each measure for each economy in the latest edition: exact, proxy or no figure.",
@@ -254,8 +250,8 @@
    "approved": "2026-11-27"
   },
   "cost": {
-   "text": "Tokens and laptop seconds per saved run (no hosted price)",
-   "approved": "2026-11-27"
+   "text": "Tokens and laptop seconds per saved run. No price is given for a hosted language model.",
+   "approved": "2026-11-28"
   },
   "cost_step": {
    "text": "Saved run",
@@ -282,8 +278,8 @@
    "approved": "2026-11-27"
   },
   "audit_heading": {
-   "text": "Next step: an AI resilience audit of your data workflow",
-   "approved": "2026-11-27"
+   "text": "Next step: an AI resilience audit of how your data is produced and used",
+   "approved": "2026-11-28"
   },
   "audit_source": {
    "text": "AI Resilience Audit (Centellic, Clare Bolton, July 2026): products placed by value and by AI risk, with a strategy for each quarter.",
@@ -314,16 +310,16 @@
    "approved": "2026-11-27"
   },
   "audit_nni": {
-   "text": "Figures calculated from governed data, with source, edition and DQR (this page)",
-   "approved": "2026-11-27"
+   "text": "Figures supplied from data with a stated source, edition and DQR (this page)",
+   "approved": "2026-11-28"
   },
   "audit_contrast": {
-   "text": "Answers from a language model alone, with no passages and no data (the contrast panel)",
-   "approved": "2026-11-27"
+   "text": "Answers from a language model alone, with no passages and no data (the comparison under each reply)",
+   "approved": "2026-11-28"
   },
   "audit_action": {
-   "text": "Run a regular audit of data workflow as part of business as usual. Align to AI readiness.",
-   "approved": "2026-11-27"
+   "text": "Audit, regularly and as part of normal work, how your data is produced and used, and whether it is ready for use with AI.",
+   "approved": "2026-11-28"
   },
   "sources_corpus": {
    "text": "Passages",
@@ -402,8 +398,8 @@
    "approved": "2026-11-27"
   },
   "keep_years": {
-   "text": "as read",
-   "approved": "2026-11-27"
+   "text": "as read in the question",
+   "approved": "2026-11-28"
   },
   "model_unavailable": {
    "text": "Demonstrator note: in this copy of the page the embedding model cannot be loaded, so the measure is read by name only. In a full-scale production version, the embedding model would be served with the page.",
@@ -472,6 +468,94 @@
   "glossary_reference": {
    "text": "Definitions marked 'After Talisman (2026)' are paraphrased, in plain words, from: {reference}",
    "approved": "2026-11-27"
+  },
+  "retrieval": {
+   "text": "Gold passages found for the 32 definition questions, by use mode",
+   "approved": "2026-11-28"
+  },
+  "retrieval_intro": {
+   "text": "Hybrid search with query expansion, after the licence and edition filters. The passages kept are those for a question that names no edition.",
+   "approved": "2026-11-28"
+  },
+  "retrieval_kept": {
+   "text": "Passages kept",
+   "approved": "2026-11-28"
+  },
+  "retrieval_answerable": {
+   "text": "Answerable questions",
+   "approved": "2026-11-28"
+  },
+  "retrieval_at_1": {
+   "text": "Hit rate at 1",
+   "approved": "2026-11-28"
+  },
+  "retrieval_at_3": {
+   "text": "Hit rate at 3",
+   "approved": "2026-11-28"
+  },
+  "retrieval_at_10": {
+   "text": "Hit rate at 10",
+   "approved": "2026-11-28"
+  },
+  "runs": {
+   "text": "Explanations in each saved run: lookup, passed, passed on retry or dropped",
+   "approved": "2026-11-28"
+  },
+  "runs_intro": {
+   "text": "A lookup question (question type Q1) gets no explanation. The last column counts the explanations shown that are not the fixed sentence \"No explanation is available from the passages.\"",
+   "approved": "2026-11-28"
+  },
+  "runs_set": {
+   "text": "Set of questions",
+   "approved": "2026-11-28"
+  },
+  "runs_set_bank": {
+   "text": "Question bank",
+   "approved": "2026-11-28"
+  },
+  "runs_set_fair": {
+   "text": "10 questions written by the vertical domain expert for the fair score",
+   "approved": "2026-11-28"
+  },
+  "runs_questions": {
+   "text": "Number of questions",
+   "approved": "2026-11-28"
+  },
+  "runs_lookup": {
+   "text": "Lookup question (Q1), no explanation",
+   "approved": "2026-11-28"
+  },
+  "runs_passed": {
+   "text": "Passed",
+   "approved": "2026-11-28"
+  },
+  "runs_retry": {
+   "text": "Passed on retry",
+   "approved": "2026-11-28"
+  },
+  "runs_dropped": {
+   "text": "Dropped",
+   "approved": "2026-11-28"
+  },
+  "runs_content": {
+   "text": "Explanations shown, other than the fixed sentence",
+   "approved": "2026-11-28"
+  },
+  "dn_licence": {
+   "text": "Demonstrator note: in this demonstration version, the licence filter has two use modes. In a full-scale production version, the access rights in each user's contract would be checked each time passages are found.",
+   "approved": "2026-11-28"
+  },
+  "dn_direction": {
+   "text": "Demonstrator note: direction words are banned from the explanation, because the checks in this demonstration version cannot test them reliably. In a full-scale production version, the direction check would have a measured error rate and a review of each dropped explanation.",
+   "approved": "2026-11-28"
+  },
+  "dn_size": {
+   "text": "Demonstrator note: this demonstration version covers the economies, passages and questions counted above, for one user on a laptop. In a full-scale production version, the catalogue would hold thousands of series and every document that could answer a question, for many users.",
+   "approved": "2026-11-28"
+  },
+  "dn_owners": {
+   "text": "Demonstrator note: in this demonstration version, one person writes each definition and rating reason as the vertical domain expert and checks it as the horizontal domain expert. In a full-scale production version, each definition and rating reason would have a named owner in the team that produces the data, and a different person would check it.",
+   "approved": "2026-11-28"
   }
  },
  "reply_wording": {

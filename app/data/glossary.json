@@ -405,6 +405,20 @@
    "approved": "2026-11-27"
   },
   {
+   "id": "demonstration-version",
+   "term": "Demonstration version",
+   "preferred_label": "Demonstration version",
+   "alternative_labels": [],
+   "definition": "A working version built to show how a method works, with a small set of data, sources and questions, for one user. Used to test the method and to show it to others before a version is built for real work. Software teams call a version shown to clients a demo.",
+   "cite": "",
+   "link_forms": [
+    "Demonstration version"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "horizontal domain expert",
+   "approved": "2026-11-28"
+  },
+  {
    "id": "demonstrator-note",
    "term": "Demonstrator note",
    "preferred_label": "Demonstrator note",
@@ -413,20 +427,6 @@
    "cite": "",
    "link_forms": [
     "Demonstrator note"
-   ],
-   "written_by": "vertical domain expert",
-   "checked_by": "horizontal domain expert",
-   "approved": "2026-11-27"
-  },
-  {
-   "id": "document-estate",
-   "term": "Document estate",
-   "preferred_label": "Document estate",
-   "alternative_labels": [],
-   "definition": "Every document an organisation holds that could answer a question: reports, manuals, notes and their past versions.",
-   "cite": "",
-   "link_forms": [
-    "Document estate"
    ],
    "written_by": "vertical domain expert",
    "checked_by": "horizontal domain expert",
@@ -676,6 +676,20 @@
    "approved": "2026-11-27"
   },
   {
+   "id": "full-scale-production-version",
+   "term": "Full-scale production version",
+   "preferred_label": "Full-scale production version",
+   "alternative_labels": [],
+   "definition": "A version that people depend on for their ongoing work, with all the organisation's data, documents and users, and a named team responsible for running it and for correcting its errors. Used in this book to say what a demonstration version would need before real work.",
+   "cite": "",
+   "link_forms": [
+    "Full-scale production version"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "horizontal domain expert",
+   "approved": "2026-11-28"
+  },
+  {
    "id": "functional-property",
    "term": "Functional property",
    "preferred_label": "Functional property",
@@ -820,6 +834,28 @@
    "written_by": "vertical domain expert",
    "checked_by": "horizontal domain expert",
    "approved": "2026-11-27"
+  },
+  {
+   "id": "hit-rate-at-k",
+   "term": "Hit rate at k",
+   "preferred_label": "Hit rate at k",
+   "alternative_labels": [
+    "hits at k",
+    "Hit@k"
+   ],
+   "definition": "The share of questions for which at least one gold passage is among the first k passages a search returns. Used to measure whether a search returns a passage that a reply can use; it does not measure how high that passage is ranked. Also written Hit@k or hits at k.",
+   "cite": "",
+   "link_forms": [
+    "Hit rate at k",
+    "Hit rate at 1",
+    "Hit rate at 3",
+    "Hit rate at 10",
+    "hits at k",
+    "Hit@k"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "horizontal domain expert",
+   "approved": "2026-11-28"
   },
   {
    "id": "horizontal-domain-expert",
@@ -1385,6 +1421,23 @@
    "approved": "2026-11-27"
   },
   {
+   "id": "question-bank",
+   "term": "Question bank",
+   "preferred_label": "Question bank",
+   "alternative_labels": [
+    "item bank"
+   ],
+   "definition": "A managed collection of questions, each stored with its expected answer and other information, from which test sets and examples are drawn. In this book, the 56 questions used to build and check the demonstration version; scores on them are training scores. Also called an item bank.",
+   "cite": "",
+   "link_forms": [
+    "Question bank",
+    "item bank"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "horizontal domain expert",
+   "approved": "2026-11-28"
+  },
+  {
    "id": "question-type",
    "term": "Question type",
    "preferred_label": "Question type",
@@ -1624,15 +1677,18 @@
    "id": "router",
    "term": "Router",
    "preferred_label": "Router",
-   "alternative_labels": [],
+   "alternative_labels": [
+    "routing"
+   ],
    "definition": "The step, done with code, in which a question is given a class and a route before it is answered, so that each question goes the cheapest way that can answer it.",
    "cite": "",
    "link_forms": [
-    "Router"
+    "Router",
+    "routing"
    ],
    "written_by": "vertical domain expert",
    "checked_by": "horizontal domain expert",
-   "approved": "2026-11-27"
+   "approved": "2026-11-28"
   },
   {
    "id": "routing-accuracy",
@@ -1689,6 +1745,23 @@
    "written_by": "vertical domain expert",
    "checked_by": "horizontal domain expert",
    "approved": "2026-11-27"
+  },
+  {
+   "id": "semantic-search",
+   "term": "Semantic search",
+   "preferred_label": "Semantic search",
+   "alternative_labels": [
+    "search by meaning"
+   ],
+   "definition": "Search in which the question and each passage are turned into embeddings, and the passages are ranked by how close their embeddings are to the question's. Used so that a passage with the same meaning in different words can be found; keyword search (BM25) matches only the words in the question.",
+   "cite": "",
+   "link_forms": [
+    "Semantic search",
+    "search by meaning"
+   ],
+   "written_by": "vertical domain expert",
+   "checked_by": "horizontal domain expert",
+   "approved": "2026-11-28"
   },
   {
    "id": "shacl-shapes-constraint-language",

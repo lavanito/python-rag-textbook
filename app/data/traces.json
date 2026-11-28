@@ -9059,6 +9059,114 @@
    "name_in_book": "Chapter 14 questions rerun with the current code (22 November 2026)"
   }
  ],
+ "retrieval": [
+  {
+   "use_mode": "non-commercial",
+   "passages_kept": 55,
+   "questions": 32,
+   "answerable": 32,
+   "hits_at_1": 25,
+   "hits_at_3": 31,
+   "hits_at_10": 32,
+   "label": "training"
+  },
+  {
+   "use_mode": "commercial",
+   "passages_kept": 41,
+   "questions": 32,
+   "answerable": 24,
+   "hits_at_1": 19,
+   "hits_at_3": 23,
+   "hits_at_10": 24,
+   "label": "training"
+  }
+ ],
+ "explanation_runs": [
+  {
+   "chapter": "Chapter 14.7",
+   "date": "2026-11-16",
+   "set": "bank",
+   "questions": 14,
+   "lookup": 2,
+   "passed": 2,
+   "passed_on_retry": 0,
+   "dropped": 10,
+   "with_content": 0,
+   "with_content_ids": [],
+   "label": "training"
+  },
+  {
+   "chapter": "Chapter 14.7",
+   "date": "2026-11-16",
+   "set": "fair",
+   "questions": 10,
+   "lookup": 1,
+   "passed": 4,
+   "passed_on_retry": 1,
+   "dropped": 4,
+   "with_content": 0,
+   "with_content_ids": [],
+   "label": "fair"
+  },
+  {
+   "chapter": "Chapter 14.8",
+   "date": "2026-11-16",
+   "set": "bank",
+   "questions": 14,
+   "lookup": 2,
+   "passed": 3,
+   "passed_on_retry": 2,
+   "dropped": 7,
+   "with_content": 0,
+   "with_content_ids": [],
+   "label": "training"
+  },
+  {
+   "chapter": "Chapter 14.8",
+   "date": "2026-11-16",
+   "set": "fair",
+   "questions": 10,
+   "lookup": 1,
+   "passed": 5,
+   "passed_on_retry": 2,
+   "dropped": 2,
+   "with_content": 2,
+   "with_content_ids": [
+    "f-07",
+    "f-08"
+   ],
+   "label": "training"
+  },
+  {
+   "chapter": "Chapter 15",
+   "date": "2026-11-22",
+   "set": "bank",
+   "questions": 14,
+   "lookup": 2,
+   "passed": 2,
+   "passed_on_retry": 3,
+   "dropped": 7,
+   "with_content": 0,
+   "with_content_ids": [],
+   "label": "training"
+  },
+  {
+   "chapter": "Chapter 15",
+   "date": "2026-11-22",
+   "set": "fair",
+   "questions": 10,
+   "lookup": 1,
+   "passed": 4,
+   "passed_on_retry": 2,
+   "dropped": 3,
+   "with_content": 2,
+   "with_content_ids": [
+    "f-08",
+    "f-09"
+   ],
+   "label": "training"
+  }
+ ],
  "contrast": {
   "model": "qwen3:4b-instruct",
   "date": "2026-11-27",

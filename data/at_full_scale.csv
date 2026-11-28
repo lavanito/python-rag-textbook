@@ -2,7 +2,7 @@ order,in_this_build,at_full_scale,agreed
 1,Six economies and 16 measures.,"A catalogue of thousands of series, each with its definition, source and owner.",2026-11-27
 2,"Two editions of the data, stored in files.",A data warehouse with bitemporal tables: each value stored with the year it describes and the edition it came from.,2026-11-27
 3,One method for calculating the figures (the NNI model).,"A library of approved calculation methods, and a semantic layer: one shared set of definitions used by every query.",2026-11-27
-4,57 passages from 10 sources.,"The full document estate: every report, manual and note held by the organisation.",2026-11-27
+4,57 passages from 10 sources.,Every report, manual and note held by the organisation that could answer a question.,2026-11-27
 5,"Hybrid search: keyword search and search by meaning, combined.","Hybrid search over a vector index, with reranking within a set time limit.",2026-11-27
 6,A knowledge graph of 67 entities and 131 triples.,"A graph database, in which each new triple is checked against rules on entry.",2026-11-27
 7,"Two use modes, non-commercial and commercial, chosen by the user.","Entitlements: access rights set by each customer's contract, checked at retrieval.",2026-11-27

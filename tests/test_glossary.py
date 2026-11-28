@@ -38,11 +38,11 @@ def test_stored_file_equals_the_rebuilt_file():
 
 def test_every_term_is_approved_written_and_checked():
     rows = glossary.load()
-    assert len(rows) == 144
+    assert len(rows) == 148
     for row in rows:
         assert row["approved"], row["term"]
         assert row["written_by"] == "vertical domain expert", row["term"]
-        assert row["checked_by"] == "horizontal domain expert", row["term"]   # Lavan's approval of all rows, 27 Nov
+        assert row["checked_by"] == "horizontal domain expert", row["term"]   # Lavan's approval of all rows, 27 and 28 Nov
         assert row["definition"] == row["definition"].strip(), row["term"]
 
 
