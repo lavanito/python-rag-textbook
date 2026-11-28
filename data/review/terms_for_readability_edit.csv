@@ -1,0 +1,58 @@
+file,term,found,replaced_by,decision
+book/ch04_semantic_search.md,by meaning,by meaning,by semantic search,9g
+book/ch04_semantic_search.md,by meaning,by meaning,by semantic search,9g
+book/ch04_semantic_search.md,by meaning,by meaning,by semantic search,9g
+book/ch05_hybrid_search.md,thing,67 things,entity,"9e, decision 3"
+book/ch05_hybrid_search.md,thing,67 things,entity,"9e, decision 3"
+book/ch05_hybrid_search.md,triplet,Triplet,triple,"9e, decision 2"
+book/ch05_hybrid_search.md,triplet,triplet,triple,"9e, decision 2"
+book/ch05_hybrid_search.md,triplet,triplet,triple,"9e, decision 2"
+book/ch05_hybrid_search.md,triplet,triplets,triple,"9e, decision 2"
+book/ch05_hybrid_search.md,triplet,triplets,triple,"9e, decision 2"
+book/ch05_hybrid_search.md,triplet,triplets,triple,"9e, decision 2"
+book/ch05_hybrid_search.md,triplet,triplets,triple,"9e, decision 2"
+book/ch08_filters.md,hits at,Hits at 1,hit rate at k,9g
+book/ch08_filters.md,hits at,Hits at 10,hit rate at k,9g
+book/ch08_filters.md,hits at,Hits at 3,hit rate at k,9g
+book/ch09_reranking.md,hits at,Hits at 1,hit rate at k,9g
+book/ch09_reranking.md,hits at,hits at 1,hit rate at k,9g
+book/ch10_evaluation.md,hits at,Hits at 1,hit rate at k,9g
+book/ch10_evaluation.md,hits at,hits at 1,hit rate at k,9g
+book/ch10_evaluation.md,hits at,hits at 1,hit rate at k,9g
+book/ch10_evaluation.md,hits at,hits at 1,hit rate at k,9g
+book/ch10_evaluation.md,hits at,hits at 1,hit rate at k,9g
+book/ch10_evaluation.md,hits at,hits at 1,hit rate at k,9g
+book/ch10_evaluation.md,hits at,hits at 3,hit rate at k,9g
+book/ch10_evaluation.md,hits at,hits at 3,hit rate at k,9g
+book/ch12_routing.md,lookup,Lookup,lookup question (question type Q1),9g
+book/ch12_routing.md,lookup,lookup,lookup question (question type Q1),9g
+book/ch12_routing.md,lookup,lookup,lookup question (question type Q1),9g
+book/ch12_routing.md,lookup,lookups,lookup question (question type Q1),9g
+book/ch12_routing.md,thing,things in the knowledge graph,entity,"9e, decision 3"
+book/ch12_routing.md,triplet,triplet,triple,"9e, decision 2"
+book/ch14_answer_checks.md,by meaning,by meaning,by semantic search,9g
+book/ch14_answer_checks.md,locked block,locked block,template part,glossary rule 7
+book/ch14_answer_checks.md,locked block,locked block,template part,glossary rule 7
+book/ch14_answer_checks.md,lookup,Lookup,lookup question (question type Q1),9g
+book/ch14_answer_checks.md,lookup,Lookup,lookup question (question type Q1),9g
+book/ch14_answer_checks.md,lookup,Lookups,lookup question (question type Q1),9g
+book/ch14_answer_checks.md,lookup,lookup,lookup question (question type Q1),9g
+book/ch14_answer_checks.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch14_answer_checks.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch14_answer_checks.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch14_answer_checks.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch14_answer_checks.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch14_answer_checks.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch14_answer_checks.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch15_token_cost.md,by meaning,by meaning,by semantic search,9g
+book/ch15_token_cost.md,lookup,Lookups,lookup question (question type Q1),9g
+book/ch15_token_cost.md,lookup,Lookups,lookup question (question type Q1),9g
+book/ch15_token_cost.md,lookup,lookup,lookup question (question type Q1),9g
+book/ch15_token_cost.md,lookup,lookups,lookup question (question type Q1),9g
+book/ch15_token_cost.md,lookup,lookups,lookup question (question type Q1),9g
+book/ch15_token_cost.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch15_token_cost.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch15_token_cost.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch15_token_cost.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch15_token_cost.md,with content,with content,"explanations shown, other than the fixed sentence",9g
+book/ch15_token_cost.md,with content,with content,"explanations shown, other than the fixed sentence",9g
