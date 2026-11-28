@@ -109,7 +109,7 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
  <div class="mark" id="mark">Lavan Mahadeva Limited</div>
  <h1 id="title"></h1>
  <p class="sub" id="subtitle"></p>
- <p class="size" id="size"></p>
+ <p class="size" id="size"></p><p class="note" id="size-note"></p>
  <div class="settings">
   <fieldset><legend id="l-mode"></legend><div class="seg" id="mode"></div><p class="hint" id="h-mode"></p></fieldset>
   <fieldset><legend id="l-role"></legend><div class="seg" id="role"></div><p class="hint" id="h-role"></p></fieldset>
@@ -170,6 +170,7 @@ $("subtitle").textContent = W("subtitle");
 const counts = D.method_and_caveats.counts;
 $("size").textContent = fill(W("size_line"), { passages: counts.passages, sources: counts.sources,
   economies: Object.keys(D.coverage_grid.economies).length, questions: counts.questions });
+$("size-note").textContent = W("dn_size");
 $("footer").textContent = W("footer");
 function segment(id, name, options, key) {
   $(id).innerHTML = options.map(([value, label], i) =>
@@ -284,7 +285,9 @@ function blockHtml(text, executive) {
     const list = items.length ? "<ul>" + items.map(([first, ...more]) => "<li>" + inline(first) + more.map((m) =>
       m.startsWith('"') ? `<blockquote>${esc(m)}</blockquote>` : `<span class="cont">${inline(m)}</span>`).join("") + "</li>").join("") + "</ul>" : "";
     const para = plain.map((l) => l.startsWith("Demonstrator note") ? `<p class="note">${esc(l)}</p>` : `<p>${inline(l)}</p>`).join("");
-    return (head ? `<h4>${esc(head)}</h4>` : "") + para + list;
+    const directionNote = head && head.startsWith(D.page.reply_wording.EXPLANATION_HEADING) && !plain.some((l) => l.startsWith("Demonstrator note"))
+      ? `<p class="note">${esc(W("dn_direction"))}</p>` : "";
+    return (head ? `<h4>${esc(head)}</h4>` : "") + directionNote + para + list;
   }).join("");
 }
 
@@ -302,13 +305,13 @@ function traceHtml(steps, typed) {
 function withheldHtml(ids, reasons) {
   const list = ids.length ? "<ul>" + ids.map((id) => `<li>[${esc(id)}] ${esc(reasons[id] || `licence: '${passageById[id].licence_class}' is not allowed in ${state.mode} use`)}</li>`).join("") + "</ul>"
     : `<p>${esc(W("none_withheld"))}</p>`;
-  return `<details><summary>${esc(W("withheld"))} (${ids.length})</summary>${list}</details>`;
+  return `<details><summary>${esc(W("withheld"))} (${ids.length})</summary>${list}<p class="note">${esc(W("dn_licence"))}</p></details>`;
 }
 function contrastHtml(id, governed) {
   const c = D.traces.contrast;
   let left;
   if (!id) left = `<p class="meta">${esc(W("contrast_typed"))}</p>`;
-  else if (!c || !c.replies[id]) left = `<p class="meta">${esc(W("contrast_pending"))}</p>`;
+  else if (!c || !c.replies[id]) left = "";
   else left = `<p class="meta">${esc(fill(W("contrast_settings"), { date: c.date, model: c.model, ...c.settings }))}</p><p class="pre">${esc(c.replies[id].answer)}</p>` +
     (c.replies[id].done_reason === "length" ? `<p class="meta">${esc(fill(W("contrast_cut"), c.settings))}</p>` : "");
   return `<details><summary>${esc(W("contrast"))}</summary><p>${esc(W("contrast_lacks"))}</p><div class="two">` +
@@ -464,7 +467,7 @@ const ls = D.lessons;
 $("lessons-body").innerHTML = `<h2>${esc(W("nav_lessons"))}</h2><div class="two"><div><h3>${esc(W("lessons_worked"))}</h3><ul>${ls.what_worked.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` +
   `<div><h3>${esc(W("lessons_needs"))}</h3><ul>${ls.what_a_production_version_needs.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div></div><p class="meta">${esc(ls.source)}</p>`;
 const mc = D.method_and_caveats;
-$("method-body").innerHTML = `<h2>${esc(mc.title)}</h2><p class="meta">${esc(mc.status)}</p><h3>${esc(W("caveats"))}</h3>` +
+$("method-body").innerHTML = `<h2>${esc(mc.title)}</h2><p class="meta">${esc(mc.status)}</p><p class="note">${esc(W("dn_owners"))}</p><h3>${esc(W("caveats"))}</h3>` +
   mc.caveats.map((c) => `<h4>${esc(c.title)}</h4><p>${esc(c.text)}</p>`).join("") + `<h3>${esc(W("method_counts"))}</h3>` +
   table([W("count_item"), W("count_value")], Object.entries(mc.counts).map(([k, v]) => [esc(k.replaceAll("_", " ")), esc(typeof v === "object" ? outText(Array.isArray(v) ? Object.fromEntries(v.map((x, i) => [x.check || i, x.agree !== undefined ? `${x.agree} of ${x.total}` : x])) : v) : v)]));
 const cg = D.coverage_grid, econ = Object.keys(cg.economies);

@@ -12,8 +12,9 @@ data/glossary.csv follows the rules of a controlled vocabulary (Lavan,
 27 November 2026, decision 6): one preferred label per term, its aliases
 as alternative labels, written by the vertical domain expert and checked by
 the horizontal domain expert. A definition may use any term the glossary
-defines. Its 144 terms were approved by the vertical domain expert on
-27 November 2026, from the Glossary tab of the review Sheet.
+defines. Its terms were approved by the vertical domain expert from the
+Glossary tab of the review Sheet: 144 on 27 November 2026; on 28 November,
+five added, "Document estate" removed and "routing" added to "Router" (148).
 
 No text is typed here: change data/glossary.csv, then run this tool. A test
 (tests/test_glossary.py) rebuilds the file and fails if it differs.
